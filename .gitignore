@@ -1,0 +1,46 @@
+# Local course materials and presentation build artifacts
+/.DS_Store
+/.docx-build/
+/.ppt-build/
+/For FT students only (excluding Aramco students)/
+/*.pdf
+/*.docx
+/*.pptx
+/reports/
+/outputs/
+
+# Environments, editor state, credentials and caches
+**/.DS_Store
+**/__pycache__/
+*.py[cod]
+.venv/
+venv/
+.idea/
+.vscode/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Download data and model artifacts separately; document their location/checksum
+/data/
+**/data/**
+*.npz
+*.npy
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.pkl
+*.joblib
+*.zip
+*.wav
+*.mp4
+*.mov
+*.wmv
+**/checkpoints/
+
+# Generated experiments; commit deliberately selected reports under docs/
+/results/
+/multimodal_fusion/results/
