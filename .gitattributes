@@ -1,0 +1,8 @@
+# Keep source/protocol hashes portable across checkout platforms.
+audio/learned/**/*.py text eol=lf
+audio/learned/**/*.sh text eol=lf
+audio/learned/**/*.json text eol=lf
+audio/learned/**/*.yaml text eol=lf
+audio/learned/**/*.csv text eol=lf
+multimodal_fusion/configs/actor_splits.csv text eol=lf
+*.pt binary

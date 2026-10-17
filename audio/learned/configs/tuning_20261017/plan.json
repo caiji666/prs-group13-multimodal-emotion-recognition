@@ -1,0 +1,31 @@
+{
+  "baseline": "models/baseline",
+  "selection_metric": "validation_macro_f1",
+  "test_evaluated": false,
+  "experiments": [
+    {
+      "config": "configs/tuning_20261017/experiment01.yaml",
+      "rationale": "Reduce previous Transformer overfitting; smaller LR, stronger head regularization/weight decay, mix clean and augmented samples; increase training budget for lower learning rate."
+    },
+    {
+      "config": "configs/tuning_20261017/experiment02.yaml",
+      "rationale": "Round 1 CNN improved but BiLSTM regressed; neutral/weak classes motivated train-only inverse-frequency class weights, mild label smoothing and smaller-LR warm-start refinement. Parallel workers change execution only; numerical equivalence tested.",
+      "warm_start_round": 1
+    },
+    {
+      "config": "configs/tuning_20261017/experiment03.yaml",
+      "rationale": "Transformer training/validation gap persists; lower LR to 1e-4 and increase augmented fraction to 75%. Roll BiLSTM back to original validation-best checkpoint rather than compound round 1 regression.",
+      "warm_start_best_of": true
+    },
+    {
+      "config": "configs/tuning_20261017/experiment04.yaml",
+      "rationale": "Revert augmentation to 50% for the stronger CNN/Transformer branches; increase label smoothing and weight decay to address high train confidence and persistent validation gap while retaining best BiLSTM weights.",
+      "warm_start_best_of": true
+    },
+    {
+      "config": "configs/tuning_20261017/experiment05.yaml",
+      "rationale": "Return to less aggressive regularization near round 2; local small-LR refinement. Temper inverse-frequency weights with square root to reduce overcorrection of the minority neutral class. Keep all prior best checkpoints.",
+      "warm_start_best_of": true
+    }
+  ]
+}

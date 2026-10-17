@@ -1,0 +1,9 @@
+sample_rate: 16000
+n_mfcc: 40
+n_fft: 512
+hop_length: 160
+n_mels: 64
+trim_db: 35
+denoise: false
+augment: true
+seed: 42

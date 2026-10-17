@@ -7,7 +7,7 @@ This private repository is the team's shared code workspace for the RAVDESS spee
 
 | Directory | Purpose | Current state |
 |---|---|---|
-| `audio/` | Audio preprocessing, handcrafted features and learned encoders | Reserved for teammates' code |
+| `audio/` | M1 handcrafted and M2 learned audio encoders | Implemented under `handcrafted/` and `learned/` |
 | `visual/` | Face preprocessing, handcrafted features and learned encoders | Reserved for teammates' code |
 | `multimodal_fusion/` | Decision, concatenation, gated and cross-attention fusion | Existing implementation |
 | `demo/` | External audio-video prediction interface | Reserved; not implemented |
@@ -32,7 +32,7 @@ See [fusion documentation](multimodal_fusion/README.md) for feature export and t
 ## Shared integration contract
 
 - Use the agreed [actor split](multimodal_fusion/configs/actor_splits.csv): 16 train / 4 validation / 4 test actors. Do not randomly repartition samples.
-- For **every real-data fusion command**, explicitly use `--split configs/actors_m2.json` from inside `multimodal_fusion/`. The CLI's historical `actors.json` default uses a different development split.
+- For **every real-data fusion command**, explicitly use `--split configs/actors_m2.json` from inside `multimodal_fusion/`. The CLI now defaults to the formal `actors_m2.json`; `actors.json` retains the historical development split.
 - Derive `sample_id` by removing only the modality field and extension: `03-01-06-01-02-01-12.wav` → `01-06-01-02-01-12`. Preserve leading zeros, and join modalities by ID.
 - Preserve labels, actor/split metadata and probability order: `neutral, calm, happy, sad, angry, fearful, disgust, surprise` (labels 0–7).
 - Select models and fusion weights on validation macro-F1. Reserve the test actors for final evaluation.
@@ -51,3 +51,7 @@ Confirmed from earlier chats: Jiang Yushan owns multimodal fusion; M2 supplies l
 ## Course submission
 
 GitHub is a collaboration workspace. The course handout does not require a GitHub repository or a public repository. Final submission is **one team ZIP on Canvas by 31 October 2026**, with individual reports submitted separately. See [the requirements checklist](docs/course-requirements.md).
+
+## M2 learned audio module
+
+See [audio/learned/README.md](audio/learned/README.md) for full Stage 1–6 source, selected tuned Transformer weights, WAV emotion inference, training and M1/M5 exports. The shipped model has validation Accuracy 54.58% and Macro-F1 0.5324 (round 05); final test generalization remains unmeasured. Six-field IDs and per-sample sequences are unchanged; class 7 is named `surprise`.

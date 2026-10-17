@@ -68,3 +68,11 @@ audio/handcrafted/outputs/probabilities/
 
 # Local temporary files
 audio/handcrafted/project_tree.txt
+
+# M2: explicitly version only the selected small model artifacts
+!/audio/learned/models/best_audio_encoder.pt
+!/audio/learned/models/selected_run/transformer/best.pt
+
+# M2 portable baseline and exact refinement initialization
+!/audio/learned/models/baseline/*/best.pt
+!/audio/learned/models/refinement_parents/*/best.pt
