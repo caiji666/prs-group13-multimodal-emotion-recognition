@@ -44,3 +44,27 @@ venv/
 # Generated experiments; commit deliberately selected reports under docs/
 /results/
 /multimodal_fusion/results/
+
+# ==========================================
+# M1 - Audio Handcrafted
+# ==========================================
+
+# Python environment and caches
+audio/handcrafted/.venv/
+audio/handcrafted/__pycache__/
+audio/handcrafted/**/__pycache__/
+audio/handcrafted/.ipynb_checkpoints/
+audio/handcrafted/notebooks/.ipynb_checkpoints/
+
+# Raw and external datasets
+audio/handcrafted/data/raw/
+audio/handcrafted/data/processed/
+audio/handcrafted/data/external/
+
+# Generated features and trained models
+audio/handcrafted/outputs/features/
+audio/handcrafted/outputs/models/
+audio/handcrafted/outputs/probabilities/
+
+# Local temporary files
+audio/handcrafted/project_tree.txt
