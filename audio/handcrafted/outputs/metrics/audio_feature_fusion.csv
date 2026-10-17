@@ -1,0 +1,4 @@
+experiment,n_features,val_accuracy,val_macro_f1
+handcrafted_transformer,176,0.4791666666666667,0.4564726521339008
+reduced_transformer,171,0.4791666666666667,0.45144718831685887
+transformer_only,128,0.4375,0.39637915748072017
