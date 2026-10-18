@@ -46,7 +46,9 @@ Each member works on a module branch, such as `feature/audio-handcrafted`, `feat
 
 Before merging, include the entry command, dependencies, input/output fields, validation results and any interface changes. Keep machine-specific dataset paths in ignored local config. Store large datasets and trained weights separately with retrieval instructions and checksums; they still need to be accounted for in the final course submission.
 
-Confirmed from earlier chats: Jiang Yushan owns multimodal fusion; M2 supplies learned audio features, and M1 supplies handcrafted/final audio output. Other member-to-module assignments are not fully available in the inspected chats and are not guessed here.
+Team responsibilities (confirmed by the shared allocation table): M1 owns handcrafted audio and the audio representation comparison; M2 owns learned audio encoder comparison; M3 owns handcrafted visual features and the visual representation comparison; M4 owns learned visual encoder comparison; M5 owns multimodal fusion and unimodal/multimodal comparison. Jiang Yushan owns M5. M1 combines M1/M2 outputs; M3 combines M3/M4 outputs; M5 consumes the selected audio and visual outputs.
+
+Use the [shared experiment recording format](docs/experiment-recording.md) and [templates](docs/templates/summary.template.md) to record comparable configurations, upstream runs, validation selection and final results.
 
 ## Course submission
 
