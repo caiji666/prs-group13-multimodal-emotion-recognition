@@ -1,0 +1,150 @@
+{
+  "encoder": "transformer",
+  "best_epoch": 26,
+  "best_val_macro_f1": 0.5203504393884721,
+  "epochs_completed": 36,
+  "elapsed_seconds": 379.84,
+  "checkpoint": "transformer/best.pt",
+  "protocol_sha256": "f44e6840969588ff1cb789c8b21240aed507e04b5c9a7b9bb9cc5aea3cc3a407",
+  "diagnostic": false,
+  "validation_metrics": {
+    "epoch": 26,
+    "accuracy": 0.5291666666666667,
+    "macro_precision": 0.5660077667430609,
+    "macro_recall": 0.5234375,
+    "macro_f1": 0.5203504393884721,
+    "confusion_matrix": [
+      [
+        7,
+        3,
+        1,
+        4,
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        23,
+        0,
+        6,
+        0,
+        0,
+        2,
+        0
+      ],
+      [
+        5,
+        0,
+        7,
+        8,
+        3,
+        4,
+        0,
+        5
+      ],
+      [
+        0,
+        4,
+        1,
+        21,
+        1,
+        1,
+        4,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        4,
+        25,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        3,
+        2,
+        11,
+        0,
+        14,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        1,
+        8,
+        12,
+        0,
+        10,
+        1
+      ],
+      [
+        0,
+        0,
+        3,
+        8,
+        1,
+        0,
+        0,
+        20
+      ]
+    ],
+    "per_class": {
+      "neutral": {
+        "precision": 0.5,
+        "recall": 0.4375,
+        "f1": 0.4666666666666667,
+        "support": 16
+      },
+      "calm": {
+        "precision": 0.696969696969697,
+        "recall": 0.71875,
+        "f1": 0.7076923076923077,
+        "support": 32
+      },
+      "happy": {
+        "precision": 0.4666666666666667,
+        "recall": 0.21875,
+        "f1": 0.2978723404255319,
+        "support": 32
+      },
+      "sad": {
+        "precision": 0.3,
+        "recall": 0.65625,
+        "f1": 0.4117647058823529,
+        "support": 32
+      },
+      "angry": {
+        "precision": 0.5952380952380952,
+        "recall": 0.78125,
+        "f1": 0.6756756756756757,
+        "support": 32
+      },
+      "fearful": {
+        "precision": 0.6666666666666666,
+        "recall": 0.4375,
+        "f1": 0.5283018867924528,
+        "support": 32
+      },
+      "disgust": {
+        "precision": 0.5882352941176471,
+        "recall": 0.3125,
+        "f1": 0.40816326530612246,
+        "support": 32
+      },
+      "surprised": {
+        "precision": 0.7142857142857143,
+        "recall": 0.625,
+        "f1": 0.6666666666666666,
+        "support": 32
+      }
+    },
+    "loss": 1.843825888633728
+  }
+}

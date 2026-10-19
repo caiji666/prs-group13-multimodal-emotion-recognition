@@ -2,7 +2,7 @@
 
 Independent CNN, BiLSTM and Transformer encoders for the RAVDESS speech subset. Includes audio preprocessing/MFCC sequences, training, validation-only model selection, WAV inference, feature export and portable M1/M5 deliveries. Audio only; no video processing.
 
-The supplied round05 Transformer has **validation Accuracy 54.58%, Macro-F1 0.5324**. It wins both metrics among saved validation-selected checkpoints. This is a warm-start refinement result; no final test score is claimed.
+The supplied 2026-10-18 round04 Transformer has **validation Accuracy 54.58%, Macro-F1 0.532837**. It wins both metrics among saved validation-selected checkpoints. This is a warm-start refinement result; no final test score is claimed.
 
 ## 1. Clone and initialize (macOS / Linux)
 
@@ -49,10 +49,10 @@ For your own WAV, replace --audio with its path and replace --splits with --exte
 
 ## 4. Train three independent models
 
-Latest refinement settings, using the exact shipped per-encoder parent weights:
+Repeat the current selected configuration using its archived per-encoder parent weights:
 
 ```bash
-.venv/bin/python -u -m ravdess_m2.train --encoder all --data data/raw --config configs/tuning_20261017/best_resolved.yaml --output "runs/refinement_$(date +%Y%m%d_%H%M%S)"
+.venv/bin/python -u -m ravdess_m2.train --encoder all --data data/raw --config configs/tuning_20261018/best_resolved.yaml --output "runs/refinement_$(date +%Y%m%d_%H%M%S)"
 ```
 
 Use --encoder cnn, bilstm or transformer for one independent model. This does not overwrite the supplied best model. A new run is not guaranteed to improve it. For fresh training from random initialization:
@@ -112,3 +112,17 @@ Only the original class-name metadata changed from surprised to surprise; all mo
 - .venv/, data/, runs/, artifacts/, deliveries/: local/generated, ignored by Git. Setup reconstructs environment/data on each machine.
 
 See [architecture](docs/CODE_ARCHITECTURE.md), [feature handoff](docs/FEATURE_HANDOFF.md), [delivery guide](docs/DELIVERY_GUIDE.md), [all five experimental results](docs/experiment_results.csv), and [repository-only workflow](docs/SELF_CONTAINED_WORKFLOW.md). Historical workflow notes describe previous runs; this README is the current entry guide.
+
+## Local follow-up experiments — 2026-10-18
+
+Five additional full three-encoder experiments are archived in the unified records. Best: round04 Transformer, validation Accuracy 54.58%, Macro-F1 0.532837. Accuracy did not improve over the shipped baseline; F1 gain is only 0.000434. The previous default has since been replaced by the round04 model; historical records preserve the previous weights. See [results and per-round changes](docs/TUNING_20261018.md). All 33 historical model checkpoints and records are included in this repository.
+
+## Unified experiment records and current selection — 2026-10-20
+
+All 33 real M2 trained pipelines and full checkpoints are published under [experiment_records](../../experiment_records/summary.md), following schema v2. Current default: M2_encoder_transformer_s7_20261018_04, validation Accuracy0.5458333333, Macro-F10.5328369004; no test result. models/best_audio_encoder.pt, models/selected_run and build_handoff all refer to this checkpoint. Older models remain in their own records. Existing feature handoffs are not automatically regenerated. Warm-start configs now reference published experiment record directories, so old ignored runs are not required for replay. Historical source and reconstructed patches are archived alongside records.
+
+Validate all uploaded M2 records and model aliases:
+
+```bash
+.venv/bin/python scripts/validate_experiment_records.py
+```

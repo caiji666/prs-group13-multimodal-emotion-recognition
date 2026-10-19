@@ -1,0 +1,435 @@
+{
+  "schema_version": "2.0",
+  "run_id": "M2_encoder_bilstm_s42_20261017_01",
+  "member": "M2",
+  "owner": null,
+  "stage": "encoder",
+  "comparison_group": "M2_audio_encoders_20261017_01",
+  "pipeline_name": "MFCC → bilstm → masked mean pooling → MLP 128→64→8",
+  "run_status": "completed",
+  "test_status": "not_run",
+  "started_at": null,
+  "finished_at": null,
+  "seed": 42,
+  "dataset_id": "ravdess_speech_v1",
+  "data_kind": "real",
+  "class_names": [
+    "neutral",
+    "calm",
+    "happy",
+    "sad",
+    "angry",
+    "fearful",
+    "disgust",
+    "surprise"
+  ],
+  "split_ref": "multimodal_fusion/configs/actor_splits.csv",
+  "split_sha256": "1ae0f8241c8d1b40f1c4d0c0be1c17d8cede3ea5005a24b4635cef1110490528",
+  "input_manifest_ref": "experiment_records/shared/M2/input_manifest.csv",
+  "input_manifest_sha256": "1cee1b23403e0dddc953e01da61a329d683f49ac8f5dc3f9d14468e847d11b11",
+  "counts": {
+    "expected": {
+      "train": 960,
+      "val": 240,
+      "test": 240
+    },
+    "actual": {
+      "train": 960,
+      "val": 240,
+      "test": 240
+    }
+  },
+  "excluded_samples": {
+    "count": 0,
+    "id_reason_manifest_ref": null,
+    "handling_policy": "No excluded speech samples; test recordings are indexed only, not evaluated."
+  },
+  "git_commit": null,
+  "working_tree_dirty": null,
+  "code_patch_ref": null,
+  "command": null,
+  "environment": {
+    "python": "3.9.6",
+    "framework_and_version": "PyTorch 2.8.0",
+    "device": "cpu",
+    "dependencies_ref": "experiment_records/shared/M2/requirements-tested.txt"
+  },
+  "source_runs": {
+    "audio_handcrafted": null,
+    "audio_learned": null,
+    "audio_final": null,
+    "visual_handcrafted": null,
+    "visual_learned": null,
+    "visual_final": null
+  },
+  "input_artifacts": [],
+  "preprocessing": {
+    "audio": "mono, resample16kHz, edge silence trim35dB, peak normalize0.95, MFCC sequence",
+    "visual": null,
+    "standardization_fit_split": "train",
+    "augmentation_train_only": true,
+    "parameters": {
+      "sample_rate": 16000,
+      "n_mfcc": 40,
+      "n_fft": 512,
+      "hop_length": 160,
+      "n_mels": 64,
+      "trim_db": 35,
+      "denoise": false,
+      "augment": true,
+      "seed": 42,
+      "peak_amplitude": 0.95,
+      "augmentation": {
+        "piecewise_monotonic_time_warp_rates": [
+          0.85,
+          1.15
+        ],
+        "amplitude_scale": [
+          0.8,
+          1.1
+        ],
+        "additive_noise_snr_db": [
+          20,
+          35
+        ]
+      },
+      "normalization_ref": "experiment_records/shared/M2/M2_audio_encoders_20261017_01/normalization.json"
+    }
+  },
+  "pipeline": {
+    "feature_extractors": [
+      {
+        "component_id": "audio_encoder",
+        "modality": "audio",
+        "kind": "learned",
+        "method": "MFCC → bilstm",
+        "input_description": "Mono 16kHz waveform → variable-length MFCC [T,40]",
+        "parameters": {
+          "input_dim": 40,
+          "hidden_dim": 128,
+          "hidden_size_per_direction": 64,
+          "num_layers": 1,
+          "bidirectional": true,
+          "packed_sequences": true
+        },
+        "pretrained_source": null,
+        "source_run_id": null,
+        "checkpoint_ref": "experiment_records/M2_encoder_bilstm_s42_20261017_01/best.pt",
+        "checkpoint_sha256": "1797b9dc412683e9c1d837e18b21536371dd85b018b3c62419114417960f5e93",
+        "trainable_in_this_run": true,
+        "trainable_layers": "all encoder parameters",
+        "output_sequence_shape": "[N,T,128]",
+        "output_pooled_shape": "[N,128]"
+      }
+    ],
+    "representation": {
+      "kind": "learned",
+      "components": [
+        "audio_encoder"
+      ],
+      "pooling": "masked mean pooling over valid encoder time steps",
+      "normalization": "MFCC mean/std before encoder; clean training frames only; saved checkpoint buffers; no extra pooled scaler",
+      "normalization_fit_split": "train",
+      "combination_method": "none",
+      "output_shape": "[N,128]"
+    },
+    "fusion": {
+      "applied": false,
+      "method": null,
+      "input_source_runs": {},
+      "parameters": {},
+      "trainable_in_this_run": false,
+      "output_shape": null
+    },
+    "classifier": {
+      "type": "MLP",
+      "source_run_id": null,
+      "input_dim": 128,
+      "architecture": "Linear(128,64) → ReLU → Dropout → Linear(64,8)",
+      "hidden_dims": [
+        64
+      ],
+      "output_dim": 8,
+      "activation": "ReLU",
+      "dropout": 0.3,
+      "parameters": {
+        "framework": "PyTorch",
+        "loss": "cross_entropy",
+        "label_smoothing": 0.0
+      },
+      "trainable_in_this_run": true,
+      "probability_method": "softmax over eight logits; argmax ties choose lowest index",
+      "calibration_fit_split": null,
+      "checkpoint_ref": "experiment_records/M2_encoder_bilstm_s42_20261017_01/best.pt",
+      "checkpoint_sha256": "1797b9dc412683e9c1d837e18b21536371dd85b018b3c62419114417960f5e93"
+    }
+  },
+  "training": {
+    "regime": "joint_training",
+    "optimizer": "AdamW",
+    "learning_rate": 0.0005,
+    "batch_size": 32,
+    "max_epochs": 45,
+    "completed_epochs": 25,
+    "early_stopping_patience": 10,
+    "component_parameter_groups": [
+      {
+        "component_id": "audio_encoder",
+        "optimizer": "AdamW",
+        "learning_rate": 0.0005,
+        "weight_decay": 0.001
+      },
+      {
+        "component_id": "classifier",
+        "optimizer": "AdamW",
+        "learning_rate": 0.0005,
+        "weight_decay": 0.001
+      }
+    ],
+    "class_weighting": {
+      "enabled": false,
+      "fit_split": "train",
+      "formula": "(N_train/(8*count_class))**power",
+      "power": 1.0
+    },
+    "other_parameters": {
+      "epochs": 45,
+      "batch_size": 32,
+      "learning_rate": 0.0005,
+      "weight_decay": 0.001,
+      "patience": 10,
+      "scheduler_patience": 3,
+      "scheduler_factor": 0.5,
+      "grad_clip": 1.0,
+      "seed": 42,
+      "num_workers": 0,
+      "threads": 2,
+      "device": "cpu",
+      "augment": true,
+      "augment_probability": 0.5,
+      "head_dropout": 0.3,
+      "label_smoothing": 0.0,
+      "class_balance": false,
+      "normalization_fitted_on_clean_train_frames": true,
+      "warm_start_optimizer_reset": false
+    }
+  },
+  "selection": {
+    "metric": "macro_f1",
+    "split": "val",
+    "best_epoch": 15,
+    "selected_for_next_stage": false,
+    "selection_reason": "Highest validation Macro-F1 within this three-encoder configuration group; historical group selection, not necessarily current overall selection.",
+    "tie_break_rule": "Fixed candidate order cnn, bilstm, transformer",
+    "candidate_search_ref": "experiment_records/summary.md",
+    "config_locked_at": null,
+    "test_first_evaluated_at": null
+  },
+  "metrics_scope": "full_pipeline",
+  "metrics_by_split": {
+    "val": {
+      "n": 240,
+      "accuracy": 0.3875,
+      "macro_precision": 0.336276418364833,
+      "macro_recall": 0.36328125,
+      "macro_f1": 0.3170831890847027,
+      "per_class": [
+        {
+          "label": 0,
+          "class_name": "neutral",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 16
+        },
+        {
+          "label": 1,
+          "class_name": "calm",
+          "precision": 0.375,
+          "recall": 0.9375,
+          "f1": 0.5357142857142857,
+          "support": 32
+        },
+        {
+          "label": 2,
+          "class_name": "happy",
+          "precision": 0.35714285714285715,
+          "recall": 0.3125,
+          "f1": 0.3333333333333333,
+          "support": 32
+        },
+        {
+          "label": 3,
+          "class_name": "sad",
+          "precision": 0.38095238095238093,
+          "recall": 0.25,
+          "f1": 0.3018867924528302,
+          "support": 32
+        },
+        {
+          "label": 4,
+          "class_name": "angry",
+          "precision": 0.4222222222222222,
+          "recall": 0.59375,
+          "f1": 0.49350649350649345,
+          "support": 32
+        },
+        {
+          "label": 5,
+          "class_name": "fearful",
+          "precision": 0.45454545454545453,
+          "recall": 0.15625,
+          "f1": 0.2325581395348837,
+          "support": 32
+        },
+        {
+          "label": 6,
+          "class_name": "disgust",
+          "precision": 0.2857142857142857,
+          "recall": 0.125,
+          "f1": 0.17391304347826086,
+          "support": 32
+        },
+        {
+          "label": 7,
+          "class_name": "surprise",
+          "precision": 0.4146341463414634,
+          "recall": 0.53125,
+          "f1": 0.4657534246575343,
+          "support": 32
+        }
+      ],
+      "confusion_matrix_counts": [
+        [
+          0,
+          13,
+          0,
+          0,
+          0,
+          0,
+          3,
+          0
+        ],
+        [
+          0,
+          30,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          4,
+          10,
+          1,
+          5,
+          3,
+          2,
+          7
+        ],
+        [
+          0,
+          11,
+          7,
+          8,
+          0,
+          1,
+          1,
+          4
+        ],
+        [
+          0,
+          2,
+          1,
+          2,
+          19,
+          2,
+          2,
+          4
+        ],
+        [
+          0,
+          6,
+          6,
+          6,
+          4,
+          5,
+          1,
+          4
+        ],
+        [
+          0,
+          7,
+          3,
+          2,
+          11,
+          0,
+          4,
+          5
+        ],
+        [
+          0,
+          7,
+          1,
+          1,
+          6,
+          0,
+          0,
+          17
+        ]
+      ]
+    },
+    "test": null
+  },
+  "artifacts": {
+    "original_metrics_ref": "experiment_records/M2_encoder_bilstm_s42_20261017_01/original_metrics.json",
+    "predictions_val_ref": "experiment_records/M2_encoder_bilstm_s42_20261017_01/predictions_val.csv",
+    "predictions_test_ref": null,
+    "history_ref": "experiment_records/M2_encoder_bilstm_s42_20261017_01/history.csv",
+    "checkpoint_ref": "experiment_records/M2_encoder_bilstm_s42_20261017_01/best.pt",
+    "checkpoint_sha256": "1797b9dc412683e9c1d837e18b21536371dd85b018b3c62419114417960f5e93",
+    "feature_exports": [],
+    "figures": []
+  },
+  "notes_ref": "notes.md",
+  "provenance": {
+    "historical_group": "M2_audio_encoders_20261017_01",
+    "historical_protocol_ref": "experiment_records/shared/M2/M2_audio_encoders_20261017_01/protocol.json",
+    "historical_protocol_sha256": "f44e6840969588ff1cb789c8b21240aed507e04b5c9a7b9bb9cc5aea3cc3a407",
+    "original_protocol_file_sha256": "40b4e10580013407c312acf1332e61a6a18abf1d43f019ed22d79cb72e48bd4b",
+    "original_summary_ref": "experiment_records/M2_encoder_bilstm_s42_20261017_01/original_summary.json",
+    "training_input_manifest_ref": "experiment_records/shared/M2/M2_audio_encoders_20261017_01/training_input_manifest.csv",
+    "training_input_manifest_sha256": "378f7824c04de6638bd7547f4be20636cb609732ee104b910de6f08f00a4dd4d",
+    "source_snapshots": [
+      {
+        "ref": "experiment_records/shared/M2/source_snapshots/c82a55dbd712544afddcc85d8ea58cc6af5a47056cebb49451b7bc4caf2b0fac/train.py",
+        "sha256": "c82a55dbd712544afddcc85d8ea58cc6af5a47056cebb49451b7bc4caf2b0fac"
+      },
+      {
+        "ref": "experiment_records/shared/M2/source_snapshots/57719638750e4b8a1d94f8c2b2316a8b50cdf3f44122e73fadea81537153b542/models.py",
+        "sha256": "57719638750e4b8a1d94f8c2b2316a8b50cdf3f44122e73fadea81537153b542"
+      },
+      {
+        "ref": "experiment_records/shared/M2/source_snapshots/b5267431dfa1ffe628fcb7cb2ffa6a54fdab0f158bc696e56802a8bbe0662cdb/data.py",
+        "sha256": "b5267431dfa1ffe628fcb7cb2ffa6a54fdab0f158bc696e56802a8bbe0662cdb"
+      }
+    ],
+    "checkpoint_interface_migration": {
+      "change": "class_names[7]: surprised -> surprise; tensor weights unchanged",
+      "original_sha256": "d79f0eb3989f1f44232f07de6d7fa6fe75f3553ab1f26110775ae7b3fe4e9889",
+      "original_project_relative_path": "runs/tuning_20261017/round_01/bilstm/best.pt"
+    },
+    "reproduction_config_ref": "experiment_records/M2_encoder_bilstm_s42_20261017_01/training.yaml",
+    "reproduction_command": "cd audio/learned && .venv/bin/python -m ravdess_m2.train --encoder bilstm --data data/raw --config ../../experiment_records/M2_encoder_bilstm_s42_20261017_01/training.yaml --output runs/reproduce_M2_encoder_bilstm_s42_20261017_01",
+    "timestamps_status": "Exact start/finish timestamps not captured; intentionally null. Date in ID identifies historical experiment batch.",
+    "command_status": "Exact invocation not persisted; null; reproduction command supplied separately.",
+    "git_status": "Historical pre-integration Git identity/dirty state unavailable; intentionally null; exact source hashes retained.",
+    "normalization_note": "Class name surprised canonicalized to surprise without changing labels/probabilities or tensor weights.",
+    "current_default_selection": false,
+    "feature_handoff_status": "No feature tensors included in this experiment record. Export the selected checkpoint explicitly; old teammate deliveries do not automatically update.",
+    "recorded_on": "2026-10-20"
+  }
+}

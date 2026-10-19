@@ -199,6 +199,18 @@ def test_warm_start_preserves_lineage_and_rejects_incompatible_inputs(tmp_path,c
     saved=torch.load(child/'cnn/best.pt',weights_only=True)
     assert saved['initialization']['sha256']==result['initialization']['sha256']
     assert saved['train_config']['class_balance'] is True
+    # Published per-model records store best.pt directly, not under cnn/.
+    import shutil
+    flat=tmp_path/'published_record';flat.mkdir()
+    shutil.copy2(parent/'cnn/best.pt',flat/'best.pt')
+    (flat/'status.json').write_text('{"status":"completed"}')
+    flat_child=tmp_path/'flat_child';flat_child.mkdir()
+    flat_config=dict(tuned,warm_start={'cnn':str(flat)})
+    flat_result=training.train_one('cnn',train,val,flat_config,{'n_mfcc':40},mean,std,flat_child,provenance)
+    flat_saved=torch.load(flat_child/'cnn/best.pt',weights_only=True)
+    assert flat_result['initialization']['sha256']==result['initialization']['sha256']
+    for key,value in saved['model_state_dict'].items():
+        torch.testing.assert_close(value,flat_saved['model_state_dict'][key],rtol=0,atol=0)
     with pytest.raises(ValueError,match='Incompatible'):
         training.train_one('cnn',train,val,tuned,{'n_mfcc':39},mean,std,child,provenance)
 
@@ -229,3 +241,21 @@ def test_tempered_class_weights_use_training_counts_only():
     assert (full[0]/full[1]).item()==2.
     assert (tempered[0]/tempered[1]).item()==pytest.approx(2**.5)
     with pytest.raises(ValueError): training.class_weight_vector([0,1],.5)
+
+
+def test_differential_optimizer_preserves_default_and_groups(config):
+    from ravdess_m2.train import build_optimizer,validate_config
+    from ravdess_m2.models import AudioEncoder
+    model=AudioEncoder('cnn')
+    original=build_optimizer(model,config)
+    assert len(original.param_groups)==1
+    config=dict(config,encoder_learning_rate=5e-6,head_learning_rate=1e-4)
+    validate_config(config)
+    opt=build_optimizer(model,config)
+    encoder_ids={id(p) for p in opt.param_groups[0]['params']}
+    head_ids={id(p) for p in opt.param_groups[1]['params']}
+    assert not encoder_ids & head_ids
+    assert encoder_ids | head_ids == {id(p) for p in model.parameters()}
+    assert head_ids == {id(p) for p in model.head.parameters()}
+    assert [group['lr'] for group in opt.param_groups]==[5e-6,1e-4]
+    with pytest.raises(ValueError):validate_config(dict(config,head_learning_rate=float('nan')))

@@ -1,0 +1,5 @@
+{
+  "status": "completed",
+  "diagnostic": false,
+  "note": "Initialization only: historical per-encoder validation-best weights; not a new training experiment."
+}

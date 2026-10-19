@@ -1,0 +1,7 @@
+{
+  "records": 33,
+  "groups": 11,
+  "current_selected_run_id": "M2_encoder_transformer_s7_20261018_04",
+  "all_test_status": "not_run",
+  "historical_source_recovery": "Hash-matched snapshots recovered from captured runs and historical backups; copied into repository; no runtime dependence on original locations."
+}

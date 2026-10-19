@@ -1,0 +1,28 @@
+{
+  "comparison": [
+    {
+      "encoder": "transformer",
+      "best_epoch": 1,
+      "macro_f1": 0.5324024765146194,
+      "accuracy": 0.5458333333333333,
+      "checkpoint": "transformer/best.pt"
+    },
+    {
+      "encoder": "cnn",
+      "best_epoch": 4,
+      "macro_f1": 0.4281662270543833,
+      "accuracy": 0.44583333333333336,
+      "checkpoint": "cnn/best.pt"
+    },
+    {
+      "encoder": "bilstm",
+      "best_epoch": 5,
+      "macro_f1": 0.391405985341143,
+      "accuracy": 0.4375,
+      "checkpoint": "bilstm/best.pt"
+    }
+  ],
+  "note": "Historical initialization reference; no new experiment",
+  "selection_metric": "validation_macro_f1",
+  "test_evaluated": false
+}

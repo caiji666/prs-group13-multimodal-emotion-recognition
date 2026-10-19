@@ -6,3 +6,10 @@ audio/learned/**/*.yaml text eol=lf
 audio/learned/**/*.csv text eol=lf
 multimodal_fusion/configs/actor_splits.csv text eol=lf
 *.pt binary
+
+# Unified record hashes require stable text bytes
+experiment_records/**/*.py text eol=lf
+experiment_records/**/*.json text eol=lf
+experiment_records/**/*.csv text eol=lf
+experiment_records/**/*.yaml text eol=lf
+experiment_records/**/*.patch text eol=lf

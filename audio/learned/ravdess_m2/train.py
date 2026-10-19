@@ -142,6 +142,18 @@ def save_checkpoint(path, payload):
     temporary.replace(path)
 
 
+
+def build_optimizer(model, config):
+    """Optionally refine the backbone and classifier at separate learning rates."""
+    if 'encoder_learning_rate' not in config and 'head_learning_rate' not in config:
+        return torch.optim.AdamW(model.parameters(), lr=config['learning_rate'], weight_decay=config['weight_decay'])
+    backbone=[p for name,p in model.named_parameters() if not name.startswith('head.')]
+    head=list(model.head.parameters())
+    groups=[dict(params=backbone,lr=config.get('encoder_learning_rate',config['learning_rate']),name='encoder'),
+            dict(params=head,lr=config.get('head_learning_rate',config['learning_rate']),name='head')]
+    return torch.optim.AdamW(groups, lr=config['learning_rate'], weight_decay=config['weight_decay'])
+
+
 def train_one(kind, train_ds, val_ds, config, preprocessing, mean, std, run_dir, provenance):
     seed_all(config['seed'])
     model = AudioEncoder(kind, input_dim=preprocessing['n_mfcc'])
@@ -150,6 +162,8 @@ def train_one(kind, train_ds, val_ds, config, preprocessing, mean, std, run_dir,
         parent=Path(config['warm_start'][kind] if isinstance(config['warm_start'],dict) else config['warm_start'])
         if json.loads((parent/'status.json').read_text()).get('status')!='completed': raise ValueError('Warm-start run is incomplete')
         previous=parent/kind/'best.pt'
+        if not previous.exists():
+            previous=parent/'best.pt'  # Unified per-model experiment record.
         saved=torch.load(previous,map_location='cpu',weights_only=True)
         if saved['encoder']!=kind or saved['class_names']!=LABELS or saved['preprocessing']!=preprocessing or saved['provenance'].get('diagnostic'):
             raise ValueError('Incompatible warm-start checkpoint')
@@ -164,7 +178,7 @@ def train_one(kind, train_ds, val_ds, config, preprocessing, mean, std, run_dir,
     if config.get('class_balance',False):
         model.loss_options['weight']=class_weight_vector([r['label'] for r in train_ds.rows],config.get('class_balance_power',1.0)).to(device)
     train_ds.augment_probability=config.get('augment_probability',1.0)
-    optimizer = torch.optim.AdamW(model.parameters(),lr=config['learning_rate'],weight_decay=config['weight_decay'])
+    optimizer = build_optimizer(model,config)
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer,mode='max',factor=config['scheduler_factor'],patience=config['scheduler_patience'])
     generator = torch.Generator().manual_seed(config['seed'])
     train_loader = DataLoader(train_ds,batch_size=config['batch_size'],shuffle=True,collate_fn=collate,
@@ -255,6 +269,8 @@ def validate_config(config):
     for name,default in [('augment_probability',1.0),('label_smoothing',0.0),('head_dropout',0.2)]:
         if not 0<=config.get(name,default)<=(1.0 if name=='augment_probability' else .9):
             raise ValueError(f'Invalid {name}')
+    for key in ('encoder_learning_rate','head_learning_rate'):
+        if key in config and (not np.isfinite(config[key]) or config[key]<=0): raise ValueError(f'Invalid {key}')
     if not 0<=config.get('class_balance_power',1.0)<=2: raise ValueError('Invalid class_balance_power')
     if not isinstance(config.get('class_balance',False),bool): raise ValueError('class_balance must be boolean')
     if config['device'] not in ('cpu','mps','cuda'):

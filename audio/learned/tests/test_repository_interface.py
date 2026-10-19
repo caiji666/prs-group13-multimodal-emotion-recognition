@@ -22,6 +22,8 @@ def test_selected_checkpoint_and_inference_weights():
     _,saved,_,protocol=selected_checkpoint(ROOT/'models/selected_run',ROOT/'metadata/actor_splits.csv')
     assert saved['encoder']=='transformer' and saved['class_names']==LABELS
     assert saved['validation_metrics']['accuracy']==0.5458333333333333
+    assert saved['validation_metrics']['macro_f1']==0.532836900413142
+    assert json.loads((ROOT/'models/selection.json').read_text())['run_id']=='M2_encoder_transformer_s7_20261018_04'
     inference=AudioInference(ROOT/'models/best_audio_encoder.pt')
     assert all(torch.equal(v,inference.model.state_dict()[k]) for k,v in saved['model_state_dict'].items())
     # The migration exception cannot admit other data-source edits.

@@ -76,3 +76,7 @@ audio/handcrafted/project_tree.txt
 # M2 portable baseline and exact refinement initialization
 !/audio/learned/models/baseline/*/best.pt
 !/audio/learned/models/refinement_parents/*/best.pt
+
+# M2 unified experiment records: 33 full encoder/head checkpoints
+!/experiment_records/M2_*/best.pt
+!/audio/learned/models/tuning_20261018_initialization/*/best.pt

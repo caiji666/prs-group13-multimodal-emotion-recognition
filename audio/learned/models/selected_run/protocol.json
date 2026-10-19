@@ -1,14 +1,14 @@
 {
   "training": {
-    "epochs": 15,
-    "batch_size": 32,
-    "learning_rate": 5e-05,
+    "epochs": 16,
+    "batch_size": 16,
+    "learning_rate": 5e-06,
     "weight_decay": 0.001,
     "patience": 5,
     "scheduler_patience": 2,
     "scheduler_factor": 0.5,
     "grad_clip": 1.0,
-    "seed": 42,
+    "seed": 7,
     "num_workers": 0,
     "threads": 2,
     "device": "cpu",
@@ -20,10 +20,12 @@
     "parallel_models": true,
     "class_balance_power": 0.5,
     "warm_start": {
-      "cnn": "runs/tuning_20261017/round_02",
-      "bilstm": "runs/tuning_20261017/round_03",
-      "transformer": "runs/tuning_20261017/round_02"
-    }
+      "cnn": "runs/tuning_20261018/initialization",
+      "bilstm": "runs/tuning_20261018/initialization",
+      "transformer": "runs/tuning_20261018/initialization"
+    },
+    "encoder_learning_rate": 5e-06,
+    "head_learning_rate": 2e-05
   },
   "preprocessing": {
     "sample_rate": 16000,
@@ -38,9 +40,9 @@
   },
   "split_sha256": "1ae0f8241c8d1b40f1c4d0c0be1c17d8cede3ea5005a24b4635cef1110490528",
   "source_sha256": {
-    "train.py": "969441f27122176e24dee6feb82963224bc38459ccc97d8c4766f15dbc122729",
+    "train.py": "62a3bae8a2fa31c00553d59d0fa05f672b15897fee360acac1674ccb3f876fef",
     "models.py": "57719638750e4b8a1d94f8c2b2316a8b50cdf3f44122e73fadea81537153b542",
-    "data.py": "b5267431dfa1ffe628fcb7cb2ffa6a54fdab0f158bc696e56802a8bbe0662cdb"
+    "data.py": "8881cf64928949beea88a832bd0de3555ca4926740537d39e8adde1efea30613"
   },
   "samples": [
     {
@@ -6052,10 +6054,10 @@
     "angry",
     "fearful",
     "disgust",
-    "surprised"
+    "surprise"
   ],
   "diagnostic": false,
-  "protocol_sha256": "c105cd98eefbcc4091d7a1470635403c7d2e0e288dac0624ac463b610fed5d9f",
+  "protocol_sha256": "989afd0fa516a44662a730d039f7674a1acd32f485fdad9c2d9f5a1a9c438865",
   "python": "3.9.6",
   "torch": "2.8.0",
   "numpy": "2.0.2"

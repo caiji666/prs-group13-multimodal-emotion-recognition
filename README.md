@@ -56,4 +56,6 @@ GitHub is a collaboration workspace. The course handout does not require a GitHu
 
 ## M2 learned audio module
 
-See [audio/learned/README.md](audio/learned/README.md) for full Stage 1–6 source, selected tuned Transformer weights, WAV emotion inference, training and M1/M5 exports. The shipped model has validation Accuracy 54.58% and Macro-F1 0.5324 (round 05); final test generalization remains unmeasured. Six-field IDs and per-sample sequences are unchanged; class 7 is named `surprise`.
+See [audio/learned/README.md](audio/learned/README.md) for full Stage 1–6 source, selected tuned Transformer weights, WAV emotion inference, training and M1/M5 exports. The shipped model has validation Accuracy 54.58% and Macro-F1 0.532837 (2026-10-18 round 04); final test generalization remains unmeasured. Six-field IDs and per-sample sequences are unchanged; class 7 is named `surprise`.
+
+M2 has published [33 canonical experiment records and checkpoints](experiment_records/summary.md), including predictions, history and source provenance. All M2 test results remain not_run/null.

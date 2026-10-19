@@ -16,4 +16,7 @@ head_dropout: 0.3
 label_smoothing: 0.05
 class_balance: true
 parallel_models: true
-warm_start: runs/tuning_20261017/round_01
+warm_start:
+  cnn: ../../experiment_records/M2_encoder_cnn_s42_20261017_01
+  transformer: ../../experiment_records/M2_encoder_transformer_s42_20261017_01
+  bilstm: ../../experiment_records/M2_encoder_bilstm_s42_20261017_01

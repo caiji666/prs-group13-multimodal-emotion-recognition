@@ -1,0 +1,40 @@
+{
+  "selection_metric": "validation_macro_f1",
+  "test_evaluated": false,
+  "diagnostic": false,
+  "selected_encoder": "transformer",
+  "selected_checkpoint": "transformer/best.pt",
+  "tied_encoders": [
+    "transformer"
+  ],
+  "tie_rule": "fixed candidate order cnn, bilstm, transformer",
+  "comparison": [
+    {
+      "encoder": "transformer",
+      "best_epoch": 3,
+      "macro_f1": 0.5262525954557626,
+      "accuracy": 0.5333333333333333,
+      "macro_precision": 0.5667638640155516,
+      "macro_recall": 0.53515625,
+      "checkpoint": "transformer/best.pt"
+    },
+    {
+      "encoder": "cnn",
+      "best_epoch": 5,
+      "macro_f1": 0.41257222410673905,
+      "accuracy": 0.43333333333333335,
+      "macro_precision": 0.43528467616143446,
+      "macro_recall": 0.4296875,
+      "checkpoint": "cnn/best.pt"
+    },
+    {
+      "encoder": "bilstm",
+      "best_epoch": 5,
+      "macro_f1": 0.391405985341143,
+      "accuracy": 0.4375,
+      "macro_precision": 0.4287436102933999,
+      "macro_recall": 0.41796875,
+      "checkpoint": "bilstm/best.pt"
+    }
+  ]
+}

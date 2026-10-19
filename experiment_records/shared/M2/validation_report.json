@@ -1,0 +1,9 @@
+{
+  "valid": true,
+  "records": 33,
+  "groups": 11,
+  "validation_predictions_checked": 7920,
+  "checkpoints_checked": 33,
+  "all_test_status": "not_run",
+  "selected_run_id": "M2_encoder_transformer_s7_20261018_04"
+}

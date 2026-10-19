@@ -1,0 +1,17 @@
+{
+  "verified_on": "2026-10-20",
+  "platform": "macOS, Python3.9/PyTorch2.8",
+  "git_index_clean_export": true,
+  "unit_tests_passed": 29,
+  "canonical_records": 33,
+  "validation_predictions_checked": 7920,
+  "checkpoints_checked": 33,
+  "three_encoder_warm_start_smoke": "completed2epochs each; diagnostic only, not included in formal records",
+  "default_full_feature_export_samples": 1440,
+  "default_export_validation_predictions_match_selected_record": 240,
+  "new_default_run_id": "M2_encoder_transformer_s7_20261018_04",
+  "test_metrics_computed": false,
+  "test_features_exported_in_isolated_check": true,
+  "generated_features_uploaded": false,
+  "verification_environment": "Reused current repository installed environment and raw dataset; only staged source/config/model/record files in isolated checkout; no old project or ignored historical runs required."
+}

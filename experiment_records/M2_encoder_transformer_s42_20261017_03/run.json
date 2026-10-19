@@ -1,0 +1,450 @@
+{
+  "schema_version": "2.0",
+  "run_id": "M2_encoder_transformer_s42_20261017_03",
+  "member": "M2",
+  "owner": null,
+  "stage": "encoder",
+  "comparison_group": "M2_audio_encoders_20261017_03",
+  "pipeline_name": "MFCC → transformer → masked mean pooling → MLP 128→64→8",
+  "run_status": "completed",
+  "test_status": "not_run",
+  "started_at": null,
+  "finished_at": null,
+  "seed": 42,
+  "dataset_id": "ravdess_speech_v1",
+  "data_kind": "real",
+  "class_names": [
+    "neutral",
+    "calm",
+    "happy",
+    "sad",
+    "angry",
+    "fearful",
+    "disgust",
+    "surprise"
+  ],
+  "split_ref": "multimodal_fusion/configs/actor_splits.csv",
+  "split_sha256": "1ae0f8241c8d1b40f1c4d0c0be1c17d8cede3ea5005a24b4635cef1110490528",
+  "input_manifest_ref": "experiment_records/shared/M2/input_manifest.csv",
+  "input_manifest_sha256": "1cee1b23403e0dddc953e01da61a329d683f49ac8f5dc3f9d14468e847d11b11",
+  "counts": {
+    "expected": {
+      "train": 960,
+      "val": 240,
+      "test": 240
+    },
+    "actual": {
+      "train": 960,
+      "val": 240,
+      "test": 240
+    }
+  },
+  "excluded_samples": {
+    "count": 0,
+    "id_reason_manifest_ref": null,
+    "handling_policy": "No excluded speech samples; test recordings are indexed only, not evaluated."
+  },
+  "git_commit": null,
+  "working_tree_dirty": null,
+  "code_patch_ref": null,
+  "command": null,
+  "environment": {
+    "python": "3.9.6",
+    "framework_and_version": "PyTorch 2.8.0",
+    "device": "cpu",
+    "dependencies_ref": "experiment_records/shared/M2/requirements-tested.txt"
+  },
+  "source_runs": {
+    "audio_handcrafted": null,
+    "audio_learned": "M2_encoder_transformer_s42_20261017_02",
+    "audio_final": null,
+    "visual_handcrafted": null,
+    "visual_learned": null,
+    "visual_final": null
+  },
+  "input_artifacts": [
+    {
+      "role": "supervised warm-start full encoder+head checkpoint",
+      "source_run_id": "M2_encoder_transformer_s42_20261017_02",
+      "ref": "experiment_records/M2_encoder_transformer_s42_20261017_02/best.pt",
+      "sha256": "5471764ce0568b66c504b1ec2b936e7ac9f70db6e85adb606cc04dda5ff8d467",
+      "historical_input_sha256": "e99f0b9fcef780cfb8d290ac9aeee4351eb59b1793fcd87a750f93ebe2d01882",
+      "parent_epoch": 3,
+      "metadata_alias_migration_only": true
+    }
+  ],
+  "preprocessing": {
+    "audio": "mono, resample16kHz, edge silence trim35dB, peak normalize0.95, MFCC sequence",
+    "visual": null,
+    "standardization_fit_split": "train",
+    "augmentation_train_only": true,
+    "parameters": {
+      "sample_rate": 16000,
+      "n_mfcc": 40,
+      "n_fft": 512,
+      "hop_length": 160,
+      "n_mels": 64,
+      "trim_db": 35,
+      "denoise": false,
+      "augment": true,
+      "seed": 42,
+      "peak_amplitude": 0.95,
+      "augmentation": {
+        "piecewise_monotonic_time_warp_rates": [
+          0.85,
+          1.15
+        ],
+        "amplitude_scale": [
+          0.8,
+          1.1
+        ],
+        "additive_noise_snr_db": [
+          20,
+          35
+        ]
+      },
+      "normalization_ref": "experiment_records/shared/M2/M2_audio_encoders_20261017_03/normalization.json"
+    }
+  },
+  "pipeline": {
+    "feature_extractors": [
+      {
+        "component_id": "audio_encoder",
+        "modality": "audio",
+        "kind": "learned",
+        "method": "MFCC → transformer",
+        "input_description": "Mono 16kHz waveform → variable-length MFCC [T,40]",
+        "parameters": {
+          "input_dim": 40,
+          "hidden_dim": 128,
+          "num_layers": 2,
+          "num_heads": 4,
+          "feedforward_dim": 256,
+          "encoder_dropout": 0.1,
+          "activation": "ReLU",
+          "positional_encoding": "sinusoidal",
+          "norm_first": false,
+          "linear_projection": "40→128"
+        },
+        "pretrained_source": "supervised RAVDESS warm-start",
+        "source_run_id": "M2_encoder_transformer_s42_20261017_02",
+        "checkpoint_ref": "experiment_records/M2_encoder_transformer_s42_20261017_03/best.pt",
+        "checkpoint_sha256": "49a944f1b7e3b7943297b4d141e557c99211d44a4540dedba5f2814451497516",
+        "trainable_in_this_run": true,
+        "trainable_layers": "all encoder parameters",
+        "output_sequence_shape": "[N,T,128]",
+        "output_pooled_shape": "[N,128]"
+      }
+    ],
+    "representation": {
+      "kind": "learned",
+      "components": [
+        "audio_encoder"
+      ],
+      "pooling": "masked mean pooling over valid encoder time steps",
+      "normalization": "MFCC mean/std before encoder; clean training frames only; saved checkpoint buffers; no extra pooled scaler",
+      "normalization_fit_split": "train",
+      "combination_method": "none",
+      "output_shape": "[N,128]"
+    },
+    "fusion": {
+      "applied": false,
+      "method": null,
+      "input_source_runs": {},
+      "parameters": {},
+      "trainable_in_this_run": false,
+      "output_shape": null
+    },
+    "classifier": {
+      "type": "MLP",
+      "source_run_id": "M2_encoder_transformer_s42_20261017_02",
+      "input_dim": 128,
+      "architecture": "Linear(128,64) → ReLU → Dropout → Linear(64,8)",
+      "hidden_dims": [
+        64
+      ],
+      "output_dim": 8,
+      "activation": "ReLU",
+      "dropout": 0.3,
+      "parameters": {
+        "framework": "PyTorch",
+        "loss": "cross_entropy",
+        "label_smoothing": 0.05
+      },
+      "trainable_in_this_run": true,
+      "probability_method": "softmax over eight logits; argmax ties choose lowest index",
+      "calibration_fit_split": null,
+      "checkpoint_ref": "experiment_records/M2_encoder_transformer_s42_20261017_03/best.pt",
+      "checkpoint_sha256": "49a944f1b7e3b7943297b4d141e557c99211d44a4540dedba5f2814451497516"
+    }
+  },
+  "training": {
+    "regime": "joint_training",
+    "optimizer": "AdamW",
+    "learning_rate": 0.0001,
+    "batch_size": 32,
+    "max_epochs": 20,
+    "completed_epochs": 9,
+    "early_stopping_patience": 6,
+    "component_parameter_groups": [
+      {
+        "component_id": "audio_encoder",
+        "optimizer": "AdamW",
+        "learning_rate": 0.0001,
+        "weight_decay": 0.001
+      },
+      {
+        "component_id": "classifier",
+        "optimizer": "AdamW",
+        "learning_rate": 0.0001,
+        "weight_decay": 0.001
+      }
+    ],
+    "class_weighting": {
+      "enabled": true,
+      "fit_split": "train",
+      "formula": "(N_train/(8*count_class))**power",
+      "power": 1.0
+    },
+    "other_parameters": {
+      "epochs": 20,
+      "batch_size": 32,
+      "learning_rate": 0.0001,
+      "weight_decay": 0.001,
+      "patience": 6,
+      "scheduler_patience": 3,
+      "scheduler_factor": 0.5,
+      "grad_clip": 1.0,
+      "seed": 42,
+      "num_workers": 0,
+      "threads": 2,
+      "device": "cpu",
+      "augment": true,
+      "augment_probability": 0.75,
+      "head_dropout": 0.3,
+      "label_smoothing": 0.05,
+      "class_balance": true,
+      "parallel_models": true,
+      "normalization_fitted_on_clean_train_frames": true,
+      "warm_start_optimizer_reset": true
+    }
+  },
+  "selection": {
+    "metric": "macro_f1",
+    "split": "val",
+    "best_epoch": 3,
+    "selected_for_next_stage": true,
+    "selection_reason": "Highest validation Macro-F1 within this three-encoder configuration group; historical group selection, not necessarily current overall selection.",
+    "tie_break_rule": "Fixed candidate order cnn, bilstm, transformer",
+    "candidate_search_ref": "experiment_records/summary.md",
+    "config_locked_at": null,
+    "test_first_evaluated_at": null
+  },
+  "metrics_scope": "full_pipeline",
+  "metrics_by_split": {
+    "val": {
+      "n": 240,
+      "accuracy": 0.5333333333333333,
+      "macro_precision": 0.5667638640155516,
+      "macro_recall": 0.53515625,
+      "macro_f1": 0.5262525954557626,
+      "per_class": [
+        {
+          "label": 0,
+          "class_name": "neutral",
+          "precision": 0.42857142857142855,
+          "recall": 0.5625,
+          "f1": 0.4864864864864864,
+          "support": 16
+        },
+        {
+          "label": 1,
+          "class_name": "calm",
+          "precision": 0.6388888888888888,
+          "recall": 0.71875,
+          "f1": 0.676470588235294,
+          "support": 32
+        },
+        {
+          "label": 2,
+          "class_name": "happy",
+          "precision": 0.5882352941176471,
+          "recall": 0.3125,
+          "f1": 0.40816326530612246,
+          "support": 32
+        },
+        {
+          "label": 3,
+          "class_name": "sad",
+          "precision": 0.29508196721311475,
+          "recall": 0.5625,
+          "f1": 0.3870967741935484,
+          "support": 32
+        },
+        {
+          "label": 4,
+          "class_name": "angry",
+          "precision": 0.5952380952380952,
+          "recall": 0.78125,
+          "f1": 0.6756756756756757,
+          "support": 32
+        },
+        {
+          "label": 5,
+          "class_name": "fearful",
+          "precision": 0.6666666666666666,
+          "recall": 0.4375,
+          "f1": 0.5283018867924528,
+          "support": 32
+        },
+        {
+          "label": 6,
+          "class_name": "disgust",
+          "precision": 0.5714285714285714,
+          "recall": 0.25,
+          "f1": 0.34782608695652173,
+          "support": 32
+        },
+        {
+          "label": 7,
+          "class_name": "surprise",
+          "precision": 0.75,
+          "recall": 0.65625,
+          "f1": 0.7,
+          "support": 32
+        }
+      ],
+      "confusion_matrix_counts": [
+        [
+          9,
+          4,
+          0,
+          3,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          4,
+          23,
+          0,
+          3,
+          0,
+          0,
+          2,
+          0
+        ],
+        [
+          5,
+          1,
+          10,
+          6,
+          3,
+          3,
+          0,
+          4
+        ],
+        [
+          0,
+          5,
+          0,
+          18,
+          1,
+          2,
+          4,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          5,
+          25,
+          2,
+          0,
+          0
+        ],
+        [
+          2,
+          3,
+          2,
+          10,
+          0,
+          14,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          3,
+          8,
+          12,
+          0,
+          8,
+          0
+        ],
+        [
+          0,
+          0,
+          2,
+          8,
+          1,
+          0,
+          0,
+          21
+        ]
+      ]
+    },
+    "test": null
+  },
+  "artifacts": {
+    "original_metrics_ref": "experiment_records/M2_encoder_transformer_s42_20261017_03/original_metrics.json",
+    "predictions_val_ref": "experiment_records/M2_encoder_transformer_s42_20261017_03/predictions_val.csv",
+    "predictions_test_ref": null,
+    "history_ref": "experiment_records/M2_encoder_transformer_s42_20261017_03/history.csv",
+    "checkpoint_ref": "experiment_records/M2_encoder_transformer_s42_20261017_03/best.pt",
+    "checkpoint_sha256": "49a944f1b7e3b7943297b4d141e557c99211d44a4540dedba5f2814451497516",
+    "feature_exports": [],
+    "figures": []
+  },
+  "notes_ref": "notes.md",
+  "provenance": {
+    "historical_group": "M2_audio_encoders_20261017_03",
+    "historical_protocol_ref": "experiment_records/shared/M2/M2_audio_encoders_20261017_03/protocol.json",
+    "historical_protocol_sha256": "ac8e45ddb22013a47878bbbb00792be56044073358c50a9d855d253832a8548d",
+    "original_protocol_file_sha256": "83d0025e4b16440ad8a4a93ea24f8e6badc50eaa59fd524df16b6aee2431a2ad",
+    "original_summary_ref": "experiment_records/M2_encoder_transformer_s42_20261017_03/original_summary.json",
+    "training_input_manifest_ref": "experiment_records/shared/M2/M2_audio_encoders_20261017_03/training_input_manifest.csv",
+    "training_input_manifest_sha256": "378f7824c04de6638bd7547f4be20636cb609732ee104b910de6f08f00a4dd4d",
+    "source_snapshots": [
+      {
+        "ref": "experiment_records/shared/M2/source_snapshots/c14175d16af310735c30699e30677238a2ba280267a9a5a06ec9bed898e7e2d5/train.py",
+        "sha256": "c14175d16af310735c30699e30677238a2ba280267a9a5a06ec9bed898e7e2d5"
+      },
+      {
+        "ref": "experiment_records/shared/M2/source_snapshots/57719638750e4b8a1d94f8c2b2316a8b50cdf3f44122e73fadea81537153b542/models.py",
+        "sha256": "57719638750e4b8a1d94f8c2b2316a8b50cdf3f44122e73fadea81537153b542"
+      },
+      {
+        "ref": "experiment_records/shared/M2/source_snapshots/b5267431dfa1ffe628fcb7cb2ffa6a54fdab0f158bc696e56802a8bbe0662cdb/data.py",
+        "sha256": "b5267431dfa1ffe628fcb7cb2ffa6a54fdab0f158bc696e56802a8bbe0662cdb"
+      }
+    ],
+    "checkpoint_interface_migration": {
+      "change": "class_names[7]: surprised -> surprise; tensor weights unchanged",
+      "original_sha256": "80afd40eb1089500dbc9e5d81ffb8e00f4103ce8935819a52f7350df3d211057",
+      "original_project_relative_path": "runs/tuning_20261017/round_03/transformer/best.pt"
+    },
+    "reproduction_config_ref": "experiment_records/M2_encoder_transformer_s42_20261017_03/training.yaml",
+    "reproduction_command": "cd audio/learned && .venv/bin/python -m ravdess_m2.train --encoder transformer --data data/raw --config ../../experiment_records/M2_encoder_transformer_s42_20261017_03/training.yaml --output runs/reproduce_M2_encoder_transformer_s42_20261017_03",
+    "timestamps_status": "Exact start/finish timestamps not captured; intentionally null. Date in ID identifies historical experiment batch.",
+    "command_status": "Exact invocation not persisted; null; reproduction command supplied separately.",
+    "git_status": "Historical pre-integration Git identity/dirty state unavailable; intentionally null; exact source hashes retained.",
+    "normalization_note": "Class name surprised canonicalized to surprise without changing labels/probabilities or tensor weights.",
+    "current_default_selection": false,
+    "feature_handoff_status": "No feature tensors included in this experiment record. Export the selected checkpoint explicitly; old teammate deliveries do not automatically update.",
+    "recorded_on": "2026-10-20"
+  }
+}

@@ -17,3 +17,7 @@ label_smoothing: 0.05
 class_balance: true
 parallel_models: true
 class_balance_power: 0.5
+warm_start:
+  cnn: ../../experiment_records/M2_encoder_cnn_s42_20261017_02
+  transformer: ../../experiment_records/M2_encoder_transformer_s42_20261017_02
+  bilstm: ../../experiment_records/M2_encoder_bilstm_s42_20261017_03

@@ -1,0 +1,155 @@
+{
+  "encoder": "bilstm",
+  "initialization": {
+    "checkpoint": "runs/tuning_20261018/initialization/bilstm/best.pt",
+    "sha256": "aaec88bff8bf9069bd7f0acefccc1f277160da47ea91c83f70dfa2605516484a",
+    "parent_epoch": 5
+  },
+  "best_epoch": 1,
+  "best_val_macro_f1": 0.3900953983932877,
+  "epochs_completed": 6,
+  "elapsed_seconds": 96.22,
+  "checkpoint": "bilstm/best.pt",
+  "protocol_sha256": "1e8b0278f9b199f5e0005dde20c91f43a8cb05cea218d0acb7cb6ae58be02821",
+  "diagnostic": false,
+  "validation_metrics": {
+    "epoch": 1,
+    "accuracy": 0.4375,
+    "macro_precision": 0.4258058832507362,
+    "macro_recall": 0.41796875,
+    "macro_f1": 0.3900953983932877,
+    "confusion_matrix": [
+      [
+        2,
+        12,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0
+      ],
+      [
+        1,
+        31,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        15,
+        4,
+        1,
+        3,
+        1,
+        6
+      ],
+      [
+        3,
+        7,
+        6,
+        6,
+        0,
+        0,
+        5,
+        5
+      ],
+      [
+        0,
+        2,
+        2,
+        2,
+        23,
+        1,
+        0,
+        2
+      ],
+      [
+        0,
+        4,
+        8,
+        8,
+        1,
+        7,
+        0,
+        4
+      ],
+      [
+        0,
+        6,
+        6,
+        1,
+        9,
+        2,
+        7,
+        1
+      ],
+      [
+        0,
+        5,
+        8,
+        3,
+        2,
+        0,
+        0,
+        14
+      ]
+    ],
+    "per_class": {
+      "neutral": {
+        "precision": 0.2857142857142857,
+        "recall": 0.125,
+        "f1": 0.17391304347826086,
+        "support": 16
+      },
+      "calm": {
+        "precision": 0.45588235294117646,
+        "recall": 0.96875,
+        "f1": 0.62,
+        "support": 32
+      },
+      "happy": {
+        "precision": 0.3333333333333333,
+        "recall": 0.46875,
+        "f1": 0.38961038961038963,
+        "support": 32
+      },
+      "sad": {
+        "precision": 0.25,
+        "recall": 0.1875,
+        "f1": 0.21428571428571427,
+        "support": 32
+      },
+      "angry": {
+        "precision": 0.6388888888888888,
+        "recall": 0.71875,
+        "f1": 0.676470588235294,
+        "support": 32
+      },
+      "fearful": {
+        "precision": 0.5384615384615384,
+        "recall": 0.21875,
+        "f1": 0.3111111111111111,
+        "support": 32
+      },
+      "disgust": {
+        "precision": 0.4666666666666667,
+        "recall": 0.21875,
+        "f1": 0.2978723404255319,
+        "support": 32
+      },
+      "surprise": {
+        "precision": 0.4375,
+        "recall": 0.4375,
+        "f1": 0.4375,
+        "support": 32
+      }
+    },
+    "loss": 1.6661669890085855
+  }
+}
