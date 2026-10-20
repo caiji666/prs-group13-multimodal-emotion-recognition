@@ -1,0 +1,156 @@
+[
+  {
+    "round": 1,
+    "architecture": "Frozen WavLM Base+ layer12 mean pooling \u2192 trainable adapter768\u2192128 \u2192 MLP128\u219264\u21928",
+    "rationale": "Replace from-scratch MFCC encoder with general self-supervised speech representation, retaining baseline as a separate unchanged control.",
+    "config": {
+      "pooling": "mean",
+      "layer": 12,
+      "dropout": 0.3,
+      "input_dropout": 0.1,
+      "learning_rate": 0.001,
+      "weight_decay": 0.01,
+      "batch_size": 32,
+      "epochs": 80,
+      "patience": 12,
+      "seed": 42,
+      "label_smoothing": 0.05,
+      "class_balance": true,
+      "class_balance_power": 0.5,
+      "mixup_alpha": 0.0
+    }
+  },
+  {
+    "round": 2,
+    "architecture": "Frozen WavLM layer12 mean+standard-deviation pooling \u2192 adapter1536\u2192128 \u2192 MLP",
+    "changes": {
+      "pooling": "mean \u2192 mean+std",
+      "adapter_input_dim": "768 \u21921536"
+    },
+    "observed_previous": {
+      "accuracy": 0.675,
+      "macro_f1": 0.6840809441886951
+    },
+    "rationale": "Round01 exceeds baseline; keep seed/head/training settings fixed while adding within-utterance temporal variation statistics. Train downstream head from scratch, no encoder weight changes.",
+    "config": {
+      "pooling": "statistics",
+      "layer": 12,
+      "dropout": 0.3,
+      "input_dropout": 0.1,
+      "learning_rate": 0.001,
+      "weight_decay": 0.01,
+      "batch_size": 32,
+      "epochs": 80,
+      "patience": 12,
+      "seed": 42,
+      "label_smoothing": 0.05,
+      "class_balance": true,
+      "class_balance_power": 0.5,
+      "mixup_alpha": 0.0
+    }
+  },
+  {
+    "round": 3,
+    "architecture": "Frozen WavLM layers6/9/12 \u2192 per-layer standardized mean/std \u2192 learned softmax layer mixture \u2192 adapter1536\u2192128 \u2192 MLP",
+    "changes": {
+      "feature_source": "single last layer12 \u2192 learned mixture of layers6,9,12",
+      "new_trainable_parameters": "three scalar layer logits"
+    },
+    "observed_previous": {
+      "accuracy": 0.725,
+      "macro_f1": 0.7271305568106432
+    },
+    "rationale": "Mean/std improved round02; test whether earlier/mid acoustic layers add emotion/prosody information absent in the final representation. Pool statistics are mixed after per-layer train-only standardization; not claimed to equal std of a mixed sequence.",
+    "config": {
+      "pooling": "statistics",
+      "layer": "mixture",
+      "dropout": 0.3,
+      "input_dropout": 0.1,
+      "learning_rate": 0.001,
+      "weight_decay": 0.01,
+      "batch_size": 32,
+      "epochs": 80,
+      "patience": 12,
+      "seed": 42,
+      "label_smoothing": 0.05,
+      "class_balance": true,
+      "class_balance_power": 0.5,
+      "mixup_alpha": 0.0
+    }
+  },
+  {
+    "round": 4,
+    "architecture": "Frozen WavLM layer6 sequence \u2192 trained projection768\u2192128 \u2192 temporal attention weighted mean/std \u2192 feature128 \u2192 MLP",
+    "changes": {
+      "pooling": "learned layer-wise statistics mixture \u2192 learned temporal attentive statistics",
+      "input": "pooled vectors \u2192 full variable-length sequence",
+      "selected_layer": 6,
+      "learning_rate": ".001 \u2192 .0005",
+      "epochs": "80 \u219260",
+      "patience": "12 \u219210",
+      "input_dropout": ".1 \u21920 (temporal projection does not use channel dropout)"
+    },
+    "observed_previous": {
+      "accuracy": 0.7875,
+      "macro_f1": 0.7806539438219451,
+      "learned_layer_weights": [
+        0.42079922556877136,
+        0.2897769510746002,
+        0.2894238829612732
+      ]
+    },
+    "rationale": "Round03 strongly improved and assigns largest weight to layer6. Test a richer temporal adapter on that layer, keeping 128D learned sequence/pooled interfaces; this changes both pooling and layer source and is a full-pipeline exploration, not isolated attention ablation.",
+    "config": {
+      "pooling": "attentive_statistics",
+      "layer": 6,
+      "dropout": 0.3,
+      "input_dropout": 0.0,
+      "learning_rate": 0.0005,
+      "weight_decay": 0.01,
+      "batch_size": 32,
+      "epochs": 60,
+      "patience": 10,
+      "seed": 42,
+      "label_smoothing": 0.05,
+      "class_balance": true,
+      "class_balance_power": 0.5,
+      "mixup_alpha": 0.0
+    }
+  },
+  {
+    "round": 5,
+    "architecture": "attentive_statistics (same as previous validation-best architecture)",
+    "changes": {
+      "initialization": "warm start from research/speech_transfer/runs/round_04/best.pt",
+      "learning_rate": "0.0005 \u2192 .0002",
+      "weight_decay": ".01 \u2192 .02",
+      "classifier_dropout": ".3 \u2192 .4",
+      "label_smoothing": ".05 \u2192 .02",
+      "mixup_alpha": "0 \u2192 .2 (training pooled features only)",
+      "epochs": "60 \u219250",
+      "patience": "10 unchanged"
+    },
+    "observed_previous": {
+      "accuracy": 0.8083333333333333,
+      "macro_f1": 0.8016737007395132
+    },
+    "rationale": "Temporal attention improved round04; retain architecture and refine from best checkpoint with train-only feature mixup and stronger weight decay/dropout, using lower LR. No validation samples enter augmentation or gradients.",
+    "config": {
+      "pooling": "attentive_statistics",
+      "layer": 6,
+      "dropout": 0.4,
+      "input_dropout": 0.0,
+      "learning_rate": 0.0002,
+      "weight_decay": 0.02,
+      "batch_size": 32,
+      "epochs": 50,
+      "patience": 10,
+      "seed": 42,
+      "label_smoothing": 0.02,
+      "class_balance": true,
+      "class_balance_power": 0.5,
+      "mixup_alpha": 0.2,
+      "warm_start": "research/speech_transfer/runs/round_04/best.pt"
+    }
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "formal_rounds": 5,
+  "validation_predictions_checked": 1200,
+  "raw_wav_validation_predictions_recomputed": 240,
+  "raw_wav_accuracy": 0.8125,
+  "raw_wav_macro_f1": 0.806292282237407,
+  "maximum_probability_difference": 6.556510925292969e-07,
+  "original_tracked_files_unchanged": 497,
+  "test_audio_decoded": false,
+  "test_metrics_computed": false,
+  "upstream_frozen": true
+}

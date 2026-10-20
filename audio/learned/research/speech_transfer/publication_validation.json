@@ -1,0 +1,13 @@
+{
+  "original_mfcc_records": 33,
+  "wavlm_records": 5,
+  "all_records": 38,
+  "wavlm_prediction_rows_checked": 1440,
+  "legacy_validation_prediction_rows_checked": 7920,
+  "unit_tests_passed": 31,
+  "raw_datasets_committed": false,
+  "upstream_weights_committed": false,
+  "upstream_download_pinned": true,
+  "selected_wavlm_run": "M2_encoder_wavlm_s42_20261020_05",
+  "legacy_default_preserved": true
+}

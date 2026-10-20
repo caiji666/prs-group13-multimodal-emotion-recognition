@@ -9,3 +9,7 @@ Validation scores are full-pipeline scores, not isolated feature-quality measure
 Historical patches use zero context to avoid treating patch context spaces as source whitespace. For forensic replay against their declared base, use git apply --unidiff-zero in a separate checkout; current runtime already contains later changes.
 
 Validation: shared/M2/validation_report.json and integration_validation.json. The exact Git-index export passed schema/metric/checkpoint checks and 29 unit tests; default full-data export matched all240 selected validation predictions. Generated feature tensors and diagnostic smoke outputs remain outside Git. Run `cd audio/learned && .venv/bin/python scripts/validate_experiment_records.py` to recheck the published records.
+
+## WavLM extension
+
+Five additional schema-v2 WavLM records bring M2 total to 38. Their upstream encoder is frozen, with downstream adapters/pooling/head trained. Only selected Round05 has final test metrics; prior 33 and WavLM rounds01–04 remain not_run/null. See summary.md. WavLM best.pt files require separately downloaded pinned upstream weights. New records are checked by `python -m research.speech_transfer.validate_records`; the historical validator covers only the original 33 MFCC records.

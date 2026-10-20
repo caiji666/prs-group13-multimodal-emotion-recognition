@@ -1,0 +1,164 @@
+{
+  "config": {
+    "pooling": "attentive_statistics",
+    "layer": 6,
+    "dropout": 0.3,
+    "input_dropout": 0.0,
+    "learning_rate": 0.0005,
+    "weight_decay": 0.01,
+    "batch_size": 32,
+    "epochs": 60,
+    "patience": 10,
+    "seed": 42,
+    "label_smoothing": 0.05,
+    "class_balance": true,
+    "class_balance_power": 0.5,
+    "mixup_alpha": 0.0
+  },
+  "completed_epochs": 26,
+  "elapsed_seconds": 16.780605667,
+  "best_epoch": 16,
+  "accuracy": 0.8083333333333333,
+  "macro_precision": 0.8240512402519868,
+  "macro_recall": 0.80078125,
+  "macro_f1": 0.8016737007395132,
+  "confusion_matrix": [
+    [
+      11,
+      5,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      1,
+      31,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      2,
+      3,
+      19,
+      2,
+      0,
+      5,
+      0,
+      1
+    ],
+    [
+      1,
+      6,
+      0,
+      22,
+      0,
+      1,
+      2,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      31,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      3,
+      1,
+      26,
+      2,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      4,
+      1,
+      1,
+      25,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      2,
+      0,
+      0,
+      0,
+      29
+    ]
+  ],
+  "per_class": {
+    "neutral": {
+      "precision": 0.7333333333333333,
+      "recall": 0.6875,
+      "f1": 0.7096774193548386,
+      "support": 16
+    },
+    "calm": {
+      "precision": 0.6595744680851063,
+      "recall": 0.96875,
+      "f1": 0.7848101265822784,
+      "support": 32
+    },
+    "happy": {
+      "precision": 1.0,
+      "recall": 0.59375,
+      "f1": 0.7450980392156863,
+      "support": 32
+    },
+    "sad": {
+      "precision": 0.6666666666666666,
+      "recall": 0.6875,
+      "f1": 0.676923076923077,
+      "support": 32
+    },
+    "angry": {
+      "precision": 0.9393939393939394,
+      "recall": 0.96875,
+      "f1": 0.9538461538461539,
+      "support": 32
+    },
+    "fearful": {
+      "precision": 0.7647058823529411,
+      "recall": 0.8125,
+      "f1": 0.787878787878788,
+      "support": 32
+    },
+    "disgust": {
+      "precision": 0.8620689655172413,
+      "recall": 0.78125,
+      "f1": 0.8196721311475409,
+      "support": 32
+    },
+    "surprise": {
+      "precision": 0.9666666666666667,
+      "recall": 0.90625,
+      "f1": 0.9354838709677419,
+      "support": 32
+    }
+  },
+  "checkpoint": "research/speech_transfer/runs/round_04/best.pt",
+  "checkpoint_sha256": "0085a26fbca01f76eb4c5423f3cf83be6074d0038a0b3f2d6fdc7ab009185ddf",
+  "test_evaluated": false,
+  "upstream_frozen": true,
+  "train_samples": 960,
+  "val_samples": 240,
+  "checkpoint_roundtrip_verified": true
+}

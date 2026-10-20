@@ -80,3 +80,6 @@ audio/handcrafted/project_tree.txt
 # M2 unified experiment records: 33 full encoder/head checkpoints
 !/experiment_records/M2_*/best.pt
 !/audio/learned/models/tuning_20261018_initialization/*/best.pt
+
+# M2 local feature handoff; excluded from publication by user request
+/Deliverables/

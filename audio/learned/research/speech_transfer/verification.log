@@ -1,0 +1,23 @@
+/Users/yoyozhang/Desktop/prs-group13-multimodal-emotion-recognition/audio/learned/research/speech_transfer/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Best: 5 0.8125 0.806292282237407
+/Users/yoyozhang/Desktop/prs-group13-multimodal-emotion-recognition/audio/learned/research/speech_transfer/.venv/lib/python3.9/site-packages/torch/nn/functional.py:6041: UserWarning: Support for mismatched key_padding_mask and attn_mask is deprecated. Use same type for both instead.
+  warnings.warn(
+Raw-WAV validation recheck 40 /240
+Raw-WAV validation recheck 80 /240
+Raw-WAV validation recheck 120 /240
+Raw-WAV validation recheck 160 /240
+Raw-WAV validation recheck 200 /240
+Raw-WAV validation recheck 240 /240
+{
+  "formal_rounds": 5,
+  "validation_predictions_checked": 1200,
+  "raw_wav_validation_predictions_recomputed": 240,
+  "raw_wav_accuracy": 0.8125,
+  "raw_wav_macro_f1": 0.806292282237407,
+  "maximum_probability_difference": 6.556510925292969e-07,
+  "original_tracked_files_unchanged": 497,
+  "test_audio_decoded": false,
+  "test_metrics_computed": false,
+  "upstream_frozen": true
+}
