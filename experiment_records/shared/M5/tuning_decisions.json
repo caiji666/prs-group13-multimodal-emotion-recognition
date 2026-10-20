@@ -1,0 +1,14 @@
+[
+  {
+    "method": "cross_attention",
+    "accepted": false,
+    "seed42_improvement": 0.015489552370255177,
+    "reason": "No >=0.02 seed42 gain; do not spend extra seeds on exploratory config"
+  },
+  {
+    "method": "concat",
+    "accepted": false,
+    "seed42_improvement": 0.0,
+    "reason": "No >=0.02 seed42 gain; do not spend extra seeds on exploratory config"
+  }
+]

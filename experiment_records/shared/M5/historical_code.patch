@@ -1,0 +1,1360 @@
+--- /dev/null
++++ b/multimodal_fusion/fusion/feature_inputs.py
+@@ -0,0 +1,149 @@
++"""Feature-only handoff adapter. Test features and upstream probabilities are excluded."""
++import csv
++import hashlib
++import zipfile
++from pathlib import Path
++import numpy as np
++from . import CLASSES
++from .data import trial_id
++
++
++def sha256(path):
++    with Path(path).open('rb') as f:
++        return hashlib.file_digest(f, 'sha256').hexdigest()
++
++
++def selected_npz_rows(path, key, indices):
++    """Decode only requested rows of a C-contiguous .npy member, never unpickle.
++
++    Zip seeks may decompress skipped bytes internally, but skipped rows are never
++    decoded as arrays or returned to the experiment. No upstream probs are read.
++    """
++    indices = np.asarray(indices, dtype=np.int64)
++    if len(indices) == 0 or (np.diff(indices) <= 0).any():
++        raise ValueError('Row indices must be nonempty, unique and ascending')
++    with zipfile.ZipFile(path) as archive, archive.open(key + '.npy') as f:
++        version = np.lib.format.read_magic(f)
++        shape, fortran, dtype = np.lib.format._read_array_header(f, version)
++        if fortran or dtype.hasobject or not shape or indices[0] < 0 or indices[-1] >= shape[0]:
++            raise ValueError('Unsupported array format or row indices')
++        start = f.tell()
++        row_size = int(np.prod(shape[1:], dtype=np.int64)) * dtype.itemsize
++        out = np.empty((len(indices), *shape[1:]), dtype=dtype)
++        for j, i in enumerate(indices):
++            f.seek(start + int(i) * row_size)
++            buf = f.read(row_size)
++            if len(buf) != row_size:
++                raise ValueError('Truncated array')
++            out[j] = np.frombuffer(buf, dtype=dtype).reshape(shape[1:])
++    return out
++
++
++def load_development_features(audio_csv, audio_sequences, visual_npz, actor_csv,
++                              expected_counts=None):
++    """Only train/val numeric features are decoded; no test file is opened."""
++    if expected_counts is None:
++        expected_counts = {'train': 960, 'val': 240}
++    with Path(actor_csv).open() as f:
++        rows = list(csv.DictReader(f))
++    actor_map = {int(r['actor_id']): r['split'] for r in rows}
++    if len(rows) != 24 or set(actor_map) != set(range(1,25)):
++        raise ValueError('Expected 24 unique actors')
++    if any(x not in ('train','val','test') for x in actor_map.values()):
++        raise ValueError('Unknown actor split')
++    # Only IDs and splits are read across the whole visual file to select dev rows.
++    with np.load(visual_npz, allow_pickle=False) as z:
++        all_ids, all_splits = z['sample_id'], z['split']
++    if len(set(all_ids.tolist())) != len(all_ids):
++        raise ValueError('Duplicate visual IDs')
++    visual_ix = np.flatnonzero(np.isin(all_splits, ['train','val']))
++    visual_ids = all_ids[visual_ix]
++    visual_splits = all_splits[visual_ix]
++    labels = selected_npz_rows(visual_npz, 'label', visual_ix)
++    pooled = selected_npz_rows(visual_npz, 'pooled_features', visual_ix)
++    sequence = selected_npz_rows(visual_npz, 'sequence_features', visual_ix)
++    if pooled.shape != (len(visual_ix),576) or sequence.shape != (len(visual_ix),16,576):
++        raise ValueError('Expected MobileNet 576D pooled and 16x576 sequence')
++    visual = {}
++    for j,(sid,split,label) in enumerate(zip(visual_ids, visual_splits, labels)):
++        sid = str(sid)
++        if trial_id('03-' + sid + '.wav') != sid:
++            raise ValueError('Invalid canonical visual ID')
++        if int(label) != int(sid.split('-')[1])-1 or actor_map[int(sid[-2:])] != split:
++            raise ValueError('Visual label or split mismatch')
++        visual[sid] = (j, str(split), int(label))
++    audio = {}
++    with Path(audio_csv).open() as f:
++        reader = csv.DictReader(f)
++        metadata = {'sample_id','trial_id','actor_id','emotion_label','split'}
++        feature_keys = [k for k in reader.fieldnames if k not in metadata]
++        if len(feature_keys) != 176:
++            raise ValueError('Expected 176 combined audio features')
++        for row in reader:
++            if row['split'] not in ('train','val'):
++                continue  # Do not convert/consume test feature values.
++            sid = trial_id(row['sample_id'])
++            lab = CLASSES.index('surprise' if row['emotion_label']=='surprised' else row['emotion_label'])
++            if actor_map[int(row['actor_id'])] != row['split'] or int(sid[-2:]) != int(row['actor_id']):
++                raise ValueError('Audio actor/split mismatch')
++            if int(sid.split('-')[1])-1 != lab or sid in audio:
++                raise ValueError('Audio label mismatch or duplicate ID')
++            audio[sid] = (np.asarray([float(row[k]) for k in feature_keys],np.float32),row['split'],lab)
++    if set(audio) != set(visual):
++        raise ValueError('Development audio/visual sample IDs differ')
++    ids = sorted(audio)
++    audio_seq, lengths, opened_paths = [], [], []
++    for sid in ids:
++        ax, split, lab = audio[sid]
++        j, vsplit, vlabel = visual[sid]
++        if (split,lab) != (vsplit,vlabel):
++            raise ValueError('Cross-modal label/split mismatch')
++        path = Path(audio_sequences)/split/f'{sid}.npz'
++        # Path is derived exclusively from train/val records.
++        with np.load(path,allow_pickle=False) as z:
++            seq, length, mask = z['F_sequence'], int(z['length']), z['padding_mask']
++            if str(z['sample_id']) != sid or str(z['split']) != split or int(z['label']) != lab:
++                raise ValueError('Audio sequence metadata mismatch')
++            if int(z['actor_id']) != int(sid[-2:]):
++                raise ValueError('Audio sequence actor mismatch')
++            if seq.shape != (length,128) or length < 1 or mask.dtype != np.bool_ or mask.shape != (length,) or mask.any():
++                raise ValueError('Unexpected audio sequence/mask')
++            if not np.allclose(seq.mean(0),ax[48:],atol=1e-5):
++                raise ValueError('Audio sequence and combined learned feature mismatch')
++            audio_seq.append(seq.copy()); lengths.append(length)
++        opened_paths.append(path)
++    maxlen = max(lengths)
++    padded = np.zeros((len(ids),maxlen,128),np.float32)
++    for i,s in enumerate(audio_seq):
++        padded[i,:len(s)] = s
++    order = np.asarray([visual[s][0] for s in ids])
++    d = {'sample_ids':np.asarray(ids), 'labels':np.asarray([audio[s][2] for s in ids],np.int64),
++         'actors':np.asarray([int(s[-2:]) for s in ids],np.int64),
++         'splits':np.asarray([audio[s][1] for s in ids]),
++         'audio_pooled':np.stack([audio[s][0] for s in ids]),'visual_pooled':pooled[order],
++         'audio_sequence':padded, 'visual_sequence':sequence[order],
++         'audio_lengths':np.asarray(lengths,np.int64),'visual_lengths':np.full(len(ids),16,np.int64)}
++    for key in ('audio_pooled','visual_pooled','audio_sequence','visual_sequence'):
++        if not np.isfinite(d[key]).all():
++            raise ValueError('Nonfinite development features: '+key)
++    for split,n in expected_counts.items():
++        ix = d['splits']==split
++        if ix.sum()!=n or set(d['labels'][ix].tolist())!=set(range(8)):
++            raise ValueError('Unexpected development counts/classes: '+split)
++    source_hashes = {'audio_csv':sha256(audio_csv),'visual_npz':sha256(visual_npz),
++                     'actor_csv':sha256(actor_csv)}
++    sequence_digest = hashlib.sha256()
++    for path in opened_paths:
++        sequence_digest.update(path.name.encode())
++        sequence_digest.update(bytes.fromhex(sha256(path)))
++    source_hashes['ordered_train_val_audio_sequences'] = sequence_digest.hexdigest()
++    audit = {'counts':{s:int((d['splits']==s).sum()) for s in ('train','val')},
++             'test_status':'not_run', 'test_numeric_rows_decoded':0, 'upstream_probabilities_loaded':False,
++             'audio_sequence_files_opened':len(opened_paths),'audio_sequence_splits_opened':['train','val'],
++             'source_hashes':source_hashes,
++             'notes':['Whole-file IDs/splits used for routing only; only train/val feature rows decoded.',
++                      'Shared CSV/NPZ checksums cover whole source containers, not model evaluation.',
++                      'Visual 16 tokens treated as valid as supplied; upstream lengths/mask provenance unconfirmed.',
++                      'Audio pooled=48 handcrafted+128 learned; attention audio sequence is learned-only 128D.',
++                      'Upstream probability order unconfirmed; probability arrays intentionally never loaded.']}
++    return d,audit
+--- /dev/null
++++ b/multimodal_fusion/fusion/feature_pilot.py
+@@ -0,0 +1,188 @@
++"""Train/validation-only frozen-feature fusion; upstream probabilities are never loaded."""
++import argparse
++import copy
++import csv
++import json
++import platform
++import sys
++import time
++from datetime import datetime
++from pathlib import Path
++import numpy as np
++import sklearn
++import torch
++from . import CLASSES
++from .data import fit_normalizers, normalize
++from .experiment import metrics, seed_all, tensor_batch, infer, write_json
++from .feature_inputs import load_development_features, sha256
++from .models import FusionModel
++ROOT = Path(__file__).resolve().parents[2]
++
++
++def val_metrics(y,p):
++    m=metrics(y,p)
++    m.update(n=len(y),macro_precision=m['per_class']['macro avg']['precision'],
++             macro_recall=m['per_class']['macro avg']['recall'])
++    return m
++
++
++def record_run(folder,method,row,settings,audit,output,started,environment):
++    template=ROOT/'docs/templates/run.template.json'
++    record=json.loads(template.read_text()) if template.exists() else {}
++    m=row['val']
++    record.update(run_id=f'M5_fusion_{method}_s{settings["seed"]}_20261019_01',member='M5',
++                  owner='Jiang Yushan',stage='fusion',comparison_group='mobilenet_audio176_pilot_v1',
++                  pipeline_name=f'frozen audio + MobileNet features -> {method} -> MLP',
++                  run_status='completed',test_status='not_run',started_at=started,
++                  finished_at=datetime.now().astimezone().isoformat(),seed=settings['seed'],
++                  class_names=list(CLASSES),metrics_scope='full_pipeline',
++                  counts={'expected':{'train':960,'val':240,'test':240},'actual':{'train':960,'val':240,'test':None}},
++                  environment=environment,source_hashes=audit['source_hashes'],
++                  source_status='Upstream run IDs/checkpoints not supplied; frozen supplied exports used',
++                  command=' '.join(sys.argv),code_snapshot_ref=str(output/'code'))
++    record['split_sha256']=audit['source_hashes']['actor_csv']
++    record['input_manifest_ref']=str(output/'input_manifest.csv')
++    record['input_manifest_sha256']=sha256(output/'input_manifest.csv')
++    per=[{'label':i,'class_name':c,'precision':m['per_class'][c]['precision'],
++          'recall':m['per_class'][c]['recall'],'f1':m['per_class'][c]['f1-score'],
++          'support':int(m['per_class'][c]['support'])} for i,c in enumerate(CLASSES)]
++    record['metrics_by_split']={'val':{'n':240,'accuracy':m['accuracy'],
++           'macro_precision':m['macro_precision'],'macro_recall':m['macro_recall'],
++           'macro_f1':m['macro_f1'],'per_class':per,'confusion_matrix_counts':m['confusion_matrix']},'test':None}
++    record['training']={'regime':'frozen_encoder_then_classifier','optimizer':'AdamW',
++           'learning_rate':settings['lr'],'batch_size':settings['batch_size'],
++           'max_epochs':settings['epochs'],'completed_epochs':row['completed_epochs'],
++           'early_stopping_patience':settings['patience'],'class_weighting':'none'}
++    record['selection']={'metric':'macro_f1','split':'val','best_epoch':row['best_epoch'],
++                         'selected_for_next_stage':None,'test_first_evaluated_at':None,
++                         'tie_break_rule':'retain earlier epoch','selection_reason':'Single-seed pilot only'}
++    record['pipeline']={'feature_extractors':[
++        {'component_id':'audio_supplied','method':'M1 48D + M2 learned128D; seq128D',
++         'trainable_in_this_run':False,'source_run_id':None},
++        {'component_id':'visual_supplied','method':'MobileNetV3-Small (supplier filename)',
++         'trainable_in_this_run':False,'source_run_id':None}],
++        'representation':{'normalization':'per-dimension standardization','normalization_fit_split':'train',
++                          'audio_pooled_dim':176,'visual_pooled_dim':576,'audio_sequence_dim':128,
++                          'visual_sequence_dim':576,'visual_tokens_assumed_valid':16},
++        'fusion':{'applied':True,'method':method,'parameters':settings,'trainable_in_this_run':True},
++        'classifier':{'type':'MLP','input_dim':752 if method=='concat' else settings['hidden'],
++                      'hidden_dims':[settings['hidden']],'output_dim':8,'activation':'ReLU',
++                      'dropout':settings['dropout'],'probability_method':'softmax','trainable_in_this_run':True}}
++    record['artifacts']={'predictions_val_ref':str(folder/'predictions_val.csv'),'predictions_test_ref':None,
++                         'checkpoint_ref':str(folder/'checkpoint.pt'),'checkpoint_sha256':sha256(folder/'checkpoint.pt'),
++                         'history_ref':str(folder/'history.json'),'original_metrics_ref':str(folder/'metrics.json')}
++    record['limitations']=audit['notes']
++    write_json(folder/'run.json',record)
++
++
++def run(audio_csv, audio_sequences, visual_npz, actor_csv, output, epochs=30,
++        patience=8, seed=42, batch_size=64, hidden=64, heads=4, dropout=.2, lr=.001):
++    if min(epochs,patience,batch_size,hidden,heads)<1 or hidden%heads or lr<=0 or not 0<=dropout<1:
++        raise ValueError('Invalid training parameters')
++    output=Path(output)
++    if output.exists() and any(output.iterdir()):
++        raise ValueError('Use a fresh output directory')
++    output.mkdir(parents=True,exist_ok=True)
++    started=datetime.now().astimezone().isoformat();clock=time.monotonic()
++    raw,audit=load_development_features(audio_csv,audio_sequences,visual_npz,actor_csv)
++    write_json(output/'adapter_audit.json',audit)
++    np.savez_compressed(output/'development_features.npz',**raw)
++    with (output/'input_manifest.csv').open('w',newline='') as f:
++        w=csv.writer(f);w.writerow(['sample_id','actor_id','split','label'])
++        w.writerows(zip(raw['sample_ids'],raw['actors'],raw['splits'],raw['labels']))
++    train=np.flatnonzero(raw['splits']=='train');val=np.flatnonzero(raw['splits']=='val')
++    stats=fit_normalizers(raw,train)
++    d=normalize(raw,stats)
++    config=dict(audio_dim=176,visual_dim=576,audio_seq_dim=128,visual_seq_dim=576,
++                hidden=hidden,heads=heads,dropout=dropout)
++    settings=dict(epochs=epochs,patience=patience,seed=seed,batch_size=batch_size,lr=lr,
++                  optimizer='AdamW',weight_decay=1e-4,gradient_clip=1.,device='cpu',**config)
++    report={'scope':'Real frozen-feature fusion pilot, train/validation only',
++            'started_at':started,'test_status':'not_run','test':None,'decision_fusion':'deferred',
++            'seed':seed,'settings':settings,'counts':audit['counts'],'class_names':list(CLASSES),
++            'environment':{'python':platform.python_version(),'torch':str(torch.__version__),
++                           'numpy':np.__version__,'sklearn':sklearn.__version__,'device':'cpu'},
++            'assumptions':audit['notes'],'source_hashes':audit['source_hashes'],'models':{}}
++    snapshot=output/'code';snapshot.mkdir()
++    for name in ('__init__.py','feature_inputs.py','feature_pilot.py','models.py','data.py','experiment.py'):
++        source=Path(__file__).with_name(name)
++        (snapshot/name).write_bytes(source.read_bytes())
++    write_json(output/'code_hashes.json',{p.name:sha256(p) for p in snapshot.iterdir()})
++    for method in ('concat','gated','cross_attention'):
++        seed_all(seed)
++        folder=output/method;folder.mkdir()
++        model=FusionModel(method,**config)
++        opt=torch.optim.AdamW(model.parameters(),lr=lr,weight_decay=1e-4)
++        best=-1.;best_state=None;stale=0;history=[];t0=time.monotonic()
++        for epoch in range(1,epochs+1):
++            model.train();loss_sum=0.
++            for j in range(0,len(train),batch_size):
++                if j==0:
++                    order=np.random.permutation(train)
++                ix=order[j:j+batch_size]
++                opt.zero_grad()
++                logits=model(tensor_batch(d,ix,'cpu'))
++                loss=torch.nn.functional.cross_entropy(logits,torch.as_tensor(d['labels'][ix],dtype=torch.long))
++                if not torch.isfinite(loss):
++                    raise ValueError('Nonfinite loss in '+method)
++                loss.backward();torch.nn.utils.clip_grad_norm_(model.parameters(),1.);opt.step()
++                loss_sum+=float(loss.detach())*len(ix)
++            p=infer(model,d,val,'cpu',batch_size)
++            score=val_metrics(d['labels'][val],p)
++            history.append({'epoch':epoch,'train_loss':loss_sum/len(train),
++                            'val_macro_f1':score['macro_f1'],'val_accuracy':score['accuracy']})
++            if score['macro_f1']>best+1e-8:
++                best=score['macro_f1'];best_epoch=epoch;stale=0
++                best_state=copy.deepcopy(model.state_dict())
++            else:
++                stale+=1
++            print(f'{method} epoch={epoch} train_loss={loss_sum/len(train):.4f} val_f1={score["macro_f1"]:.4f}',flush=True)
++            if stale>=patience:
++                break
++        model.load_state_dict(best_state)
++        probs=infer(model,d,val,'cpu',batch_size)
++        checkpoint={'method':method,'config':config,'state_dict':best_state,'normalizers':stats,
++                    'class_names':list(CLASSES),'best_epoch':best_epoch,'seed':seed,
++                    'test_status':'not_run','source_hashes':audit['source_hashes'],
++                    'input_scope':'development train/val only','assumptions':audit['notes']}
++        torch.save(checkpoint,folder/'checkpoint.pt')
++        ck=torch.load(folder/'checkpoint.pt',map_location='cpu',weights_only=True)
++        restored=FusionModel(ck['method'],**ck['config']);restored.load_state_dict(ck['state_dict'])
++        np.testing.assert_allclose(infer(restored,d,val,'cpu',batch_size),probs,rtol=1e-5,atol=1e-6)
++        m=val_metrics(d['labels'][val],probs)
++        row={'best_epoch':best_epoch,'completed_epochs':len(history),'val':m,'test':None,
++             'test_status':'not_run','parameters':sum(p.numel() for p in model.parameters()),
++             'training_seconds':time.monotonic()-t0,'checkpoint_roundtrip_verified':True}
++        report['models'][method]=row
++        write_json(folder/'metrics.json',row);write_json(folder/'history.json',history)
++        with (folder/'predictions_val.csv').open('w',newline='') as f:
++            w=csv.writer(f);w.writerow(['sample_id','actor_id','split','label','prediction',*CLASSES])
++            for i,p in zip(val,probs):
++                w.writerow([d['sample_ids'][i],int(d['actors'][i]),'val',int(d['labels'][i]),int(p.argmax()),*p.tolist()])
++        record_run(folder,method,row,settings,audit,output,started,report['environment'])
++        write_json(output/'validation_metrics.json',report)
++        print(f'{method} BEST epoch={best_epoch} val_macro_f1={best:.4f}',flush=True)
++    report['selected_by_validation']=max(report['models'],key=lambda k:report['models'][k]['val']['macro_f1'])
++    report['elapsed_seconds']=time.monotonic()-clock
++    report['finished_at']=datetime.now().astimezone().isoformat()
++    write_json(output/'validation_metrics.json',report)
++    with (output/'summary.csv').open('w',newline='') as f:
++        w=csv.writer(f);w.writerow(['method','seed','val_macro_f1','val_accuracy','best_epoch','completed_epochs','test_status'])
++        for name,r in report['models'].items():
++            w.writerow([name,seed,r['val']['macro_f1'],r['val']['accuracy'],r['best_epoch'],r['completed_epochs'],'not_run'])
++    print('Finished. Validation-selected:',report['selected_by_validation'],'Test: not_run',flush=True)
++    return report
++
++
++if __name__=='__main__':
++    p=argparse.ArgumentParser(description=__doc__)
++    p.add_argument('--audio-csv',default=str(ROOT/'features/Audio_Handoff/features/audio_fused_176d.csv'))
++    p.add_argument('--audio-sequences',default=str(ROOT/'features/Audio_dl_feature_only/per_sample'))
++    p.add_argument('--visual-npz',default=str(ROOT/'features/mobilenetv3_small_features.npz'))
++    p.add_argument('--actor-csv',default=str(ROOT/'multimodal_fusion/configs/actor_splits.csv'))
++    p.add_argument('--output',required=True)
++    for name,default in [('epochs',30),('patience',8),('seed',42),('batch-size',64),('hidden',64),('heads',4)]:
++        p.add_argument('--'+name,type=int,default=default)
++    p.add_argument('--dropout',type=float,default=.2)
++    p.add_argument('--lr',type=float,default=.001)
++    run(**vars(p.parse_args()))
+--- /dev/null
++++ b/multimodal_fusion/fusion/final_evaluation.py
+@@ -0,0 +1,236 @@
++"""Locked-checkpoint final evaluation; provisional decision fusion with explicit class-order assumption."""
++import argparse
++import csv
++import json
++from datetime import datetime
++from pathlib import Path
++import numpy as np
++import torch
++from . import CLASSES
++from .data import trial_id, normalize
++from .experiment import seed_all, infer, write_json
++from .feature_inputs import selected_npz_rows, sha256
++from .feature_pilot import val_metrics
++from .models import FusionModel
++
++ROOT=Path(__file__).resolve().parents[2]
++
++
++def read_actor_map(path):
++    with Path(path).open() as f:rows=list(csv.DictReader(f))
++    mapping={int(r['actor_id']):r['split'] for r in rows}
++    if len(rows)!=24 or set(mapping)!=set(range(1,25)):
++        raise ValueError('Expected 24 unique actors')
++    return mapping
++
++
++def load_test_features(audio_csv,audio_sequences,visual_npz,actor_csv,expected_n=240):
++    mapping=read_actor_map(actor_csv)
++    with np.load(visual_npz,allow_pickle=False) as z:
++        all_ids,all_splits=z['sample_id'],z['split']
++    if len(set(all_ids.tolist()))!=len(all_ids):raise ValueError('Duplicate visual IDs')
++    ix=np.flatnonzero(all_splits=='test');ids=all_ids[ix]
++    if len(ids)!=expected_n:raise ValueError('Unexpected test count')
++    labels=selected_npz_rows(visual_npz,'label',ix)
++    pooled=selected_npz_rows(visual_npz,'pooled_features',ix)
++    sequence=selected_npz_rows(visual_npz,'sequence_features',ix)
++    if pooled.shape!=(expected_n,576) or sequence.shape!=(expected_n,16,576):
++        raise ValueError('Unexpected visual feature shape')
++    visual={str(s):(j,int(l)) for j,(s,l) in enumerate(zip(ids,labels))}
++    audio={}
++    with Path(audio_csv).open() as f:
++        reader=csv.DictReader(f)
++        metadata={'sample_id','trial_id','actor_id','emotion_label','split'}
++        keys=[k for k in reader.fieldnames if k not in metadata]
++        if len(keys)!=176:raise ValueError('Expected 176D audio')
++        for r in reader:
++            if r['split']!='test':continue
++            sid=trial_id(r['sample_id']);actor=int(sid[-2:])
++            lab=CLASSES.index('surprise' if r['emotion_label']=='surprised' else r['emotion_label'])
++            if mapping[actor]!='test' or int(r['actor_id'])!=actor or int(sid.split('-')[1])-1!=lab:
++                raise ValueError('Audio test metadata mismatch')
++            if sid in audio:raise ValueError('Duplicate audio ID')
++            audio[sid]=(np.asarray([float(r[k]) for k in keys],np.float32),lab)
++    if set(audio)!=set(visual):raise ValueError('Test pair ID mismatch')
++    ids=sorted(audio);seqs=[];lengths=[]
++    for sid in ids:
++        j,lab=visual[sid]
++        if trial_id('03-'+sid+'.wav')!=sid or mapping[int(sid[-2:])]!='test' or lab!=audio[sid][1]:
++            raise ValueError('Visual metadata mismatch')
++        with np.load(Path(audio_sequences)/'test'/f'{sid}.npz',allow_pickle=False) as z:
++            seq=z['F_sequence'];length=int(z['length']);mask=z['padding_mask']
++            if (str(z['sample_id']),str(z['split']),int(z['label']),int(z['actor_id']))!=(sid,'test',lab,int(sid[-2:])):
++                raise ValueError('Sequence metadata mismatch')
++            if seq.shape!=(length,128) or length<1 or mask.dtype!=np.bool_ or mask.shape!=(length,) or mask.any():
++                raise ValueError('Bad test sequence')
++            if not np.allclose(seq.mean(0),audio[sid][0][48:],atol=1e-5):
++                raise ValueError('Sequence/pooled mismatch')
++            seqs.append(seq.copy());lengths.append(length)
++    padded=np.zeros((len(ids),max(lengths),128),np.float32)
++    for i,s in enumerate(seqs):padded[i,:len(s)]=s
++    order=np.asarray([visual[s][0] for s in ids])
++    d={'sample_ids':np.asarray(ids),'labels':np.asarray([audio[s][1] for s in ids],np.int64),
++       'actors':np.asarray([int(s[-2:]) for s in ids],np.int64),'splits':np.full(len(ids),'test'),
++       'audio_pooled':np.stack([audio[s][0] for s in ids]),'visual_pooled':pooled[order],
++       'audio_sequence':padded,'visual_sequence':sequence[order],
++       'audio_lengths':np.asarray(lengths,np.int64),'visual_lengths':np.full(len(ids),16,np.int64)}
++    for k in ('audio_pooled','visual_pooled','audio_sequence','visual_sequence'):
++        if not np.isfinite(d[k]).all():raise ValueError('Nonfinite test input '+k)
++    if set(d['labels'].tolist())!=set(range(8)):raise ValueError('Missing test class')
++    return d
++
++
++def load_probabilities(visual_npz,audio_dir,split,actor_csv,expected_n=240):
++    mapping=read_actor_map(actor_csv)
++    with np.load(visual_npz,allow_pickle=False) as z:ids=z['sample_id'];splits=z['split']
++    ix=np.flatnonzero(splits==split)
++    vp=selected_npz_rows(visual_npz,'probabilities',ix)
++    labels=selected_npz_rows(visual_npz,'label',ix)
++    visual={str(s):(int(l),p) for s,l,p in zip(ids[ix],labels,vp)}
++    audio={}
++    with (Path(audio_dir)/f'audio_probabilities_{split}.csv').open() as f:
++        reader=csv.DictReader(f)
++        keys=[k for k in reader.fieldnames if k.startswith('prob_')]
++        if keys!=['prob_'+c for c in CLASSES]:raise ValueError('Unexpected audio probability order')
++        for r in reader:
++            sid=trial_id(r['sample_id']);lab=CLASSES.index('surprise' if r['emotion_label']=='surprised' else r['emotion_label'])
++            if r['split']!=split or mapping[int(sid[-2:])]!=split or lab!=int(sid.split('-')[1])-1:
++                raise ValueError('Probability metadata mismatch')
++            if sid in audio:raise ValueError('Duplicate probability ID')
++            audio[sid]=(lab,np.asarray([float(r[k]) for k in keys]))
++    if len(audio)!=expected_n or set(audio)!=set(visual):raise ValueError('Probability pair mismatch')
++    ids=sorted(audio)
++    if any(audio[s][0]!=visual[s][0] for s in ids):raise ValueError('Probability label mismatch')
++    pa=np.stack([audio[s][1] for s in ids]);pv=np.stack([visual[s][1] for s in ids])
++    for p in (pa,pv):
++        if not np.isfinite(p).all() or (p<0).any() or not np.allclose(p.sum(1),1,atol=1e-5):
++            raise ValueError('Invalid probabilities')
++    return np.asarray(ids),np.asarray([audio[s][0] for s in ids]),pa,pv
++
++
++def select_alpha(y,a,v):
++    grid=[{'alpha_audio':float(alpha),'val_macro_f1':val_metrics(y,alpha*a+(1-alpha)*v)['macro_f1']}
++          for alpha in np.linspace(0,1,21)]
++    winner=max(grid,key=lambda r:(r['val_macro_f1'],-abs(r['alpha_audio']-.5)))
++    return winner['alpha_audio'],grid
++
++
++def save_predictions(path,ids,labels,split,probs):
++    with Path(path).open('w',newline='') as f:
++        w=csv.writer(f);w.writerow(['sample_id','actor_id','split','label','prediction',*CLASSES])
++        for sid,l,p in zip(ids,labels,probs):w.writerow([sid,int(sid[-2:]),split,int(l),int(p.argmax()),*map(float,p)])
++
++
++def metric_record(m):
++    return {'n':m['n'],'accuracy':m['accuracy'],'macro_precision':m['macro_precision'],
++            'macro_recall':m['macro_recall'],'macro_f1':m['macro_f1'],
++            'per_class':[{'label':i,'class_name':c,'precision':m['per_class'][c]['precision'],
++                         'recall':m['per_class'][c]['recall'],'f1':m['per_class'][c]['f1-score'],
++                         'support':int(m['per_class'][c]['support'])} for i,c in enumerate(CLASSES)],
++            'confusion_matrix_counts':m['confusion_matrix']}
++
++
++def run(study,output):
++    study=Path(study);output=Path(output)
++    if output.exists():raise ValueError('Use a new output directory')
++    output.mkdir(parents=True);seed_all(0)
++    rows=json.loads((study/'default_runs.json').read_text())
++    summaries=json.loads((study/'default_summary.json').read_text())
++    source=json.loads((study/'source_audit.json').read_text())
++    actor_csv=ROOT/'multimodal_fusion/configs/actor_splits.csv'
++    audio_csv=ROOT/'features/Audio_Handoff/features/audio_fused_176d.csv'
++    visual_npz=ROOT/'features/mobilenetv3_small_features.npz'
++    audio_dir=ROOT/'features/Audio_Handoff/probabilities'
++    sequence_dir=ROOT/'features/Audio_dl_feature_only/per_sample'
++    for key,path in [('actor_csv',actor_csv),('audio_csv',audio_csv),('visual_npz',visual_npz)]:
++        if sha256(path)!=source['source_hashes'][key]:raise ValueError('Upstream features changed '+key)
++    primary=max(('concat','gated','cross_attention'),key=lambda m:summaries[m]['macro_f1_mean'])
++    baseline=max(('audio_only','visual_only'),key=lambda m:summaries[m]['macro_f1_mean'])
++    locked=[]
++    for row in rows:
++        folder=Path(row['folder'])
++        if not folder.exists():folder=ROOT/'multimodal_fusion'/folder
++        ck_path=folder/'checkpoint.pt';ck=torch.load(ck_path,weights_only=True,map_location='cpu')
++        if ck['config']['hidden']!=64 or ck['config']['dropout']!=.2 or ck['seed']!=row['seed']:
++            raise ValueError('Unexpected configuration')
++        locked.append({'method':row['method'],'seed':row['seed'],'best_epoch':ck['best_epoch'],
++                       'checkpoint':str(ck_path),'checkpoint_sha256':sha256(ck_path)})
++    # No test features/probabilities have been loaded. Lock candidates and decision search rules first.
++    plan={'locked_at':datetime.now().astimezone().isoformat(),'primary_method_selected_by_validation':primary,
++          'strongest_matched_unimodal_selected_by_validation':baseline,'candidates':locked,
++          'excluded':'Four exploratory single-seed tuning runs not selected by validation policy',
++          'decision_search':{'split':'val','alpha_audio_grid':[float(x) for x in np.linspace(0,1,21)],'tie_break':'closest to 0.5'},
++          'visual_probability_order_status':'unconfirmed_user_authorized_provisional',
++          'assumed_visual_probability_order':list(CLASSES),'no_probability_permutation_search':True,
++          'no_training_or_scaler_refitting':True,'no_reselection_from_test':True}
++    write_json(output/'locked_plan.json',plan)
++    # User explicitly authorizes trying the agreed order provisionally; do not infer it from scores.
++    vids,vy,va,vv=load_probabilities(visual_npz,audio_dir,'val',actor_csv)
++    alpha,grid=select_alpha(vy,va,vv)
++    write_json(output/'decision_validation_grid.json',grid)
++    write_json(output/'locked_decision.json',{'locked_before_test':True,'alpha_audio':alpha,'selected_using':'val_macro_f1',
++              'visual_class_order_confirmed':False,'assumed_order':list(CLASSES),'provisional':True})
++    result={'primary_method_selected_by_validation':primary,'baseline_selected_by_validation':baseline,
++            'models':[],'decision':{},'class_names':list(CLASSES),'test_status':'completed','no_retraining':True,
++            'provisional_decision_order':True,'test_started_at':datetime.now().astimezone().isoformat()}
++    raw=load_test_features(audio_csv,sequence_dir,visual_npz,actor_csv)
++    with (output/'test_manifest.csv').open('w',newline='') as f:
++        w=csv.writer(f);w.writerow(['sample_id','actor_id','split','label'])
++        w.writerows(zip(raw['sample_ids'],raw['actors'],raw['splits'],raw['labels']))
++    for row,lock in zip(rows,locked):
++        ck=torch.load(lock['checkpoint'],weights_only=True,map_location='cpu')
++        if sha256(lock['checkpoint'])!=lock['checkpoint_sha256']:raise ValueError('Checkpoint changed after locking')
++        d=normalize(raw,ck['normalizers'])
++        model=FusionModel(ck['method'],**ck['config']).eval();model.load_state_dict(ck['state_dict'])
++        probs=infer(model,d,np.arange(len(raw['labels'])),'cpu')
++        m=val_metrics(raw['labels'],probs)
++        folder=output/f'{row["method"]}_s{row["seed"]}';folder.mkdir()
++        save_predictions(folder/'predictions_test.csv',raw['sample_ids'],raw['labels'],'test',probs)
++        record=dict(method=row['method'],seed=row['seed'],val=row['val'],test=m,checkpoint=lock['checkpoint'],
++                    checkpoint_sha256=lock['checkpoint_sha256'],best_epoch=ck['best_epoch'],test_status='completed')
++        write_json(folder/'metrics.json',record);result['models'].append(record)
++        # Extend the same upstream run record; checkpoint weights/history remain unchanged.
++        source_run=Path(lock['checkpoint']).parent/'run.json'
++        run_record=json.loads(source_run.read_text())
++        run_record['test_status']='completed';run_record['metrics_by_split']['test']=metric_record(m)
++        run_record['counts']['actual']['test']=240
++        run_record['selection']['test_first_evaluated_at']=result['test_started_at']
++        run_record['artifacts']['predictions_test_ref']=str(folder/'predictions_test.csv')
++        write_json(folder/'run.json',run_record);write_json(source_run,run_record)
++        write_json(output/'results.json',result)
++        print(f'{row["method"]} s{row["seed"]}: test F1={m["macro_f1"]:.4f}',flush=True)
++    tids,ty,ta,tv=load_probabilities(visual_npz,audio_dir,'test',actor_csv)
++    if not np.array_equal(tids,raw['sample_ids']) or not np.array_equal(ty,raw['labels']):
++        raise ValueError('Test probability/feature alignment mismatch')
++    for name,weight in [('upstream_audio',1.),('upstream_visual_assumed_order',0.),('decision_equal',.5),('decision_tuned',alpha)]:
++        valp=weight*va+(1-weight)*vv;testp=weight*ta+(1-weight)*tv
++        provisional=name!='upstream_audio'
++        folder=output/name;folder.mkdir()
++        record={'alpha_audio':weight,'val':val_metrics(vy,valp),'test':val_metrics(ty,testp),
++                'provisional_unconfirmed_visual_class_order':provisional,'assumed_class_names':list(CLASSES),
++                'test_status':'completed','weight_selection':'val only'}
++        write_json(folder/'metrics.json',record)
++        save_predictions(folder/'predictions_val.csv',vids,vy,'val',valp)
++        save_predictions(folder/'predictions_test.csv',tids,ty,'test',testp)
++        result['decision'][name]=record
++    summary={}
++    for method in summaries:
++        rr=[r for r in result['models'] if r['method']==method]
++        for split in ('val','test'):
++            f1=np.array([r[split]['macro_f1'] for r in rr]);acc=np.array([r[split]['accuracy'] for r in rr])
++            summary.setdefault(method,{})[split]={'n':len(rr),'macro_f1_mean':float(f1.mean()),'macro_f1_std':float(f1.std(ddof=1)),
++                                                    'accuracy_mean':float(acc.mean()),'accuracy_std':float(acc.std(ddof=1))}
++    result['summary']=summary;result['test_finished_at']=datetime.now().astimezone().isoformat()
++    result['primary_test_delta_vs_matched_baseline']=summary[primary]['test']['macro_f1_mean']-summary[baseline]['test']['macro_f1_mean']
++    write_json(output/'results.json',result)
++    with (output/'summary.csv').open('w',newline='') as f:
++        w=csv.writer(f);w.writerow(['method','n','val_macro_f1_mean','test_macro_f1_mean','test_macro_f1_std','test_accuracy_mean','provisional'])
++        for method,s in summary.items():w.writerow([method,3,s['val']['macro_f1_mean'],s['test']['macro_f1_mean'],s['test']['macro_f1_std'],s['test']['accuracy_mean'],False])
++        for method,r in result['decision'].items():w.writerow([method,1,r['val']['macro_f1'],r['test']['macro_f1'],None,r['test']['accuracy'],r['provisional_unconfirmed_visual_class_order']])
++    print('Locked final evaluation complete; decision results remain provisional.',flush=True)
++    return result
++
++
++if __name__=='__main__':
++    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--study',required=True);p.add_argument('--output',required=True)
++    a=p.parse_args();run(a.study,a.output)
+--- a/multimodal_fusion/fusion/models.py
++++ b/multimodal_fusion/fusion/models.py
+@@ -11,7 +11,12 @@
+                  hidden=64, heads=4, dropout=0.2):
+         super().__init__()
+         self.method = method
+-        if method == 'concat':
++        if method in ('audio_only', 'visual_only'):
++            self.classifier = head(audio_dim if method == 'audio_only' else visual_dim, hidden, dropout)
++        elif method in ('audio_sequence_mean', 'sequence_mean_concat'):
++            dim = audio_seq_dim + (visual_seq_dim if method == 'sequence_mean_concat' else 0)
++            self.classifier = head(dim, hidden, dropout)
++        elif method == 'concat':
+             self.classifier = head(audio_dim + visual_dim, hidden, dropout)
+         elif method == 'gated':
+             self.audio = nn.Linear(audio_dim, hidden)
+@@ -29,7 +34,22 @@
+         else:
+             raise ValueError(f'Unknown model {method}')
+ 
++    @staticmethod
++    def sequence_mean(batch, modality):
++        x = batch[modality + '_sequence']
++        lengths = batch[modality + '_lengths']
++        valid = torch.arange(x.shape[1], device=x.device)[None, :] < lengths[:, None]
++        return (x * valid[..., None]).sum(1) / lengths[:, None]
++
+     def forward(self, batch):
++        if self.method in ('audio_only', 'visual_only'):
++            modality = self.method.split('_')[0]
++            return self.classifier(batch[modality + '_pooled'])
++        if self.method in ('audio_sequence_mean', 'sequence_mean_concat'):
++            pooled = self.sequence_mean(batch, 'audio')
++            if self.method == 'sequence_mean_concat':
++                pooled = torch.cat([pooled, self.sequence_mean(batch, 'visual')], -1)
++            return self.classifier(pooled)
+         if self.method == 'concat':
+             return self.classifier(torch.cat([batch['audio_pooled'], batch['visual_pooled']], -1))
+         if self.method == 'gated':
+--- /dev/null
++++ b/multimodal_fusion/fusion/study.py
+@@ -0,0 +1,187 @@
++"""Bounded multi-seed validation study, controls and targeted regularization search."""
++import argparse
++import copy
++import csv
++import json
++import platform
++import shutil
++import subprocess
++import sys
++import time
++from datetime import datetime
++from pathlib import Path
++import numpy as np
++import torch
++from . import CLASSES
++from .data import fit_normalizers, normalize
++from .experiment import seed_all, infer, tensor_batch, write_json
++from .feature_inputs import sha256
++from .feature_pilot import val_metrics
++from .models import FusionModel
++
++METHODS=('audio_only','visual_only','concat','gated','cross_attention','audio_sequence_mean','sequence_mean_concat')
++FUSIONS=('concat','gated','cross_attention')
++ROOT=Path(__file__).resolve().parents[2]
++
++
++def write_predictions(path,d,ix,probs):
++    with Path(path).open('w',newline='') as f:
++        w=csv.writer(f);w.writerow(['sample_id','actor_id','split','label','prediction',*CLASSES])
++        for i,p in zip(ix,probs):
++            w.writerow([d['sample_ids'][i],int(d['actors'][i]),'val',int(d['labels'][i]),int(p.argmax()),*map(float,p)])
++
++
++def fit_run(d,stats,audit,method,seed,folder,hidden=64,dropout=.2,epochs=30):
++    folder=Path(folder)
++    if folder.exists():
++        raise ValueError('Refusing to overwrite '+str(folder))
++    folder.mkdir(parents=True)
++    seed_all(seed);started=time.monotonic()
++    train=np.flatnonzero(d['splits']=='train');val=np.flatnonzero(d['splits']=='val')
++    config=dict(audio_dim=176,visual_dim=576,audio_seq_dim=128,visual_seq_dim=576,hidden=hidden,heads=4,dropout=dropout)
++    model=FusionModel(method,**config)
++    opt=torch.optim.AdamW(model.parameters(),lr=.001,weight_decay=1e-4)
++    best=-1;stale=0;history=[]
++    for epoch in range(1,epochs+1):
++        model.train();order=np.random.permutation(train);loss_sum=0.
++        for j in range(0,len(order),64):
++            ix=order[j:j+64];opt.zero_grad()
++            logits=model(tensor_batch(d,ix,'cpu'))
++            loss=torch.nn.functional.cross_entropy(logits,torch.as_tensor(d['labels'][ix],dtype=torch.long))
++            if not torch.isfinite(loss):raise ValueError('Nonfinite loss')
++            loss.backward();torch.nn.utils.clip_grad_norm_(model.parameters(),1.);opt.step()
++            loss_sum+=float(loss.detach())*len(ix)
++        score=val_metrics(d['labels'][val],infer(model,d,val,'cpu'))
++        history.append(dict(epoch=epoch,train_loss=loss_sum/len(train),val_macro_f1=score['macro_f1'],val_accuracy=score['accuracy']))
++        if score['macro_f1']>best+1e-8:
++            best=score['macro_f1'];best_epoch=epoch;state=copy.deepcopy(model.state_dict());stale=0
++        else:stale+=1
++        if stale>=8:break
++    model.load_state_dict(state);probs=infer(model,d,val,'cpu')
++    ck=dict(method=method,config=config,state_dict=state,normalizers=stats,class_names=list(CLASSES),
++            seed=seed,best_epoch=best_epoch,test_status='not_run',source_hashes=audit['source_hashes'],assumptions=audit['notes'])
++    torch.save(ck,folder/'checkpoint.pt')
++    loaded=torch.load(folder/'checkpoint.pt',weights_only=True,map_location='cpu')
++    restored=FusionModel(method,**loaded['config']);restored.load_state_dict(loaded['state_dict'])
++    np.testing.assert_allclose(infer(restored,d,val,'cpu'),probs,atol=1e-6,rtol=1e-5)
++    row=dict(method=method,seed=seed,hidden=hidden,dropout=dropout,best_epoch=best_epoch,completed_epochs=len(history),
++             val=val_metrics(d['labels'][val],probs),test=None,test_status='not_run',
++             parameters=sum(p.numel() for p in model.parameters()),training_seconds=time.monotonic()-started,
++             checkpoint_roundtrip_verified=True,folder=str(folder))
++    write_json(folder/'metrics.json',row);write_json(folder/'history.json',history)
++    write_predictions(folder/'predictions_val.csv',d,val,probs)
++    write_run_record(folder,row,config,audit)
++    print(f'{method} s{seed} h{hidden} d{dropout}: valF1={best:.4f} best={best_epoch}/{len(history)}',flush=True)
++    return row
++
++
++def write_run_record(folder,row,config,audit):
++    template=ROOT/'docs/templates/run.template.json'
++    r=json.loads(template.read_text())
++    m=row['val'];method=row['method'];seed=row['seed'];fusion=method in FUSIONS
++    r.update(run_id=f'M5_{method}_s{seed}_h{row["hidden"]}_d{row["dropout"]}_20261019',member='M5',owner='Jiang Yushan',
++             stage='fusion' if fusion else 'control',comparison_group='mobilenet_audio176_validation_study_v1',
++             pipeline_name=method,run_status='completed',test_status='not_run',seed=seed,source_hashes=audit['source_hashes'],
++             started_at=None,finished_at=datetime.now().astimezone().isoformat(),class_names=list(CLASSES),
++             counts={'expected':{'train':960,'val':240,'test':240},'actual':{'train':960,'val':240,'test':None}},
++             environment={'python':platform.python_version(),'framework_and_version':str(torch.__version__),'device':'cpu'},
++             git_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),working_tree_dirty=True,
++             code_patch_ref='See study root code/ snapshot',command=' '.join(sys.argv),split_sha256=audit['source_hashes']['actor_csv'])
++    r['pipeline']={'feature_extractors':[{'component_id':'audio','trainable_in_this_run':False,'source_run_id':None},
++                                       {'component_id':'visual','trainable_in_this_run':False,'source_run_id':None}],
++                  'representation':{'audio_pooled_dim':176,'visual_pooled_dim':576,'audio_sequence_dim':128,'visual_sequence_dim':576,
++                                    'normalization_fit_split':'train','pooling_control':method if 'mean' in method else None},
++                  'fusion':{'applied':fusion or method=='sequence_mean_concat','method':method,'parameters':config},
++                  'classifier':{'type':'MLP','hidden_dims':[row['hidden']],'activation':'ReLU','dropout':row['dropout'],
++                                'output_dim':8,'probability_method':'softmax','trainable_in_this_run':True}}
++    r['training']={'regime':'frozen_encoder_then_classifier','optimizer':'AdamW','learning_rate':.001,'batch_size':64,
++                  'max_epochs':30,'completed_epochs':row['completed_epochs'],'early_stopping_patience':8,'class_weighting':'none'}
++    r['metrics_by_split']={'val':m,'test':None}
++    r['selection']={'metric':'macro_f1','split':'val','best_epoch':row['best_epoch'],'selected_for_next_stage':None,'test_first_evaluated_at':None}
++    r['artifacts']={'checkpoint_ref':str(folder/'checkpoint.pt'),'checkpoint_sha256':sha256(folder/'checkpoint.pt'),
++                    'predictions_val_ref':str(folder/'predictions_val.csv'),'predictions_test_ref':None,
++                    'history_ref':str(folder/'history.json'),'original_metrics_ref':str(folder/'metrics.json')}
++    r['limitations']=audit['notes']
++    write_json(folder/'run.json',r)
++
++
++def aggregate(rows):
++    summary={}
++    for method in METHODS:
++        runs=[r for r in rows if r['method']==method]
++        if not runs:continue
++        values=np.asarray([r['val']['macro_f1'] for r in runs]);acc=np.asarray([r['val']['accuracy'] for r in runs])
++        summary[method]={'n':len(runs),'seeds':[r['seed'] for r in runs],'macro_f1_mean':float(values.mean()),
++                         'macro_f1_std':float(values.std(ddof=1)) if len(values)>1 else None,
++                         'accuracy_mean':float(acc.mean()),'accuracy_std':float(acc.std(ddof=1)) if len(acc)>1 else None}
++    return summary
++
++
++def run(pilot,output):
++    pilot=Path(pilot);output=Path(output)
++    if output.exists():raise ValueError('Use a fresh study output path')
++    output.mkdir(parents=True);started=time.monotonic()
++    # Reuse the development-only interface; source test arrays/probs are never reopened.
++    with np.load(pilot/'development_features.npz',allow_pickle=False) as z:raw={k:z[k] for k in z.files}
++    assert len(raw['labels'])==1200 and set(raw['splits'].tolist())=={'train','val'}
++    assert not any('prob' in k for k in raw)
++    audit=json.loads((pilot/'adapter_audit.json').read_text())
++    assert sha256(ROOT/'multimodal_fusion/configs/actor_splits.csv')==audit['source_hashes']['actor_csv']
++    train=np.flatnonzero(raw['splits']=='train');stats=fit_normalizers(raw,train);d=normalize(raw,stats)
++    manifest=pilot/'input_manifest.csv';shutil.copyfile(manifest,output/'input_manifest.csv')
++    write_json(output/'source_audit.json',dict(audit,development_cache_sha256=sha256(pilot/'development_features.npz')))
++    plan={'seeds':[42,43,44],'methods':list(METHODS),'default':{'hidden':64,'dropout':.2,'epochs':30,'patience':8},
++          'reuse':'Three original seed42 fusion checkpoints after prediction equality check',
++          'adaptive_search':'Top two fusion methods by 3-seed mean; seed42 hidden32 or dropout0.4 separately; repeat winning new config on43/44 only if seed42 improves >=0.02.',
++          'diagnostics':'Validation only: complementary errors, modality perturbations, gates, attention controls and representative cases.',
++          'test_status':'not_run','decision_fusion':'deferred_pending_class_order','excluded_from_scope':'No actor repartition, raw encoders or original test evaluation.'}
++    write_json(output/'plan.json',plan)
++    code=output/'code';code.mkdir()
++    for p in Path(__file__).parent.glob('*.py'):shutil.copyfile(p,code/p.name)
++    write_json(output/'code_hashes.json',{p.name:sha256(p) for p in code.iterdir()})
++    rows=[];val=np.flatnonzero(d['splits']=='val')
++    for seed in (42,43,44):
++        for method in METHODS:
++            if seed==42 and method in FUSIONS:
++                source=pilot/method;ck=torch.load(source/'checkpoint.pt',weights_only=True,map_location='cpu')
++                assert ck['normalizers']==stats and ck['source_hashes']==audit['source_hashes']
++                model=FusionModel(method,**ck['config']);model.load_state_dict(ck['state_dict'])
++                p=infer(model,d,val,'cpu');m=val_metrics(d['labels'][val],p)
++                old=json.loads((source/'metrics.json').read_text())
++                assert m['confusion_matrix']==old['val']['confusion_matrix']
++                row=dict(old,method=method,seed=42,hidden=64,dropout=.2,folder=str(source),reused=True)
++                print('Reused verified',method,'seed42',flush=True)
++            else:row=fit_run(d,stats,audit,method,seed,output/'runs'/f'{method}_s{seed}')
++            rows.append(row);write_json(output/'default_runs.json',rows)
++    summary=aggregate(rows);write_json(output/'default_summary.json',summary)
++    ranked=sorted(FUSIONS,key=lambda m:summary[m]['macro_f1_mean'],reverse=True)[:2]
++    tuning=[];chosen=[]
++    for method in ranked:
++        baseline=next(r for r in rows if r['method']==method and r['seed']==42)
++        candidates=[baseline]
++        for hidden,dropout in ((32,.2),(64,.4)):
++            row=fit_run(d,stats,audit,method,42,output/'tuning'/f'{method}_s42_h{hidden}_d{dropout}',hidden,dropout)
++            tuning.append(row);candidates.append(row)
++        winner=max(candidates,key=lambda r:r['val']['macro_f1'])
++        improvement=winner['val']['macro_f1']-baseline['val']['macro_f1']
++        if winner is not baseline and improvement>=.02:
++            group=[winner]
++            for seed in (43,44):
++                row=fit_run(d,stats,audit,method,seed,output/'tuning'/f'{method}_s{seed}_h{winner["hidden"]}_d{winner["dropout"]}',winner['hidden'],winner['dropout'])
++                tuning.append(row);group.append(row)
++            differences=[g['val']['macro_f1']-next(r for r in rows if r['method']==method and r['seed']==g['seed'])['val']['macro_f1'] for g in group]
++            accepted=np.mean(differences)>=.02 and sum(x>0 for x in differences)>=2
++            chosen.append({'method':method,'hidden':winner['hidden'],'dropout':winner['dropout'],
++                           'differences':differences,'accepted':bool(accepted),'runs':group})
++        else:chosen.append({'method':method,'accepted':False,'seed42_improvement':improvement,
++                            'reason':'No >=0.02 seed42 gain; do not spend extra seeds on exploratory config'})
++        write_json(output/'tuning_runs.json',tuning);write_json(output/'tuning_decisions.json',chosen)
++    write_json(output/'study_status.json',{'default_fits':len(rows),'reused_fits':3,'new_fits':len(rows)-3+len(tuning),
++               'test_status':'not_run','decision_fusion':'deferred','elapsed_seconds':time.monotonic()-started})
++    print(json.dumps(summary,indent=2),flush=True)
++    return raw,d,stats,rows,summary
++
++
++if __name__=='__main__':
++    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--pilot',required=True);p.add_argument('--output',required=True)
++    a=p.parse_args();run(a.pilot,a.output)
+--- /dev/null
++++ b/multimodal_fusion/fusion/study_diagnostics.py
+@@ -0,0 +1,207 @@
++"""Validation diagnostics: perturbations, gates, attention and error complementarity."""
++import argparse
++import csv
++import json
++from pathlib import Path
++import numpy as np
++import torch
++from torch.nn import functional as F
++from . import CLASSES
++from .data import normalize
++from .experiment import seed_all, infer, tensor_batch, write_json
++from .feature_pilot import val_metrics
++from .models import FusionModel
++
++
++@torch.no_grad()
++def attention_probe(model,batch,uniform=False):
++    """Reconstruct logits from weights and projected V; retain all residual/head layers."""
++    a=model.audio(batch['audio_sequence']);v=model.visual(batch['visual_sequence'])
++    valid_v=torch.arange(v.shape[1])[None,:]<batch['visual_lengths'][:,None]
++    valid_a=torch.arange(a.shape[1])[None,:]<batch['audio_lengths'][:,None]
++    _,weights=model.attention(a,v,v,key_padding_mask=~valid_v,need_weights=True,average_attn_weights=False)
++    module=model.attention;dim=module.embed_dim;heads=module.num_heads
++    values=F.linear(v,module.in_proj_weight[2*dim:],module.in_proj_bias[2*dim:])
++    values=values.reshape(len(v),v.shape[1],heads,dim//heads).transpose(1,2)
++    if uniform:
++        used=valid_v[:,None,None,:].to(v.dtype)/batch['visual_lengths'][:,None,None,None]
++        used=used.expand(len(v),heads,a.shape[1],v.shape[1])
++    else:used=weights
++    context=(used@values).transpose(1,2).reshape(len(a),a.shape[1],dim)
++    context=module.out_proj(context)
++    sequence=model.norm(a+context)
++    pooled=(sequence*valid_a[...,None]).sum(1)/batch['audio_lengths'][:,None]
++    logits=model.classifier(pooled)
++    saliency=(weights*valid_a[:,None,:,None]).sum((1,2))/(batch['audio_lengths'][:,None]*heads)
++    return logits,saliency,weights
++
++
++def load_model(row):
++    ck=torch.load(Path(row['folder'])/'checkpoint.pt',map_location='cpu',weights_only=True)
++    model=FusionModel(ck['method'],**ck['config']).eval();model.load_state_dict(ck['state_dict'])
++    return model,ck
++
++
++def perturb(d,ix,condition,seed=12345,saliency=None):
++    b=tensor_batch(d,ix,'cpu')
++    rng=np.random.default_rng(seed)
++    if condition.endswith('_zero'):
++        modality=condition.split('_')[0]
++        for key in (modality+'_pooled',modality+'_sequence'):b[key]=torch.zeros_like(b[key])
++    elif '_noise_' in condition:
++        modality,_,level=condition.split('_');level=float(level)
++        for key in (modality+'_pooled',modality+'_sequence'):
++            noise=torch.from_numpy(rng.normal(size=b[key].shape).astype('float32'))*level
++            if key.endswith('sequence'):
++                valid=torch.arange(b[key].shape[1])[None,:]<b[modality+'_lengths'][:,None]
++                noise*=valid[...,None]
++            b[key]=b[key]+noise
++    elif condition=='visual_mismatched':
++        labels=d['labels'][ix]
++        choices=np.asarray([rng.choice(np.flatnonzero(labels!=l)) for l in labels])
++        for key in ('visual_pooled','visual_sequence','visual_lengths'):b[key]=b[key][choices]
++    elif condition.endswith('_frames'):
++        for j,source in enumerate(ix):
++            length=int(b['visual_lengths'][j]);count=min(4,length)
++            if condition=='high_frames':selected=np.argsort(saliency[source,:length])[-count:]
++            elif condition=='low_frames':selected=np.argsort(saliency[source,:length])[:count]
++            else:selected=rng.choice(length,count,replace=False)
++            b['visual_sequence'][j,selected]=0
++    return b
++
++
++def run(study,pilot):
++    study=Path(study);pilot=Path(pilot);seed_all(0)
++    out=study/'diagnostics';out.mkdir(exist_ok=False)
++    rows=json.loads((study/'default_runs.json').read_text())
++    summary=json.loads((study/'default_summary.json').read_text())
++    best_fusion=max(('concat','gated','cross_attention'),key=lambda k:summary[k]['macro_f1_mean'])
++    best_single=max(('audio_only','visual_only'),key=lambda k:summary[k]['macro_f1_mean'])
++    with np.load(pilot/'development_features.npz',allow_pickle=False) as z:raw={k:z[k] for k in z.files}
++    first_ck=torch.load(Path(rows[0]['folder'])/'checkpoint.pt',map_location='cpu',weights_only=True)
++    d=normalize(raw,first_ck['normalizers']);val=np.flatnonzero(d['splits']=='val');y=d['labels'][val]
++    prediction={};models={};conditions=['audio_zero','visual_zero','visual_mismatched',
++       'audio_noise_0.25','audio_noise_0.5','audio_noise_1.0','visual_noise_0.25','visual_noise_0.5','visual_noise_1.0']
++    interventions=[];gates={};gate_csv=[];attention_summary=[];attention_examples=[]
++    for seed in (42,43,44):
++        for method in ('audio_only','visual_only','concat','gated','cross_attention'):
++            row=next(r for r in rows if r['seed']==seed and r['method']==method)
++            model,ck=load_model(row);p=infer(model,d,val,'cpu')
++            assert val_metrics(y,p)['confusion_matrix']==row['val']['confusion_matrix']
++            prediction[(seed,method)]=p
++            if method not in ('concat','gated','cross_attention'):continue
++            base=val_metrics(y,p);target=p.argmax(1);original=p[np.arange(len(p)),target]
++            for condition in conditions:
++                changed=[]
++                for j in range(0,len(val),64):
++                    ix=val[j:j+64];b=perturb(d,ix,condition,seed=777+j)
++                    with torch.no_grad():changed.append(model(b).softmax(-1).numpy())
++                q=np.concatenate(changed);m=val_metrics(y,q)
++                interventions.append({'seed':seed,'method':method,'condition':condition,'macro_f1':m['macro_f1'],
++                   'macro_f1_drop':base['macro_f1']-m['macro_f1'], 'prediction_change_rate':float(np.mean(q.argmax(1)!=target)),
++                   'original_predicted_class_probability_drop':float(np.mean(original-q[np.arange(len(q)),target]))})
++            if method=='gated':
++                values=[]
++                for j in range(0,len(val),64):
++                    b=tensor_batch(d,val[j:j+64],'cpu')
++                    with torch.no_grad():g=torch.sigmoid(model.gate(torch.cat([b['audio_pooled'],b['visual_pooled']],-1)))
++                    values.append(g.numpy())
++                g=np.concatenate(values);gates[seed]=g
++                for j,source in enumerate(val):
++                    gate_csv.append([str(d['sample_ids'][source]),seed,int(y[j]),float(g[j].mean()),float(g[j].std())])
++                for condition in ('audio_noise_1.0','visual_noise_1.0'):
++                    vals=[]
++                    for j in range(0,len(val),64):
++                        b=perturb(d,val[j:j+64],condition,seed=777+j)
++                        with torch.no_grad():gg=torch.sigmoid(model.gate(torch.cat([b['audio_pooled'],b['visual_pooled']],-1)))
++                        vals.append(gg.numpy())
++                    delta=(np.concatenate(vals)-g).mean(1)
++                    write_json(out/f'gate_response_{condition}_s{seed}.json',
++                               {'mean_gate_change':float(delta.mean()),'std_gate_change':float(delta.std(ddof=1)),
++                                'positive_change_fraction':float(np.mean(delta>0))})
++            if method=='cross_attention':
++                saliency=np.zeros((len(d['labels']),16),np.float32);uniform=[]
++                examples=[]
++                for j in range(0,len(val),32):
++                    ix=val[j:j+32];b=tensor_batch(d,ix,'cpu')
++                    logits,s,w=attention_probe(model,b)
++                    torch.testing.assert_close(logits,model(b),rtol=1e-4,atol=1e-5)
++                    uniform.append(attention_probe(model,b,uniform=True)[0].softmax(-1).numpy())
++                    saliency[ix]=s.numpy()
++                up=np.concatenate(uniform)
++                attention_summary.append({'seed':seed,'condition':'uniform_weights',
++                   'macro_f1':val_metrics(y,up)['macro_f1'],'original_macro_f1':base['macro_f1'],
++                   'prediction_change_rate':float(np.mean(up.argmax(1)!=target)),
++                   'original_predicted_class_probability_drop':float(np.mean(original-up[np.arange(len(up)),target]))})
++                for condition,repeats in [('high_frames',1),('low_frames',1),('random_frames',5)]:
++                    for repeat in range(repeats):
++                        changed=[]
++                        for j in range(0,len(val),64):
++                            b=perturb(d,val[j:j+64],condition,seed=9000+repeat*1000+j,saliency=saliency)
++                            with torch.no_grad():changed.append(model(b).softmax(-1).numpy())
++                        q=np.concatenate(changed)
++                        attention_summary.append({'seed':seed,'condition':condition,'repeat':repeat,
++                           'macro_f1':val_metrics(y,q)['macro_f1'],'original_macro_f1':base['macro_f1'],
++                           'prediction_change_rate':float(np.mean(q.argmax(1)!=target)),
++                           'original_predicted_class_probability_drop':float(np.mean(original-q[np.arange(len(q)),target]))})
++                np.savez_compressed(out/f'attention_saliency_s{seed}.npz',sample_ids=d['sample_ids'][val],saliency=saliency[val])
++                if seed==42:
++                    # Deterministic first correct and first incorrect cases, no probability-based cherry-picking.
++                    for category,mask in [('correct',target==y),('incorrect',target!=y)]:
++                        selected=np.flatnonzero(mask)[:1]
++                        for idx in selected:
++                            b=tensor_batch(d,np.asarray([val[idx]]),'cpu');_,_,w=attention_probe(model,b)
++                            weights=w[0,:,:int(b['audio_lengths'][0]),:].numpy()
++                            np.savez_compressed(out/f'attention_{category}_s42.npz',sample_id=d['sample_ids'][val[idx]],weights=weights)
++                            attention_examples.append({'category':category,'sample_id':str(d['sample_ids'][val[idx]]),
++                                                       'label':int(y[idx]),'prediction':int(target[idx])})
++    groups=[];repairs=[];cases=[];class_gain=[]
++    for seed in (42,43,44):
++        audio=prediction[(seed,'audio_only')].argmax(1);visual=prediction[(seed,'visual_only')].argmax(1)
++        ac,vc=audio==y,visual==y
++        group_masks={'both_correct':ac&vc,'audio_only_correct':ac&~vc,'visual_only_correct':~ac&vc,'both_wrong':~ac&~vc}
++        baseline=prediction[(seed,best_single)].argmax(1);bc=baseline==y
++        for method in ('concat','gated','cross_attention'):
++            pred=prediction[(seed,method)].argmax(1);fc=pred==y
++            for name,mask in group_masks.items():
++                groups.append({'seed':seed,'method':method,'group':name,'n':int(mask.sum()),
++                               'fusion_accuracy':float(np.mean(fc[mask])) if mask.any() else None})
++            repairs.append({'seed':seed,'method':method,'baseline':best_single,
++                 'repaired':int((~bc&fc).sum()),'harmed':int((bc&~fc).sum()),
++                 'kept_correct':int((bc&fc).sum()),'still_wrong':int((~bc&~fc).sum())})
++            m=val_metrics(y,prediction[(seed,method)]);bm=val_metrics(y,prediction[(seed,best_single)])
++            for c in CLASSES:
++                class_gain.append({'seed':seed,'method':method,'class_name':c,
++                                   'f1_gain':m['per_class'][c]['f1-score']-bm['per_class'][c]['f1-score']})
++        if seed==42:
++            fp=prediction[(seed,best_fusion)].argmax(1);fc=fp==y
++            criteria={'visual_corrects_audio':~ac&vc&fc,'audio_corrects_visual':ac&~vc&fc,
++                      'fusion_harms_baseline':bc&~fc,'all_wrong':~ac&~vc&~fc}
++            for category,mask in criteria.items():
++                for j in np.flatnonzero(mask)[:2]:
++                    cases.append({'category':category,'sample_id':str(d['sample_ids'][val[j]]),'label':int(y[j]),
++                                  'audio_prediction':int(audio[j]),'visual_prediction':int(visual[j]),
++                                  'fusion':best_fusion,'fusion_prediction':int(fp[j]),
++                                  'audio_probabilities':prediction[(seed,'audio_only')][j].tolist(),
++                                  'visual_probabilities':prediction[(seed,'visual_only')][j].tolist(),
++                                  'fusion_probabilities':prediction[(seed,best_fusion)][j].tolist()})
++    for name,value in [('interventions',interventions),('complementarity_groups',groups),('repair_harm',repairs),
++                       ('per_class_gain',class_gain),('representative_cases',cases),('attention_controls',attention_summary),
++                       ('attention_examples',attention_examples)]:write_json(out/(name+'.json'),value)
++    with (out/'gates_val.csv').open('w',newline='') as f:
++        w=csv.writer(f);w.writerow(['sample_id','seed','label','mean_audio_gate','std_across_dimensions']);w.writerows(gate_csv)
++    write_json(out/'scope.json',{'evaluation_split':'val','test_status':'not_run',
++        'best_default_fusion_by_mean':best_fusion,'strongest_matched_unimodal_by_mean':best_single,
++        'upstream_probabilities_used':False,'perturbation_seed_policy':'fixed across models/seeds',
++        'attention_reconstruction_matches_forward':True,
++        'limitations':['Feature perturbations, not raw-audio/video degradation or causal attribution.',
++                       'Gate averages are descriptive, not contribution percentages.',
++                       'Validation-set descriptive explanations; not independent final test evidence.',
++                       'Frame selection occurs in token space; no timestamp provenance supplied.']})
++    print('Validation diagnostics complete:',out,flush=True)
++    return out
++
++
++if __name__=='__main__':
++    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--study',required=True);p.add_argument('--pilot',required=True)
++    a=p.parse_args();run(a.study,a.pilot)
+--- /dev/null
++++ b/multimodal_fusion/fusion/study_report.py
+@@ -0,0 +1,121 @@
++"""Render the validation-study tables, research figures and Chinese result report."""
++import argparse
++import csv
++import json
++import os
++import tempfile
++from collections import defaultdict
++from pathlib import Path
++import numpy as np
++from . import CLASSES
++from .experiment import write_json
++
++
++def run(study):
++    study=Path(study);diag=study/'diagnostics';figs=study/'figures';figs.mkdir(exist_ok=True)
++    os.environ.setdefault('MPLCONFIGDIR',str(Path(tempfile.gettempdir())/'prs-fusion-study-mpl'))
++    import matplotlib
++    matplotlib.use('Agg')
++    import matplotlib.pyplot as plt
++    summary=json.loads((study/'default_summary.json').read_text())
++    rows=json.loads((study/'default_runs.json').read_text())
++    interventions=json.loads((diag/'interventions.json').read_text())
++    repairs=json.loads((diag/'repair_harm.json').read_text())
++    groups=json.loads((diag/'complementarity_groups.json').read_text())
++    attention=json.loads((diag/'attention_controls.json').read_text())
++    cases=json.loads((diag/'representative_cases.json').read_text())
++    status=json.loads((study/'study_status.json').read_text())
++    tuning=json.loads((study/'tuning_runs.json').read_text())
++    decision=json.loads((study/'tuning_decisions.json').read_text())
++    scope=json.loads((diag/'scope.json').read_text())
++    methods=list(summary);fusions=['concat','gated','cross_attention']
++    def save(fig,name):
++        fig.tight_layout();fig.savefig(figs/name,dpi=160,bbox_inches='tight');plt.close(fig)
++    fig,ax=plt.subplots(figsize=(10,4))
++    ax.bar(np.arange(len(methods)),[summary[m]['macro_f1_mean'] for m in methods],
++           yerr=[summary[m]['macro_f1_std'] for m in methods],capsize=4,color=['#8798a5','#8798a5','#4a90a4','#62a984','#c28240','#8798a5','#4a90a4'])
++    for i,m in enumerate(methods):
++        for row in rows:
++            if row['method']==m:ax.scatter(i,row['val']['macro_f1'],color='black',s=12,zorder=3)
++    ax.set(xticks=range(len(methods)),xticklabels=methods,ylabel='Validation macro-F1',ylim=(0,.8),title='Fixed actor split; seeds 42 / 43 / 44; mean ± sample SD')
++    plt.setp(ax.get_xticklabels(),rotation=25,ha='right');save(fig,'validation_summary.png')
++    group_keys=['both_correct','audio_only_correct','visual_only_correct','both_wrong']
++    fig,ax=plt.subplots(figsize=(9,4))
++    for j,m in enumerate(fusions):
++        vals=[np.mean([x['fusion_accuracy'] for x in groups if x['method']==m and x['group']==g and x['fusion_accuracy'] is not None]) for g in group_keys]
++        ax.bar(np.arange(4)+(j-1)*.24,vals,width=.24,label=m)
++    ax.set(xticks=range(4),xticklabels=group_keys,ylabel='Fusion accuracy within group',ylim=(0,1.05),title='Validation error complementarity; mean over seeds')
++    ax.legend();plt.setp(ax.get_xticklabels(),rotation=15,ha='right');save(fig,'error_complementarity.png')
++    fig,axes=plt.subplots(1,2,figsize=(11,4))
++    for ax,modality in zip(axes,['audio','visual']):
++        for m in fusions:
++            points=[summary[m]['macro_f1_mean']]+[np.mean([x['macro_f1'] for x in interventions if x['method']==m and x['condition']==f'{modality}_noise_{level}']) for level in ['0.25','0.5','1.0']]
++            ax.plot([0,.25,.5,1],points,marker='o',label=m)
++        ax.set(xlabel='Noise SD in standardized feature units',ylabel='Validation macro-F1',title=modality+' feature noise (not raw signal noise)');ax.legend();ax.grid(alpha=.2)
++    save(fig,'feature_noise_curves.png')
++    gate=[]
++    with (diag/'gates_val.csv').open() as f:gate=list(csv.DictReader(f))
++    fig,ax=plt.subplots(figsize=(9,4))
++    ax.boxplot([[float(x['mean_audio_gate']) for x in gate if int(x['label'])==c] for c in range(8)],tick_labels=CLASSES)
++    ax.set(ylabel='Mean gate across hidden dimensions',title='Descriptive gate distributions; not modality contribution percentages')
++    plt.setp(ax.get_xticklabels(),rotation=25,ha='right');save(fig,'gate_by_emotion.png')
++    for category in ('correct','incorrect'):
++        with np.load(diag/f'attention_{category}_s42.npz',allow_pickle=False) as z:
++            weights=z['weights'];sid=str(z['sample_id'])
++        fig,axes=plt.subplots(1,len(weights),figsize=(14,4),sharey=True)
++        for h,ax in enumerate(axes):
++            ax.imshow(weights[h],aspect='auto',origin='lower',cmap='viridis',vmin=0,vmax=float(weights.max()));ax.set(xlabel='Visual token',title=f'Head {h+1}')
++        axes[0].set_ylabel('Audio token (not seconds)');fig.suptitle(f'Validation {category}: {sid}',y=1.02)
++        save(fig,f'attention_{category}_heads.png')
++    # Plain tables preserve seed-level observations alongside aggregates.
++    with (study/'summary.csv').open('w',newline='') as f:
++        w=csv.writer(f);w.writerow(['method','n','seeds','val_macro_f1_mean','val_macro_f1_sample_std','val_accuracy_mean','val_accuracy_sample_std','test_status'])
++        for m,s in summary.items():w.writerow([m,s['n'],'42/43/44',s['macro_f1_mean'],s['macro_f1_std'],s['accuracy_mean'],s['accuracy_std'],'not_run'])
++    def avg(items,key):return float(np.mean([r[key] for r in items]))
++    lines=['# 多模态融合验证实验与解释分析','','日期：2026-10-19。仅固定正式演员划分的train=960、val=240，test保留。所有分数是同一验证集上的开发结果，不是最终泛化成绩。决策融合仍等待上游概率类别顺序确认。','','## 本轮执行范围','',
++           f"完成7种方法×3个seed共21组默认配置，其中复用首轮3组，经预测核验一致；另做4组定向调参，本轮新增训练{status['new_fits']}次，合计保存25组配置/seed结果。",'',
++           '- Seed统一为42/43/44，保持已采用的团队记录规范；不使用早期草案的123/2026，不改变actor split。',
++           '- 原始测试特征和上游概率没有进入本轮：只加载上轮1200条train/val缓存，所有checkpoint/预测/normalizer只针对开发集。',
++           '- 拼接/门控输入176D音频和576D视觉；attention输入128D learned音频序列和16×576视觉序列。',
++           '- 单模态控制：相同pooled特征、隐藏层64的MLP；不是队友原始分类器成绩。序列控制：音频序列均值→MLP、两路序列均值拼接→MLP。',
++           '- 训练保持AdamW lr0.001、weight_decay1e-4、batch64、dropout0.2、最多30epochs、patience8；仅用验证Macro-F1选epoch。',
++           '- Visual的16个token暂按有效处理；上游checkpoint、训练来源和最终视觉配置仍待确认。','','## 多 seed 验证结果','','| 方法 | 验证 Macro-F1 均值±样本标准差 | 验证 Accuracy 均值 |','|---|---:|---:|']
++    for m,s in summary.items():lines.append(f"| {m} | {s['macro_f1_mean']:.4f} ± {s['macro_f1_std']:.4f} | {s['accuracy_mean']:.4f} |")
++    lines+=['','标准差使用ddof=1、n=3；三个seed仅表示固定演员划分下的训练波动，不能据此声称统计显著或跨演员划分稳定。所有默认单seed结果保存在default_runs.json。',
++            '',f"验证均值最高为cross_attention，比同协议visual_only控制高{100*(summary['cross_attention']['macro_f1_mean']-summary['visual_only']['macro_f1_mean']):.2f}个百分点，比concat高{100*(summary['cross_attention']['macro_f1_mean']-summary['concat']['macro_f1_mean']):.2f}个百分点。Cross-attention并非每个seed都胜过concat；不得称为稳定压倒性优势。",'',
++            f"相比两路序列均值拼接控制，cross_attention高{100*(summary['cross_attention']['macro_f1_mean']-summary['sequence_mean_concat']['macro_f1_mean']):.2f}个百分点。该差异仍包含投影、残差、LayerNorm、参数量及attention等结构差异，不能单独归因于时间对齐。",'',
++            '当前结果支持这些固定表示在验证集上存在互补收益，但尚未与已选定的最终上游单模态流水线进行完整对照，不能宣称优于团队所有单模态方案。',
++            '', '![验证均值与波动](figures/validation_summary.png)','','## 定向改进实验','','按三seed默认均值选择cross_attention、concat，仅在seed42分别试hidden32或dropout0.4，不同时改变两个因素。预设追加seed门槛为seed42提升至少0.02。此门槛用于控制工作量，不是显著性标准。','','| 方法 | hidden | dropout | seed42 验证 Macro-F1 |','|---|---:|---:|---:|']
++    for t in tuning:lines.append(f"| {t['method']} | {t['hidden']} | {t['dropout']} | {t['val']['macro_f1']:.4f} |")
++    lines+=['','Cross-attention增加dropout后seed42得到0.6828，但只比默认提升约1.55个百分点，未达到追加门槛。其他候选也未达到；因此没有进一步扩大搜索，不把这个单seed调参最高值作为正式主结果。',
++            '', '## 错误互补与修复破坏','','以三seed均值选出的visual_only为共同基线，各seed对应自己的分类器。以下是每个seed的样本数再取平均，不是整数样本合并后的独立检验。','','| 方法 | 每seed平均修复数 | 每seed平均破坏数 |','|---|---:|---:|']
++    for m in fusions:
++        rr=[x for x in repairs if x['method']==m];lines.append(f"| {m} | {avg(rr,'repaired'):.2f} | {avg(rr,'harmed'):.2f} |")
++    lines+=['','Cross-attention平均修复48条、破坏18.33条；concat修复更多但也破坏更多。收益应同时看修复和破坏，计数净变化不直接等于Macro-F1变化。',
++            '', '![错误互补分组](figures/error_complementarity.png)','','## 模态干预','','固定checkpoint，不重新训练。将标准化后的音频/视觉替换为零，或将视觉替换成不同情绪样本；本轮错误配对在各固定推理batch内选择。下表为三seed平均Macro-F1。','','| 方法 | 正常 | 音频置零 | 视觉置零 | 视觉错误配对 |','|---|---:|---:|---:|---:|']
++    for m in fusions:
++        vals=[avg([x for x in interventions if x['method']==m and x['condition']==c],'macro_f1') for c in ('audio_zero','visual_zero','visual_mismatched')]
++        lines.append(f"| {m} | {summary[m]['macro_f1_mean']:.4f} | "+' | '.join(f'{v:.4f}' for v in vals)+' |')
++    lines+=['','两路置零均损害预测，视觉错误配对对attention影响尤其大，支持当前模型对正确配对的两路表示敏感。不能把下降量换算成模态贡献百分比或因果效应。',
++            '', '![特征噪声曲线](figures/feature_noise_curves.png)',
++            '', '噪声是在标准化特征上添加独立高斯扰动，不是原始音频SNR或视频亮度退化。独立序列噪声可以被时间平均削弱，因此attention对音频噪声相对不敏感，不等于忽略音频或真实音频稳健。',
++            '', '## 门控解释','','已导出全部验证样本的平均gate、情绪分布，以及音频/视觉噪声前后的变化。音频噪声下平均gate仅约+0.0008～+0.0012；视觉噪声下变化约-0.0011～+0.0002，没有清晰的可靠模态切换证据。Gate均值不等于音频贡献比例；不能写成“模型已经学会自适应降低噪声模态权重”。',
++            '', '![门控分布](figures/gate_by_emotion.png)','','## Attention是否提供可信解释','','保留Q/V投影、audio residual、LayerNorm和分类头，只把注意力权重替换成有效帧上的均匀权重。额外用高权重/低权重/随机4个视觉token置零对照，随机对照重复5次。原始attention权重重构logits已与正常forward一致。','','| 干预 | 平均验证 Macro-F1 | 原预测类别概率平均下降 |','|---|---:|---:|']
++    for c in ('uniform_weights','high_frames','low_frames','random_frames'):
++        rr=[x for x in attention if x['condition']==c];lines.append(f"| {c} | {avg(rr,'macro_f1'):.4f} | {avg(rr,'original_predicted_class_probability_drop'):.4f} |")
++    lines+=['','**均匀权重得到0.6627，与原模型0.6608相近。当前没有证据证明learned attention权重的精细选择是性能优势的主要来源。** 高权重token扰动对原预测类别概率的影响大于随机对照，但Macro-F1并未呈现同样的严格排序；这是局部敏感性证据，不能把热图作为因果解释。额外投影、残差及分类头可能同样重要，后续需要更严格的结构消融。',
++            '', '以下按seed42、sample ID顺序选第一条正确/错误案例，展示全部4个head；不是按热图美观程度选样本。纵轴是音频token，不是秒；缺原始时间戳时不能声称对应某个发音或表情时刻。',
++            '', '![正确案例](figures/attention_correct_heads.png)','','![错误案例](figures/attention_incorrect_heads.png)',
++            '', '## 代表性成功与失败案例','','固定规则：seed42、三seed均值最优融合方法、每类按sample ID选前两条；所有分组及完整概率见diagnostics/representative_cases.json。','','| 情况 | sample_id | 标签 | 音频控制 | 视觉控制 | 融合 |','|---|---|---|---|---|---|']
++    for c in cases:lines.append('| '+c['category']+' | '+c['sample_id']+' | '+CLASSES[c['label']]+' | '+CLASSES[c['audio_prediction']]+' | '+CLASSES[c['visual_prediction']]+' | '+CLASSES[c['fusion_prediction']]+' |')
++    lines+=['','## 验证与记录','','- 共14项自动测试通过，覆盖开发集接口隔离、padding、单模态控制不依赖另一模态、attention权重重构与均匀权重的mask行为。','- 新训练checkpoint均重新加载后复现验证预测，复用的3个checkpoint重新验证混淆矩阵一致。','- 全部预测文件为val，240条；开发manifest为train/val共1200条。没有真实test指标、预测或test checkpoint选择。','- 每run保留run.json、配置、checkpoint、逐epoch历史及验证概率；default_runs/default_summary、tuning_runs/decisions、diagnostics分别保存主结果、探索和解释。','- 各方法当前使用同一上游特征与actor split；上游run_id/训练来源待补，视觉16token均有效仍是明示假设。',
++            '', '## 下一步与暂缓项','','1. 当前可继续使用concat作为简单参照、cross-attention作为候选；不要因单seed0.6828而更换主配置。','2. 与上游确认概率类别顺序、完整训练来源、16帧有效性及M3最终视觉A/B/A+B选择后，再补决策融合和最终流水线比较。','3. 如需证明动态attention有效，进一步做参数量匹配的投影/残差对照及均匀attention重训，而非仅展示热图。','4. 原始音视频退化、外部视频演示、最终测试及不同演员划分扩展本轮未运行。测试集依照此前约定继续保留。','5. 验证集已用于选择epoch和探索配置，结果有选择偏差；不能把重复seed当作新的独立数据或最终泛化检验。',
++            '', '## 复跑命令','','从multimodal_fusion目录使用新输出路径：','','```bash','python -m fusion.study --pilot results/m5_feature_pilot_20261019_s42 --output results/new_validation_study',
++            'python -m fusion.study_diagnostics --study results/new_validation_study --pilot results/m5_feature_pilot_20261019_s42','python -m fusion.study_report --study results/new_validation_study','```',
++            '', 'study只接受已适配train/val缓存并校验范围，不读取上游概率或test；输出目录已存在则拒绝覆盖。']
++    (study/'实验结果与解释分析.md').write_text('\n'.join(lines)+'\n')
++    print('Report and figures saved:',study/'实验结果与解释分析.md',flush=True)
++
++
++if __name__=='__main__':
++    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--study',required=True);run(p.parse_args().study)
+--- /dev/null
++++ b/multimodal_fusion/tests/test_feature_inputs.py
+@@ -0,0 +1,102 @@
++"""Development-only adapter must work with absent/poisoned test features and probabilities."""
++import csv
++import json
++import tempfile
++import unittest
++from pathlib import Path
++from unittest.mock import patch
++import numpy as np
++from fusion import CLASSES
++from fusion.data import fit_normalizers
++from fusion.feature_inputs import load_development_features, selected_npz_rows
++
++
++class DevelopmentAdapterTests(unittest.TestCase):
++    def setUp(self):
++        self.tmp=tempfile.TemporaryDirectory();self.root=Path(self.tmp.name)
++        self.rng=np.random.default_rng(7)
++        actor_map={a:('val' if a in (9,14,21,22) else 'test' if a in (2,3,8,17) else 'train') for a in range(1,25)}
++        self.actor=self.root/'actors.csv'
++        with self.actor.open('w',newline='') as f:
++            w=csv.writer(f);w.writerow(['actor_id','split']);w.writerows(actor_map.items())
++        self.audio=self.root/'audio.csv';self.seq=self.root/'sequences';self.visual=self.root/'visual.npz'
++        ids=[];splits=[];labels=[];visual_sequences=[];audio_rows=[]
++        for actor in (1,9,2):
++            split=actor_map[actor]
++            for label in range(8):
++                sid=f'01-{label+1:02d}-01-01-01-{actor:02d}'
++                ids.append(sid);splits.append(split);labels.append(label if split!='test' else 999)
++                vs=self.rng.normal(size=(16,576)).astype('float32')
++                if split=='test':vs[:]=np.nan
++                visual_sequences.append(vs)
++                row={'sample_id':'03-'+sid,'trial_id':'-'.join(sid.split('-')[1:]),
++                     'actor_id':actor,'emotion_label':CLASSES[label],'split':split}
++                if split=='test':
++                    row.update({f'f{i:03d}':'DO_NOT_PARSE_TEST' for i in range(176)})
++                else:
++                    sequence=self.rng.normal(size=(3+label,128)).astype('float32')
++                    learned=sequence.mean(0)
++                    feat=np.concatenate([self.rng.normal(size=48),learned])
++                    row.update({f'f{i:03d}':float(v) for i,v in enumerate(feat)})
++                    path=self.seq/split/f'{sid}.npz';path.parent.mkdir(parents=True,exist_ok=True)
++                    np.savez(path,sample_id=sid,split=split,label=label,actor_id=actor,F_sequence=sequence,
++                             length=len(sequence),padding_mask=np.zeros(len(sequence),bool))
++                audio_rows.append(row)
++        with self.audio.open('w',newline='') as f:
++            w=csv.DictWriter(f,fieldnames=list(audio_rows[0]));w.writeheader();w.writerows(audio_rows)
++        seq=np.stack(visual_sequences)
++        # Object probabilities must never be decoded (allow_pickle=False).
++        np.savez(self.visual,sample_id=np.asarray(ids),split=np.asarray(splits),label=np.asarray(labels),
++                 sequence_features=seq,pooled_features=seq.mean(1),probabilities=np.asarray([{}],dtype=object))
++
++    def tearDown(self):
++        self.tmp.cleanup()
++
++    def load(self):
++        return load_development_features(self.audio,self.seq,self.visual,self.actor,
++                                         expected_counts={'train':8,'val':8})
++
++    def test_no_test_files_or_probabilities_loaded(self):
++        original=np.load;opened=[]
++        def guarded(path,*args,**kwargs):
++            self.assertNotIn('test',Path(path).parts)
++            opened.append(str(path))
++            return original(path,*args,**kwargs)
++        with patch('numpy.load',side_effect=guarded):
++            d,audit=self.load()
++        self.assertEqual(len(d['labels']),16)
++        self.assertTrue(np.isfinite(d['visual_sequence']).all())
++        self.assertFalse((self.seq/'test').exists())
++        self.assertEqual(audit['test_numeric_rows_decoded'],0)
++        self.assertFalse(audit['upstream_probabilities_loaded'])
++        self.assertEqual(set(d['splits']),{'train','val'})
++        self.assertEqual(audit['audio_sequence_files_opened'],16)
++        self.assertEqual(len(opened),17)
++
++    def test_pairing_and_train_only_statistics(self):
++        d,_=self.load();train=np.flatnonzero(d['splits']=='train')
++        stats=fit_normalizers(d,train)
++        changed={k:v.copy() for k,v in d.items()}
++        val=np.flatnonzero(d['splits']=='val')
++        for key in ('audio_pooled','visual_pooled','audio_sequence','visual_sequence'):
++            changed[key][val]+=1e5
++        self.assertEqual(stats,fit_normalizers(changed,train))
++        for sid,l,a in zip(d['sample_ids'],d['labels'],d['actors']):
++            self.assertEqual(int(sid.split('-')[1])-1,l)
++            self.assertEqual(int(sid[-2:]),a)
++
++    def test_mismatched_actor_split_rejected(self):
++        text=self.actor.read_text().replace('9,val','9,train')
++        self.actor.write_text(text)
++        with self.assertRaisesRegex(ValueError,'split mismatch'):
++            self.load()
++
++    def test_selective_row_reader_excludes_poisoned_rows(self):
++        values=selected_npz_rows(self.visual,'sequence_features',np.arange(16))
++        self.assertTrue(np.isfinite(values).all())
++        with self.assertRaises(ValueError):
++            selected_npz_rows(self.visual,'probabilities',np.asarray([0]))
++
++
++if __name__=='__main__':
++    unittest.main()
+--- /dev/null
++++ b/multimodal_fusion/tests/test_final_evaluation.py
+@@ -0,0 +1,60 @@
++import csv
++import tempfile
++import unittest
++from pathlib import Path
++import numpy as np
++from fusion import CLASSES
++from fusion.final_evaluation import load_test_features, select_alpha
++
++
++class FinalEvaluationTests(unittest.TestCase):
++    def test_equal_validation_scores_favor_equal_weight(self):
++        y=np.arange(8);p=np.eye(8,dtype=np.float32)
++        alpha,grid=select_alpha(y,p,p)
++        self.assertEqual(alpha,.5)
++        self.assertEqual(len(grid),21)
++
++    def test_weight_search_uses_supplied_validation_predictions(self):
++        y=np.arange(8);p=np.eye(8,dtype=np.float32);q=np.roll(p,1,axis=1)
++        alpha,_=select_alpha(y,p,q)
++        self.assertGreater(alpha,.5)
++        # This function takes no test data: its objective is fixed entirely by these labels.
++        alpha2,_=select_alpha(y,q,p)
++        self.assertLess(alpha2,.5)
++
++    def test_test_loader_ignores_poisoned_development_features_and_probabilities(self):
++        with tempfile.TemporaryDirectory() as tmp:
++            root=Path(tmp);actors=root/'actors.csv';audio=root/'audio.csv';seqdir=root/'sequences'
++            with actors.open('w',newline='') as f:
++                w=csv.writer(f);w.writerow(['actor_id','split'])
++                w.writerows((a,'test' if a==2 else 'val' if a==9 else 'train') for a in range(1,25))
++            ids=[];labels=[];visual=[];rows=[]
++            for label in range(8):
++                sid=f'01-{label+1:02d}-01-01-01-02';ids.append(sid);labels.append(label)
++                visual.append(np.full((16,576),label+.1,np.float32))
++                aseq=np.full((3,128),label+.25,np.float32)
++                path=seqdir/'test'/f'{sid}.npz';path.parent.mkdir(parents=True,exist_ok=True)
++                np.savez(path,sample_id=sid,split='test',label=label,actor_id=2,F_sequence=aseq,
++                         length=3,padding_mask=np.zeros(3,bool))
++                feat=np.concatenate([np.zeros(48),aseq.mean(0)])
++                row=dict(sample_id='03-'+sid,trial_id='unused',actor_id=2,emotion_label=CLASSES[label],split='test')
++                row.update({f'f{i:03d}':float(x) for i,x in enumerate(feat)});rows.append(row)
++            bad=dict(sample_id='03-01-01-01-01-01-01',trial_id='unused',actor_id=1,emotion_label='neutral',split='train')
++            bad.update({f'f{i:03d}':'DO_NOT_PARSE' for i in range(176)});rows.append(bad)
++            with audio.open('w',newline='') as f:
++                w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
++            seq=np.stack(visual+[np.full((16,576),np.nan,np.float32)])
++            visualfile=root/'visual.npz'
++            np.savez(visualfile,sample_id=np.asarray(ids+['01-01-01-01-01-01']),
++                     split=np.asarray(['test']*8+['train']),label=np.asarray(labels+[999]),
++                     pooled_features=seq.mean(1),sequence_features=seq,probabilities=np.asarray([{}],dtype=object))
++            d=load_test_features(audio,seqdir,visualfile,actors,expected_n=8)
++            self.assertEqual(len(d['labels']),8)
++            self.assertEqual(set(d['splits']),{'test'})
++            self.assertTrue(np.isfinite(d['visual_sequence']).all())
++            self.assertFalse((seqdir/'train').exists())
++            self.assertFalse(any('prob' in k for k in d))
++
++
++if __name__=='__main__':
++    unittest.main()
+--- /dev/null
++++ b/multimodal_fusion/tests/test_study_models.py
+@@ -0,0 +1,44 @@
++import unittest
++import torch
++from fusion.models import FusionModel
++from fusion.study_diagnostics import attention_probe
++
++
++class StudyControlsTests(unittest.TestCase):
++    def setUp(self):
++        torch.manual_seed(31)
++        self.config=dict(audio_dim=5,visual_dim=7,audio_seq_dim=3,visual_seq_dim=4,hidden=8,heads=2,dropout=0.)
++        self.batch={'audio_pooled':torch.randn(2,5),'visual_pooled':torch.randn(2,7),
++                    'audio_sequence':torch.randn(2,6,3),'visual_sequence':torch.randn(2,4,4),
++                    'audio_lengths':torch.tensor([3,6]),'visual_lengths':torch.tensor([2,4])}
++
++    def test_single_modality_controls_ignore_other_modality(self):
++        for method in ('audio_only','visual_only','audio_sequence_mean'):
++            model=FusionModel(method,**self.config).eval()
++            other='audio' if method=='visual_only' else 'visual'
++            changed={k:v.clone() for k,v in self.batch.items()}
++            for k in (other+'_pooled',other+'_sequence'):changed[k]+=1000
++            torch.testing.assert_close(model(self.batch),model(changed))
++
++    def test_sequence_controls_exclude_padding(self):
++        changed={k:v.clone() for k,v in self.batch.items()}
++        changed['audio_sequence'][0,3:]=1000
++        changed['visual_sequence'][0,2:]=-1000
++        for method in ('audio_sequence_mean','sequence_mean_concat'):
++            model=FusionModel(method,**self.config).eval()
++            torch.testing.assert_close(model(self.batch),model(changed))
++
++    def test_attention_probe_preserves_forward_and_masks(self):
++        model=FusionModel('cross_attention',**self.config).eval()
++        logits,saliency,weights=attention_probe(model,self.batch)
++        torch.testing.assert_close(logits,model(self.batch),rtol=1e-4,atol=1e-5)
++        torch.testing.assert_close(saliency.sum(-1),torch.ones(2))
++        self.assertEqual(float(saliency[0,2:].abs().sum()),0.)
++        modified={k:v.clone() for k,v in self.batch.items()}
++        modified['visual_sequence'][0,2:]=1000
++        uniform=attention_probe(model,self.batch,True)[0]
++        torch.testing.assert_close(uniform,attention_probe(model,modified,True)[0])
++
++
++if __name__=='__main__':
++    unittest.main()

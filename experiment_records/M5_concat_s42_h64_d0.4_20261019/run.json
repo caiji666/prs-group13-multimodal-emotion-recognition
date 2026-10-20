@@ -1,0 +1,407 @@
+{
+  "schema_version": "2.0",
+  "run_id": "M5_concat_s42_h64_d0.4_20261019",
+  "member": "M5",
+  "owner": "Jiang Yushan",
+  "stage": "fusion",
+  "comparison_group": "M5_regularization_exploration_v1",
+  "pipeline_name": "concat on frozen historical audio/visual exports",
+  "run_status": "completed",
+  "test_status": "not_run",
+  "started_at": null,
+  "finished_at": null,
+  "seed": 42,
+  "dataset_id": "ravdess_speech_v1",
+  "data_kind": "real",
+  "class_names": [
+    "neutral",
+    "calm",
+    "happy",
+    "sad",
+    "angry",
+    "fearful",
+    "disgust",
+    "surprise"
+  ],
+  "split_ref": "multimodal_fusion/configs/actor_splits.csv",
+  "split_sha256": "1ae0f8241c8d1b40f1c4d0c0be1c17d8cede3ea5005a24b4635cef1110490528",
+  "input_manifest_ref": "experiment_records/shared/M5/input_manifest.csv",
+  "input_manifest_sha256": "b7db8a6eb1d31ae76cd6caa04fcfeaa6af1ca58d8b46de3a1845cc24cd95bda2",
+  "counts": {
+    "expected": {
+      "train": 960,
+      "val": 240,
+      "test": 240
+    },
+    "actual": {
+      "train": 960,
+      "val": 240,
+      "test": null
+    }
+  },
+  "excluded_samples": {
+    "count": 0,
+    "id_reason_manifest_ref": null,
+    "handling_policy": "No samples excluded. Unmeasured test results remain null."
+  },
+  "git_commit": "6ea5fa37bd0f56847ba5755dcab2671845d4dcc6",
+  "working_tree_dirty": true,
+  "code_patch_ref": "experiment_records/shared/M5/historical_code.patch",
+  "command": "python -m fusion.feature_pilot --pilot results/m5_feature_pilot_20261019_s42 --output results/m5_validation_study_20261019",
+  "environment": {
+    "python": "3.12.12",
+    "framework_and_version": "PyTorch 2.13.0",
+    "device": "cpu",
+    "dependencies_ref": "experiment_records/shared/M5/environment.txt"
+  },
+  "source_runs": {
+    "audio_handcrafted": null,
+    "audio_learned": "M2_encoder_transformer_s42_20261015_00",
+    "audio_final": null,
+    "visual_handcrafted": null,
+    "visual_learned": null,
+    "visual_final": null
+  },
+  "input_artifacts": [
+    {
+      "role": "audio_combined_export",
+      "source_run_id": null,
+      "ref": null,
+      "sha256": "9668525d6f8db1bceecbce905b4a16652298d715f01d6f3a7dcd8744ec31371a"
+    },
+    {
+      "role": "visual_learned_export",
+      "source_run_id": null,
+      "ref": null,
+      "sha256": "a29912628b062a1a40b4a472405dcfec095d9c886359b1b967fcb5fe3bde2565"
+    }
+  ],
+  "preprocessing": {
+    "audio": "Frozen export; no raw preprocessing rerun",
+    "visual": "Frozen export; 16 tokens assumed valid, pending mask provenance",
+    "standardization_fit_split": "train",
+    "augmentation_train_only": false,
+    "parameters": {
+      "normalizer_ref": "experiment_records/shared/M5/normalizers/405747767ba4805ad7c3f12559b88852f6b407592addfc6b9a822ed25741d374.json",
+      "normalizer_sha256": "6cc0b0e133a381eea81424dcfe1b43ef6213db6787a2e47fd3ce965f12c7f664"
+    }
+  },
+  "pipeline": {
+    "feature_extractors": [
+      {
+        "component_id": "audio_handcrafted",
+        "modality": "audio",
+        "kind": "handcrafted",
+        "method": "M1 time/spectral/DWT descriptors",
+        "input_description": "Frozen teammate export; original extractor training not part of this run",
+        "parameters": {},
+        "pretrained_source": null,
+        "source_run_id": null,
+        "checkpoint_ref": null,
+        "checkpoint_sha256": null,
+        "trainable_in_this_run": false,
+        "trainable_layers": [],
+        "output_sequence_shape": null,
+        "output_pooled_shape": [
+          null,
+          48
+        ]
+      },
+      {
+        "component_id": "audio_learned",
+        "modality": "audio",
+        "kind": "learned",
+        "method": "MFCC Transformer",
+        "input_description": "Frozen teammate export; original extractor training not part of this run",
+        "parameters": {},
+        "pretrained_source": null,
+        "source_run_id": "M2_encoder_transformer_s42_20261015_00",
+        "checkpoint_ref": null,
+        "checkpoint_sha256": null,
+        "trainable_in_this_run": false,
+        "trainable_layers": [],
+        "output_sequence_shape": null,
+        "output_pooled_shape": [
+          null,
+          128
+        ]
+      },
+      {
+        "component_id": "visual_learned",
+        "modality": "visual",
+        "kind": "learned",
+        "method": "MobileNetV3-Small per supplied export",
+        "input_description": "Frozen teammate export; original extractor training not part of this run",
+        "parameters": {},
+        "pretrained_source": null,
+        "source_run_id": null,
+        "checkpoint_ref": null,
+        "checkpoint_sha256": null,
+        "trainable_in_this_run": false,
+        "trainable_layers": [],
+        "output_sequence_shape": null,
+        "output_pooled_shape": [
+          null,
+          576
+        ]
+      }
+    ],
+    "representation": {
+      "kind": "combined",
+      "components": [
+        "audio_handcrafted",
+        "audio_learned",
+        "visual_learned"
+      ],
+      "pooling": "supplied temporal mean pooled features",
+      "normalization": "per-channel standardization (sequence statistics exclude padding)",
+      "normalization_fit_split": "train",
+      "combination_method": "concat",
+      "output_shape": [
+        null,
+        752
+      ]
+    },
+    "fusion": {
+      "applied": true,
+      "method": "concat",
+      "input_source_runs": {
+        "audio": null,
+        "visual": null
+      },
+      "parameters": {
+        "audio_pooled_dim": 176,
+        "visual_pooled_dim": 576,
+        "audio_sequence_dim": 128,
+        "visual_sequence_dim": 576,
+        "hidden": 64,
+        "heads": null
+      },
+      "trainable_in_this_run": false,
+      "output_shape": [
+        null,
+        752
+      ]
+    },
+    "classifier": {
+      "type": "MLP",
+      "source_run_id": null,
+      "input_dim": 752,
+      "architecture": "Linear(752,64) → ReLU → Dropout(0.4) → Linear(64,8)",
+      "hidden_dims": [
+        64
+      ],
+      "output_dim": 8,
+      "activation": "ReLU",
+      "dropout": 0.4,
+      "parameters": {
+        "loss": "cross_entropy",
+        "label_smoothing": 0.0
+      },
+      "trainable_in_this_run": true,
+      "probability_method": "softmax; argmax ties choose lowest index",
+      "calibration_fit_split": null,
+      "checkpoint_ref": null,
+      "checkpoint_sha256": "c1751bd58b0f12ec8b04ec087dbf2e00163cf73f26d028c7458d30822afb49c6"
+    }
+  },
+  "training": {
+    "regime": "frozen_encoder_then_classifier",
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "batch_size": 64,
+    "max_epochs": 30,
+    "completed_epochs": 25,
+    "early_stopping_patience": 8,
+    "component_parameter_groups": [],
+    "class_weighting": "none",
+    "other_parameters": {
+      "weight_decay": 0.0001,
+      "gradient_clip": 1.0,
+      "parameter_count": 48712,
+      "hidden": 64,
+      "dropout": 0.4
+    }
+  },
+  "selection": {
+    "metric": "macro_f1",
+    "split": "val",
+    "best_epoch": 17,
+    "selected_for_next_stage": null,
+    "selection_reason": "Control / exploratory configuration; no test-based selection",
+    "tie_break_rule": "earlier epoch",
+    "candidate_search_ref": "experiment_records/shared/M5/tuning_decisions.json",
+    "config_locked_at": null,
+    "test_first_evaluated_at": null
+  },
+  "metrics_scope": "full_pipeline",
+  "metrics_by_split": {
+    "val": {
+      "n": 240,
+      "accuracy": 0.6458333333333334,
+      "macro_precision": 0.6566948110766045,
+      "macro_recall": 0.640625,
+      "macro_f1": 0.6389450128088241,
+      "per_class": [
+        {
+          "label": 0,
+          "class_name": "neutral",
+          "precision": 0.5625,
+          "recall": 0.5625,
+          "f1": 0.5625,
+          "support": 16
+        },
+        {
+          "label": 1,
+          "class_name": "calm",
+          "precision": 0.6521739130434783,
+          "recall": 0.9375,
+          "f1": 0.7692307692307693,
+          "support": 32
+        },
+        {
+          "label": 2,
+          "class_name": "happy",
+          "precision": 0.84375,
+          "recall": 0.84375,
+          "f1": 0.84375,
+          "support": 32
+        },
+        {
+          "label": 3,
+          "class_name": "sad",
+          "precision": 0.3333333333333333,
+          "recall": 0.40625,
+          "f1": 0.36619718309859156,
+          "support": 32
+        },
+        {
+          "label": 4,
+          "class_name": "angry",
+          "precision": 0.7142857142857143,
+          "recall": 0.78125,
+          "f1": 0.746268656716418,
+          "support": 32
+        },
+        {
+          "label": 5,
+          "class_name": "fearful",
+          "precision": 0.6071428571428571,
+          "recall": 0.53125,
+          "f1": 0.5666666666666667,
+          "support": 32
+        },
+        {
+          "label": 6,
+          "class_name": "disgust",
+          "precision": 0.7142857142857143,
+          "recall": 0.46875,
+          "f1": 0.5660377358490566,
+          "support": 32
+        },
+        {
+          "label": 7,
+          "class_name": "surprise",
+          "precision": 0.8260869565217391,
+          "recall": 0.59375,
+          "f1": 0.6909090909090909,
+          "support": 32
+        }
+      ],
+      "confusion_matrix_counts": [
+        [
+          9,
+          7,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          30,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          3,
+          27,
+          0,
+          0,
+          1,
+          0,
+          1
+        ],
+        [
+          0,
+          6,
+          2,
+          13,
+          1,
+          4,
+          5,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          4,
+          25,
+          3,
+          0,
+          0
+        ],
+        [
+          5,
+          0,
+          2,
+          5,
+          0,
+          17,
+          1,
+          2
+        ],
+        [
+          2,
+          0,
+          1,
+          7,
+          7,
+          0,
+          15,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          8,
+          2,
+          3,
+          0,
+          19
+        ]
+      ]
+    },
+    "test": null
+  },
+  "artifacts": {
+    "original_metrics_ref": "experiment_records/M5_concat_s42_h64_d0.4_20261019/original_metrics.json",
+    "predictions_val_ref": "experiment_records/M5_concat_s42_h64_d0.4_20261019/predictions_val.csv",
+    "predictions_test_ref": null,
+    "history_ref": "experiment_records/M5_concat_s42_h64_d0.4_20261019/history.csv",
+    "checkpoint_ref": null,
+    "checkpoint_sha256": "c1751bd58b0f12ec8b04ec087dbf2e00163cf73f26d028c7458d30822afb49c6",
+    "feature_exports": [],
+    "figures": []
+  },
+  "notes_ref": "experiment_records/M5_concat_s42_h64_d0.4_20261019/notes.md"
+}

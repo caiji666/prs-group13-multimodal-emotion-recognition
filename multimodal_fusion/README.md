@@ -125,3 +125,9 @@ python -m fusion predict --checkpoint results/synthetic_seed42/checkpoints/gated
 测试覆盖完整 trial 配对、乱序配对、缺失配对拒绝、演员泄漏拒绝、训练集统计隔离、非法概率拒绝、padding 不变性，以及所有融合方法 checkpoint 的预测复现。
 
 实现 cross-attention 的 padding 行为参考 [PyTorch MultiheadAttention 文档](https://docs.pytorch.org/docs/2.14/generated/torch.nn.MultiheadAttention.html)。本机实际验证版本记录在每次实验的 `metrics.json`。
+
+## Published M5 experiment records
+
+The current results are available in the repository under [experiment_records](../experiment_records/summary.md), using the shared v2 format. The [M5 report](../experiment_records/shared/M5/M5_RESULTS_20261020.md) includes multi-seed controls, locked test evaluation, confirmed-order decision fusion and interpretation diagnostics. Per-run notes disclose historical input versions, missing upstream metadata and test exposure.
+
+Run `python ../scripts/validate_m5_records.py --root ..` to verify predictions and scores from this directory. The new feature-only training, study and diagnostics modules require separately obtained historical features; generated local results are not uploaded wholesale.

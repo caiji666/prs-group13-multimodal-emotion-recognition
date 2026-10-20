@@ -1,0 +1,15 @@
+{
+  "evaluation_split": "val",
+  "test_status": "not_run",
+  "best_default_fusion_by_mean": "cross_attention",
+  "strongest_matched_unimodal_by_mean": "visual_only",
+  "upstream_probabilities_used": false,
+  "perturbation_seed_policy": "fixed across models/seeds",
+  "attention_reconstruction_matches_forward": true,
+  "limitations": [
+    "Feature perturbations, not raw-audio/video degradation or causal attribution.",
+    "Gate averages are descriptive, not contribution percentages.",
+    "Validation-set descriptive explanations; not independent final test evidence.",
+    "Frame selection occurs in token space; no timestamp provenance supplied."
+  ]
+}

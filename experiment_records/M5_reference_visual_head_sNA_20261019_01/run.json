@@ -1,0 +1,466 @@
+{
+  "schema_version": "2.0",
+  "run_id": "M5_reference_visual_head_sNA_20261019_01",
+  "member": "M5",
+  "owner": "Jiang Yushan",
+  "stage": "reference",
+  "comparison_group": "M5_imported_probability_references_v1",
+  "pipeline_name": "Imported visual feature export → supplied upstream classifier probabilities (no M5 retraining)",
+  "run_status": "completed",
+  "test_status": "completed",
+  "started_at": null,
+  "finished_at": null,
+  "seed": null,
+  "dataset_id": "ravdess_speech_v1",
+  "data_kind": "real",
+  "class_names": [
+    "neutral",
+    "calm",
+    "happy",
+    "sad",
+    "angry",
+    "fearful",
+    "disgust",
+    "surprise"
+  ],
+  "split_ref": "multimodal_fusion/configs/actor_splits.csv",
+  "split_sha256": "1ae0f8241c8d1b40f1c4d0c0be1c17d8cede3ea5005a24b4635cef1110490528",
+  "input_manifest_ref": "experiment_records/shared/M5/input_manifest.csv",
+  "input_manifest_sha256": "b7db8a6eb1d31ae76cd6caa04fcfeaa6af1ca58d8b46de3a1845cc24cd95bda2",
+  "counts": {
+    "expected": {
+      "train": 960,
+      "val": 240,
+      "test": 240
+    },
+    "actual": {
+      "train": null,
+      "val": 240,
+      "test": 240
+    }
+  },
+  "excluded_samples": {
+    "count": 0,
+    "id_reason_manifest_ref": null,
+    "handling_policy": "No samples excluded. Unmeasured test results remain null."
+  },
+  "git_commit": "6ea5fa37bd0f56847ba5755dcab2671845d4dcc6",
+  "working_tree_dirty": true,
+  "code_patch_ref": "experiment_records/shared/M5/historical_code.patch",
+  "command": null,
+  "environment": {
+    "python": null,
+    "framework_and_version": null,
+    "device": "cpu",
+    "dependencies_ref": "experiment_records/shared/M5/environment.txt"
+  },
+  "source_runs": {
+    "audio_handcrafted": null,
+    "audio_learned": null,
+    "audio_final": null,
+    "visual_handcrafted": null,
+    "visual_learned": null,
+    "visual_final": null
+  },
+  "input_artifacts": [
+    {
+      "role": "visual_learned_export",
+      "source_run_id": null,
+      "ref": null,
+      "sha256": "a29912628b062a1a40b4a472405dcfec095d9c886359b1b967fcb5fe3bde2565"
+    }
+  ],
+  "preprocessing": {
+    "audio": null,
+    "visual": null,
+    "standardization_fit_split": null,
+    "augmentation_train_only": null,
+    "parameters": {}
+  },
+  "pipeline": {
+    "feature_extractors": [],
+    "representation": {
+      "kind": "probabilities",
+      "components": [],
+      "pooling": null,
+      "normalization": null,
+      "normalization_fit_split": null,
+      "combination_method": null,
+      "output_shape": [
+        null,
+        8
+      ]
+    },
+    "fusion": {
+      "applied": false,
+      "method": null,
+      "input_source_runs": {},
+      "parameters": {},
+      "trainable_in_this_run": false,
+      "output_shape": null
+    },
+    "classifier": {
+      "type": "upstream classifier (architecture not supplied)",
+      "source_run_id": null,
+      "input_dim": 576,
+      "architecture": null,
+      "hidden_dims": null,
+      "output_dim": 8,
+      "activation": null,
+      "dropout": null,
+      "parameters": {},
+      "trainable_in_this_run": false,
+      "probability_method": "provided probabilities; class order confirmed",
+      "calibration_fit_split": null,
+      "checkpoint_ref": null,
+      "checkpoint_sha256": null
+    }
+  },
+  "training": {
+    "regime": "cached_upstream_evaluation",
+    "optimizer": null,
+    "learning_rate": null,
+    "batch_size": null,
+    "max_epochs": null,
+    "completed_epochs": null,
+    "early_stopping_patience": null,
+    "component_parameter_groups": [],
+    "class_weighting": null,
+    "other_parameters": {}
+  },
+  "selection": {
+    "metric": "macro_f1",
+    "split": "val",
+    "best_epoch": null,
+    "selected_for_next_stage": null,
+    "selection_reason": "Reference evaluation of a supplied upstream head; no new training or model selection",
+    "tie_break_rule": null,
+    "candidate_search_ref": null,
+    "config_locked_at": null,
+    "test_first_evaluated_at": null
+  },
+  "metrics_scope": "full_pipeline",
+  "metrics_by_split": {
+    "val": {
+      "n": 240,
+      "accuracy": 0.38333333333333336,
+      "macro_precision": 0.3301510363498068,
+      "macro_recall": 0.359375,
+      "macro_f1": 0.30330592423890534,
+      "per_class": [
+        {
+          "label": 0,
+          "class_name": "neutral",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 16
+        },
+        {
+          "label": 1,
+          "class_name": "calm",
+          "precision": 0.375,
+          "recall": 0.65625,
+          "f1": 0.4772727272727273,
+          "support": 32
+        },
+        {
+          "label": 2,
+          "class_name": "happy",
+          "precision": 0.5111111111111111,
+          "recall": 0.71875,
+          "f1": 0.5974025974025974,
+          "support": 32
+        },
+        {
+          "label": 3,
+          "class_name": "sad",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 32
+        },
+        {
+          "label": 4,
+          "class_name": "angry",
+          "precision": 0.8571428571428571,
+          "recall": 0.1875,
+          "f1": 0.3076923076923077,
+          "support": 32
+        },
+        {
+          "label": 5,
+          "class_name": "fearful",
+          "precision": 0.32786885245901637,
+          "recall": 0.625,
+          "f1": 0.43010752688172044,
+          "support": 32
+        },
+        {
+          "label": 6,
+          "class_name": "disgust",
+          "precision": 0.37777777777777777,
+          "recall": 0.53125,
+          "f1": 0.44155844155844154,
+          "support": 32
+        },
+        {
+          "label": 7,
+          "class_name": "surprise",
+          "precision": 0.19230769230769232,
+          "recall": 0.15625,
+          "f1": 0.1724137931034483,
+          "support": 32
+        }
+      ],
+      "confusion_matrix_counts": [
+        [
+          0,
+          11,
+          4,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          21,
+          5,
+          0,
+          0,
+          6,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          23,
+          0,
+          0,
+          8,
+          1,
+          0
+        ],
+        [
+          0,
+          11,
+          1,
+          0,
+          0,
+          1,
+          12,
+          7
+        ],
+        [
+          0,
+          2,
+          4,
+          0,
+          6,
+          13,
+          4,
+          3
+        ],
+        [
+          0,
+          1,
+          2,
+          0,
+          1,
+          20,
+          5,
+          3
+        ],
+        [
+          0,
+          5,
+          0,
+          0,
+          0,
+          2,
+          17,
+          8
+        ],
+        [
+          0,
+          5,
+          6,
+          0,
+          0,
+          10,
+          6,
+          5
+        ]
+      ]
+    },
+    "test": {
+      "n": 240,
+      "accuracy": 0.2833333333333333,
+      "macro_precision": 0.33116663741663743,
+      "macro_recall": 0.265625,
+      "macro_f1": 0.2149731386167712,
+      "per_class": [
+        {
+          "label": 0,
+          "class_name": "neutral",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 16
+        },
+        {
+          "label": 1,
+          "class_name": "calm",
+          "precision": 1.0,
+          "recall": 0.15625,
+          "f1": 0.2702702702702703,
+          "support": 32
+        },
+        {
+          "label": 2,
+          "class_name": "happy",
+          "precision": 1.0,
+          "recall": 0.4375,
+          "f1": 0.6086956521739131,
+          "support": 32
+        },
+        {
+          "label": 3,
+          "class_name": "sad",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 32
+        },
+        {
+          "label": 4,
+          "class_name": "angry",
+          "precision": 0.20454545454545456,
+          "recall": 0.28125,
+          "f1": 0.23684210526315788,
+          "support": 32
+        },
+        {
+          "label": 5,
+          "class_name": "fearful",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 32
+        },
+        {
+          "label": 6,
+          "class_name": "disgust",
+          "precision": 0.22857142857142856,
+          "recall": 1.0,
+          "f1": 0.37209302325581395,
+          "support": 32
+        },
+        {
+          "label": 7,
+          "class_name": "surprise",
+          "precision": 0.21621621621621623,
+          "recall": 0.25,
+          "f1": 0.2318840579710145,
+          "support": 32
+        }
+      ],
+      "confusion_matrix_counts": [
+        [
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          4,
+          10
+        ],
+        [
+          0,
+          5,
+          0,
+          0,
+          8,
+          0,
+          13,
+          6
+        ],
+        [
+          0,
+          0,
+          14,
+          0,
+          2,
+          0,
+          16,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          7,
+          0,
+          18,
+          7
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          9,
+          0,
+          19,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          8,
+          0,
+          22,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          32,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          8,
+          0,
+          16,
+          8
+        ]
+      ]
+    }
+  },
+  "artifacts": {
+    "original_metrics_ref": null,
+    "predictions_val_ref": "experiment_records/M5_reference_visual_head_sNA_20261019_01/predictions_val.csv",
+    "predictions_test_ref": "experiment_records/M5_reference_visual_head_sNA_20261019_01/predictions_test.csv",
+    "history_ref": null,
+    "checkpoint_ref": null,
+    "checkpoint_sha256": null,
+    "feature_exports": [],
+    "figures": []
+  },
+  "notes_ref": "experiment_records/M5_reference_visual_head_sNA_20261019_01/notes.md"
+}

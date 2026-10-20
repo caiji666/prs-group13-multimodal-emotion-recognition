@@ -1,0 +1,434 @@
+[
+  {
+    "seed": 42,
+    "method": "concat",
+    "class_name": "neutral",
+    "f1_gain": 0.20606060606060606
+  },
+  {
+    "seed": 42,
+    "method": "concat",
+    "class_name": "calm",
+    "f1_gain": 0.12406947890818865
+  },
+  {
+    "seed": 42,
+    "method": "concat",
+    "class_name": "happy",
+    "f1_gain": 0.02858309514087387
+  },
+  {
+    "seed": 42,
+    "method": "concat",
+    "class_name": "sad",
+    "f1_gain": 0.18438791041530767
+  },
+  {
+    "seed": 42,
+    "method": "concat",
+    "class_name": "angry",
+    "f1_gain": 0.1990610328638498
+  },
+  {
+    "seed": 42,
+    "method": "concat",
+    "class_name": "fearful",
+    "f1_gain": -0.016321406151914575
+  },
+  {
+    "seed": 42,
+    "method": "concat",
+    "class_name": "disgust",
+    "f1_gain": 0.030588235294117694
+  },
+  {
+    "seed": 42,
+    "method": "concat",
+    "class_name": "surprise",
+    "f1_gain": 0.3401360544217687
+  },
+  {
+    "seed": 42,
+    "method": "gated",
+    "class_name": "neutral",
+    "f1_gain": 0.028571428571428525
+  },
+  {
+    "seed": 42,
+    "method": "gated",
+    "class_name": "calm",
+    "f1_gain": 0.052513128282070554
+  },
+  {
+    "seed": 42,
+    "method": "gated",
+    "class_name": "happy",
+    "f1_gain": -0.027517886626307053
+  },
+  {
+    "seed": 42,
+    "method": "gated",
+    "class_name": "sad",
+    "f1_gain": 0.11746031746031749
+  },
+  {
+    "seed": 42,
+    "method": "gated",
+    "class_name": "angry",
+    "f1_gain": 0.1968253968253968
+  },
+  {
+    "seed": 42,
+    "method": "gated",
+    "class_name": "fearful",
+    "f1_gain": -0.07407407407407407
+  },
+  {
+    "seed": 42,
+    "method": "gated",
+    "class_name": "disgust",
+    "f1_gain": 0.02614379084967322
+  },
+  {
+    "seed": 42,
+    "method": "gated",
+    "class_name": "surprise",
+    "f1_gain": 0.42346938775510207
+  },
+  {
+    "seed": 42,
+    "method": "cross_attention",
+    "class_name": "neutral",
+    "f1_gain": 0.2666666666666666
+  },
+  {
+    "seed": 42,
+    "method": "cross_attention",
+    "class_name": "calm",
+    "f1_gain": 0.17062818336162988
+  },
+  {
+    "seed": 42,
+    "method": "cross_attention",
+    "class_name": "happy",
+    "f1_gain": 0.02569431324390703
+  },
+  {
+    "seed": 42,
+    "method": "cross_attention",
+    "class_name": "sad",
+    "f1_gain": 0.009189640768588136
+  },
+  {
+    "seed": 42,
+    "method": "cross_attention",
+    "class_name": "angry",
+    "f1_gain": 0.24791666666666667
+  },
+  {
+    "seed": 42,
+    "method": "cross_attention",
+    "class_name": "fearful",
+    "f1_gain": 0.05256869772998807
+  },
+  {
+    "seed": 42,
+    "method": "cross_attention",
+    "class_name": "disgust",
+    "f1_gain": 0.14855433698903286
+  },
+  {
+    "seed": 42,
+    "method": "cross_attention",
+    "class_name": "surprise",
+    "f1_gain": 0.32653061224489793
+  },
+  {
+    "seed": 43,
+    "method": "concat",
+    "class_name": "neutral",
+    "f1_gain": 0.17939393939393938
+  },
+  {
+    "seed": 43,
+    "method": "concat",
+    "class_name": "calm",
+    "f1_gain": 0.1228070175438597
+  },
+  {
+    "seed": 43,
+    "method": "concat",
+    "class_name": "happy",
+    "f1_gain": -0.027936507936508037
+  },
+  {
+    "seed": 43,
+    "method": "concat",
+    "class_name": "sad",
+    "f1_gain": 0.1463536463536464
+  },
+  {
+    "seed": 43,
+    "method": "concat",
+    "class_name": "angry",
+    "f1_gain": 0.1220657276995305
+  },
+  {
+    "seed": 43,
+    "method": "concat",
+    "class_name": "fearful",
+    "f1_gain": 0.024943310657596363
+  },
+  {
+    "seed": 43,
+    "method": "concat",
+    "class_name": "disgust",
+    "f1_gain": -0.06162464985994398
+  },
+  {
+    "seed": 43,
+    "method": "concat",
+    "class_name": "surprise",
+    "f1_gain": 0.3771836007130125
+  },
+  {
+    "seed": 43,
+    "method": "gated",
+    "class_name": "neutral",
+    "f1_gain": 0.03999999999999998
+  },
+  {
+    "seed": 43,
+    "method": "gated",
+    "class_name": "calm",
+    "f1_gain": 0.05622489959839361
+  },
+  {
+    "seed": 43,
+    "method": "gated",
+    "class_name": "happy",
+    "f1_gain": -0.07072463768115944
+  },
+  {
+    "seed": 43,
+    "method": "gated",
+    "class_name": "sad",
+    "f1_gain": 0.12513542795232935
+  },
+  {
+    "seed": 43,
+    "method": "gated",
+    "class_name": "angry",
+    "f1_gain": 0.0938967136150235
+  },
+  {
+    "seed": 43,
+    "method": "gated",
+    "class_name": "fearful",
+    "f1_gain": -0.1306122448979592
+  },
+  {
+    "seed": 43,
+    "method": "gated",
+    "class_name": "disgust",
+    "f1_gain": -0.04081632653061218
+  },
+  {
+    "seed": 43,
+    "method": "gated",
+    "class_name": "surprise",
+    "f1_gain": 0.3401206636500754
+  },
+  {
+    "seed": 43,
+    "method": "cross_attention",
+    "class_name": "neutral",
+    "f1_gain": 0.23999999999999994
+  },
+  {
+    "seed": 43,
+    "method": "cross_attention",
+    "class_name": "calm",
+    "f1_gain": 0.06060606060606066
+  },
+  {
+    "seed": 43,
+    "method": "cross_attention",
+    "class_name": "happy",
+    "f1_gain": -0.009583333333333388
+  },
+  {
+    "seed": 43,
+    "method": "cross_attention",
+    "class_name": "sad",
+    "f1_gain": 0.05076923076923079
+  },
+  {
+    "seed": 43,
+    "method": "cross_attention",
+    "class_name": "angry",
+    "f1_gain": 0.1807909604519774
+  },
+  {
+    "seed": 43,
+    "method": "cross_attention",
+    "class_name": "fearful",
+    "f1_gain": -0.06394557823129254
+  },
+  {
+    "seed": 43,
+    "method": "cross_attention",
+    "class_name": "disgust",
+    "f1_gain": 0.11822660098522175
+  },
+  {
+    "seed": 43,
+    "method": "cross_attention",
+    "class_name": "surprise",
+    "f1_gain": 0.26319758672699844
+  },
+  {
+    "seed": 44,
+    "method": "concat",
+    "class_name": "neutral",
+    "f1_gain": 0.16133004926108374
+  },
+  {
+    "seed": 44,
+    "method": "concat",
+    "class_name": "calm",
+    "f1_gain": 0.17317317317317316
+  },
+  {
+    "seed": 44,
+    "method": "concat",
+    "class_name": "happy",
+    "f1_gain": 0.012581168831168776
+  },
+  {
+    "seed": 44,
+    "method": "concat",
+    "class_name": "sad",
+    "f1_gain": 0.18803418803418803
+  },
+  {
+    "seed": 44,
+    "method": "concat",
+    "class_name": "angry",
+    "f1_gain": 0.20438426821405542
+  },
+  {
+    "seed": 44,
+    "method": "concat",
+    "class_name": "fearful",
+    "f1_gain": -0.12142857142857144
+  },
+  {
+    "seed": 44,
+    "method": "concat",
+    "class_name": "disgust",
+    "f1_gain": -0.05736025753585017
+  },
+  {
+    "seed": 44,
+    "method": "concat",
+    "class_name": "surprise",
+    "f1_gain": 0.37272727272727274
+  },
+  {
+    "seed": 44,
+    "method": "gated",
+    "class_name": "neutral",
+    "f1_gain": 0.12301587301587297
+  },
+  {
+    "seed": 44,
+    "method": "gated",
+    "class_name": "calm",
+    "f1_gain": 0.16413974950560317
+  },
+  {
+    "seed": 44,
+    "method": "gated",
+    "class_name": "happy",
+    "f1_gain": 0.017316017316017285
+  },
+  {
+    "seed": 44,
+    "method": "gated",
+    "class_name": "sad",
+    "f1_gain": 0.18803418803418803
+  },
+  {
+    "seed": 44,
+    "method": "gated",
+    "class_name": "angry",
+    "f1_gain": 0.15913727776158548
+  },
+  {
+    "seed": 44,
+    "method": "gated",
+    "class_name": "fearful",
+    "f1_gain": -0.13714285714285712
+  },
+  {
+    "seed": 44,
+    "method": "gated",
+    "class_name": "disgust",
+    "f1_gain": -0.0565258812321372
+  },
+  {
+    "seed": 44,
+    "method": "gated",
+    "class_name": "surprise",
+    "f1_gain": 0.38357256778309406
+  },
+  {
+    "seed": 44,
+    "method": "cross_attention",
+    "class_name": "neutral",
+    "f1_gain": 0.30357142857142855
+  },
+  {
+    "seed": 44,
+    "method": "cross_attention",
+    "class_name": "calm",
+    "f1_gain": 0.19433719433719432
+  },
+  {
+    "seed": 44,
+    "method": "cross_attention",
+    "class_name": "happy",
+    "f1_gain": 0.04761904761904756
+  },
+  {
+    "seed": 44,
+    "method": "cross_attention",
+    "class_name": "sad",
+    "f1_gain": 0.08286252354048967
+  },
+  {
+    "seed": 44,
+    "method": "cross_attention",
+    "class_name": "angry",
+    "f1_gain": 0.19680851063829785
+  },
+  {
+    "seed": 44,
+    "method": "cross_attention",
+    "class_name": "fearful",
+    "f1_gain": -0.03419203747072597
+  },
+  {
+    "seed": 44,
+    "method": "cross_attention",
+    "class_name": "disgust",
+    "f1_gain": 0.1541472963053585
+  },
+  {
+    "seed": 44,
+    "method": "cross_attention",
+    "class_name": "surprise",
+    "f1_gain": 0.3987993138936535
+  }
+]

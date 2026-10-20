@@ -1,0 +1,27 @@
+{
+  "validated_on": "2026-10-20",
+  "schema_version": "2.0",
+  "new_M5_records": 30,
+  "prediction_files_recomputed": 55,
+  "completed_test_records": 25,
+  "fusion_unit_tests_passed": 17,
+  "existing_M2_records_unchanged": true,
+  "checks": [
+    "required template fields",
+    "fixed class order",
+    "shared actor split",
+    "sample ID/label/split consistency",
+    "probability normalization and argmax",
+    "fixed-eight-class metrics and confusion counts",
+    "summary values",
+    "selected-epoch history",
+    "nullable unmeasured test results",
+    "source run links",
+    "no raw features/checkpoints/private host paths"
+  ],
+  "commands": [
+    "python scripts/validate_m5_records.py --root .",
+    "cd multimodal_fusion && python -m unittest discover -s tests -v"
+  ],
+  "note": "Publication validates existing results; no experiments were retrained and no scores changed."
+}

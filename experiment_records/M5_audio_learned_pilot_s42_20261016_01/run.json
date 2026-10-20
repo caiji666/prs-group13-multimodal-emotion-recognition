@@ -1,0 +1,346 @@
+{
+  "schema_version": "2.0",
+  "run_id": "M5_audio_learned_pilot_s42_20261016_01",
+  "member": "M5",
+  "owner": "Jiang Yushan",
+  "stage": "representation",
+  "comparison_group": "M5_audio_interface_pilot_v1",
+  "pipeline_name": "Frozen M2 Transformer128D → newly trained MLP128→64→8",
+  "run_status": "completed",
+  "test_status": "not_run",
+  "started_at": null,
+  "finished_at": null,
+  "seed": 42,
+  "dataset_id": "ravdess_speech_v1",
+  "data_kind": "real",
+  "class_names": [
+    "neutral",
+    "calm",
+    "happy",
+    "sad",
+    "angry",
+    "fearful",
+    "disgust",
+    "surprise"
+  ],
+  "split_ref": "multimodal_fusion/configs/actor_splits.csv",
+  "split_sha256": "1ae0f8241c8d1b40f1c4d0c0be1c17d8cede3ea5005a24b4635cef1110490528",
+  "input_manifest_ref": "experiment_records/shared/M5/input_manifest.csv",
+  "input_manifest_sha256": "b7db8a6eb1d31ae76cd6caa04fcfeaa6af1ca58d8b46de3a1845cc24cd95bda2",
+  "counts": {
+    "expected": {
+      "train": 960,
+      "val": 240,
+      "test": 240
+    },
+    "actual": {
+      "train": 960,
+      "val": 240,
+      "test": null
+    }
+  },
+  "excluded_samples": {
+    "count": 0,
+    "id_reason_manifest_ref": null,
+    "handling_policy": "No samples excluded. Unmeasured test results remain null."
+  },
+  "git_commit": "6ea5fa37bd0f56847ba5755dcab2671845d4dcc6",
+  "working_tree_dirty": true,
+  "code_patch_ref": "experiment_records/shared/M5/historical_code.patch",
+  "command": null,
+  "environment": {
+    "python": null,
+    "framework_and_version": null,
+    "device": "cpu",
+    "dependencies_ref": "experiment_records/shared/M5/environment.txt"
+  },
+  "source_runs": {
+    "audio_handcrafted": null,
+    "audio_learned": "M2_encoder_transformer_s42_20261015_00",
+    "audio_final": null,
+    "visual_handcrafted": null,
+    "visual_learned": null,
+    "visual_final": null
+  },
+  "input_artifacts": [
+    {
+      "role": "learned-only export",
+      "source_run_id": "M2_encoder_transformer_s42_20261015_00",
+      "ref": null,
+      "sha256": "e3f59be6b5dd74b45c1ca79444cc08c7a7b68ccabc3a34dadab77c64faede0c8"
+    }
+  ],
+  "preprocessing": {
+    "audio": "Frozen learned-only M2 export",
+    "visual": null,
+    "standardization_fit_split": "train",
+    "augmentation_train_only": false,
+    "parameters": {
+      "normalizer_ref": "experiment_records/shared/M5/normalizers/audio_learned_pilot.json",
+      "normalizer_sha256": "d0330b69324106921f572858c5dca70ad1323a11d5253d752c8a8ccc9976e92a"
+    }
+  },
+  "pipeline": {
+    "feature_extractors": [
+      {
+        "component_id": "audio_learned",
+        "modality": "audio",
+        "kind": "learned",
+        "method": "MFCC Transformer",
+        "input_description": "Frozen teammate export; original extractor training not part of this run",
+        "parameters": {},
+        "pretrained_source": null,
+        "source_run_id": "M2_encoder_transformer_s42_20261015_00",
+        "checkpoint_ref": null,
+        "checkpoint_sha256": null,
+        "trainable_in_this_run": false,
+        "trainable_layers": [],
+        "output_sequence_shape": [
+          null,
+          null,
+          128
+        ],
+        "output_pooled_shape": [
+          null,
+          128
+        ]
+      }
+    ],
+    "representation": {
+      "kind": "learned",
+      "components": [
+        "audio_learned"
+      ],
+      "pooling": "upstream temporal mean",
+      "normalization": "train-only per-dimension standardization",
+      "normalization_fit_split": "train",
+      "combination_method": null,
+      "output_shape": [
+        null,
+        128
+      ]
+    },
+    "fusion": {
+      "applied": false,
+      "method": null,
+      "input_source_runs": {},
+      "parameters": {},
+      "trainable_in_this_run": false,
+      "output_shape": null
+    },
+    "classifier": {
+      "type": "MLP",
+      "source_run_id": null,
+      "input_dim": 128,
+      "architecture": "Linear(128,64) → ReLU → Dropout(0.2) → Linear(64,8)",
+      "hidden_dims": [
+        64
+      ],
+      "output_dim": 8,
+      "activation": "ReLU",
+      "dropout": 0.2,
+      "parameters": {},
+      "trainable_in_this_run": true,
+      "probability_method": "softmax",
+      "calibration_fit_split": null,
+      "checkpoint_ref": null,
+      "checkpoint_sha256": "fc9423c54cbb594db7349d2c45a8ad298ffe4540b114cf35ecebb9f94ee1960f"
+    }
+  },
+  "training": {
+    "regime": "frozen_encoder_then_classifier",
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "batch_size": 64,
+    "max_epochs": 20,
+    "completed_epochs": 20,
+    "early_stopping_patience": 8,
+    "component_parameter_groups": [],
+    "class_weighting": "none",
+    "other_parameters": {
+      "weight_decay": 0.0001,
+      "gradient_clip": 1.0
+    }
+  },
+  "selection": {
+    "metric": "macro_f1",
+    "split": "val",
+    "best_epoch": 14,
+    "selected_for_next_stage": false,
+    "selection_reason": "Interface pilot, not part of the later 30-epoch fusion comparison",
+    "tie_break_rule": null,
+    "candidate_search_ref": null,
+    "config_locked_at": null,
+    "test_first_evaluated_at": null
+  },
+  "metrics_scope": "full_pipeline",
+  "metrics_by_split": {
+    "val": {
+      "n": 240,
+      "accuracy": 0.45,
+      "macro_precision": 0.47889872604020567,
+      "macro_recall": 0.4375,
+      "macro_f1": 0.4236891289312902,
+      "per_class": [
+        {
+          "label": 0,
+          "class_name": "neutral",
+          "precision": 0.6666666666666666,
+          "recall": 0.25,
+          "f1": 0.36363636363636365,
+          "support": 16
+        },
+        {
+          "label": 1,
+          "class_name": "calm",
+          "precision": 0.4838709677419355,
+          "recall": 0.9375,
+          "f1": 0.6382978723404256,
+          "support": 32
+        },
+        {
+          "label": 2,
+          "class_name": "happy",
+          "precision": 0.36,
+          "recall": 0.28125,
+          "f1": 0.3157894736842105,
+          "support": 32
+        },
+        {
+          "label": 3,
+          "class_name": "sad",
+          "precision": 0.2916666666666667,
+          "recall": 0.4375,
+          "f1": 0.35,
+          "support": 32
+        },
+        {
+          "label": 4,
+          "class_name": "angry",
+          "precision": 0.5,
+          "recall": 0.625,
+          "f1": 0.5555555555555556,
+          "support": 32
+        },
+        {
+          "label": 5,
+          "class_name": "fearful",
+          "precision": 0.4166666666666667,
+          "recall": 0.15625,
+          "f1": 0.22727272727272727,
+          "support": 32
+        },
+        {
+          "label": 6,
+          "class_name": "disgust",
+          "precision": 0.4166666666666667,
+          "recall": 0.3125,
+          "f1": 0.35714285714285715,
+          "support": 32
+        },
+        {
+          "label": 7,
+          "class_name": "surprise",
+          "precision": 0.6956521739130435,
+          "recall": 0.5,
+          "f1": 0.5818181818181818,
+          "support": 32
+        }
+      ],
+      "confusion_matrix_counts": [
+        [
+          4,
+          12,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          30,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          1,
+          3,
+          9,
+          7,
+          4,
+          2,
+          2,
+          4
+        ],
+        [
+          0,
+          10,
+          2,
+          14,
+          0,
+          0,
+          5,
+          1
+        ],
+        [
+          0,
+          1,
+          0,
+          3,
+          20,
+          3,
+          5,
+          0
+        ],
+        [
+          1,
+          3,
+          9,
+          10,
+          1,
+          5,
+          1,
+          2
+        ],
+        [
+          0,
+          2,
+          0,
+          6,
+          13,
+          1,
+          10,
+          0
+        ],
+        [
+          0,
+          1,
+          5,
+          7,
+          2,
+          1,
+          0,
+          16
+        ]
+      ]
+    },
+    "test": null
+  },
+  "artifacts": {
+    "original_metrics_ref": null,
+    "predictions_val_ref": "experiment_records/M5_audio_learned_pilot_s42_20261016_01/predictions_val.csv",
+    "predictions_test_ref": null,
+    "history_ref": "experiment_records/M5_audio_learned_pilot_s42_20261016_01/history.csv",
+    "checkpoint_ref": null,
+    "checkpoint_sha256": "fc9423c54cbb594db7349d2c45a8ad298ffe4540b114cf35ecebb9f94ee1960f",
+    "feature_exports": [],
+    "figures": []
+  },
+  "notes_ref": "experiment_records/M5_audio_learned_pilot_s42_20261016_01/notes.md"
+}

@@ -11,7 +11,12 @@ class FusionModel(nn.Module):
                  hidden=64, heads=4, dropout=0.2):
         super().__init__()
         self.method = method
-        if method == 'concat':
+        if method in ('audio_only', 'visual_only'):
+            self.classifier = head(audio_dim if method == 'audio_only' else visual_dim, hidden, dropout)
+        elif method in ('audio_sequence_mean', 'sequence_mean_concat'):
+            dim = audio_seq_dim + (visual_seq_dim if method == 'sequence_mean_concat' else 0)
+            self.classifier = head(dim, hidden, dropout)
+        elif method == 'concat':
             self.classifier = head(audio_dim + visual_dim, hidden, dropout)
         elif method == 'gated':
             self.audio = nn.Linear(audio_dim, hidden)
@@ -29,7 +34,22 @@ class FusionModel(nn.Module):
         else:
             raise ValueError(f'Unknown model {method}')
 
+    @staticmethod
+    def sequence_mean(batch, modality):
+        x = batch[modality + '_sequence']
+        lengths = batch[modality + '_lengths']
+        valid = torch.arange(x.shape[1], device=x.device)[None, :] < lengths[:, None]
+        return (x * valid[..., None]).sum(1) / lengths[:, None]
+
     def forward(self, batch):
+        if self.method in ('audio_only', 'visual_only'):
+            modality = self.method.split('_')[0]
+            return self.classifier(batch[modality + '_pooled'])
+        if self.method in ('audio_sequence_mean', 'sequence_mean_concat'):
+            pooled = self.sequence_mean(batch, 'audio')
+            if self.method == 'sequence_mean_concat':
+                pooled = torch.cat([pooled, self.sequence_mean(batch, 'visual')], -1)
+            return self.classifier(pooled)
         if self.method == 'concat':
             return self.classifier(torch.cat([batch['audio_pooled'], batch['visual_pooled']], -1))
         if self.method == 'gated':

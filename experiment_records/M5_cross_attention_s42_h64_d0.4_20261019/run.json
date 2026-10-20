@@ -1,0 +1,395 @@
+{
+  "schema_version": "2.0",
+  "run_id": "M5_cross_attention_s42_h64_d0.4_20261019",
+  "member": "M5",
+  "owner": "Jiang Yushan",
+  "stage": "fusion",
+  "comparison_group": "M5_regularization_exploration_v1",
+  "pipeline_name": "cross_attention on frozen historical audio/visual exports",
+  "run_status": "completed",
+  "test_status": "not_run",
+  "started_at": null,
+  "finished_at": null,
+  "seed": 42,
+  "dataset_id": "ravdess_speech_v1",
+  "data_kind": "real",
+  "class_names": [
+    "neutral",
+    "calm",
+    "happy",
+    "sad",
+    "angry",
+    "fearful",
+    "disgust",
+    "surprise"
+  ],
+  "split_ref": "multimodal_fusion/configs/actor_splits.csv",
+  "split_sha256": "1ae0f8241c8d1b40f1c4d0c0be1c17d8cede3ea5005a24b4635cef1110490528",
+  "input_manifest_ref": "experiment_records/shared/M5/input_manifest.csv",
+  "input_manifest_sha256": "b7db8a6eb1d31ae76cd6caa04fcfeaa6af1ca58d8b46de3a1845cc24cd95bda2",
+  "counts": {
+    "expected": {
+      "train": 960,
+      "val": 240,
+      "test": 240
+    },
+    "actual": {
+      "train": 960,
+      "val": 240,
+      "test": null
+    }
+  },
+  "excluded_samples": {
+    "count": 0,
+    "id_reason_manifest_ref": null,
+    "handling_policy": "No samples excluded. Unmeasured test results remain null."
+  },
+  "git_commit": "6ea5fa37bd0f56847ba5755dcab2671845d4dcc6",
+  "working_tree_dirty": true,
+  "code_patch_ref": "experiment_records/shared/M5/historical_code.patch",
+  "command": "python -m fusion.feature_pilot --pilot results/m5_feature_pilot_20261019_s42 --output results/m5_validation_study_20261019",
+  "environment": {
+    "python": "3.12.12",
+    "framework_and_version": "PyTorch 2.13.0",
+    "device": "cpu",
+    "dependencies_ref": "experiment_records/shared/M5/environment.txt"
+  },
+  "source_runs": {
+    "audio_handcrafted": null,
+    "audio_learned": "M2_encoder_transformer_s42_20261015_00",
+    "audio_final": null,
+    "visual_handcrafted": null,
+    "visual_learned": null,
+    "visual_final": null
+  },
+  "input_artifacts": [
+    {
+      "role": "visual_learned_export",
+      "source_run_id": null,
+      "ref": null,
+      "sha256": "a29912628b062a1a40b4a472405dcfec095d9c886359b1b967fcb5fe3bde2565"
+    },
+    {
+      "role": "ordered_train_val_audio_sequences",
+      "source_run_id": "M2_encoder_transformer_s42_20261015_00",
+      "ref": null,
+      "sha256": "4ec0483fc8889154eceeaba8361f73b6144a2e2561ba30af336194f6b9ec5e79"
+    }
+  ],
+  "preprocessing": {
+    "audio": "Frozen export; no raw preprocessing rerun",
+    "visual": "Frozen export; 16 tokens assumed valid, pending mask provenance",
+    "standardization_fit_split": "train",
+    "augmentation_train_only": false,
+    "parameters": {
+      "normalizer_ref": "experiment_records/shared/M5/normalizers/405747767ba4805ad7c3f12559b88852f6b407592addfc6b9a822ed25741d374.json",
+      "normalizer_sha256": "6cc0b0e133a381eea81424dcfe1b43ef6213db6787a2e47fd3ce965f12c7f664"
+    }
+  },
+  "pipeline": {
+    "feature_extractors": [
+      {
+        "component_id": "audio_learned",
+        "modality": "audio",
+        "kind": "learned",
+        "method": "MFCC Transformer",
+        "input_description": "Frozen teammate export; original extractor training not part of this run",
+        "parameters": {},
+        "pretrained_source": null,
+        "source_run_id": "M2_encoder_transformer_s42_20261015_00",
+        "checkpoint_ref": null,
+        "checkpoint_sha256": null,
+        "trainable_in_this_run": false,
+        "trainable_layers": [],
+        "output_sequence_shape": [
+          null,
+          null,
+          128
+        ],
+        "output_pooled_shape": [
+          null,
+          128
+        ]
+      },
+      {
+        "component_id": "visual_learned",
+        "modality": "visual",
+        "kind": "learned",
+        "method": "MobileNetV3-Small per supplied export",
+        "input_description": "Frozen teammate export; original extractor training not part of this run",
+        "parameters": {},
+        "pretrained_source": null,
+        "source_run_id": null,
+        "checkpoint_ref": null,
+        "checkpoint_sha256": null,
+        "trainable_in_this_run": false,
+        "trainable_layers": [],
+        "output_sequence_shape": [
+          null,
+          16,
+          576
+        ],
+        "output_pooled_shape": [
+          null,
+          576
+        ]
+      }
+    ],
+    "representation": {
+      "kind": "combined",
+      "components": [
+        "audio_learned",
+        "visual_learned"
+      ],
+      "pooling": "masked temporal mean",
+      "normalization": "per-channel standardization (sequence statistics exclude padding)",
+      "normalization_fit_split": "train",
+      "combination_method": "cross_attention",
+      "output_shape": [
+        null,
+        64
+      ]
+    },
+    "fusion": {
+      "applied": true,
+      "method": "cross_attention",
+      "input_source_runs": {
+        "audio": null,
+        "visual": null
+      },
+      "parameters": {
+        "audio_pooled_dim": 176,
+        "visual_pooled_dim": 576,
+        "audio_sequence_dim": 128,
+        "visual_sequence_dim": 576,
+        "hidden": 64,
+        "heads": 4
+      },
+      "trainable_in_this_run": true,
+      "output_shape": [
+        null,
+        64
+      ]
+    },
+    "classifier": {
+      "type": "MLP",
+      "source_run_id": null,
+      "input_dim": 64,
+      "architecture": "Linear(64,64) → ReLU → Dropout(0.4) → Linear(64,8)",
+      "hidden_dims": [
+        64
+      ],
+      "output_dim": 8,
+      "activation": "ReLU",
+      "dropout": 0.4,
+      "parameters": {
+        "loss": "cross_entropy",
+        "label_smoothing": 0.0
+      },
+      "trainable_in_this_run": true,
+      "probability_method": "softmax; argmax ties choose lowest index",
+      "calibration_fit_split": null,
+      "checkpoint_ref": null,
+      "checkpoint_sha256": "0255f45263d087a16b602455a29b040b29f5f04f799e8d9725b16277a73fe61b"
+    }
+  },
+  "training": {
+    "regime": "frozen_encoder_then_classifier",
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "batch_size": 64,
+    "max_epochs": 30,
+    "completed_epochs": 23,
+    "early_stopping_patience": 8,
+    "component_parameter_groups": [],
+    "class_weighting": "none",
+    "other_parameters": {
+      "weight_decay": 0.0001,
+      "gradient_clip": 1.0,
+      "parameter_count": 66632,
+      "hidden": 64,
+      "dropout": 0.4
+    }
+  },
+  "selection": {
+    "metric": "macro_f1",
+    "split": "val",
+    "best_epoch": 15,
+    "selected_for_next_stage": null,
+    "selection_reason": "Control / exploratory configuration; no test-based selection",
+    "tie_break_rule": "earlier epoch",
+    "candidate_search_ref": "experiment_records/shared/M5/tuning_decisions.json",
+    "config_locked_at": null,
+    "test_first_evaluated_at": null
+  },
+  "metrics_scope": "full_pipeline",
+  "metrics_by_split": {
+    "val": {
+      "n": 240,
+      "accuracy": 0.675,
+      "macro_precision": 0.7237053571428571,
+      "macro_recall": 0.66796875,
+      "macro_f1": 0.6828487457599299,
+      "per_class": [
+        {
+          "label": 0,
+          "class_name": "neutral",
+          "precision": 0.9,
+          "recall": 0.5625,
+          "f1": 0.6923076923076923,
+          "support": 16
+        },
+        {
+          "label": 1,
+          "class_name": "calm",
+          "precision": 0.7619047619047619,
+          "recall": 1.0,
+          "f1": 0.8648648648648649,
+          "support": 32
+        },
+        {
+          "label": 2,
+          "class_name": "happy",
+          "precision": 0.8484848484848485,
+          "recall": 0.875,
+          "f1": 0.8615384615384616,
+          "support": 32
+        },
+        {
+          "label": 3,
+          "class_name": "sad",
+          "precision": 0.25,
+          "recall": 0.375,
+          "f1": 0.3,
+          "support": 32
+        },
+        {
+          "label": 4,
+          "class_name": "angry",
+          "precision": 0.8125,
+          "recall": 0.8125,
+          "f1": 0.8125,
+          "support": 32
+        },
+        {
+          "label": 5,
+          "class_name": "fearful",
+          "precision": 0.72,
+          "recall": 0.5625,
+          "f1": 0.631578947368421,
+          "support": 32
+        },
+        {
+          "label": 6,
+          "class_name": "disgust",
+          "precision": 0.6785714285714286,
+          "recall": 0.59375,
+          "f1": 0.6333333333333333,
+          "support": 32
+        },
+        {
+          "label": 7,
+          "class_name": "surprise",
+          "precision": 0.8181818181818182,
+          "recall": 0.5625,
+          "f1": 0.6666666666666666,
+          "support": 32
+        }
+      ],
+      "confusion_matrix_counts": [
+        [
+          9,
+          2,
+          0,
+          5,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          32,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          28,
+          3,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          3,
+          3,
+          12,
+          0,
+          6,
+          7,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          4,
+          26,
+          0,
+          2,
+          0
+        ],
+        [
+          1,
+          2,
+          1,
+          7,
+          0,
+          18,
+          0,
+          3
+        ],
+        [
+          0,
+          2,
+          1,
+          5,
+          5,
+          0,
+          19,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          12,
+          1,
+          1,
+          0,
+          18
+        ]
+      ]
+    },
+    "test": null
+  },
+  "artifacts": {
+    "original_metrics_ref": "experiment_records/M5_cross_attention_s42_h64_d0.4_20261019/original_metrics.json",
+    "predictions_val_ref": "experiment_records/M5_cross_attention_s42_h64_d0.4_20261019/predictions_val.csv",
+    "predictions_test_ref": null,
+    "history_ref": "experiment_records/M5_cross_attention_s42_h64_d0.4_20261019/history.csv",
+    "checkpoint_ref": null,
+    "checkpoint_sha256": "0255f45263d087a16b602455a29b040b29f5f04f799e8d9725b16277a73fe61b",
+    "feature_exports": [],
+    "figures": []
+  },
+  "notes_ref": "experiment_records/M5_cross_attention_s42_h64_d0.4_20261019/notes.md"
+}

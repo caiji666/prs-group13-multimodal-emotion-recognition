@@ -1,0 +1,15 @@
+{
+  "published_on": "2026-10-20",
+  "new_records": 30,
+  "newly_trained_pipeline_records": 26,
+  "decision_configurations": 2,
+  "imported_upstream_reference_records": 2,
+  "reused_existing_M2_record": "M2_encoder_transformer_s42_20261015_00",
+  "upstream_M2_checkpoint_original_sha256": "538cd18812f38cd4a28671a028dd376601363ff3799a01ad715f5fce209b6a6c",
+  "notes": [
+    "Does not rerun experiments or change scores.",
+    "Synthetic checks are not counted as formal real-data records.",
+    "Historical exports precede M2 round04 promotion; no current upstream default is silently substituted.",
+    "Large inputs and M5 weights omitted; explicit inventory hashes and owner retrieval retained."
+  ]
+}
