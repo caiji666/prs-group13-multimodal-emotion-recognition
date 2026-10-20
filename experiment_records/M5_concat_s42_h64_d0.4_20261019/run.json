@@ -26,7 +26,7 @@
   "split_ref": "multimodal_fusion/configs/actor_splits.csv",
   "split_sha256": "1ae0f8241c8d1b40f1c4d0c0be1c17d8cede3ea5005a24b4635cef1110490528",
   "input_manifest_ref": "experiment_records/shared/M5/input_manifest.csv",
-  "input_manifest_sha256": "b7db8a6eb1d31ae76cd6caa04fcfeaa6af1ca58d8b46de3a1845cc24cd95bda2",
+  "input_manifest_sha256": "f9159d1b76d27bbdff23c84d5d0e51bb2b9a13d34b89d60ebea6381c61c4a2fc",
   "counts": {
     "expected": {
       "train": 960,

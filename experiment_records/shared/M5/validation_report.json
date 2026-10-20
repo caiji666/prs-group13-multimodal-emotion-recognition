@@ -23,5 +23,6 @@
     "python scripts/validate_m5_records.py --root .",
     "cd multimodal_fusion && python -m unittest discover -s tests -v"
   ],
-  "note": "Publication validates existing results; no experiments were retrained and no scores changed."
+  "note": "Publication validates existing results; no experiments were retrained and no scores changed.",
+  "portable_csv_line_endings": "LF; checksums verified against staged Git blobs"
 }

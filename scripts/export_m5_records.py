@@ -42,7 +42,7 @@ def standardized_predictions(source,target,run_id):
                 int(row.get('actor_id',sid[-2:])),lab,pred,*[float(row[c]) for c in CLASSES]])))
     target=Path(target);target.parent.mkdir(parents=True,exist_ok=True)
     with target.open('w',newline='') as f:
-        w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(converted)
+        w=csv.DictWriter(f,fieldnames=fields,lineterminator='\n');w.writeheader();w.writerows(converted)
     return converted
 
 
@@ -79,7 +79,7 @@ def export(source,dest,upstream):
     for path in [pilot/'input_manifest.csv',final/'test_manifest.csv']:
         with path.open() as f:manifests.extend(csv.DictReader(f))
     with (shared/'input_manifest.csv').open('w',newline='') as f:
-        w=csv.DictWriter(f,fieldnames=['sample_id','actor_id','split','label']);w.writeheader();w.writerows(sorted(manifests,key=lambda x:x['sample_id']))
+        w=csv.DictWriter(f,fieldnames=['sample_id','actor_id','split','label'],lineterminator='\n');w.writeheader();w.writerows(sorted(manifests,key=lambda x:x['sample_id']))
     assert len(manifests)==1440 and len({r['sample_id'] for r in manifests})==1440
     manifest_ref=ref(shared/'input_manifest.csv',dest);manifest_hash=digest(shared/'input_manifest.csv')
     with (shared/'environment.txt').open('w') as f:
@@ -115,7 +115,8 @@ def export(source,dest,upstream):
         'decision_alpha_audio':.15,'decision_weight_selection_split':'val','no_test_based_reselection':True,
         'class_order_confirmation_after_evaluation':True})
     for p in (study/'diagnostics').glob('*.json'):write(shared/'diagnostics'/p.name,read(p))
-    shutil.copyfile(study/'diagnostics/gates_val.csv',shared/'gates_val.csv')
+    gate_text=(study/'diagnostics/gates_val.csv').read_text()
+    (shared/'gates_val.csv').write_text(gate_text)
     for folder,label in [(study/'figures','validation'),(final/'figures','final')]:
         target=shared/'figures'/label;target.mkdir(parents=True,exist_ok=True)
         for p in folder.glob('*.png'):shutil.copyfile(p,target/p.name)
@@ -243,7 +244,7 @@ Prediction CSVs use the shared v2 schema and fixed class order. Source code, inp
         prediction_pair(r,folder,sources,expected)
         history=read(origin/'history.json');r['artifacts']['history_ref']=ref(folder/'history.csv',dest)
         with (folder/'history.csv').open('w',newline='') as f:
-            keys=list(history[0]);w=csv.DictWriter(f,fieldnames=keys);w.writeheader();w.writerows(history)
+            keys=list(history[0]);w=csv.DictWriter(f,fieldnames=keys,lineterminator='\n');w.writeheader();w.writerows(history)
         r['artifacts']['checkpoint_sha256']=digest(origin/'checkpoint.pt')
         r['environment'].update(python=historical_env['python'],framework_and_version='PyTorch '+historical_env['torch'])
         original_command=old.get('command') or ''
@@ -309,10 +310,10 @@ Prediction CSVs use the shared v2 schema and fixed class order. Source code, inp
     with (pilot_audio/'validation_predictions.csv').open() as f:raw=list(csv.DictReader(f))
     keep=[x for x in raw if x['model']=='retrained_audio_pooled_mlp']
     temp=folder/'raw_predictions.csv'
-    with temp.open('w',newline='') as f:w=csv.DictWriter(f,fieldnames=list(keep[0]));w.writeheader();w.writerows(keep)
+    with temp.open('w',newline='') as f:w=csv.DictWriter(f,fieldnames=list(keep[0]),lineterminator='\n');w.writeheader();w.writerows(keep)
     prediction_pair(r,folder,{'val':temp},{'val':old['retrained_audio_pooled_mlp']});temp.unlink()
     history=read(pilot_audio/'history.json')
-    with (folder/'history.csv').open('w',newline='') as f:w=csv.DictWriter(f,fieldnames=list(history[0]));w.writeheader();w.writerows(history)
+    with (folder/'history.csv').open('w',newline='') as f:w=csv.DictWriter(f,fieldnames=list(history[0]),lineterminator='\n');w.writeheader();w.writerows(history)
     r['artifacts']['history_ref']=ref(folder/'history.csv',dest);r['artifacts']['checkpoint_sha256']=digest(pilot_audio/'audio_pooled_mlp.pt');asset('Audio pilot checkpoint',pilot_audio/'audio_pooled_mlp.pt')
     r['input_artifacts']=[{'role':'learned-only export','source_run_id':OLD_M2,'ref':None,'sha256':read(project/'data/m2_learned_only/import_audit.json')['archive_sha256']}]
     save(r,folder,'Validate learned-only audio interface before multimodal inputs were available.',
