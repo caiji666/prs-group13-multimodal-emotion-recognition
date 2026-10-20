@@ -1,0 +1,223 @@
+{
+  "train_probability_protocol": "actor_grouped_4fold_oof",
+  "validation_probability_protocol": "final_locked_model",
+  "test_probability_protocol": "final_locked_model",
+  "oof_n_splits": 4,
+  "oof_group_key": "actor_id",
+  "oof_splitter": "sklearn GroupKFold (deterministic, no shuffling)",
+  "oof_random_seed": 0,
+  "folds": [
+    {
+      "fold": 0,
+      "fit_actors": [
+        1,
+        4,
+        5,
+        7,
+        10,
+        11,
+        13,
+        15,
+        16,
+        19,
+        20,
+        23
+      ],
+      "holdout_actors": [
+        6,
+        12,
+        18,
+        24
+      ],
+      "A": {
+        "fit_original_samples": 720,
+        "fit_augmented_samples": 720,
+        "holdout_original_samples": 240
+      },
+      "B": {
+        "fit_original_samples": 720,
+        "fit_augmented_samples": 0,
+        "holdout_original_samples": 240
+      },
+      "A+B": {
+        "fit_original_samples": 720,
+        "fit_augmented_samples": 0,
+        "holdout_original_samples": 240
+      }
+    },
+    {
+      "fold": 1,
+      "fit_actors": [
+        1,
+        4,
+        6,
+        7,
+        10,
+        12,
+        13,
+        15,
+        18,
+        19,
+        20,
+        24
+      ],
+      "holdout_actors": [
+        5,
+        11,
+        16,
+        23
+      ],
+      "A": {
+        "fit_original_samples": 720,
+        "fit_augmented_samples": 720,
+        "holdout_original_samples": 240
+      },
+      "B": {
+        "fit_original_samples": 720,
+        "fit_augmented_samples": 0,
+        "holdout_original_samples": 240
+      },
+      "A+B": {
+        "fit_original_samples": 720,
+        "fit_augmented_samples": 0,
+        "holdout_original_samples": 240
+      }
+    },
+    {
+      "fold": 2,
+      "fit_actors": [
+        1,
+        5,
+        6,
+        7,
+        11,
+        12,
+        13,
+        16,
+        18,
+        19,
+        23,
+        24
+      ],
+      "holdout_actors": [
+        4,
+        10,
+        15,
+        20
+      ],
+      "A": {
+        "fit_original_samples": 720,
+        "fit_augmented_samples": 720,
+        "holdout_original_samples": 240
+      },
+      "B": {
+        "fit_original_samples": 720,
+        "fit_augmented_samples": 0,
+        "holdout_original_samples": 240
+      },
+      "A+B": {
+        "fit_original_samples": 720,
+        "fit_augmented_samples": 0,
+        "holdout_original_samples": 240
+      }
+    },
+    {
+      "fold": 3,
+      "fit_actors": [
+        4,
+        5,
+        6,
+        10,
+        11,
+        12,
+        15,
+        16,
+        18,
+        20,
+        23,
+        24
+      ],
+      "holdout_actors": [
+        1,
+        7,
+        13,
+        19
+      ],
+      "A": {
+        "fit_original_samples": 720,
+        "fit_augmented_samples": 720,
+        "holdout_original_samples": 240
+      },
+      "B": {
+        "fit_original_samples": 720,
+        "fit_augmented_samples": 0,
+        "holdout_original_samples": 240
+      },
+      "A+B": {
+        "fit_original_samples": 720,
+        "fit_augmented_samples": 0,
+        "holdout_original_samples": 240
+      }
+    }
+  ],
+  "locked_configs": {
+    "A": {
+      "model": "outputs_augmentation\\selected_svm.joblib",
+      "svm_params": {
+        "C": "10",
+        "gamma": "0.001",
+        "class_weight": "balanced"
+      },
+      "oof_fit_data": "fit actors' original train features + fit actors' AUG-1 (horizontal flip) features, matched by source_sample_id"
+    },
+    "B": {
+      "hidden_layer_sizes": [
+        128,
+        64
+      ],
+      "alpha": 0.0001
+    },
+    "A+B": {
+      "hidden_layer_sizes": [
+        128
+      ],
+      "alpha": 0.01
+    }
+  },
+  "class_names": [
+    "neutral",
+    "calm",
+    "happy",
+    "sad",
+    "angry",
+    "fearful",
+    "disgust",
+    "surprised"
+  ],
+  "final_model_probability_fields": {
+    "A": "P_visual_handcrafted",
+    "B": "P_visual_deep_mlp",
+    "A+B": "P_visual_combined",
+    "selected": "P_visual"
+  },
+  "fusion_safe_probability_fields": {
+    "A": "P_visual_handcrafted_fusion",
+    "B": "P_visual_deep_mlp_fusion",
+    "A+B": "P_visual_combined_fusion",
+    "selected": "P_visual_fusion"
+  },
+  "probability_fields_for_downstream_fusion": [
+    "P_visual_handcrafted_fusion",
+    "P_visual_deep_mlp_fusion",
+    "P_visual_combined_fusion",
+    "P_visual_fusion"
+  ],
+  "sources": {
+    "train": "out-of-fold prediction of a fold model that never saw the actor",
+    "val": "final model trained on the full train split (locked on validation)",
+    "test": "final model trained on the full train split (locked on validation)"
+  },
+  "test_used_for_model_or_hyperparameter_selection": false,
+  "oof_used_for_selection": false,
+  "note": "OOF probabilities are inputs for downstream decision-level / gated fusion only; they are not Level-2 scores and were not used to select anything. Final-model probabilities (P_visual*, without _fusion) are in-sample on the train split."
+}

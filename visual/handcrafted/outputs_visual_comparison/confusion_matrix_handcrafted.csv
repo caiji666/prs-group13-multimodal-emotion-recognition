@@ -1,0 +1,9 @@
+true_label \ predicted_label,neutral,calm,happy,sad,angry,fearful,disgust,surprised
+neutral,9,0,0,3,0,0,0,4
+calm,4,16,0,5,0,0,2,5
+happy,0,0,22,0,0,0,4,6
+sad,6,0,0,11,0,2,6,7
+angry,3,0,0,2,9,0,7,11
+fearful,0,0,0,3,4,7,9,9
+disgust,0,0,0,0,0,4,27,1
+surprised,4,0,0,7,4,0,6,11
