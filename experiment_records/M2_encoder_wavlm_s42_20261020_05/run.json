@@ -1,0 +1,604 @@
+{
+  "schema_version": "2.0",
+  "run_id": "M2_encoder_wavlm_s42_20261020_05",
+  "member": "M2",
+  "owner": null,
+  "stage": "encoder",
+  "comparison_group": "M2_WavLM_transfer_20261020",
+  "pipeline_name": "waveform \u2192 frozen WavLM Base+ \u2192 attentive_statistics adapter \u2192 MLP128\u219264\u21928",
+  "run_status": "completed",
+  "test_status": "completed",
+  "started_at": null,
+  "finished_at": null,
+  "seed": 42,
+  "dataset_id": "ravdess_speech_v1",
+  "data_kind": "real",
+  "class_names": [
+    "neutral",
+    "calm",
+    "happy",
+    "sad",
+    "angry",
+    "fearful",
+    "disgust",
+    "surprise"
+  ],
+  "split_ref": "multimodal_fusion/configs/actor_splits.csv",
+  "split_sha256": "1ae0f8241c8d1b40f1c4d0c0be1c17d8cede3ea5005a24b4635cef1110490528",
+  "input_manifest_ref": "experiment_records/shared/M2/input_manifest.csv",
+  "input_manifest_sha256": "1cee1b23403e0dddc953e01da61a329d683f49ac8f5dc3f9d14468e847d11b11",
+  "counts": {
+    "expected": {
+      "train": 960,
+      "val": 240,
+      "test": 240
+    },
+    "actual": {
+      "train": 960,
+      "val": 240,
+      "test": 240
+    }
+  },
+  "excluded_samples": {
+    "count": 0,
+    "id_reason_manifest_ref": null,
+    "handling_policy": "All speech samples indexed; train960/val240 used for development. Only round05 evaluated on test after locking."
+  },
+  "git_commit": "07a75bc48bd461dffc703cbad4aa81422b9940c0",
+  "working_tree_dirty": true,
+  "code_patch_ref": null,
+  "command": "cd audio/learned && research/speech_transfer/.venv/bin/python -m research.speech_transfer.run --config ../../experiment_records/M2_encoder_wavlm_s42_20261020_05/training.json --output research/speech_transfer/runs/reproduce_M2_encoder_wavlm_s42_20261020_05",
+  "environment": {
+    "python": "3.9.6",
+    "framework_and_version": "PyTorch 2.8.0",
+    "device": "cpu",
+    "dependencies_ref": "audio/learned/research/speech_transfer/requirements-research-tested.txt"
+  },
+  "source_runs": {
+    "audio_handcrafted": null,
+    "audio_learned": "M2_encoder_wavlm_s42_20261020_04",
+    "audio_final": null,
+    "visual_handcrafted": null,
+    "visual_learned": null,
+    "visual_final": null
+  },
+  "input_artifacts": [
+    {
+      "role": "warm-start adapter/pooling/head; optimizer reset",
+      "source_run_id": "M2_encoder_wavlm_s42_20261020_04",
+      "ref": "experiment_records/M2_encoder_wavlm_s42_20261020_04/best.pt",
+      "sha256": "0085a26fbca01f76eb4c5423f3cf83be6074d0038a0b3f2d6fdc7ab009185ddf"
+    }
+  ],
+  "preprocessing": {
+    "audio": "mono16k, boundary trim35dB, official processor do_normalize=false; no peak normalization",
+    "visual": null,
+    "standardization_fit_split": "train",
+    "augmentation_train_only": true,
+    "parameters": {
+      "cache_quantization": "float16 then float32",
+      "waveform_augmentation": false,
+      "mixup_alpha": 0.2,
+      "mixup_location": "train pooled learned features only"
+    }
+  },
+  "pipeline": {
+    "feature_extractors": [
+      {
+        "component_id": "frozen_wavlm",
+        "modality": "audio",
+        "kind": "learned",
+        "method": "WavLM Base+",
+        "input_description": "16kHz waveform",
+        "parameters": {
+          "layers": [
+            6,
+            9,
+            12
+          ],
+          "selected_layer": 6,
+          "hidden_dim": 768,
+          "download_command": "python -m research.speech_transfer.download"
+        },
+        "pretrained_source": "https://huggingface.co/microsoft/wavlm-base-plus/tree/4c66d4806a428f2e922ccfa1a962776e232d487b",
+        "source_run_id": null,
+        "checkpoint_ref": null,
+        "checkpoint_sha256": "3bb273a6ace99408b50cfc81afdbb7ef2de02da2eab0234e18db608ce692fe51",
+        "trainable_in_this_run": false,
+        "trainable_layers": "none",
+        "output_sequence_shape": "[N,T,768]",
+        "output_pooled_shape": null
+      },
+      {
+        "component_id": "learned_adapter",
+        "modality": "audio",
+        "kind": "learned",
+        "method": "Temporal projection+attention+statistics+projection",
+        "input_description": "16kHz waveform",
+        "parameters": {
+          "config": {
+            "pooling": "attentive_statistics",
+            "layer": 6,
+            "dropout": 0.4,
+            "input_dropout": 0.0,
+            "learning_rate": 0.0002,
+            "weight_decay": 0.02,
+            "batch_size": 32,
+            "epochs": 50,
+            "patience": 10,
+            "seed": 42,
+            "label_smoothing": 0.02,
+            "class_balance": true,
+            "class_balance_power": 0.5,
+            "mixup_alpha": 0.2,
+            "warm_start": "research/speech_transfer/runs/round_04/best.pt"
+          },
+          "projection": "768\u2192128",
+          "activation": "GELU",
+          "normalization": "LayerNorm"
+        },
+        "pretrained_source": null,
+        "source_run_id": "M2_encoder_wavlm_s42_20261020_04",
+        "checkpoint_ref": "experiment_records/M2_encoder_wavlm_s42_20261020_05/best.pt",
+        "checkpoint_sha256": "1868c381d8945191b52f838157b29fb6ab419b522763ffc898454defefc12bf1",
+        "trainable_in_this_run": true,
+        "trainable_layers": "all adapter and pooling parameters",
+        "output_sequence_shape": "[N,T,128]",
+        "output_pooled_shape": "[N,128]"
+      }
+    ],
+    "representation": {
+      "kind": "learned",
+      "components": [
+        "frozen_wavlm",
+        "learned_adapter"
+      ],
+      "pooling": "attentive_statistics",
+      "normalization": "train-only feature mean/std buffers",
+      "normalization_fit_split": "train",
+      "combination_method": "none; within-audio layer mixture in round03",
+      "output_shape": "[N,128]"
+    },
+    "fusion": {
+      "applied": false,
+      "method": null,
+      "input_source_runs": {},
+      "parameters": {},
+      "trainable_in_this_run": false,
+      "output_shape": null
+    },
+    "classifier": {
+      "type": "MLP",
+      "source_run_id": "M2_encoder_wavlm_s42_20261020_04",
+      "input_dim": 128,
+      "architecture": "Linear(128,64) \u2192 ReLU \u2192 Dropout \u2192 Linear(64,8)",
+      "hidden_dims": [
+        64
+      ],
+      "output_dim": 8,
+      "activation": "ReLU",
+      "dropout": 0.4,
+      "parameters": {
+        "loss": "cross_entropy",
+        "label_smoothing": 0.02
+      },
+      "trainable_in_this_run": true,
+      "probability_method": "softmax",
+      "calibration_fit_split": null,
+      "checkpoint_ref": "experiment_records/M2_encoder_wavlm_s42_20261020_05/best.pt",
+      "checkpoint_sha256": "1868c381d8945191b52f838157b29fb6ab419b522763ffc898454defefc12bf1"
+    }
+  },
+  "training": {
+    "regime": "frozen_encoder_then_classifier",
+    "optimizer": "AdamW",
+    "learning_rate": 0.0002,
+    "batch_size": 32,
+    "max_epochs": 50,
+    "completed_epochs": 16,
+    "early_stopping_patience": 10,
+    "component_parameter_groups": [
+      {
+        "component_id": "adapter_pooling_and_classifier",
+        "learning_rate": 0.0002,
+        "weight_decay": 0.02
+      }
+    ],
+    "class_weighting": {
+      "enabled": true,
+      "fit_split": "train",
+      "formula": "(N/(8*count))**0.5"
+    },
+    "other_parameters": {
+      "config": {
+        "pooling": "attentive_statistics",
+        "layer": 6,
+        "dropout": 0.4,
+        "input_dropout": 0.0,
+        "learning_rate": 0.0002,
+        "weight_decay": 0.02,
+        "batch_size": 32,
+        "epochs": 50,
+        "patience": 10,
+        "seed": 42,
+        "label_smoothing": 0.02,
+        "class_balance": true,
+        "class_balance_power": 0.5,
+        "mixup_alpha": 0.2,
+        "warm_start": "research/speech_transfer/runs/round_04/best.pt"
+      },
+      "scheduler": "ReduceLROnPlateau",
+      "scheduler_patience": 4,
+      "scheduler_factor": 0.5,
+      "gradient_clip": 1.0,
+      "threads": 4
+    }
+  },
+  "selection": {
+    "metric": "macro_f1",
+    "split": "val",
+    "best_epoch": 6,
+    "selected_for_next_stage": true,
+    "selection_reason": "Highest validation Macro-F1 among five new WavLM pipelines",
+    "tie_break_rule": "strict improvement retains earlier epoch",
+    "candidate_search_ref": "audio/learned/research/speech_transfer/decisions.json",
+    "config_locked_at": null,
+    "test_first_evaluated_at": null
+  },
+  "metrics_scope": "full_pipeline",
+  "metrics_by_split": {
+    "val": {
+      "n": 240,
+      "accuracy": 0.8125,
+      "macro_f1": 0.806292282237407,
+      "macro_precision": 0.8291879995004995,
+      "macro_recall": 0.8046875,
+      "per_class": [
+        {
+          "label": 0,
+          "class_name": "neutral",
+          "precision": 0.7333333333333333,
+          "recall": 0.6875,
+          "f1": 0.7096774193548386,
+          "support": 16
+        },
+        {
+          "label": 1,
+          "class_name": "calm",
+          "precision": 0.7045454545454546,
+          "recall": 0.96875,
+          "f1": 0.8157894736842106,
+          "support": 32
+        },
+        {
+          "label": 2,
+          "class_name": "happy",
+          "precision": 1.0,
+          "recall": 0.59375,
+          "f1": 0.7450980392156863,
+          "support": 32
+        },
+        {
+          "label": 3,
+          "class_name": "sad",
+          "precision": 0.6410256410256411,
+          "recall": 0.78125,
+          "f1": 0.7042253521126761,
+          "support": 32
+        },
+        {
+          "label": 4,
+          "class_name": "angry",
+          "precision": 0.9375,
+          "recall": 0.9375,
+          "f1": 0.9375,
+          "support": 32
+        },
+        {
+          "label": 5,
+          "class_name": "fearful",
+          "precision": 0.7575757575757576,
+          "recall": 0.78125,
+          "f1": 0.7692307692307692,
+          "support": 32
+        },
+        {
+          "label": 6,
+          "class_name": "disgust",
+          "precision": 0.8928571428571429,
+          "recall": 0.78125,
+          "f1": 0.8333333333333334,
+          "support": 32
+        },
+        {
+          "label": 7,
+          "class_name": "surprise",
+          "precision": 0.9666666666666667,
+          "recall": 0.90625,
+          "f1": 0.9354838709677419,
+          "support": 32
+        }
+      ],
+      "confusion_matrix_counts": [
+        [
+          11,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          31,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          3,
+          1,
+          19,
+          3,
+          0,
+          5,
+          0,
+          1
+        ],
+        [
+          0,
+          4,
+          0,
+          25,
+          0,
+          1,
+          2,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          30,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          5,
+          1,
+          25,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          4,
+          1,
+          1,
+          25,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          2,
+          0,
+          0,
+          0,
+          29
+        ]
+      ]
+    },
+    "test": {
+      "n": 240,
+      "accuracy": 0.8291666666666667,
+      "macro_f1": 0.8280119634560423,
+      "macro_precision": 0.8628252108779855,
+      "macro_recall": 0.82421875,
+      "per_class": [
+        {
+          "label": 0,
+          "class_name": "neutral",
+          "precision": 1.0,
+          "recall": 0.75,
+          "f1": 0.8571428571428571,
+          "support": 16
+        },
+        {
+          "label": 1,
+          "class_name": "calm",
+          "precision": 0.7380952380952381,
+          "recall": 0.96875,
+          "f1": 0.8378378378378378,
+          "support": 32
+        },
+        {
+          "label": 2,
+          "class_name": "happy",
+          "precision": 0.96,
+          "recall": 0.75,
+          "f1": 0.8421052631578947,
+          "support": 32
+        },
+        {
+          "label": 3,
+          "class_name": "sad",
+          "precision": 0.7727272727272727,
+          "recall": 0.53125,
+          "f1": 0.6296296296296297,
+          "support": 32
+        },
+        {
+          "label": 4,
+          "class_name": "angry",
+          "precision": 1.0,
+          "recall": 0.71875,
+          "f1": 0.8363636363636363,
+          "support": 32
+        },
+        {
+          "label": 5,
+          "class_name": "fearful",
+          "precision": 0.6521739130434783,
+          "recall": 0.9375,
+          "f1": 0.7692307692307693,
+          "support": 32
+        },
+        {
+          "label": 6,
+          "class_name": "disgust",
+          "precision": 0.8421052631578947,
+          "recall": 1.0,
+          "f1": 0.9142857142857143,
+          "support": 32
+        },
+        {
+          "label": 7,
+          "class_name": "surprise",
+          "precision": 0.9375,
+          "recall": 0.9375,
+          "f1": 0.9375,
+          "support": 32
+        }
+      ],
+      "confusion_matrix_counts": [
+        [
+          12,
+          3,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          31,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          24,
+          0,
+          0,
+          4,
+          1,
+          2
+        ],
+        [
+          0,
+          6,
+          1,
+          17,
+          0,
+          8,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          2,
+          23,
+          2,
+          4,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          2,
+          0,
+          30,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          32,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          30
+        ]
+      ]
+    }
+  },
+  "artifacts": {
+    "original_metrics_ref": "experiment_records/M2_encoder_wavlm_s42_20261020_05/best_val_metrics.json",
+    "predictions_val_ref": "experiment_records/M2_encoder_wavlm_s42_20261020_05/predictions_val.csv",
+    "predictions_test_ref": "experiment_records/M2_encoder_wavlm_s42_20261020_05/predictions_test.csv",
+    "history_ref": "experiment_records/M2_encoder_wavlm_s42_20261020_05/history.csv",
+    "checkpoint_ref": "experiment_records/M2_encoder_wavlm_s42_20261020_05/best.pt",
+    "checkpoint_sha256": "1868c381d8945191b52f838157b29fb6ab419b522763ffc898454defefc12bf1",
+    "feature_exports": [],
+    "figures": []
+  },
+  "notes_ref": "notes.md",
+  "provenance": {
+    "training_provenance_ref": "experiment_records/M2_encoder_wavlm_s42_20261020_05/provenance.json",
+    "source_snapshots": [
+      {
+        "ref": "audio/learned/research/speech_transfer/source_snapshots/5aaf7b0c279b12bb9426a0147dc94837490b666b7b66f61004679dbcc3543bd9/run.py",
+        "sha256": "5aaf7b0c279b12bb9426a0147dc94837490b666b7b66f61004679dbcc3543bd9"
+      },
+      {
+        "ref": "audio/learned/research/speech_transfer/source_snapshots/2395c1d157517cd31c03bed62c3728f4244421fca755a46bcc949afb949d0a34/models.py",
+        "sha256": "2395c1d157517cd31c03bed62c3728f4244421fca755a46bcc949afb949d0a34"
+      },
+      {
+        "ref": "audio/learned/research/speech_transfer/source_snapshots/91028041071a01e73be15760c9ee46ff57908f0dc76984a86d9accd69cbee3e7/__init__.py",
+        "sha256": "91028041071a01e73be15760c9ee46ff57908f0dc76984a86d9accd69cbee3e7"
+      },
+      {
+        "ref": "audio/learned/research/speech_transfer/source_snapshots/1e9009f8eed38f2cc0c3cdc4e91b53b27224166d9bfc7c23200e2001496e9849/prepare.py",
+        "sha256": "1e9009f8eed38f2cc0c3cdc4e91b53b27224166d9bfc7c23200e2001496e9849"
+      }
+    ],
+    "upstream": {
+      "model_id": "microsoft/wavlm-base-plus",
+      "revision": "4c66d4806a428f2e922ccfa1a962776e232d487b",
+      "sha256": "3bb273a6ace99408b50cfc81afdbb7ef2de02da2eab0234e18db608ce692fe51"
+    },
+    "recorded_on": "2026-10-20",
+    "timestamps_status": "Exact start/finish/lock times were not recorded; null intentionally.",
+    "git_status": "Known base commit with new uncommitted research files; hash-addressed training source snapshots preserved.",
+    "test_note": "Only selected Round05 tested after explicit lock; no test-based tuning.",
+    "comparison_note": "External pretrained waveform model; not a same-input from-scratch MFCC ablation.",
+    "feature_handoff_status": "Generated locally under Deliverables/wavlm_round05; deliberately excluded from GitHub publication by user request."
+  }
+}

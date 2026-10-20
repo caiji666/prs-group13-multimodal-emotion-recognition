@@ -1,0 +1,16 @@
+{
+  "pooling": "mean",
+  "layer": 12,
+  "dropout": 0.3,
+  "input_dropout": 0.1,
+  "learning_rate": 0.001,
+  "weight_decay": 0.01,
+  "batch_size": 32,
+  "epochs": 80,
+  "patience": 12,
+  "seed": 42,
+  "label_smoothing": 0.05,
+  "class_balance": true,
+  "class_balance_power": 0.5,
+  "mixup_alpha": 0.0
+}

@@ -126,3 +126,9 @@ Validate all uploaded M2 records and model aliases:
 ```bash
 .venv/bin/python scripts/validate_experiment_records.py
 ```
+
+## WavLM pretrained speech extension
+
+Five new isolated experiments and inference/export code are in [research/speech_transfer](research/speech_transfer/README.md). Best Round05: validation Accuracy 81.25%, Macro-F1 0.806292; final locked test Accuracy 82.9167%, Macro-F1 0.828012. WavLM remains frozen; adapters/pooling/head train. This uses external pretraining and raw waveforms rather than MFCC. The original three encoders and legacy default are preserved.
+
+Published best downstream weights: `../../experiment_records/M2_encoder_wavlm_s42_20261020_05/best.pt`. Download the separate pinned WavLM backbone using the extension downloader before inference. Shared-format records cover all five rounds in root experiment_records. Local-only M1/M5 handoff (excluded from GitHub): root `Deliverables/wavlm_round05/m5_learned_feature_only/` (128-dimensional learned pooled vectors, sequences, probabilities). Final test metrics are adjacent in `final_test_evaluation/`.

@@ -1,0 +1,19 @@
+/Users/yoyozhang/Desktop/prs-group13-multimodal-emotion-recognition/audio/learned/research/speech_transfer/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+epoch=001 loss=0.4076 val_acc=0.7875 val_F1=0.7721 best=0.7721
+epoch=002 loss=0.4413 val_acc=0.7750 val_F1=0.7617 best=0.7721
+epoch=003 loss=0.3403 val_acc=0.7917 val_F1=0.7776 best=0.7776
+epoch=004 loss=0.4410 val_acc=0.7958 val_F1=0.7857 best=0.7857
+epoch=005 loss=0.5177 val_acc=0.7875 val_F1=0.7793 best=0.7857
+epoch=006 loss=0.4135 val_acc=0.8125 val_F1=0.8063 best=0.8063
+epoch=007 loss=0.4170 val_acc=0.7833 val_F1=0.7730 best=0.8063
+epoch=008 loss=0.4219 val_acc=0.7625 val_F1=0.7598 best=0.8063
+epoch=009 loss=0.3998 val_acc=0.7750 val_F1=0.7646 best=0.8063
+epoch=010 loss=0.4692 val_acc=0.7708 val_F1=0.7577 best=0.8063
+epoch=011 loss=0.3611 val_acc=0.7917 val_F1=0.7884 best=0.8063
+epoch=012 loss=0.4438 val_acc=0.8000 val_F1=0.7918 best=0.8063
+epoch=013 loss=0.4912 val_acc=0.8000 val_F1=0.7947 best=0.8063
+epoch=014 loss=0.4171 val_acc=0.7667 val_F1=0.7609 best=0.8063
+epoch=015 loss=0.3844 val_acc=0.7750 val_F1=0.7656 best=0.8063
+epoch=016 loss=0.4708 val_acc=0.8042 val_F1=0.7964 best=0.8063
+RESULT {"accuracy": 0.8125, "macro_f1": 0.806292282237407, "best_epoch": 6, "completed_epochs": 16, "elapsed_seconds": 10.154765167}

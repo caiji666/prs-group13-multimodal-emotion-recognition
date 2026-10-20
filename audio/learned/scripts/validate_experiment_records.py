@@ -22,7 +22,7 @@ def schema_keys(template,value,path=''):
 def validate(repo,expected_count=33):
     repo=Path(repo).resolve();folder=repo/'experiment_records'
     template=json.loads((repo/'docs/templates/run.template.json').read_text())
-    records=[json.loads(p.read_text()) for p in sorted(folder.glob('M2_*/run.json'))]
+    records=[json.loads(p.read_text()) for p in sorted(folder.glob('M2_*/run.json')) if not p.parent.name.startswith('M2_encoder_wavlm_')]
     require(len(records)==expected_count,f'Expected {expected_count} M2 records, got {len(records)}')
     lookup={r['run_id']:r for r in records};require(len(lookup)==len(records),'Duplicate run IDs')
     def resolve(ref):

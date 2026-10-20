@@ -135,3 +135,15 @@ Not included as RAVDESS research results.
 ## External sample evaluation
 
 No formal external evaluation run is claimed.
+
+## WavLM transfer extension — 2026-10-20
+
+Frozen external pretrained backbone; new downstream adapters. Legacy MFCC default remains unchanged. Selected WavLM pipeline: Round05. This is not a same-input architecture-only comparison.
+
+| Run | Extractor / representation | Head | Training | Val Accuracy | Val Macro-F1 | Test Accuracy | Test Macro-F1 |
+|---|---|---|---|---:|---:|---:|---:|
+| [M2_encoder_wavlm_s42_20261020_01](M2_encoder_wavlm_s42_20261020_01/run.json) | frozen WavLM + mean → 128 | MLP128→64→8 / dropout0.3 | frozen backbone; train adapter/head | 0.675000 | 0.684081 | not_run | not_run |
+| [M2_encoder_wavlm_s42_20261020_02](M2_encoder_wavlm_s42_20261020_02/run.json) | frozen WavLM + statistics → 128 | MLP128→64→8 / dropout0.3 | frozen backbone; train adapter/head | 0.725000 | 0.727131 | not_run | not_run |
+| [M2_encoder_wavlm_s42_20261020_03](M2_encoder_wavlm_s42_20261020_03/run.json) | frozen WavLM + statistics → 128 | MLP128→64→8 / dropout0.3 | frozen backbone; train adapter/head | 0.787500 | 0.780654 | not_run | not_run |
+| [M2_encoder_wavlm_s42_20261020_04](M2_encoder_wavlm_s42_20261020_04/run.json) | frozen WavLM + attentive_statistics → 128 | MLP128→64→8 / dropout0.3 | frozen backbone; train adapter/head | 0.808333 | 0.801674 | not_run | not_run |
+| [M2_encoder_wavlm_s42_20261020_05](M2_encoder_wavlm_s42_20261020_05/run.json) | frozen WavLM + attentive_statistics → 128 | MLP128→64→8 / dropout0.4 | frozen backbone; train adapter/head | 0.812500 | 0.806292 | 0.8291666666666667 | 0.8280119634560423 |
