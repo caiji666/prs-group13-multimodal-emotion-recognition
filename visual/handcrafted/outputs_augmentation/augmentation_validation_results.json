@@ -1,0 +1,98 @@
+{
+  "protocol": {
+    "seed": 0,
+    "svm_search_space": {
+      "C": [
+        0.1,
+        1,
+        10,
+        100
+      ],
+      "gamma": [
+        "scale",
+        0.001,
+        0.01,
+        0.1
+      ],
+      "class_weight": [
+        null,
+        "balanced"
+      ]
+    },
+    "fixed_config": "D",
+    "inner_crop": 180,
+    "grid": 4,
+    "scaler": "StandardScaler fitted on each configuration's training set only (SVM pipeline)",
+    "hyperparameter_selection": "validation Macro-F1 (m3.train_svm.select_hyperparams)",
+    "config_selection": "highest validation Macro-F1; exact ties -> AUG-0, then AUG-1, then AUG-2 (simplest first)",
+    "test_set": "evaluated once, for the selected configuration only",
+    "faces_dir": "data/faces",
+    "baseline_features": "outputs_ablation/features/D.npz",
+    "sequence_features": "data/dwt_features.npz",
+    "counts": {
+      "train": 960,
+      "val": 240,
+      "test": 240
+    },
+    "smoke_subset_max_per_class": null
+  },
+  "results": [
+    {
+      "config_name": "AUG-0",
+      "original_train_samples": 960,
+      "augmented_train_samples": 0,
+      "total_train_samples": 960,
+      "validation_samples": 240,
+      "feature_dim": 320,
+      "seed": 0,
+      "best_C": 100,
+      "best_gamma": 0.001,
+      "best_class_weight": null,
+      "train_macro_f1": 1.0,
+      "train_accuracy": 1.0,
+      "validation_macro_f1": 0.47847948084177594,
+      "validation_accuracy": 0.4791666666666667,
+      "svm_seconds": 15.60885240000789,
+      "feature_seconds": 0.0,
+      "runtime_seconds": 15.60885240000789
+    },
+    {
+      "config_name": "AUG-1",
+      "original_train_samples": 960,
+      "augmented_train_samples": 960,
+      "total_train_samples": 1920,
+      "validation_samples": 240,
+      "feature_dim": 320,
+      "seed": 0,
+      "best_C": 10,
+      "best_gamma": 0.001,
+      "best_class_weight": "balanced",
+      "train_macro_f1": 0.9772732048464752,
+      "train_accuracy": 0.9791666666666666,
+      "validation_macro_f1": 0.5289599721173988,
+      "validation_accuracy": 0.5208333333333334,
+      "svm_seconds": 58.65308419999201,
+      "feature_seconds": 283.13233459944604,
+      "runtime_seconds": 341.78541879943805
+    },
+    {
+      "config_name": "AUG-2",
+      "original_train_samples": 960,
+      "augmented_train_samples": 960,
+      "total_train_samples": 1920,
+      "validation_samples": 240,
+      "feature_dim": 320,
+      "seed": 0,
+      "best_C": 10,
+      "best_gamma": "scale",
+      "best_class_weight": "balanced",
+      "train_macro_f1": 1.0,
+      "train_accuracy": 1.0,
+      "validation_macro_f1": 0.4596111336110282,
+      "validation_accuracy": 0.4791666666666667,
+      "svm_seconds": 120.03700490001938,
+      "feature_seconds": 334.33352280041436,
+      "runtime_seconds": 454.37052770043374
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "selected_config": {
+    "config_name": "D",
+    "inner_crop": 180,
+    "grid": 4,
+    "feature_dim_per_frame": 320,
+    "pooled_feature_dim": 320,
+    "best_C": 100,
+    "best_gamma": 0.001,
+    "best_class_weight": null,
+    "train_macro_f1": 1.0,
+    "train_accuracy": 1.0,
+    "validation_macro_f1": 0.47847948084177594,
+    "validation_accuracy": 0.4791666666666667,
+    "svm_seconds": 38.19758069998352,
+    "feature_seconds": 686.314316899894,
+    "runtime_seconds": 724.5118975998776
+  },
+  "protocol": {
+    "seed": 0,
+    "svm_search_space": {
+      "C": [
+        0.1,
+        1,
+        10,
+        100
+      ],
+      "gamma": [
+        "scale",
+        0.001,
+        0.01,
+        0.1
+      ],
+      "class_weight": [
+        null,
+        "balanced"
+      ]
+    },
+    "scaler": "StandardScaler fitted on train split only (inside the SVM pipeline)",
+    "pooling": "temporal mean over 16 frames",
+    "hyperparameter_selection": "validation Macro-F1 (m3.train_svm.select_hyperparams)",
+    "config_selection": "highest validation Macro-F1; ties -> first in A, B, C, D order",
+    "test_set": "evaluated once, for the selected configuration only",
+    "faces_dir": "data/faces",
+    "base_frame_size": 224,
+    "class_names": [
+      "neutral",
+      "calm",
+      "happy",
+      "sad",
+      "angry",
+      "fearful",
+      "disgust",
+      "surprised"
+    ],
+    "counts": {
+      "train": 960,
+      "val": 240,
+      "test": 240
+    },
+    "smoke_subset_max_per_class": null
+  }
+}

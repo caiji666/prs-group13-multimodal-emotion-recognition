@@ -1,0 +1,161 @@
+{
+  "selected_representation": "A",
+  "selected_classifier": "RBF SVM",
+  "selected_feature_dim": 320,
+  "validation_macro_f1": {
+    "A": 0.5289599721173988,
+    "B": 0.5048095931138392,
+    "A+B": 0.5187624825818056
+  },
+  "selection_metric": "validation_macro_f1",
+  "selection_split": "validation",
+  "test_used_for_selection": false,
+  "representation_tie_break": "A > B > A+B on exact ties",
+  "configurations": {
+    "A": {
+      "classifier": "RBF SVM",
+      "model_reference": "outputs_augmentation\\selected_svm.joblib",
+      "svm_params": {
+        "C": "10",
+        "gamma": "0.001",
+        "class_weight": "balanced"
+      },
+      "train_samples": {
+        "original": 960,
+        "augmented": 960,
+        "total": 1920
+      },
+      "retrained": false
+    },
+    "B": {
+      "classifier": "MLPClassifier",
+      "best_mlp": {
+        "order": 6,
+        "hidden_layer_sizes": [
+          128,
+          64
+        ],
+        "alpha": 0.0001,
+        "validation_macro_f1": 0.5048095931138392,
+        "validation_accuracy": 0.5041666666666667,
+        "fit_seconds": 1.5474768999847583,
+        "n_iter": 34,
+        "n_parameters": 82632
+      },
+      "model_file": "best_deep_mlp.joblib",
+      "train_samples": 960
+    },
+    "A+B": {
+      "classifier": "MLPClassifier",
+      "best_mlp": {
+        "order": 5,
+        "hidden_layer_sizes": [
+          128
+        ],
+        "alpha": 0.01,
+        "validation_macro_f1": 0.5187624825818056,
+        "validation_accuracy": 0.5375,
+        "fit_seconds": 3.1466808000113815,
+        "n_iter": 65,
+        "n_parameters": 115848
+      },
+      "model_file": "best_combined_mlp.joblib",
+      "train_samples": 960
+    }
+  },
+  "mlp_config": {
+    "pipeline": "StandardScaler (train rows only) -> MLPClassifier -> predict_proba",
+    "fixed": {
+      "activation": "relu",
+      "solver": "adam",
+      "learning_rate_init": 0.001,
+      "batch_size": 32,
+      "max_iter": 500,
+      "early_stopping": true,
+      "validation_fraction": 0.15,
+      "n_iter_no_change": 20
+    },
+    "search_space": [
+      {
+        "hidden_layer_sizes": [
+          64
+        ],
+        "alpha": 0.0001
+      },
+      {
+        "hidden_layer_sizes": [
+          64
+        ],
+        "alpha": 0.001
+      },
+      {
+        "hidden_layer_sizes": [
+          64
+        ],
+        "alpha": 0.01
+      },
+      {
+        "hidden_layer_sizes": [
+          128
+        ],
+        "alpha": 0.0001
+      },
+      {
+        "hidden_layer_sizes": [
+          128
+        ],
+        "alpha": 0.001
+      },
+      {
+        "hidden_layer_sizes": [
+          128
+        ],
+        "alpha": 0.01
+      },
+      {
+        "hidden_layer_sizes": [
+          128,
+          64
+        ],
+        "alpha": 0.0001
+      },
+      {
+        "hidden_layer_sizes": [
+          128,
+          64
+        ],
+        "alpha": 0.001
+      },
+      {
+        "hidden_layer_sizes": [
+          128,
+          64
+        ],
+        "alpha": 0.01
+      }
+    ],
+    "random_state": 0,
+    "tie_break": "higher validation Macro-F1; exact ties -> higher validation accuracy, then fewer MLP parameters, then larger alpha, then MLP_GRID declaration order"
+  },
+  "mlp_hyperparameter_tie_break": "higher validation Macro-F1; exact ties -> higher validation accuracy, then fewer MLP parameters, then larger alpha, then MLP_GRID declaration order",
+  "deep_input": {
+    "path": "external\\m4_visual_deep_outputs.npz",
+    "source_model": "MobileNetV3-Small (ImageNet pretrained, frozen backbone)",
+    "source_checkpoint": "mobilenetv3_mean.keras",
+    "field_mapping": {
+      "sample_id": "sample_id",
+      "split": "split",
+      "label": "label",
+      "class_names": "class_names",
+      "deep_feature": "F_visual_deep",
+      "deep_sequence": "F_visual_sequence",
+      "deep_probability": "P_visual_deep",
+      "source_model": "source_model"
+    },
+    "deep_features_reordered": true,
+    "deep_sequence_available": true,
+    "deep_probability_available": true
+  },
+  "note": "A, B and A+B are the three complete visual configurations of the proposal (Level-2). This is not a pure feature ablation with one fixed classifier: A uses an RBF SVM (existing AUG-1 model, trained on 960 original + 960 horizontally flipped train clips); B and A+B use an MLP trained on the 960 original train clips only. Augmentation only trained each side's own model; the Level-2 concatenation uses original sample_ids only. Differences may come from the classifier and training scheme as well as the features.",
+  "probability_protocol": "probability_protocol.json (downstream fusion: *_fusion fields)"
+}

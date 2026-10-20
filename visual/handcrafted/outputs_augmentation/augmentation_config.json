@@ -1,0 +1,45 @@
+{
+  "configs": {
+    "AUG-0": "original train only",
+    "AUG-1": "original train + horizontally flipped copy of every train clip",
+    "AUG-2": "original train + one light combined augmented copy of every train clip"
+  },
+  "aug2_ranges": {
+    "flip_probability": 0.5,
+    "rotation_deg": [
+      -5.0,
+      5.0
+    ],
+    "translate_x": [
+      -0.03,
+      0.03
+    ],
+    "translate_y": [
+      -0.03,
+      0.03
+    ],
+    "scale": [
+      0.97,
+      1.03
+    ],
+    "brightness": [
+      0.9,
+      1.1
+    ],
+    "contrast": [
+      0.9,
+      1.1
+    ]
+  },
+  "clip_consistent": "one parameter set per clip, applied to all 16 frames",
+  "per_clip_seed": "sha256('<config>|<sample_id>|<seed>')[:8] little-endian -> numpy default_rng",
+  "geometric_border": "cv2.BORDER_REFLECT_101, bilinear",
+  "photometric": "x' = ((x - clip_mean) * contrast + clip_mean) * brightness, clipped to 0..255",
+  "augmented_splits": [
+    "train"
+  ],
+  "validation_and_test": "original D features, never augmented",
+  "feature_pipeline": "augmented 224x224 RGB -> D (crop 180, Haar DWT, 4x4 grid, 5 stats, 320 / frame) -> mean over 16 frames",
+  "seed": 0,
+  "limitations": "augmented clips have no M4 deep features; they only train the DWT-SVM and cannot be used for Handcrafted + Deep per-sample concatenation"
+}
