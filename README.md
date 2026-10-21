@@ -54,6 +54,44 @@ Use the [shared experiment recording format](docs/experiment-recording.md) and [
 
 GitHub is a collaboration workspace. The course handout does not require a GitHub repository or a public repository. Final submission is **one team ZIP on Canvas by 31 October 2026**, with individual reports submitted separately. See [the requirements checklist](docs/course-requirements.md).
 
+## M1 Handcrafted Audio Module
+
+See [audio/handcrafted/README.md](audio/handcrafted/README.md) for the complete handcrafted audio pipeline, preprocessing experiments, classifier comparisons, hyperparameter tuning, audio feature fusion, and M5 handover.
+
+### Implementation and Results
+
+- **Dataset:** RAVDESS speech subset — 1,440 recordings, 24 actors, eight emotions.
+- **Handcrafted features:** 48D representation combining time-domain (12D), spectral (16D), and wavelet (20D) features.
+- **Preprocessing experiments:** 30 configurations using five wavelets, two normalization settings, and three frame lengths.
+- **Classifier comparison:** Nine classifiers evaluated across 270 configurations, followed by hyperparameter tuning of five shortlisted models.
+- **Selected M1 classifier:** Logistic Regression (`C=1.0`) with db2 wavelet, normalized audio, and 20 ms frames.
+- **M1 validation performance:** Accuracy **40.00%**, Macro-F1 **0.3885**.
+
+### M1–M2 Audio Feature Comparison
+
+M1 also evaluated the integration of handcrafted features with M2's exported deep-learned audio representation.
+
+| Feature Representation | Dimensions | Validation Macro-F1 |
+|---|---:|---:|
+| Handcrafted only | 48D | 0.3885 |
+| Deep-learned only | 128D | **0.4734** |
+| Combined features | 176D | 0.4518 |
+
+Results use the same StandardScaler + Logistic Regression pipeline (`C=1.0`). Simple feature concatenation did not outperform the deep-learned representation alone in this experiment.
+
+### M5 Handover
+
+M1 has prepared the following outputs for multimodal fusion:
+
+- **48D handcrafted features** for training, validation, and testing.
+- **Eight-class probabilities**, including actor-independent out-of-fold predictions for training.
+- **Fitted Logistic Regression model** and feature/class metadata.
+- **Aligned recording identifiers** and preserved actor-independent partitions.
+
+See [M1 handover documentation](audio/handcrafted/docs/05_m1_audio_handover.md) for file schemas, probability ordering, and integration instructions.
+
+The M1–M2 feature comparison and M5 handover are complete.
+
 ## M2 learned audio module
 
 See [audio/learned/README.md](audio/learned/README.md) for full Stage 1–6 source, selected tuned Transformer weights, WAV emotion inference, training and M1/M5 exports. The shipped model has validation Accuracy 54.58% and Macro-F1 0.532837 (2026-10-18 round 04); final test generalization remains unmeasured. Six-field IDs and per-sample sequences are unchanged; class 7 is named `surprise`.

@@ -59,12 +59,16 @@ audio/handcrafted/notebooks/.ipynb_checkpoints/
 # Raw and external datasets
 audio/handcrafted/data/raw/
 audio/handcrafted/data/processed/
-audio/handcrafted/data/external/
+# audio/handcrafted/data/external/
+audio/handcrafted/data/baseline_v1/
 
 # Generated features and trained models
-audio/handcrafted/outputs/features/
+# audio/handcrafted/outputs/features/
 audio/handcrafted/outputs/models/
-audio/handcrafted/outputs/probabilities/
+audio/handcrafted/outputs/handover.zip
+
+# Archive Folder
+audio/handcrafted/archive
 
 # Local temporary files
 audio/handcrafted/project_tree.txt
