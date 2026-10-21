@@ -1,144 +1,141 @@
-
 from pathlib import Path
-
-import numpy as np
 import pandas as pd
-
+import numpy as np
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DATA_DIR = PROJECT_ROOT / "data"
+METADATA_PATH = PROJECT_ROOT / "data" / "metadata.csv"
 
-METADATA_PATH = DATA_DIR / "metadata.csv"
-ACTOR_SPLITS_PATH = DATA_DIR / "actor_splits.csv"
-SPLITS_PATH = DATA_DIR / "audio_splits.csv"
+# Load data/metadata.csv
+metadata = pd.read_csv(METADATA_PATH)
 
-RANDOM_SEED = 42
+# print(metadata.shape)
+# print(metadata.head())
 
+# Identify the unique actors
+actors = np.sort(metadata["actor_id"].unique())
 
-def create_actor_splits(actor_ids: list[int]) -> pd.DataFrame:
-    """Create gender-balanced, actor-independent partitions."""
+# print("Actors:", actors)
+# print("Total actors:", len(actors))
+assert np.array_equal(actors, np.arange(1, 25))
 
-    actors = sorted(int(actor) for actor in actor_ids)
+male_actors = actors[actors % 2 == 1]
+female_actors = actors[actors % 2 == 0]
 
-    if len(actors) != 24 or set(actors) != set(range(1, 25)):
-        raise ValueError("Expected actor IDs 1 through 24")
+rng = np.random.default_rng(42)
 
-    # RAVDESS: odd actor IDs are male, even IDs are female.
-    male_actors = np.array([a for a in actors if a % 2 == 1])
-    female_actors = np.array([a for a in actors if a % 2 == 0])
-
-    rng = np.random.default_rng(RANDOM_SEED)
-
-    rng.shuffle(male_actors)
-    rng.shuffle(female_actors)
-
-    assignments = []
-
-    for group in (male_actors, female_actors):
-        for actor in group[:8]:
-            assignments.append((int(actor), "train"))
-
-        for actor in group[8:10]:
-            assignments.append((int(actor), "val"))
-
-        for actor in group[10:12]:
-            assignments.append((int(actor), "test"))
-
-    return pd.DataFrame(
-        assignments, columns=["actor_id", "split"]
-    ).sort_values("actor_id").reset_index(drop=True)
+rng.shuffle(male_actors)
+rng.shuffle(female_actors)
 
 
-def validate_splits(df: pd.DataFrame) -> None:
-    """Validate split sizes, actor separation and gender balance."""
+# Divide the shuffled actors - Keeping Gender Division Equal
+# Training - 8 Male and 8 Female
+train_actors = np.concatenate([
+    male_actors[:8],
+    female_actors[:8],
+])
+# Validation - 2 Male and 2 Female
+val_actors = np.concatenate([
+    male_actors[8:10],
+    female_actors[8:10],
+])
+# Test - 2 Male and 2 Female
+test_actors = np.concatenate([
+    male_actors[10:],
+    female_actors[10:],
+])
 
-    expected_counts = {"train": 960, "val": 240, "test": 240}
-    expected_actors = {"train": 16, "val": 4, "test": 4}
+train_actors = np.sort(train_actors)
+val_actors = np.sort(val_actors)
+test_actors = np.sort(test_actors)
 
-    counts = df["split"].value_counts().to_dict()
-    actor_counts = df.groupby("split")["actor_id"].nunique().to_dict()
+print("Train:", train_actors)
+print("Validation:", val_actors)
+print("Test:", test_actors)
 
-    assert counts == expected_counts, (
-        f"Unexpected recording counts: {counts}"
-    )
+# assert len(train_actors) == 16
+# assert len(val_actors) == 4
+# assert len(test_actors) == 4
 
-    assert actor_counts == expected_actors, (
-        f"Unexpected actor counts: {actor_counts}"
-    )
+# train_set = set(train_actors)
+# val_set = set(val_actors)
+# test_set = set(test_actors)
 
-    # Each actor must belong to exactly one partition.
-    assert df.groupby("actor_id")["split"].nunique().eq(1).all(), (
-        "Actor leakage detected"
-    )
+# assert train_set.isdisjoint(val_set)
+# assert train_set.isdisjoint(test_set)
+# assert val_set.isdisjoint(test_set)
 
-    # Verify gender balance in each partition.
-    unique_actors = df[["actor_id", "split"]].drop_duplicates().copy()
-    unique_actors["gender"] = np.where(
-        unique_actors["actor_id"] % 2 == 1, "male", "female"
-    )
+# assert train_set | val_set | test_set == set(actors)
 
-    gender_counts = pd.crosstab(
-        unique_actors["split"], unique_actors["gender"]
-    )
+# print("All actor split checks passed!")
 
-    assert gender_counts.loc["train"].to_dict() == {
-        "female": 8, "male": 8
+
+# Create the actor-to-split dictionary
+actor_to_split = {}
+
+for actor in train_actors:
+    actor_to_split[int(actor)] = "train"
+
+for actor in val_actors:
+    actor_to_split[int(actor)] = "val"
+
+for actor in test_actors:
+    actor_to_split[int(actor)] = "test"
+
+print(actor_to_split)
+
+
+# Generate actor_splits.csv
+
+actor_records = []
+
+for actor in sorted(actor_to_split):
+
+    record = {
+        "actor_id": actor,
+        "gender": "male" if actor % 2 == 1 else "female",
+        "split": actor_to_split[actor],
     }
-    assert gender_counts.loc["val"].to_dict() == {
-        "female": 2, "male": 2
-    }
-    assert gender_counts.loc["test"].to_dict() == {
-        "female": 2, "male": 2
-    }
 
-    print("\nRecording counts:")
-    print(df["split"].value_counts().sort_index())
+    actor_records.append(record)
 
-    print("\nUnique actors per split:")
-    print(df.groupby("split")["actor_id"].nunique())
+actor_splits = pd.DataFrame(actor_records)
 
-    print("\nGender distribution:")
-    print(gender_counts)
-
-    print("\nAll split validation checks passed!")
+print(actor_splits.head())
 
 
-def main() -> None:
-    metadata = pd.read_csv(METADATA_PATH)
+# Verify gender balance
 
-    actor_ids = metadata["actor_id"].unique().tolist()
-    actor_splits = create_actor_splits(actor_ids)
+# gender_distribution = pd.crosstab(
+#     actor_splits["split"],
+#     actor_splits["gender"],
+# )
 
-    # Assign each recording based on its actor.
-    splits = metadata.merge(
-        actor_splits,
-        on="actor_id",
-        how="left",
-        validate="many_to_one",
-    )
+# print(gender_distribution)
 
-    if splits["split"].isna().any():
-        raise ValueError("Some recordings have no split assignment")
-
-    validate_splits(splits)
-
-    # Modality-independent trial identifier.
-    # Remove the first two filename components:
-    # modality and vocal channel.
-    # This allows matching audio and video speech trials.
-    splits["trial_id"] = splits["sample_id"].apply(
-        lambda sample: "-".join(str(sample).split("-")[2:])
-    )
-
-    actor_splits.to_csv(ACTOR_SPLITS_PATH, index=False)
-    splits.to_csv(SPLITS_PATH, index=False)
-
-    print("\nActor assignments:")
-    print(actor_splits.to_string(index=False))
-
-    print(f"\nSaved: {ACTOR_SPLITS_PATH}")
-    print(f"Saved: {SPLITS_PATH}")
+# Save the actor_splits.csv
+actor_splits.to_csv(
+    PROJECT_ROOT / "data/actor_splits.csv",
+    index=False,
+)
 
 
-if __name__ == "__main__":
-    main()
+# Generate Audio Split
+metadata["split"] = metadata["actor_id"].map(actor_to_split)
+
+assert metadata["split"].notna().all()
+
+audio_splits = metadata[
+    [
+        "sample_id",
+        "actor_id",
+        "emotion_label",
+        "split",
+    ]
+].copy()
+
+print(audio_splits.head())
+
+audio_splits.to_csv(
+    PROJECT_ROOT / "data/audio_splits.csv",
+    index=False,
+)

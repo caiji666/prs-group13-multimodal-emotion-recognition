@@ -1,0 +1,2 @@
+classifier,wavelet,normalization,frame_ms,best_cv_macro_f1,cv_macro_f1_std,cv_accuracy,cv_train_macro_f1,best_params,train_accuracy,train_macro_f1,val_accuracy,val_macro_f1,f1_gap
+SVC,sym4,norm,25,0.33832543736871,0.01343536304563689,0.353125,0.5037351527612633,"{'svc__C': 10.0, 'svc__class_weight': 'balanced', 'svc__gamma': 0.001, 'svc__kernel': 'rbf'}",0.490625,0.478373456052705,0.36666666666666664,0.35354765286049655,0.12482580319220843
