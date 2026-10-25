@@ -89,3 +89,7 @@ Only source, configurations, tests, downstream checkpoints and experiment record
 ## Ten subsequent continuation experiments
 
 See [refinement/README.md](refinement/README.md) for ten additional experiments based on the original Round05. Current research validation winner is continuation05: Accuracy0.841667 / Macro-F10.831218. All ten test states remain not_run; only the original Round05 has its previously authorized test evaluation. Shared M2 record total is now48, with separate validators for33 MFCC,5 original WavLM and10 continuation records. Existing legacy defaults are unchanged.
+
+## Final test completion —2026-10-26
+
+After development ended, all48 fixed M2 checkpoints received final test records. This supersedes earlier statements of unmeasured test results above; training-time artifacts remain historical. No weights/configurations were updated and no test-based selection was performed. The final selected continuation05 model retains test Accuracy83.3333%, Macro-F10.832127. See repository-root experiment_records/summary.md and shared/M2/final_test_20261026/. Raw datasets and local feature handoffs remain excluded from GitHub.

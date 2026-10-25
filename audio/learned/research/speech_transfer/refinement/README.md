@@ -46,3 +46,7 @@ Use `python -m research.speech_transfer.refinement.inference` with --checkpoint,
 ## Shared experiment records
 
 Repository-root `experiment_records/M2_encoder_wavlm_refinement_s42_20261021_01` through `_10` contain schema-v2 records and portable single-run configs. Run `python -m research.speech_transfer.refinement.validate_records` from audio/learned. Per-run checkpoint weights are the exact trained tensors; upstream weights still require the pinned downloader. The training-time git base is 9f14e85, with hashed source snapshots preserving new uncommitted code. Publication includes the earlier independent verification logs; no training was rerun to publish records.
+
+## Final test completion —2026-10-26
+
+After development ended, all48 fixed M2 checkpoints received final test records. This supersedes earlier statements of unmeasured test results above; training-time artifacts remain historical. No weights/configurations were updated and no test-based selection was performed. The final selected continuation05 model retains test Accuracy83.3333%, Macro-F10.832127. See repository-root experiment_records/summary.md and shared/M2/final_test_20261026/. Raw datasets and local feature handoffs remain excluded from GitHub.

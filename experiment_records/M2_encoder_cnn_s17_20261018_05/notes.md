@@ -17,3 +17,5 @@ Historical candidate; group-level selection status is recorded separately from c
 ## Provenance and limitations
 
 Exact start/finish times remain null. Git base is known; linked patch was reconstructed from verified historical source/configuration, not captured contemporaneously. Hash-matched historical trainer/model/data source snapshots are stored under shared/M2/source_snapshots; some old snapshots were recovered from local historical backups only during migration and are now shipped, with no runtime dependency on those original locations. Original checkpoints/metrics may contain the old surprised label alias; the canonical record uses surprise in the same class position. Checkpoint tensor weights are unchanged. Full sample manifest includes 1440 recordings; ordered training/validation manifest includes 1200; test recordings were indexed, not decoded for training or evaluated.
+
+Final test evaluation added2026-10-26 after model development ended; fixed checkpoint, no fitting/augmentation/selection. Historical status/summary files retain their training-time validation-only state. Current run.json and test_metrics.json hold final test results.

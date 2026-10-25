@@ -1,0 +1,9 @@
+{
+  "valid": true,
+  "records": 48,
+  "test_predictions_checked": 11520,
+  "checkpoint_hashes_unchanged": true,
+  "final_model": "M2_encoder_wavlm_refinement_s42_20261021_05",
+  "selection_basis": "previous validation Macro-F1",
+  "new_training": false
+}

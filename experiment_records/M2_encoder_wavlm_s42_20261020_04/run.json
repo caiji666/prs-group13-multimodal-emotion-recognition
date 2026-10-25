@@ -7,7 +7,7 @@
   "comparison_group": "M2_WavLM_transfer_20261020",
   "pipeline_name": "waveform \u2192 frozen WavLM Base+ \u2192 attentive_statistics adapter \u2192 MLP128\u219264\u21928",
   "run_status": "completed",
-  "test_status": "not_run",
+  "test_status": "completed",
   "started_at": null,
   "finished_at": null,
   "seed": 42,
@@ -393,17 +393,172 @@
         ]
       ]
     },
-    "test": null
+    "test": {
+      "n": 240,
+      "accuracy": 0.825,
+      "macro_precision": 0.8485615079365079,
+      "macro_recall": 0.82421875,
+      "macro_f1": 0.8245571752521561,
+      "per_class": [
+        {
+          "label": 0,
+          "class_name": "neutral",
+          "precision": 1.0,
+          "recall": 0.8125,
+          "f1": 0.896551724137931,
+          "support": 16
+        },
+        {
+          "label": 1,
+          "class_name": "calm",
+          "precision": 0.7380952380952381,
+          "recall": 0.96875,
+          "f1": 0.8378378378378379,
+          "support": 32
+        },
+        {
+          "label": 2,
+          "class_name": "happy",
+          "precision": 0.8888888888888888,
+          "recall": 0.75,
+          "f1": 0.8135593220338982,
+          "support": 32
+        },
+        {
+          "label": 3,
+          "class_name": "sad",
+          "precision": 0.7619047619047619,
+          "recall": 0.5,
+          "f1": 0.6037735849056604,
+          "support": 32
+        },
+        {
+          "label": 4,
+          "class_name": "angry",
+          "precision": 0.9583333333333334,
+          "recall": 0.71875,
+          "f1": 0.8214285714285714,
+          "support": 32
+        },
+        {
+          "label": 5,
+          "class_name": "fearful",
+          "precision": 0.6666666666666666,
+          "recall": 0.875,
+          "f1": 0.7567567567567567,
+          "support": 32
+        },
+        {
+          "label": 6,
+          "class_name": "disgust",
+          "precision": 0.8888888888888888,
+          "recall": 1.0,
+          "f1": 0.9411764705882353,
+          "support": 32
+        },
+        {
+          "label": 7,
+          "class_name": "surprise",
+          "precision": 0.8857142857142857,
+          "recall": 0.96875,
+          "f1": 0.9253731343283582,
+          "support": 32
+        }
+      ],
+      "confusion_matrix_counts": [
+        [
+          13,
+          2,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          31,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          2,
+          24,
+          0,
+          0,
+          4,
+          0,
+          2
+        ],
+        [
+          0,
+          6,
+          1,
+          16,
+          0,
+          8,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          2,
+          23,
+          2,
+          2,
+          2
+        ],
+        [
+          0,
+          0,
+          2,
+          2,
+          0,
+          28,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          32,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          31
+        ]
+      ]
+    }
   },
   "artifacts": {
     "original_metrics_ref": "experiment_records/M2_encoder_wavlm_s42_20261020_04/best_val_metrics.json",
     "predictions_val_ref": "experiment_records/M2_encoder_wavlm_s42_20261020_04/predictions_val.csv",
-    "predictions_test_ref": null,
+    "predictions_test_ref": "experiment_records/M2_encoder_wavlm_s42_20261020_04/predictions_test.csv",
     "history_ref": "experiment_records/M2_encoder_wavlm_s42_20261020_04/history.csv",
     "checkpoint_ref": "experiment_records/M2_encoder_wavlm_s42_20261020_04/best.pt",
     "checkpoint_sha256": "0085a26fbca01f76eb4c5423f3cf83be6074d0038a0b3f2d6fdc7ab009185ddf",
     "feature_exports": [],
-    "figures": []
+    "figures": [],
+    "test_metrics_ref": "experiment_records/M2_encoder_wavlm_s42_20261020_04/test_metrics.json"
   },
   "notes_ref": "notes.md",
   "provenance": {
@@ -435,6 +590,15 @@
     "timestamps_status": "Exact start/finish/lock times were not recorded; null intentionally.",
     "git_status": "Known base commit with new uncommitted research files; hash-addressed training source snapshots preserved.",
     "test_note": "Only selected Round05 tested after explicit lock; no test-based tuning.",
-    "comparison_note": "External pretrained waveform model; not a same-input from-scratch MFCC ablation."
+    "comparison_note": "External pretrained waveform model; not a same-input from-scratch MFCC ablation.",
+    "final_test_evaluation": {
+      "date": "2026-10-26",
+      "checkpoint_sha256": "0085a26fbca01f76eb4c5423f3cf83be6074d0038a0b3f2d6fdc7ab009185ddf",
+      "validation_compatibility_samples_checked": 8,
+      "training_or_tuning_performed": false,
+      "normalization_refitted": false,
+      "test_used_for_selection": false,
+      "reused_delivery_probabilities": false
+    }
   }
 }

@@ -1,0 +1,378 @@
+[
+  {
+    "run_id": "M2_encoder_bilstm_s17_20261018_05",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.525,
+    "macro_f1": 0.49610302931241146,
+    "macro_precision": 0.5101868091108329,
+    "macro_recall": 0.49609375
+  },
+  {
+    "run_id": "M2_encoder_bilstm_s42_20261015_00",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.5333333333333333,
+    "macro_f1": 0.49237158471783976,
+    "macro_precision": 0.49368977158760874,
+    "macro_recall": 0.5
+  },
+  {
+    "run_id": "M2_encoder_bilstm_s42_20261017_01",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.4,
+    "macro_f1": 0.33397427228400334,
+    "macro_precision": 0.34524271380455823,
+    "macro_recall": 0.375
+  },
+  {
+    "run_id": "M2_encoder_bilstm_s42_20261017_02",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.4625,
+    "macro_f1": 0.44460439578498656,
+    "macro_precision": 0.45277902379053697,
+    "macro_recall": 0.46484375
+  },
+  {
+    "run_id": "M2_encoder_bilstm_s42_20261017_03",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.5208333333333334,
+    "macro_f1": 0.4936915223862883,
+    "macro_precision": 0.5091671616671617,
+    "macro_recall": 0.4921875
+  },
+  {
+    "run_id": "M2_encoder_bilstm_s42_20261017_04",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.5208333333333334,
+    "macro_f1": 0.5006886258459831,
+    "macro_precision": 0.5206344585156251,
+    "macro_recall": 0.5
+  },
+  {
+    "run_id": "M2_encoder_bilstm_s42_20261017_05",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.5208333333333334,
+    "macro_f1": 0.4894787378699001,
+    "macro_precision": 0.5012231839545814,
+    "macro_recall": 0.4921875
+  },
+  {
+    "run_id": "M2_encoder_bilstm_s42_20261018_01",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.5291666666666667,
+    "macro_f1": 0.4986455679361874,
+    "macro_precision": 0.5116551394511921,
+    "macro_recall": 0.5
+  },
+  {
+    "run_id": "M2_encoder_bilstm_s42_20261018_02",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.5375,
+    "macro_f1": 0.5064593762440814,
+    "macro_precision": 0.5163462877278666,
+    "macro_recall": 0.5078125
+  },
+  {
+    "run_id": "M2_encoder_bilstm_s42_20261018_03",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.5208333333333334,
+    "macro_f1": 0.48772771631878,
+    "macro_precision": 0.5026608643037752,
+    "macro_recall": 0.4921875
+  },
+  {
+    "run_id": "M2_encoder_bilstm_s7_20261018_04",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.5208333333333334,
+    "macro_f1": 0.49085368449242844,
+    "macro_precision": 0.5031231925968769,
+    "macro_recall": 0.4921875
+  },
+  {
+    "run_id": "M2_encoder_cnn_s17_20261018_05",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.5708333333333333,
+    "macro_f1": 0.545524323305892,
+    "macro_precision": 0.5667580392323894,
+    "macro_recall": 0.56640625
+  },
+  {
+    "run_id": "M2_encoder_cnn_s42_20261015_00",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.5125,
+    "macro_f1": 0.471442047857461,
+    "macro_precision": 0.4891726922028779,
+    "macro_recall": 0.48828125
+  },
+  {
+    "run_id": "M2_encoder_cnn_s42_20261017_01",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.575,
+    "macro_f1": 0.5374104202471075,
+    "macro_precision": 0.575969170606319,
+    "macro_recall": 0.55078125
+  },
+  {
+    "run_id": "M2_encoder_cnn_s42_20261017_02",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.5625,
+    "macro_f1": 0.5408592656312698,
+    "macro_precision": 0.5717262388927915,
+    "macro_recall": 0.5625
+  },
+  {
+    "run_id": "M2_encoder_cnn_s42_20261017_03",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.5791666666666667,
+    "macro_f1": 0.5591455343769867,
+    "macro_precision": 0.5928629982398366,
+    "macro_recall": 0.578125
+  },
+  {
+    "run_id": "M2_encoder_cnn_s42_20261017_04",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.5625,
+    "macro_f1": 0.5401136542103471,
+    "macro_precision": 0.5747909337411221,
+    "macro_recall": 0.55859375
+  },
+  {
+    "run_id": "M2_encoder_cnn_s42_20261017_05",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.5625,
+    "macro_f1": 0.5345572247053105,
+    "macro_precision": 0.559141430962629,
+    "macro_recall": 0.55078125
+  },
+  {
+    "run_id": "M2_encoder_cnn_s42_20261018_01",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.5583333333333333,
+    "macro_f1": 0.5267369647921998,
+    "macro_precision": 0.5537279893633964,
+    "macro_recall": 0.546875
+  },
+  {
+    "run_id": "M2_encoder_cnn_s42_20261018_02",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.5625,
+    "macro_f1": 0.5327729583346446,
+    "macro_precision": 0.5485367063492064,
+    "macro_recall": 0.55078125
+  },
+  {
+    "run_id": "M2_encoder_cnn_s42_20261018_03",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.5708333333333333,
+    "macro_f1": 0.54190184896216,
+    "macro_precision": 0.5595687512810001,
+    "macro_recall": 0.55859375
+  },
+  {
+    "run_id": "M2_encoder_cnn_s7_20261018_04",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.5708333333333333,
+    "macro_f1": 0.5432836700876262,
+    "macro_precision": 0.5602329947380162,
+    "macro_recall": 0.55859375
+  },
+  {
+    "run_id": "M2_encoder_transformer_s17_20261018_05",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.6375,
+    "macro_f1": 0.6219287572573179,
+    "macro_precision": 0.6452148648412463,
+    "macro_recall": 0.62890625
+  },
+  {
+    "run_id": "M2_encoder_transformer_s42_20261015_00",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.5541666666666667,
+    "macro_f1": 0.5466104046747025,
+    "macro_precision": 0.5836115931482311,
+    "macro_recall": 0.5390625
+  },
+  {
+    "run_id": "M2_encoder_transformer_s42_20261017_01",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.5875,
+    "macro_f1": 0.5621368731138685,
+    "macro_precision": 0.5886636500504441,
+    "macro_recall": 0.5703125
+  },
+  {
+    "run_id": "M2_encoder_transformer_s42_20261017_02",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.625,
+    "macro_f1": 0.6089552367493544,
+    "macro_precision": 0.6336202557132788,
+    "macro_recall": 0.6171875
+  },
+  {
+    "run_id": "M2_encoder_transformer_s42_20261017_03",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.6291666666666667,
+    "macro_f1": 0.6105915022870813,
+    "macro_precision": 0.6309710913945195,
+    "macro_recall": 0.625
+  },
+  {
+    "run_id": "M2_encoder_transformer_s42_20261017_04",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.6333333333333333,
+    "macro_f1": 0.6193619540473574,
+    "macro_precision": 0.6415964898104991,
+    "macro_recall": 0.6328125
+  },
+  {
+    "run_id": "M2_encoder_transformer_s42_20261017_05",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.6375,
+    "macro_f1": 0.6203205261093022,
+    "macro_precision": 0.6509223153359309,
+    "macro_recall": 0.62890625
+  },
+  {
+    "run_id": "M2_encoder_transformer_s42_20261018_01",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.6333333333333333,
+    "macro_f1": 0.6154879354180154,
+    "macro_precision": 0.6471968251398524,
+    "macro_recall": 0.625
+  },
+  {
+    "run_id": "M2_encoder_transformer_s42_20261018_02",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.6416666666666667,
+    "macro_f1": 0.6215473129328746,
+    "macro_precision": 0.6436412443765385,
+    "macro_recall": 0.6328125
+  },
+  {
+    "run_id": "M2_encoder_transformer_s42_20261018_03",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.6375,
+    "macro_f1": 0.6203205261093022,
+    "macro_precision": 0.6509223153359309,
+    "macro_recall": 0.62890625
+  },
+  {
+    "run_id": "M2_encoder_transformer_s7_20261018_04",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.6416666666666667,
+    "macro_f1": 0.6235014107550707,
+    "macro_precision": 0.6537292207067749,
+    "macro_recall": 0.6328125
+  },
+  {
+    "run_id": "M2_encoder_wavlm_refinement_s42_20261021_01",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.8333333333333334,
+    "macro_f1": 0.8335113474994984,
+    "macro_precision": 0.8615789371886933,
+    "macro_recall": 0.83203125
+  },
+  {
+    "run_id": "M2_encoder_wavlm_refinement_s42_20261021_02",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.825,
+    "macro_f1": 0.8243142746443894,
+    "macro_precision": 0.8413914031512716,
+    "macro_recall": 0.828125
+  },
+  {
+    "run_id": "M2_encoder_wavlm_refinement_s42_20261021_03",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.825,
+    "macro_f1": 0.8215408868386069,
+    "macro_precision": 0.8388406732156732,
+    "macro_recall": 0.82421875
+  },
+  {
+    "run_id": "M2_encoder_wavlm_refinement_s42_20261021_04",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.825,
+    "macro_f1": 0.8230025275703394,
+    "macro_precision": 0.8415532760153503,
+    "macro_recall": 0.82421875
+  },
+  {
+    "run_id": "M2_encoder_wavlm_refinement_s42_20261021_05",
+    "status": "imported_existing_delivery",
+    "accuracy": 0.8333333333333334,
+    "macro_f1": 0.8321271668658223,
+    "macro_precision": 0.8521897183141803,
+    "macro_recall": 0.828125
+  },
+  {
+    "run_id": "M2_encoder_wavlm_refinement_s42_20261021_06",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.8125,
+    "macro_f1": 0.8082189080903284,
+    "macro_precision": 0.8308919978749201,
+    "macro_recall": 0.80859375
+  },
+  {
+    "run_id": "M2_encoder_wavlm_refinement_s42_20261021_07",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.8208333333333333,
+    "macro_f1": 0.8148289344191124,
+    "macro_precision": 0.828375819869678,
+    "macro_recall": 0.81640625
+  },
+  {
+    "run_id": "M2_encoder_wavlm_refinement_s42_20261021_08",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.8333333333333334,
+    "macro_f1": 0.8325959364889772,
+    "macro_precision": 0.8575596380885635,
+    "macro_recall": 0.83203125
+  },
+  {
+    "run_id": "M2_encoder_wavlm_refinement_s42_20261021_09",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.825,
+    "macro_f1": 0.8209878711885424,
+    "macro_precision": 0.8512907861703661,
+    "macro_recall": 0.8203125
+  },
+  {
+    "run_id": "M2_encoder_wavlm_refinement_s42_20261021_10",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.8166666666666667,
+    "macro_f1": 0.8117183950185143,
+    "macro_precision": 0.8323708245583246,
+    "macro_recall": 0.8125
+  },
+  {
+    "run_id": "M2_encoder_wavlm_s42_20261020_01",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.7208333333333333,
+    "macro_f1": 0.7226201372728855,
+    "macro_precision": 0.7433266638155751,
+    "macro_recall": 0.7265625
+  },
+  {
+    "run_id": "M2_encoder_wavlm_s42_20261020_02",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.7583333333333333,
+    "macro_f1": 0.7569708423061563,
+    "macro_precision": 0.7681178277527752,
+    "macro_recall": 0.76171875
+  },
+  {
+    "run_id": "M2_encoder_wavlm_s42_20261020_03",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.8041666666666667,
+    "macro_f1": 0.8014707814392803,
+    "macro_precision": 0.8108321936309653,
+    "macro_recall": 0.80859375
+  },
+  {
+    "run_id": "M2_encoder_wavlm_s42_20261020_04",
+    "status": "new_fixed_checkpoint_evaluation",
+    "accuracy": 0.825,
+    "macro_f1": 0.8245571752521561,
+    "macro_precision": 0.8485615079365079,
+    "macro_recall": 0.82421875
+  }
+]

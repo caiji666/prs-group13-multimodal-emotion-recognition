@@ -1,0 +1,146 @@
+{
+  "accuracy": 0.8041666666666667,
+  "macro_precision": 0.8108321936309653,
+  "macro_recall": 0.80859375,
+  "macro_f1": 0.8014707814392803,
+  "confusion_matrix": [
+    [
+      14,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      2,
+      27,
+      1,
+      1,
+      0,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      23,
+      1,
+      0,
+      3,
+      0,
+      5
+    ],
+    [
+      0,
+      6,
+      0,
+      19,
+      0,
+      7,
+      0,
+      0
+    ],
+    [
+      3,
+      1,
+      2,
+      1,
+      22,
+      1,
+      1,
+      1
+    ],
+    [
+      0,
+      0,
+      2,
+      1,
+      0,
+      28,
+      0,
+      1
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      32,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      0,
+      1,
+      2,
+      0,
+      28
+    ]
+  ],
+  "per_class": {
+    "neutral": {
+      "precision": 0.7368421052631579,
+      "recall": 0.875,
+      "f1": 0.7999999999999999,
+      "support": 16
+    },
+    "calm": {
+      "precision": 0.75,
+      "recall": 0.84375,
+      "f1": 0.7941176470588235,
+      "support": 32
+    },
+    "happy": {
+      "precision": 0.7931034482758621,
+      "recall": 0.71875,
+      "f1": 0.7540983606557378,
+      "support": 32
+    },
+    "sad": {
+      "precision": 0.8260869565217391,
+      "recall": 0.59375,
+      "f1": 0.6909090909090908,
+      "support": 32
+    },
+    "angry": {
+      "precision": 0.9565217391304348,
+      "recall": 0.6875,
+      "f1": 0.8,
+      "support": 32
+    },
+    "fearful": {
+      "precision": 0.6829268292682927,
+      "recall": 0.875,
+      "f1": 0.767123287671233,
+      "support": 32
+    },
+    "disgust": {
+      "precision": 0.9411764705882353,
+      "recall": 1.0,
+      "f1": 0.9696969696969697,
+      "support": 32
+    },
+    "surprise": {
+      "precision": 0.8,
+      "recall": 0.875,
+      "f1": 0.8358208955223881,
+      "support": 32
+    }
+  },
+  "n": 240,
+  "checkpoint_ref": "experiment_records/M2_encoder_wavlm_s42_20261020_03/best.pt",
+  "checkpoint_sha256": "0c13e47f6bdaddf5b1a4bce68effe91dbe6a7b5a5bb8d9d9bc0ad6fa55470320",
+  "split_sha256": "1ae0f8241c8d1b40f1c4d0c0be1c17d8cede3ea5005a24b4635cef1110490528",
+  "evaluated_on": "2026-10-26",
+  "training_or_tuning_performed": false,
+  "test_used_for_selection": false,
+  "reused_locked_delivery_probabilities": false
+}

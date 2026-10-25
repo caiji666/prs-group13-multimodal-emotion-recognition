@@ -34,7 +34,7 @@ def main():
         parent=torch.load(repo/r['input_artifacts'][0]['ref'],map_location='cpu',weights_only=True)['state_dict']
         for name in state:
             if any(name.startswith(prefix+'.') for prefix in ck['config'].get('freeze',[])):torch.testing.assert_close(state[name],parent[name],rtol=0,atol=0)
-        assert r['test_status']=='not_run' and r['metrics_by_split']['test'] is None
+        assert r['test_status'] in ('not_run','completed') and ((r['test_status']=='not_run') == (r['metrics_by_split']['test'] is None))
         assert ck['epoch']==r['selection']['best_epoch'] and ck['split_sha256']==r['split_sha256']
         assert ck['upstream_frozen'] and r['training']['regime']=='frozen_encoder_then_classifier'
         for parent in r['input_artifacts']:assert sha(repo/parent['ref'])==parent['sha256']
@@ -60,6 +60,6 @@ def main():
                 assert c['class_name']==LABELS[i] and c['support']==int(support[i])
                 for k,v in [('precision',pr[i]),('recall',re[i]),('f1',f1[i])]:assert abs(c[k]-v)<1e-10
             count+=len(rows)
-    result=dict(valid=True,records=10,predictions_checked=count,test_evaluated_run=None)
+    result=dict(valid=True,records=10,predictions_checked=count,test_evaluated_runs=[json.loads(p.read_text())['run_id'] for p in records if json.loads(p.read_text())['test_status']=='completed'])
     print(json.dumps(result,indent=2))
 if __name__=='__main__':main()

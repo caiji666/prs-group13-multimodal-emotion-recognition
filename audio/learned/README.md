@@ -136,3 +136,7 @@ Published best downstream weights: `../../experiment_records/M2_encoder_wavlm_s4
 ### WavLM continuation (ten experiments)
 
 [Continuation code and workflow](research/speech_transfer/refinement/README.md) preserve the original WavLM models and add adapter freezing, identity-initialized residual layers, temporal convolution and loss/regularization experiments. Best validation result: Accuracy84.1667%, Macro-F10.831218; all ten test results remain unmeasured. Best downstream checkpoint: `../../experiment_records/M2_encoder_wavlm_refinement_s42_20261021_05/best.pt`. Use the refinement inference loader for new architectures. Original defaults and local M1/M5 delivery files are not replaced.
+
+## Final test completion —2026-10-26
+
+After development ended, all48 fixed M2 checkpoints received final test records. This supersedes earlier statements of unmeasured test results above; training-time artifacts remain historical. No weights/configurations were updated and no test-based selection was performed. The final selected continuation05 model retains test Accuracy83.3333%, Macro-F10.832127. See repository-root experiment_records/summary.md and shared/M2/final_test_20261026/. Raw datasets and local feature handoffs remain excluded from GitHub.

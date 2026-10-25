@@ -7,7 +7,7 @@
   "comparison_group": "M2_WavLM_refinement_20261021",
   "pipeline_name": "waveform \u2192 frozen WavLM layer6 \u2192 temporal adapter \u2192 attentive statistics pooling \u2192 MLP",
   "run_status": "completed",
-  "test_status": "not_run",
+  "test_status": "completed",
   "started_at": null,
   "finished_at": null,
   "seed": 42,
@@ -429,17 +429,172 @@
         ]
       ]
     },
-    "test": null
+    "test": {
+      "n": 240,
+      "accuracy": 0.8333333333333334,
+      "macro_precision": 0.8615789371886933,
+      "macro_recall": 0.83203125,
+      "macro_f1": 0.8335113474994984,
+      "per_class": [
+        {
+          "label": 0,
+          "class_name": "neutral",
+          "precision": 1.0,
+          "recall": 0.8125,
+          "f1": 0.896551724137931,
+          "support": 16
+        },
+        {
+          "label": 1,
+          "class_name": "calm",
+          "precision": 0.7560975609756098,
+          "recall": 0.96875,
+          "f1": 0.8493150684931506,
+          "support": 32
+        },
+        {
+          "label": 2,
+          "class_name": "happy",
+          "precision": 0.9259259259259259,
+          "recall": 0.78125,
+          "f1": 0.847457627118644,
+          "support": 32
+        },
+        {
+          "label": 3,
+          "class_name": "sad",
+          "precision": 0.7619047619047619,
+          "recall": 0.5,
+          "f1": 0.6037735849056604,
+          "support": 32
+        },
+        {
+          "label": 4,
+          "class_name": "angry",
+          "precision": 1.0,
+          "recall": 0.71875,
+          "f1": 0.8363636363636363,
+          "support": 32
+        },
+        {
+          "label": 5,
+          "class_name": "fearful",
+          "precision": 0.6444444444444445,
+          "recall": 0.90625,
+          "f1": 0.7532467532467533,
+          "support": 32
+        },
+        {
+          "label": 6,
+          "class_name": "disgust",
+          "precision": 0.8648648648648649,
+          "recall": 1.0,
+          "f1": 0.927536231884058,
+          "support": 32
+        },
+        {
+          "label": 7,
+          "class_name": "surprise",
+          "precision": 0.9393939393939394,
+          "recall": 0.96875,
+          "f1": 0.9538461538461539,
+          "support": 32
+        }
+      ],
+      "confusion_matrix_counts": [
+        [
+          13,
+          2,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          31,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          25,
+          0,
+          0,
+          4,
+          0,
+          2
+        ],
+        [
+          0,
+          6,
+          1,
+          16,
+          0,
+          9,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          2,
+          23,
+          2,
+          4,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          2,
+          0,
+          29,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          32,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          31
+        ]
+      ]
+    }
   },
   "artifacts": {
     "original_metrics_ref": "experiment_records/M2_encoder_wavlm_refinement_s42_20261021_01/best_val_metrics.json",
     "predictions_val_ref": "experiment_records/M2_encoder_wavlm_refinement_s42_20261021_01/predictions_val.csv",
-    "predictions_test_ref": null,
+    "predictions_test_ref": "experiment_records/M2_encoder_wavlm_refinement_s42_20261021_01/predictions_test.csv",
     "history_ref": "experiment_records/M2_encoder_wavlm_refinement_s42_20261021_01/history.csv",
     "checkpoint_ref": "experiment_records/M2_encoder_wavlm_refinement_s42_20261021_01/best.pt",
     "checkpoint_sha256": "6b18a1fd5215b0e2b3d7597d948fe2fefa609fe5df43cb86e9ee2993b6e84665",
     "feature_exports": [],
-    "figures": []
+    "figures": [],
+    "test_metrics_ref": "experiment_records/M2_encoder_wavlm_refinement_s42_20261021_01/test_metrics.json"
   },
   "notes_ref": "notes.md",
   "provenance": {
@@ -472,6 +627,15 @@
     "timestamps_status": "Exact training start/finish/lock times not recorded; null intentionally.",
     "reproduction_config_ref": "experiment_records/M2_encoder_wavlm_refinement_s42_20261021_01/training.json",
     "comparison_note": "Continues previously validation-selected Round05 downstream weights. Backbone frozen; train/val only. Prior test scores existed but were not read or used in this series. No new independent held-out test claim.",
-    "feature_handoff_status": "No re-export of per-sample features. Existing Deliverables remain local-only."
+    "feature_handoff_status": "No re-export of per-sample features. Existing Deliverables remain local-only.",
+    "final_test_evaluation": {
+      "date": "2026-10-26",
+      "checkpoint_sha256": "6b18a1fd5215b0e2b3d7597d948fe2fefa609fe5df43cb86e9ee2993b6e84665",
+      "validation_compatibility_samples_checked": 8,
+      "training_or_tuning_performed": false,
+      "normalization_refitted": false,
+      "test_used_for_selection": false,
+      "reused_delivery_probabilities": false
+    }
   }
 }

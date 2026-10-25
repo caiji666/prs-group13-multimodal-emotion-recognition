@@ -56,6 +56,6 @@ def main():
                 assert c['class_name']==LABELS[i] and c['support']==int(support[i])
                 for k,v in [('precision',pr[i]),('recall',re[i]),('f1',f1[i])]:assert abs(c[k]-v)<1e-10
             count+=len(rows)
-    result=dict(valid=True,records=5,predictions_checked=count,test_evaluated_run='M2_encoder_wavlm_s42_20261020_05')
+    result=dict(valid=True,records=5,predictions_checked=count,test_evaluated_runs=[json.loads(p.read_text())['run_id'] for p in records if json.loads(p.read_text())['test_status']=='completed'])
     print(json.dumps(result,indent=2))
 if __name__=='__main__':main()

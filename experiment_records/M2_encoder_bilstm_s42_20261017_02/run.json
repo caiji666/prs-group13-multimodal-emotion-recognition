@@ -5,9 +5,9 @@
   "owner": null,
   "stage": "encoder",
   "comparison_group": "M2_audio_encoders_20261017_02",
-  "pipeline_name": "MFCC → bilstm → masked mean pooling → MLP 128→64→8",
+  "pipeline_name": "MFCC \u2192 bilstm \u2192 masked mean pooling \u2192 MLP 128\u219264\u21928",
   "run_status": "completed",
-  "test_status": "not_run",
+  "test_status": "completed",
   "started_at": null,
   "finished_at": null,
   "seed": 42,
@@ -112,8 +112,8 @@
         "component_id": "audio_encoder",
         "modality": "audio",
         "kind": "learned",
-        "method": "MFCC → bilstm",
-        "input_description": "Mono 16kHz waveform → variable-length MFCC [T,40]",
+        "method": "MFCC \u2192 bilstm",
+        "input_description": "Mono 16kHz waveform \u2192 variable-length MFCC [T,40]",
         "parameters": {
           "input_dim": 40,
           "hidden_dim": 128,
@@ -155,7 +155,7 @@
       "type": "MLP",
       "source_run_id": "M2_encoder_bilstm_s42_20261017_01",
       "input_dim": 128,
-      "architecture": "Linear(128,64) → ReLU → Dropout → Linear(64,8)",
+      "architecture": "Linear(128,64) \u2192 ReLU \u2192 Dropout \u2192 Linear(64,8)",
       "hidden_dims": [
         64
       ],
@@ -393,17 +393,172 @@
         ]
       ]
     },
-    "test": null
+    "test": {
+      "n": 240,
+      "accuracy": 0.4625,
+      "macro_precision": 0.45277902379053697,
+      "macro_recall": 0.46484375,
+      "macro_f1": 0.44460439578498656,
+      "per_class": [
+        {
+          "label": 0,
+          "class_name": "neutral",
+          "precision": 0.42105263157894735,
+          "recall": 0.5,
+          "f1": 0.45714285714285713,
+          "support": 16
+        },
+        {
+          "label": 1,
+          "class_name": "calm",
+          "precision": 0.4727272727272727,
+          "recall": 0.8125,
+          "f1": 0.5977011494252874,
+          "support": 32
+        },
+        {
+          "label": 2,
+          "class_name": "happy",
+          "precision": 0.2777777777777778,
+          "recall": 0.15625,
+          "f1": 0.19999999999999998,
+          "support": 32
+        },
+        {
+          "label": 3,
+          "class_name": "sad",
+          "precision": 0.3181818181818182,
+          "recall": 0.21875,
+          "f1": 0.25925925925925924,
+          "support": 32
+        },
+        {
+          "label": 4,
+          "class_name": "angry",
+          "precision": 0.75,
+          "recall": 0.46875,
+          "f1": 0.5769230769230769,
+          "support": 32
+        },
+        {
+          "label": 5,
+          "class_name": "fearful",
+          "precision": 0.5526315789473685,
+          "recall": 0.65625,
+          "f1": 0.6,
+          "support": 32
+        },
+        {
+          "label": 6,
+          "class_name": "disgust",
+          "precision": 0.21875,
+          "recall": 0.21875,
+          "f1": 0.21875,
+          "support": 32
+        },
+        {
+          "label": 7,
+          "class_name": "surprise",
+          "precision": 0.6111111111111112,
+          "recall": 0.6875,
+          "f1": 0.6470588235294118,
+          "support": 32
+        }
+      ],
+      "confusion_matrix_counts": [
+        [
+          8,
+          3,
+          1,
+          2,
+          0,
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          26,
+          0,
+          3,
+          0,
+          0,
+          3,
+          0
+        ],
+        [
+          3,
+          2,
+          5,
+          1,
+          4,
+          4,
+          8,
+          5
+        ],
+        [
+          1,
+          10,
+          2,
+          7,
+          0,
+          6,
+          0,
+          6
+        ],
+        [
+          0,
+          3,
+          2,
+          0,
+          15,
+          1,
+          11,
+          0
+        ],
+        [
+          0,
+          0,
+          5,
+          3,
+          1,
+          21,
+          1,
+          1
+        ],
+        [
+          7,
+          11,
+          0,
+          6,
+          0,
+          0,
+          7,
+          1
+        ],
+        [
+          0,
+          0,
+          3,
+          0,
+          0,
+          6,
+          1,
+          22
+        ]
+      ]
+    }
   },
   "artifacts": {
     "original_metrics_ref": "experiment_records/M2_encoder_bilstm_s42_20261017_02/original_metrics.json",
     "predictions_val_ref": "experiment_records/M2_encoder_bilstm_s42_20261017_02/predictions_val.csv",
-    "predictions_test_ref": null,
+    "predictions_test_ref": "experiment_records/M2_encoder_bilstm_s42_20261017_02/predictions_test.csv",
     "history_ref": "experiment_records/M2_encoder_bilstm_s42_20261017_02/history.csv",
     "checkpoint_ref": "experiment_records/M2_encoder_bilstm_s42_20261017_02/best.pt",
     "checkpoint_sha256": "6f19a983f3860c8aaa67a2d15be269975ecb36a1e91bff85b140756552b114c6",
     "feature_exports": [],
-    "figures": []
+    "figures": [],
+    "test_metrics_ref": "experiment_records/M2_encoder_bilstm_s42_20261017_02/test_metrics.json"
   },
   "notes_ref": "notes.md",
   "provenance": {
@@ -441,6 +596,15 @@
     "normalization_note": "Class name surprised canonicalized to surprise without changing labels/probabilities or tensor weights.",
     "current_default_selection": false,
     "feature_handoff_status": "No feature tensors included in this experiment record. Export the selected checkpoint explicitly; old teammate deliveries do not automatically update.",
-    "recorded_on": "2026-10-20"
+    "recorded_on": "2026-10-20",
+    "final_test_evaluation": {
+      "date": "2026-10-26",
+      "checkpoint_sha256": "6f19a983f3860c8aaa67a2d15be269975ecb36a1e91bff85b140756552b114c6",
+      "validation_compatibility_samples_checked": 8,
+      "training_or_tuning_performed": false,
+      "normalization_refitted": false,
+      "test_used_for_selection": false,
+      "reused_delivery_probabilities": false
+    }
   }
 }

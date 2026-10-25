@@ -38,7 +38,7 @@ def validate(repo,expected_count=33):
     for r in records:
         schema_keys(template,r);rid=r['run_id'];location=folder/rid
         require(r['schema_version']=='2.0' and r['member']=='M2' and r['stage']=='encoder',rid+' identity')
-        require(r['run_status']=='completed' and r['test_status']=='not_run' and r['metrics_by_split']['test'] is None,rid+' test status')
+        require(r['run_status']=='completed' and ((r['test_status']=='not_run' and r['metrics_by_split']['test'] is None) or (r['test_status']=='completed' and r['metrics_by_split']['test'] is not None)),rid+' test status')
         require(r['class_names']==LABELS and r['metrics_scope']=='full_pipeline',rid+' class/scope')
         refs(r);require((location/r['notes_ref']).is_file(),rid+' missing notes')
         for refkey,hashkey in [('split_ref','split_sha256'),('input_manifest_ref','input_manifest_sha256')]:require(sha(resolve(r[refkey]))==r[hashkey],rid+' '+hashkey)
@@ -89,7 +89,7 @@ def validate(repo,expected_count=33):
     require(sha(repo/'audio/learned/models/best_audio_encoder.pt')==winner['artifacts']['checkpoint_sha256'],'Default model differs from selected run')
     require(sha(repo/'audio/learned/models/selected_run/transformer/best.pt')==winner['artifacts']['checkpoint_sha256'],'Selected-run export differs')
     require(max(r['metrics_by_split']['val']['macro_f1'] for r in records)==winner['metrics_by_split']['val']['macro_f1'],'Selected winner is not best validation F1')
-    return {'valid':True,'records':len(records),'groups':len({r['comparison_group'] for r in records}),'validation_predictions_checked':counts,'checkpoints_checked':len(records),'all_test_status':'not_run','selected_run_id':selection['run_id']}
+    return {'valid':True,'records':len(records),'groups':len({r['comparison_group'] for r in records}),'validation_predictions_checked':counts,'checkpoints_checked':len(records),'all_test_status':('completed' if all(r['test_status']=='completed' for r in records) else 'not_run_or_mixed'),'selected_run_id':selection['run_id']}
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--repo',type=Path,default=Path(__file__).resolve().parents[3]);parser.add_argument('--expected-count',type=int,default=33);parser.add_argument('--output',type=Path)
