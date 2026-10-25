@@ -13,3 +13,7 @@ Validation: shared/M2/validation_report.json and integration_validation.json. Th
 ## WavLM extension
 
 Five additional schema-v2 WavLM records bring M2 total to 38. Their upstream encoder is frozen, with downstream adapters/pooling/head trained. Only selected Round05 has final test metrics; prior 33 and WavLM rounds01–04 remain not_run/null. See summary.md. WavLM best.pt files require separately downloaded pinned upstream weights. New records are checked by `python -m research.speech_transfer.validate_records`; the historical validator covers only the original 33 MFCC records.
+
+## Ten WavLM continuation records
+
+`M2_encoder_wavlm_refinement_s42_20261021_01` through `_10` add ten validation-only records, bringing M2 total to48. Every record preserves weights, config, history, validation probabilities/metrics, parent and source hashes. All ten test states are not_run/null. Validate with `python -m research.speech_transfer.refinement.validate_records` from audio/learned. Current research validation winner is continuation05 (Accuracy0.841667, Macro-F10.831218); legacy defaults and existing handoffs remain unchanged.

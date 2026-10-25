@@ -1,0 +1,15 @@
+/Users/yoyozhang/Desktop/prs-group13-multimodal-emotion-recognition/audio/learned/research/speech_transfer/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+{
+  "valid": true,
+  "rounds": 10,
+  "independent_validation_predictions": 2400,
+  "frozen_parameters_unchanged": true,
+  "normalization_buffers_unchanged": true,
+  "test_evaluated": false,
+  "test_audio_read": false,
+  "upstream_frozen": true,
+  "best_round": 5,
+  "best_accuracy": 0.8416666666666667,
+  "best_macro_f1": 0.8312181237730203
+}

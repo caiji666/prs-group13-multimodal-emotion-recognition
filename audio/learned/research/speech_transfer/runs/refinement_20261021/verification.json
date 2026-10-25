@@ -1,0 +1,13 @@
+{
+  "valid": true,
+  "rounds": 10,
+  "independent_validation_predictions": 2400,
+  "frozen_parameters_unchanged": true,
+  "normalization_buffers_unchanged": true,
+  "test_evaluated": false,
+  "test_audio_read": false,
+  "upstream_frozen": true,
+  "best_round": 5,
+  "best_accuracy": 0.8416666666666667,
+  "best_macro_f1": 0.8312181237730203
+}

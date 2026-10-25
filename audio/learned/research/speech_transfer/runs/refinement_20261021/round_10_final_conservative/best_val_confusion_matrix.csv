@@ -1,0 +1,9 @@
+true/predicted,neutral,calm,happy,sad,angry,fearful,disgust,surprise
+neutral,11,5,0,0,0,0,0,0
+calm,2,30,0,0,0,0,0,0
+happy,2,2,20,2,2,3,0,1
+sad,1,5,0,21,0,2,3,0
+angry,0,0,0,0,32,0,0,0
+fearful,0,0,0,4,0,26,2,0
+disgust,0,0,0,4,1,1,26,0
+surprise,0,0,1,1,0,0,0,30

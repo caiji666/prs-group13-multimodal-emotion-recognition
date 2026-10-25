@@ -1,0 +1,130 @@
+{
+  "baseline": {
+    "accuracy": 0.8125,
+    "macro_f1": 0.806292282237407,
+    "checkpoint_sha256": "1868c381d8945191b52f838157b29fb6ab419b522763ffc898454defefc12bf1"
+  },
+  "selection": "validation macro-F1; ties retain earlier candidate",
+  "planned_experiments": [
+    [
+      "head_only",
+      {
+        "freeze": [
+          "projection",
+          "attention",
+          "statistics"
+        ],
+        "learning_rate": 0.0003,
+        "mixup_alpha": 0.0,
+        "label_smoothing": 0.0,
+        "dropout": 0.3
+      }
+    ],
+    [
+      "freeze_projection",
+      {
+        "freeze": [
+          "projection"
+        ],
+        "learning_rate": 0.0001,
+        "mixup_alpha": 0.1,
+        "label_smoothing": 0.01,
+        "dropout": 0.3
+      }
+    ],
+    [
+      "gentle_full_adapter",
+      {
+        "freeze": [],
+        "learning_rate": 5e-05,
+        "mixup_alpha": 0.1,
+        "label_smoothing": 0.0,
+        "dropout": 0.25,
+        "weight_decay": 0.01
+      }
+    ],
+    [
+      "residual_frame",
+      {
+        "freeze": [],
+        "frame_depth": 1,
+        "frame_width": 64,
+        "learning_rate": 0.00015,
+        "mixup_alpha": 0.1,
+        "dropout": 0.3
+      }
+    ],
+    [
+      "temporal_context",
+      {
+        "freeze": [],
+        "time_kernel": 3,
+        "learning_rate": 0.0001,
+        "mixup_alpha": 0.1,
+        "dropout": 0.3
+      }
+    ],
+    [
+      "deeper_head",
+      {
+        "freeze": [],
+        "head_residual": true,
+        "learning_rate": 0.0001,
+        "mixup_alpha": 0.2,
+        "dropout": 0.35
+      }
+    ],
+    [
+      "freeze_head_refine_sequence",
+      {
+        "freeze": [
+          "head"
+        ],
+        "learning_rate": 0.0001,
+        "mixup_alpha": 0.0,
+        "label_smoothing": 0.01,
+        "dropout": 0.25
+      }
+    ],
+    [
+      "feature_noise_mixup",
+      {
+        "freeze": [],
+        "feature_noise": 0.03,
+        "mixup_alpha": 0.35,
+        "learning_rate": 0.0001,
+        "dropout": 0.35,
+        "weight_decay": 0.03
+      }
+    ],
+    [
+      "focal_classification",
+      {
+        "freeze": [],
+        "feature_noise": 0.0,
+        "focal_gamma": 1.0,
+        "mixup_alpha": 0.0,
+        "label_smoothing": 0.0,
+        "learning_rate": 5e-05,
+        "dropout": 0.25
+      }
+    ],
+    [
+      "final_conservative",
+      {
+        "freeze": [],
+        "feature_noise": 0.0,
+        "focal_gamma": 0.0,
+        "mixup_alpha": 0.05,
+        "label_smoothing": 0.0,
+        "learning_rate": 2e-05,
+        "dropout": 0.2,
+        "weight_decay": 0.005,
+        "class_balance_power": 0.0
+      }
+    ]
+  ],
+  "upstream_frozen": true,
+  "test_read": false,
+  "existing_test_results_not_used": true
+}

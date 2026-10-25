@@ -1,0 +1,15 @@
+{
+  "publication_date": "2026-10-26",
+  "integrated_remote_base": "3915407",
+  "records_validated": {
+    "mfcc": 33,
+    "wavlm_initial": 5,
+    "wavlm_refinement": 10,
+    "total_M2": 48
+  },
+  "refinement_validation_prediction_rows_checked": 2400,
+  "tests_passed": 32,
+  "refinement_test_status": "not_run",
+  "raw_data_or_features_uploaded": false,
+  "legacy_models_preserved": true
+}

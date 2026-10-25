@@ -1,0 +1,14 @@
+{
+  "checkpoint": "research/speech_transfer/runs/refinement_20261021/round_05_temporal_context/best.pt",
+  "checkpoint_sha256": "0db8f833f3d32f21b676c7ed008acdf094bb20dda31e3498e642249d597f04bb",
+  "accuracy": 0.8416666666666667,
+  "macro_f1": 0.8312181237730203,
+  "baseline_accuracy": 0.8125,
+  "baseline_macro_f1": 0.806292282237407,
+  "round": 5,
+  "selection_split": "val",
+  "selection_metric": "macro_f1",
+  "test_status": "not_run_for_this_series",
+  "upstream_frozen": true,
+  "original_default_replaced": false
+}

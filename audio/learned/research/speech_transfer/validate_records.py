@@ -15,7 +15,7 @@ def main():
     import importlib.util
     spec=importlib.util.spec_from_file_location('legacy_validator',repo/'audio/learned/scripts/validate_experiment_records.py');legacy=importlib.util.module_from_spec(spec);spec.loader.exec_module(legacy)
     template=json.loads((repo/'docs/templates/run.template.json').read_text());split=repo/'multimodal_fusion/configs/actor_splits.csv';actors=read_splits(split)
-    records=sorted((repo/'experiment_records').glob('M2_encoder_wavlm_*/run.json'));assert len(records)==5
+    records=sorted((repo/'experiment_records').glob('M2_encoder_wavlm_s42_20261020_*/run.json'));assert len(records)==5
     def refs(x,key=''):
         if isinstance(x,dict):
             for k,v in x.items():refs(v,k)

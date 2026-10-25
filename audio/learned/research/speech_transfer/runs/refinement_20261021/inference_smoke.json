@@ -1,0 +1,15 @@
+{
+  "sample_id": "01-01-01-01-01-01",
+  "split": "train",
+  "raw_audio_inference_passed": true,
+  "cached_probability_match": true,
+  "maximum_probability_difference": 0.0,
+  "sequence_shape": [
+    76,
+    128
+  ],
+  "pooled_shape": [
+    128
+  ],
+  "test_read": false
+}

@@ -85,3 +85,7 @@ Repository-root `experiment_records/M2_encoder_wavlm_s42_20261020_01` through `_
 ## Git publication scope
 
 Only source, configurations, tests, downstream checkpoints and experiment records are versioned. `Deliverables/wavlm_round05/` remains local and is not included in GitHub. References above to that directory describe the local handoff; regenerate it with export_delivery if needed. Final test metrics and prediction CSV are published in `experiment_records/M2_encoder_wavlm_s42_20261020_05/`.
+
+## Ten subsequent continuation experiments
+
+See [refinement/README.md](refinement/README.md) for ten additional experiments based on the original Round05. Current research validation winner is continuation05: Accuracy0.841667 / Macro-F10.831218. All ten test states remain not_run; only the original Round05 has its previously authorized test evaluation. Shared M2 record total is now48, with separate validators for33 MFCC,5 original WavLM and10 continuation records. Existing legacy defaults are unchanged.

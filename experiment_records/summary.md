@@ -147,3 +147,20 @@ Frozen external pretrained backbone; new downstream adapters. Legacy MFCC defaul
 | [M2_encoder_wavlm_s42_20261020_03](M2_encoder_wavlm_s42_20261020_03/run.json) | frozen WavLM + statistics → 128 | MLP128→64→8 / dropout0.3 | frozen backbone; train adapter/head | 0.787500 | 0.780654 | not_run | not_run |
 | [M2_encoder_wavlm_s42_20261020_04](M2_encoder_wavlm_s42_20261020_04/run.json) | frozen WavLM + attentive_statistics → 128 | MLP128→64→8 / dropout0.3 | frozen backbone; train adapter/head | 0.808333 | 0.801674 | not_run | not_run |
 | [M2_encoder_wavlm_s42_20261020_05](M2_encoder_wavlm_s42_20261020_05/run.json) | frozen WavLM + attentive_statistics → 128 | MLP128→64→8 / dropout0.4 | frozen backbone; train adapter/head | 0.812500 | 0.806292 | 0.8291666666666667 | 0.8280119634560423 |
+
+## WavLM continuation — ten experiments, 2026-10-21
+
+Only training/validation data used; all ten test results remain not_run/null. Backbone frozen. Current research validation winner is continuation05, distinct from original Round05. Existing deployed/default models and handoff remain unchanged.
+
+| Run | Parent | Representation | Classifier | Freeze prefixes | Val Accuracy | Val Macro-F1 | Test |
+|---|---|---|---|---|---:|---:|---|
+| [M2_encoder_wavlm_refinement_s42_20261021_01](M2_encoder_wavlm_refinement_s42_20261021_01/run.json) | M2_encoder_wavlm_s42_20261020_05 | frozen WavLM6 + head_only, 128d | MLP, dropout0.3 | ['projection', 'attention', 'statistics'] | 0.808333 | 0.802598 | not_run |
+| [M2_encoder_wavlm_refinement_s42_20261021_02](M2_encoder_wavlm_refinement_s42_20261021_02/run.json) | M2_encoder_wavlm_s42_20261020_05 | frozen WavLM6 + freeze_projection, 128d | MLP, dropout0.3 | ['projection'] | 0.800000 | 0.791611 | not_run |
+| [M2_encoder_wavlm_refinement_s42_20261021_03](M2_encoder_wavlm_refinement_s42_20261021_03/run.json) | M2_encoder_wavlm_s42_20261020_05 | frozen WavLM6 + gentle_full_adapter, 128d | MLP, dropout0.25 | [] | 0.820833 | 0.810180 | not_run |
+| [M2_encoder_wavlm_refinement_s42_20261021_04](M2_encoder_wavlm_refinement_s42_20261021_04/run.json) | M2_encoder_wavlm_refinement_s42_20261021_03 | frozen WavLM6 + residual_frame, 128d | MLP, dropout0.3 | [] | 0.820833 | 0.809716 | not_run |
+| [M2_encoder_wavlm_refinement_s42_20261021_05](M2_encoder_wavlm_refinement_s42_20261021_05/run.json) | M2_encoder_wavlm_refinement_s42_20261021_03 | frozen WavLM6 + temporal_context, 128d | MLP, dropout0.3 | [] | 0.841667 | 0.831218 | not_run |
+| [M2_encoder_wavlm_refinement_s42_20261021_06](M2_encoder_wavlm_refinement_s42_20261021_06/run.json) | M2_encoder_wavlm_refinement_s42_20261021_05 | frozen WavLM6 + deeper_head, 128d | MLP, dropout0.35 | [] | 0.820833 | 0.811222 | not_run |
+| [M2_encoder_wavlm_refinement_s42_20261021_07](M2_encoder_wavlm_refinement_s42_20261021_07/run.json) | M2_encoder_wavlm_refinement_s42_20261021_05 | frozen WavLM6 + freeze_head_refine_sequence, 128d | MLP, dropout0.25 | ['head'] | 0.816667 | 0.804486 | not_run |
+| [M2_encoder_wavlm_refinement_s42_20261021_08](M2_encoder_wavlm_refinement_s42_20261021_08/run.json) | M2_encoder_wavlm_refinement_s42_20261021_05 | frozen WavLM6 + feature_noise_mixup, 128d | MLP, dropout0.35 | [] | 0.808333 | 0.799298 | not_run |
+| [M2_encoder_wavlm_refinement_s42_20261021_09](M2_encoder_wavlm_refinement_s42_20261021_09/run.json) | M2_encoder_wavlm_refinement_s42_20261021_05 | frozen WavLM6 + focal_classification, 128d | MLP, dropout0.25 | [] | 0.808333 | 0.794674 | not_run |
+| [M2_encoder_wavlm_refinement_s42_20261021_10](M2_encoder_wavlm_refinement_s42_20261021_10/run.json) | M2_encoder_wavlm_refinement_s42_20261021_05 | frozen WavLM6 + final_conservative, 128d | MLP, dropout0.2 | [] | 0.816667 | 0.806847 | not_run |

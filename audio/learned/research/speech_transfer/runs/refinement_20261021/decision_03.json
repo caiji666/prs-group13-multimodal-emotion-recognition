@@ -1,0 +1,33 @@
+{
+  "round": 3,
+  "name": "gentle_full_adapter",
+  "parent_round": 0,
+  "parent_checkpoint_sha256": "1868c381d8945191b52f838157b29fb6ab419b522763ffc898454defefc12bf1",
+  "changes": {
+    "freeze": [],
+    "learning_rate": 5e-05,
+    "mixup_alpha": 0.1,
+    "label_smoothing": 0.0,
+    "dropout": 0.25,
+    "weight_decay": 0.01
+  },
+  "config": {
+    "pooling": "attentive_statistics",
+    "layer": 6,
+    "dropout": 0.25,
+    "input_dropout": 0.0,
+    "learning_rate": 5e-05,
+    "weight_decay": 0.01,
+    "batch_size": 32,
+    "epochs": 65,
+    "patience": 14,
+    "seed": 42,
+    "label_smoothing": 0.0,
+    "class_balance": true,
+    "class_balance_power": 0.5,
+    "mixup_alpha": 0.1,
+    "warm_start": "/Users/yoyozhang/Desktop/prs-group13-multimodal-emotion-recognition/audio/learned/research/speech_transfer/runs/round_05/best.pt",
+    "freeze": []
+  },
+  "decision_basis": "prior validation results only"
+}

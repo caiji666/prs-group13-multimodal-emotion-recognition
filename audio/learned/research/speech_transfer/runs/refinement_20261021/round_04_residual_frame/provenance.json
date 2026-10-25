@@ -1,0 +1,53 @@
+{
+  "refinement_source_sha256": {
+    "run.py": "e2ef442b600aaa2077bf2f855142aad29e293880e3af1ae61bd3e23ff9f1fa10",
+    "suite.py": "ac92305646e6a945eee1182cd486818e2bd9c3b269bfeff6d974a257d1b92c6e",
+    "models.py": "58e4dea01ced6cbf8f56c904c91060181738ce9451e4210269220f8dc8611788",
+    "__init__.py": "fe4ab004e10e8c37cbdc9a3123c50663df298983c1efbed48f7c71ec121c2e3d",
+    "test_refinement.py": "3f72722cc693fa057187d34b117dc061901295df3da876a0a3d6bb51818a6647"
+  },
+  "trainable_parameters": 165769,
+  "frozen_parameters": 0,
+  "python": "3.9.6",
+  "torch": "2.8.0",
+  "numpy": "2.0.2",
+  "source_sha256": {
+    "run.py": "8bdc54c651cd183f34d9e14b44431e1bcd9cfa8679c15dee76ee497d057df4ec",
+    "suite.py": "c14dbbe8090a72d3446eb5e82afc29ba39000cfc1d4e543cbe92535e7127bbec",
+    "evaluate_delivery.py": "9b62e7c4996b2c7d0cf5e5f9a85c42a25c0519b68d3cae749a53760962b61046",
+    "models.py": "2395c1d157517cd31c03bed62c3728f4244421fca755a46bcc949afb949d0a34",
+    "download.py": "70b4cb9c8ee2fe4630058e121ddd79de0d87799671abfc01f14762b4c33b50d3",
+    "__init__.py": "91028041071a01e73be15760c9ee46ff57908f0dc76984a86d9accd69cbee3e7",
+    "export_delivery.py": "de0890bebad4a07d58af6ebb077cf9690cd353c55ccb841dbe1bd253d4a833c3",
+    "inference.py": "9599ca65d0e32e74218edcde32dbbc9818099e4e9a49284127da478a386d0cc6",
+    "validate_records.py": "565aebee9d633f77028673bf213c43951e08988544136fb546d8ee0ff7d096df",
+    "prepare.py": "1e9009f8eed38f2cc0c3cdc4e91b53b27224166d9bfc7c23200e2001496e9849"
+  },
+  "upstream": {
+    "model_id": "microsoft/wavlm-base-plus",
+    "revision": "4c66d4806a428f2e922ccfa1a962776e232d487b",
+    "sha256": "3bb273a6ace99408b50cfc81afdbb7ef2de02da2eab0234e18db608ce692fe51"
+  },
+  "cache_metadata": {
+    "samples": 1200,
+    "train": 960,
+    "val": 240,
+    "test_decoded": false,
+    "model_id": "microsoft/wavlm-base-plus",
+    "revision": "4c66d4806a428f2e922ccfa1a962776e232d487b",
+    "model_sha256": "3bb273a6ace99408b50cfc81afdbb7ef2de02da2eab0234e18db608ce692fe51",
+    "layers": [
+      6,
+      9,
+      12
+    ],
+    "hidden_dim": 768,
+    "cache_dtype": "float16; pooled statistics computed after dequantization",
+    "preprocessing": "mono16k, trim35dB, official do_normalize=false; no peak scaling; no augmentation during frozen extraction",
+    "elapsed_seconds": 169.34879025
+  },
+  "regime": "frozen_encoder_then_classifier",
+  "mask_convention": "True=padding",
+  "seed": 42,
+  "selection": "validation Macro-F1"
+}

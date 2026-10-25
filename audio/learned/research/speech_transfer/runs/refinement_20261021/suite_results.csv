@@ -1,0 +1,11 @@
+round,name,parent_round,accuracy,macro_f1,macro_precision,macro_recall,best_epoch,completed_epochs,checkpoint
+1,head_only,0,0.8083333333333333,0.8025979173664486,0.8266887626262627,0.80078125,5,19,research/speech_transfer/runs/refinement_20261021/round_01_head_only/best.pt
+2,freeze_projection,0,0.8,0.7916109016163559,0.811249971419519,0.79296875,13,27,research/speech_transfer/runs/refinement_20261021/round_02_freeze_projection/best.pt
+3,gentle_full_adapter,0,0.8208333333333333,0.8101804538490218,0.8243139594503385,0.8125,18,32,research/speech_transfer/runs/refinement_20261021/round_03_gentle_full_adapter/best.pt
+4,residual_frame,3,0.8208333333333333,0.8097157448957697,0.8275575095379984,0.8125,1,15,research/speech_transfer/runs/refinement_20261021/round_04_residual_frame/best.pt
+5,temporal_context,3,0.8416666666666667,0.8312181237730203,0.8423727314352314,0.83203125,2,16,research/speech_transfer/runs/refinement_20261021/round_05_temporal_context/best.pt
+6,deeper_head,5,0.8208333333333333,0.8112219050299545,0.8240542637790735,0.8125,1,15,research/speech_transfer/runs/refinement_20261021/round_06_deeper_head/best.pt
+7,freeze_head_refine_sequence,5,0.8166666666666667,0.804485721492032,0.8180810317732584,0.80859375,2,16,research/speech_transfer/runs/refinement_20261021/round_07_freeze_head_refine_sequence/best.pt
+8,feature_noise_mixup,5,0.8083333333333333,0.7992979999856332,0.8109567413568386,0.80078125,13,27,research/speech_transfer/runs/refinement_20261021/round_08_feature_noise_mixup/best.pt
+9,focal_classification,5,0.8083333333333333,0.7946737551621761,0.8070293901179698,0.80078125,6,20,research/speech_transfer/runs/refinement_20261021/round_09_focal_classification/best.pt
+10,final_conservative,5,0.8166666666666667,0.8068474312897099,0.8179567492319508,0.80859375,2,16,research/speech_transfer/runs/refinement_20261021/round_10_final_conservative/best.pt

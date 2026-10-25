@@ -1,0 +1,33 @@
+{
+  "round": 5,
+  "name": "temporal_context",
+  "parent_round": 3,
+  "parent_checkpoint_sha256": "96fd22b77f37764b812a4d15e07a8ef6c2392aed6ee6532f5e7c23dcb3a24fe2",
+  "changes": {
+    "freeze": [],
+    "time_kernel": 3,
+    "learning_rate": 0.0001,
+    "mixup_alpha": 0.1,
+    "dropout": 0.3
+  },
+  "config": {
+    "pooling": "attentive_statistics",
+    "layer": 6,
+    "dropout": 0.3,
+    "input_dropout": 0.0,
+    "learning_rate": 0.0001,
+    "weight_decay": 0.01,
+    "batch_size": 32,
+    "epochs": 65,
+    "patience": 14,
+    "seed": 42,
+    "label_smoothing": 0.0,
+    "class_balance": true,
+    "class_balance_power": 0.5,
+    "mixup_alpha": 0.1,
+    "warm_start": "research/speech_transfer/runs/refinement_20261021/round_03_gentle_full_adapter/best.pt",
+    "freeze": [],
+    "time_kernel": 3
+  },
+  "decision_basis": "prior validation results only"
+}
