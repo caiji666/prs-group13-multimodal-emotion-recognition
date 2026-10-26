@@ -105,3 +105,26 @@ outputs/metrics/experimental_v2/tuning/
 ├── random_forest_search_results.csv
 └── random_forest_summary.csv
 ```
+
+`mlp_search_results.csv` and `mlp_summary.csv` are from the first MLP tuning round, produced by an earlier version of `tune_mlp.py`. The current script produces the Round 2 files. Both rounds used the MLP's selected dataset (sym4, raw, 20 ms) and the same 4-fold actor-grouped CV.
+
+| Round | Candidates | Search space | Best configuration | CV Macro-F1 | Val Macro-F1 | Train–Val F1 Gap |
+|---|---:|---|---|---:|---:|---:|
+| 1 | 30 | Hidden layers (12,) to (64, 32); alpha 0.001–10; learning rate 0.0001–0.001; ReLU/tanh | (64,), ReLU, alpha=1.0, learning_rate=0.001 | 0.3576 | 0.3405 | 0.4098 |
+| 2 | 60 | Wider layers up to (128, 64, 32); added alpha 0.5, 2.0, 5.0; added learning rate 0.002 | (64,), ReLU, alpha=2.0, learning_rate=0.002 | 0.3627 | 0.3331 | 0.3291 |
+
+Round 1 showed substantial overfitting, so Round 2 widened the architecture search and added stronger regularization. Round 2 improved CV Macro-F1 and reduced the generalization gap, but validation Macro-F1 remained similar. Round 2 is reported as the tuned MLP.
+
+`default_vs_tuned_comparison.csv` and the per-classifier preprocessing comparisons in `outputs/metrics/experimental_v2/` are produced by `notebooks/experimental_v2/hyperparameter_tuning.ipynb`.
+
+### Reproduction Commands
+
+Run from `audio/handcrafted/` after generating the 30 combined datasets:
+
+```bash
+uv run --locked python -m src.experiments.tune_logistic_regression
+uv run --locked python -m src.experiments.tune_mlp
+uv run --locked python -m src.experiments.tune_svc
+uv run --locked python -m src.experiments.tune_xgboost
+uv run --locked python -m src.experiments.tune_random_forest
+```

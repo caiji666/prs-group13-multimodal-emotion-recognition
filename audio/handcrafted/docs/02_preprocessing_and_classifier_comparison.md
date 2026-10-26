@@ -51,3 +51,11 @@ outputs/metrics/experimental_v2/
 ```
 
 These results represent exploratory validation comparisons. The test partition was not used for model selection.
+
+### Reproduction Command
+
+Run from `audio/handcrafted/` after generating the 30 combined datasets:
+
+```bash
+uv run --locked python -m src.experiments.compare_preprocessing
+```
