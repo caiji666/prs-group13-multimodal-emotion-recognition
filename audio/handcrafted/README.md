@@ -17,7 +17,7 @@ The work includes:
 - Comparison of 30 preprocessing configurations
 - Evaluation of nine machine learning classifiers
 - Hyperparameter tuning of five shortlisted classifiers
-- Comparison of M1 48D, M2 128D, and combined 176D audio representations
+- Comparison of M1 48D, M2 WavLM 128D, and combined 176D audio representations
 - Export of aligned M1 features, actor-independent OOF probabilities, and fitted classifier for M5
 
 The repository maintains two implementations:
@@ -78,7 +78,7 @@ M1_Audio_Handcrafted/
 │   ├── actor_splits.csv
 │   ├── audio_splits.csv
 │   ├── raw/                         # Local, not tracked
-│   └── external/                    # M2-provided files, not tracked
+│   └── external/                    # M2-provided exports, not tracked
 ├── src/
 │   ├── dataset.py
 │   ├── split_dataset.py
@@ -198,19 +198,21 @@ The validation results are exploratory because the same validation partition was
 
 ## 8. M1–M2 Audio Feature Comparison
 
-The M1 handcrafted representation was aligned with M2's exported 128D pooled audio features using recording identifiers, actor IDs, emotion labels, and split assignments. All 1,440 recordings matched.
+The M1 handcrafted representation was aligned with M2's final WavLM export (frozen WavLM Base+ layer 6, trained adapter and attentive statistics pooling; 128D pooled features) using recording identifiers, actor IDs, emotion labels, and split assignments. All 1,440 recordings matched.
 
 The same `StandardScaler` + Logistic Regression pipeline was trained separately on each representation (960 training recordings) and evaluated on the same 240 validation recordings.
 
 | Representation | Dimensions | Default Val Macro-F1 | CV-tuned Val Macro-F1 |
 |---|---:|---:|---:|
 | Handcrafted (M1) | 48 | 0.3885 | 0.3898 |
-| Deep-learned (M2) | 128 | **0.4734** | 0.4262 |
-| Concatenated (M1 + M2) | 176 | 0.4518 | 0.4492 |
+| Deep-learned (M2 WavLM) | 128 | **0.7999** | **0.8072** |
+| Concatenated (M1 + M2) | 176 | 0.7891 | 0.8000 |
 
-Simple feature concatenation did not outperform the strongest deep-only validation result. These are downstream Logistic Regression experiments and are **not** M2's original WavLM classifier results.
+The WavLM features outperformed the handcrafted features for every emotion, and simple feature concatenation did not outperform WavLM features alone. Training-actor CV saturates at 1.0 for the WavLM features because M2's adapter was trained on the same actors, so only the validation scores are informative. These are downstream Logistic Regression experiments and are **not** M2's own classifier results.
 
-Run the comparison after generating the M1 and M2 input features:
+An earlier run of this comparison used M2's MFCC Transformer export (deep-only 0.4734, combined 0.4518); it is archived under `archive/mfcc_transformer/`. See [doc 04](docs/04_audio_feature_fusion_comparison.md) for both.
+
+Extract M2's `m5_learned_feature_only.zip` into `data/external/` (pooled CSVs at `data/external/m5_learned_feature_only/pooled/`), then run:
 
 ```bash
 uv run --locked python -m src.fusion.prepare_audio_features
@@ -218,7 +220,7 @@ uv run --locked python -m src.fusion.compare_audio_representations
 uv run --locked python -m src.fusion.tune_audio_representations
 ```
 
-The feature-alignment script expects M2's pooled CSV exports under `data/external/m2_audio/pooled/` and M1's selected combined dataset under `outputs/features/experimental_v2/combined/db2/`.
+The scripts default to `--m2-source wavlm`; add `--m2-source mfcc_transformer` to regenerate the archived comparison from `data/external/m2_audio/pooled/`. M1's selected combined dataset is read from `outputs/features/experimental_v2/combined/db2/`.
 
 ## 9. M5 Audio Handover
 
@@ -237,6 +239,21 @@ Regenerate the handover after the selected 48D feature dataset is available:
 uv run --locked python -m src.handover.export_m1_audio
 ```
 
+### Audio Representation for Fusion
+
+The representation comparison (Section 8) selected **WavLM learned-only** features, so the audio input for fusion is **M2's WavLM delivery (`m5_learned_feature_only`)**, which M5 loads directly with `multimodal_fusion/fusion/audio_pilot.py`. No M1 data needs to be sent for the selected configuration.
+
+For convenience, M1 also provides optional ready-to-load files in the `multimodal_fusion` NPZ format under `outputs/handover/final_audio/`:
+
+- **`audio_wavlm.npz`:** M2's WavLM pooled features, probabilities and sequence as a single NPZ (validation Macro-F1 0.8063).
+- **`audio_combined.npz`:** handcrafted 48D ‖ WavLM 128D pooled features (176D), M1 Logistic Regression probabilities, and the same sequence (validation Macro-F1 0.7891), for confirming the selection at fusion level.
+
+The NPZ files are not tracked by Git; `metadata.json` documents fields and sources. See [doc 05, Section 12](docs/05_m1_audio_handover.md#12-audio-representation-for-fusion).
+
+```bash
+uv run --locked python -m src.handover.export_final_audio
+```
+
 ## 10. Documentation
 
 | Document | Contents |
@@ -244,7 +261,7 @@ uv run --locked python -m src.handover.export_m1_audio
 | [01 — Handcrafted Feature Pipeline](docs/01_handcrafted_feature_pipeline.md) | Data preparation, preprocessing, feature extraction |
 | [02 — Preprocessing and Classifier Comparison](docs/02_preprocessing_and_classifier_comparison.md) | Nine classifiers across 30 configurations |
 | [03 — Hyperparameter Tuning Results](docs/03_hyperparameter_tuning_results.md) | Five tuned classifiers and default comparison |
-| [04 — Audio Feature Fusion Comparison](docs/04_audio_feature_fusion_comparison.md) | M1 48D vs M2 128D vs combined 176D |
+| [04 — Audio Feature Fusion Comparison](docs/04_audio_feature_fusion_comparison.md) | M1 48D vs M2 WavLM 128D vs combined 176D (and archived MFCC Transformer run) |
 | [05 — M1 Audio Handover](docs/05_m1_audio_handover.md) | Export schema, OOF probabilities, model and integration guidance |
 
 ## 11. Current Status

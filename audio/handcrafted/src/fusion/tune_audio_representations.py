@@ -1,6 +1,4 @@
 
-from pathlib import Path
-
 import numpy as np
 import pandas as pd
 
@@ -13,22 +11,13 @@ from sklearn.model_selection import (
 )
 from sklearn.metrics import accuracy_score, f1_score
 
-
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
-
-FEATURE_DIR = (
-    PROJECT_ROOT / "outputs/features/audio_fusion"
+from src.fusion.m2_sources import (
+    HANDCRAFTED_PATH,
+    feature_dir,
+    metrics_dir,
+    parse_source,
 )
 
-OUTPUT_DIR = (
-    PROJECT_ROOT / "outputs/metrics/audio_fusion/tuning"
-)
-
-DATASETS = {
-    "Handcrafted 48D": "handcrafted_48d.csv",
-    "Deep-learned 128D": "learned_128d.csv",
-    "Combined 176D": "combined_176d.csv",
-}
 
 METADATA_COLUMNS = [
     "sample_id",
@@ -69,9 +58,9 @@ C_VALUES = [
 ]
 
 
-def evaluate_representation(name, filename):
+def evaluate_representation(name, dataset_path, output_dir):
 
-    dataset = pd.read_csv(FEATURE_DIR / filename)
+    dataset = pd.read_csv(dataset_path)
 
     feature_columns = [
         col for col in dataset.columns
@@ -169,7 +158,7 @@ def evaluate_representation(name, filename):
     search_df = pd.DataFrame(search.cv_results_)
 
     search_df.to_csv(
-        OUTPUT_DIR / f"{filename_prefix}_search.csv",
+        output_dir / f"{filename_prefix}_search.csv",
         index=False,
     )
 
@@ -197,20 +186,35 @@ def evaluate_representation(name, filename):
 
 def main():
 
-    OUTPUT_DIR.mkdir(
+    source = parse_source(
+        "Tune Logistic Regression C for each audio representation."
+    )
+
+    datasets = {
+        "Handcrafted 48D": HANDCRAFTED_PATH,
+        "Deep-learned 128D": feature_dir(source) / "learned_128d.csv",
+        "Combined 176D": feature_dir(source) / "combined_176d.csv",
+    }
+
+    output_dir = metrics_dir(source) / "tuning"
+
+    output_dir.mkdir(
         parents=True,
         exist_ok=True,
     )
 
+    print("M2 source:", source)
+
     results = []
 
-    for name, filename in DATASETS.items():
+    for name, dataset_path in datasets.items():
 
         print(f"\nTuning: {name}")
 
         result = evaluate_representation(
             name,
-            filename,
+            dataset_path,
+            output_dir,
         )
 
         results.append(result)
@@ -229,7 +233,7 @@ def main():
     ).reset_index(drop=True)
 
     output_path = (
-        OUTPUT_DIR / "tuned_representation_comparison.csv"
+        output_dir / "tuned_representation_comparison.csv"
     )
 
     results_df.to_csv(output_path, index=False)

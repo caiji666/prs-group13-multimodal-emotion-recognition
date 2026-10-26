@@ -1,6 +1,4 @@
 
-from pathlib import Path
-
 import numpy as np
 import pandas as pd
 
@@ -9,22 +7,13 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, f1_score
 
-
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
-
-FEATURE_DIR = (
-    PROJECT_ROOT / "outputs/features/audio_fusion"
+from src.fusion.m2_sources import (
+    HANDCRAFTED_PATH,
+    feature_dir,
+    metrics_dir,
+    parse_source,
 )
 
-OUTPUT_DIR = (
-    PROJECT_ROOT / "outputs/metrics/audio_fusion"
-)
-
-DATASETS = {
-    "Handcrafted 48D": "handcrafted_48d.csv",
-    "Deep-learned 128D": "learned_128d.csv",
-    "Combined 176D": "combined_176d.csv",
-}
 
 METADATA_COLUMNS = [
     "sample_id",
@@ -51,9 +40,9 @@ LABEL_MAP = {
 }
 
 
-def evaluate_representation(name, filename):
+def evaluate_representation(name, dataset_path):
 
-    dataset = pd.read_csv(FEATURE_DIR / filename)
+    dataset = pd.read_csv(dataset_path)
 
     feature_columns = [
         col for col in dataset.columns
@@ -110,7 +99,15 @@ def evaluate_representation(name, filename):
         zero_division=0,
     )
 
-    return {
+    per_class_f1 = f1_score(
+        y_val,
+        val_pred,
+        labels=list(range(len(EMOTIONS))),
+        average=None,
+        zero_division=0,
+    )
+
+    result = {
         "representation": name,
         "n_features": len(feature_columns),
         "train_accuracy": accuracy_score(
@@ -124,16 +121,33 @@ def evaluate_representation(name, filename):
         "f1_gap": train_macro_f1 - val_macro_f1,
     }
 
+    return result, per_class_f1
+
 
 def main():
 
+    source = parse_source(
+        "Compare handcrafted, learned and combined audio features."
+    )
+
+    datasets = {
+        "Handcrafted 48D": HANDCRAFTED_PATH,
+        "Deep-learned 128D": feature_dir(source) / "learned_128d.csv",
+        "Combined 176D": feature_dir(source) / "combined_176d.csv",
+    }
+
+    output_dir = metrics_dir(source)
+
+    print("M2 source:", source)
+
     results = []
+    per_class = {}
 
-    for name, filename in DATASETS.items():
+    for name, dataset_path in datasets.items():
 
-        result = evaluate_representation(
+        result, per_class[name] = evaluate_representation(
             name,
-            filename,
+            dataset_path,
         )
 
         results.append(result)
@@ -151,13 +165,13 @@ def main():
         ascending=False,
     ).reset_index(drop=True)
 
-    OUTPUT_DIR.mkdir(
+    output_dir.mkdir(
         parents=True,
         exist_ok=True,
     )
 
     output_path = (
-        OUTPUT_DIR / "representation_comparison.csv"
+        output_dir / "representation_comparison.csv"
     )
 
     results_df.to_csv(
@@ -165,10 +179,24 @@ def main():
         index=False,
     )
 
+    # Validation F1 per emotion for each representation
+    per_class_df = pd.DataFrame(
+        per_class,
+        index=pd.Index(EMOTIONS, name="emotion"),
+    )
+
+    per_class_path = output_dir / "per_class_val_f1.csv"
+
+    per_class_df.to_csv(per_class_path)
+
     print("\nAudio representation comparison:")
     print(results_df.round(4).to_string(index=False))
 
+    print("\nPer-class validation F1:")
+    print(per_class_df.round(4).to_string())
+
     print("\nSaved:", output_path)
+    print("Saved:", per_class_path)
 
 
 if __name__ == "__main__":
