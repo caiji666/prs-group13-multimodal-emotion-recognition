@@ -69,15 +69,15 @@ See [audio/handcrafted/README.md](audio/handcrafted/README.md) for the complete 
 
 ### M1–M2 Audio Feature Comparison
 
-M1 also evaluated the integration of handcrafted features with M2's exported deep-learned audio representation.
+M1 also evaluated the integration of handcrafted features with M2's exported deep-learned audio representation (final WavLM Round 05 export, 128D pooled features).
 
 | Feature Representation | Dimensions | Validation Macro-F1 |
 |---|---:|---:|
 | Handcrafted only | 48D | 0.3885 |
-| Deep-learned only | 128D | **0.4734** |
-| Combined features | 176D | 0.4518 |
+| Deep-learned only (WavLM) | 128D | **0.7999** |
+| Combined features | 176D | 0.7891 |
 
-Results use the same StandardScaler + Logistic Regression pipeline (`C=1.0`). Simple feature concatenation did not outperform the deep-learned representation alone in this experiment.
+Results use the same StandardScaler + Logistic Regression pipeline (`C=1.0`). The WavLM features outperformed the handcrafted features for every emotion, and simple feature concatenation did not outperform the deep-learned representation alone. An earlier run against M2's MFCC Transformer export (deep-only 0.4734, combined 0.4518) is archived; see [the M1 comparison document](audio/handcrafted/docs/04_audio_feature_fusion_comparison.md).
 
 ### M5 Handover
 
@@ -87,6 +87,7 @@ M1 has prepared the following outputs for multimodal fusion:
 - **Eight-class probabilities**, including actor-independent out-of-fold predictions for training.
 - **Fitted Logistic Regression model** and feature/class metadata.
 - **Aligned recording identifiers** and preserved actor-independent partitions.
+- **Audio representation selection:** WavLM learned-only features scored highest, so the audio input for fusion is M2's WavLM delivery, loaded directly by M5. Optional ready-to-load NPZ files are also available: `audio_wavlm.npz` (M2's WavLM data as one file, validation Macro-F1 0.8063) and `audio_combined.npz` (handcrafted + WavLM 176D variant, 0.7891).
 
 See [M1 handover documentation](audio/handcrafted/docs/05_m1_audio_handover.md) for file schemas, probability ordering, and integration instructions.
 

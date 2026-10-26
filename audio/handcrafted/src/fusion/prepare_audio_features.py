@@ -1,24 +1,20 @@
 
-from pathlib import Path
-
 import numpy as np
 import pandas as pd
 
+from src.fusion.m2_sources import (
+    PROJECT_ROOT,
+    HANDCRAFTED_PATH,
+    M2_SOURCES,
+    feature_dir,
+    parse_source,
+)
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 M1_PATH = (
     PROJECT_ROOT
     / "outputs/features/experimental_v2/combined/db2"
     / "combined_norm_20ms.csv"
-)
-
-M2_DIR = (
-    PROJECT_ROOT / "data/external/m2_audio/pooled"
-)
-
-OUTPUT_DIR = (
-    PROJECT_ROOT / "outputs/features/audio_fusion"
 )
 
 EMOTIONS = [
@@ -41,6 +37,17 @@ METADATA_COLUMNS = [
 
 
 def main():
+
+    source = parse_source(
+        "Align M1 handcrafted and M2 learned audio features."
+    )
+
+    config = M2_SOURCES[source]
+    m2_dir = config["input_dir"]
+    output_dir = feature_dir(source)
+
+    print("M2 source:", source)
+    print("M2 input:", m2_dir)
 
     # 1. Load M1 handcrafted dataset
     m1 = pd.read_csv(M1_PATH)
@@ -66,7 +73,7 @@ def main():
     # 2. Load M2 learned feature datasets
     m2 = pd.concat(
         [
-            pd.read_csv(M2_DIR / f"{split}.csv")
+            pd.read_csv(m2_dir / f"{split}.csv")
             for split in ["train", "val", "test"]
         ],
         ignore_index=True,
@@ -75,12 +82,19 @@ def main():
     assert len(m2) == 1440
     assert m2["sample_id"].is_unique
 
+    # Exports name their 128 pooled features differently.
+    # Any other columns (e.g. WavLM P_* probabilities) are ignored.
+    source_features = [
+        f"{config['feature_prefix']}{i:03d}"
+        for i in range(128)
+    ]
+
+    assert set(source_features).issubset(m2.columns)
+
     m2_features = [
         f"f_{i:03d}"
         for i in range(128)
     ]
-
-    assert set(m2_features).issubset(m2.columns)
 
     # M2 sample_id corresponds to M1 trial_id.
     m2 = m2.rename(
@@ -89,6 +103,7 @@ def main():
             "actor_id": "m2_actor_id",
             "split": "m2_split",
             "label": "m2_label",
+            **dict(zip(source_features, m2_features)),
         }
     )
 
@@ -197,29 +212,28 @@ def main():
         ).all()
 
     # 8. Save aligned datasets
-    OUTPUT_DIR.mkdir(
+    output_dir.mkdir(
         parents=True,
         exist_ok=True,
     )
 
     outputs = {
-        "handcrafted_48d.csv": handcrafted,
-        "learned_128d.csv": learned,
-        "combined_176d.csv": combined,
+        HANDCRAFTED_PATH: handcrafted,
+        output_dir / "learned_128d.csv": learned,
+        output_dir / "combined_176d.csv": combined,
     }
 
-    for filename, df in outputs.items():
-        output_path = OUTPUT_DIR / filename
+    for output_path, df in outputs.items():
         df.to_csv(output_path, index=False)
 
         print(
-            f"{filename}: "
+            f"{output_path.name}: "
             f"{df.shape[0]} recordings, "
             f"{df.shape[1] - 5} features"
         )
 
     print("\nAll M1–M2 alignment checks passed!")
-    print("Saved to:", OUTPUT_DIR)
+    print("Saved to:", output_dir)
 
 
 if __name__ == "__main__":

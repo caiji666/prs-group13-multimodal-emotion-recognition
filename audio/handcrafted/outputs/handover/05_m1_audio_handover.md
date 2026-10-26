@@ -213,6 +213,74 @@ For decision-level fusion, other modalities should ideally provide similarly out
 | OOF training probabilities | Complete |
 | Validation/test probabilities | Complete |
 | Fitted model and metadata | Complete |
+| Audio representation selection for fusion (Section 12) | Complete |
+| Optional ready-to-load NPZ files (Section 12) | Complete |
 | M5 multimodal fusion evaluation | Pending |
 
 The M1 audio outputs are ready for integration into the group's multimodal fusion pipeline.
+
+## 12. Audio Representation for Fusion
+
+Sections 1–11 describe the M1-only handcrafted handover. This section records which audio representation the fusion module should use, and describes optional files that package it in the `multimodal_fusion` NPZ format (`fusion.data.load_modality`).
+
+### Selection
+
+The audio representation comparison ([doc 04](04_audio_feature_fusion_comparison.md)) selected the **WavLM learned-only** representation: validation Macro-F1 0.7999, compared with 0.7891 for the handcrafted + WavLM concatenation and 0.3885 for handcrafted features alone. Concatenating the handcrafted features does not improve on the learned features, so no M1 features are added to the audio input for fusion.
+
+**The selected audio input is M2's WavLM Round 05 delivery (`m5_learned_feature_only`).** It already contains everything the fusion module needs: pooled features, M2's probabilities and the sequence for cross-attention. M5 loads it directly with `multimodal_fusion/fusion/audio_pilot.py` (`import_archive`), so M1 does not need to send any audio data for the selected configuration.
+
+### Optional Ready-to-Load Files
+
+For convenience, `src/handover/export_final_audio.py` also packages the audio input as single NPZ files in the fusion contract. M5 may use these instead of converting M2's per-sample delivery, but they are not required:
+
+| File | Pooled | Probabilities | Val Accuracy | Val Macro-F1 |
+|---|---|---|---:|---:|
+| `audio_wavlm.npz` | M2 WavLM 128D | M2 WavLM Round 05 MLP head | 0.8125 | 0.8063 |
+| `audio_combined.npz` | M1 48D ‖ M2 WavLM 128D = 176D | M1 Logistic Regression on 176D | 0.7958 | 0.7891 |
+
+`audio_wavlm.npz` contains exactly M2's data (pooled, probabilities, sequence) in the single-file format. `audio_combined.npz` is only needed if M5 wants to confirm the selection at fusion level. Both files contain the same `sequence` and `lengths`: M2's `F_sequence` [T, 128], unchanged and zero-padded at the end to T = 215 (valid lengths 58–215).
+
+### Files
+
+```text
+outputs/handover/final_audio/
+├── audio_wavlm.npz      # optional: M2 WavLM delivery as one NPZ (not tracked)
+├── audio_combined.npz   # optional: handcrafted + WavLM variant (not tracked)
+└── metadata.json        # fields, sources, column layout, validation scores
+```
+
+| Field | Shape | Description |
+|---|---|---|
+| `sample_ids` | [1440] | Six-field trial IDs |
+| `labels` | [1440] int64 | RAVDESS emotion code − 1 |
+| `actors` | [1440] int64 | Actor ID |
+| `class_names` | [8] | neutral, calm, happy, sad, angry, fearful, disgust, surprise |
+| `pooled` | [1440, D] float32 | D = 128 (WavLM) or 176 (combined) |
+| `probs` | [1440, 8] float32 | Class probabilities |
+| `sequence` | [1440, 215, 128] float32 | M2 WavLM sequence for cross-attention |
+| `lengths` | [1440] int64 | Valid sequence steps |
+
+Class 7 uses the fusion spelling `surprise`.
+
+### Probability Generation
+
+- **`audio_wavlm.npz`:** M2's softmax probabilities for all splits. Training probabilities are in-sample.
+- **`audio_combined.npz`:** `StandardScaler` + Logistic Regression (`C=1.0`); 4-fold actor-independent OOF probabilities for training and a full-training model for validation and test. Because M2's adapter was trained on the training actors, these OOF probabilities remain optimistic.
+
+Training-set audio probabilities are therefore over-confident in both files, as they are in M2's delivery. Tune decision-fusion weights on the validation partition. Test probabilities were generated but not scored.
+
+### Usage (Optional Files)
+
+```bash
+python -m fusion validate --audio <path>/audio_wavlm.npz --visual <path>/visual.npz --split configs/actors_m2.json
+```
+
+Both files were checked with `fusion.data.load_modality`, `split_indices` (with `configs/actors_m2.json`), `load_pair`, `fit_normalizers` and `normalize`.
+
+### Reproducing the Export
+
+Requires `outputs/features/audio_fusion/handcrafted_48d.csv` and M2's `m5_learned_feature_only.zip` extracted into `data/external/`:
+
+```bash
+uv run --locked python -m src.handover.export_final_audio
+```
