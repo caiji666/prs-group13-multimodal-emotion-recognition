@@ -22,8 +22,8 @@ The work includes:
 
 The repository maintains two implementations:
 
-- **Baseline V1:** Original 48D handcrafted feature pipeline.
-- **Experimental V2:** Configurable preprocessing and feature extraction with systematic classifier comparisons.
+- **Experimental V2 (main M1 pipeline):** Configurable preprocessing, 30 feature configurations, nine-classifier comparison, tuning, M1–M2 comparison and the M5 handover. All current results come from this pipeline.
+- **Baseline V1 (initial prototype):** First 48D pipeline (25 ms frames, db4), MLP/SVM baselines and an early fusion check with M2's first Transformer. Kept for reference; its scripts are in `src/legacy/`.
 
 ## 2. Dataset
 

@@ -27,9 +27,9 @@ The eight emotion labels are neutral, calm, happy, sad, angry, fearful, disgust,
 
 Audio preprocessing includes:
 
-- Resampling to 16 kHz
-- Silence trimming
-- Raw and amplitude-normalized variants
+- Mono loading and resampling to 16 kHz
+- Leading/trailing silence trimming (`top_db=35`)
+- Raw and peak-normalized variants
 - Frame lengths of 20, 25, and 30 ms
 
 Preprocessing validation successfully processed all 1,440 recordings.
@@ -59,17 +59,24 @@ Each combined dataset contains 1,440 recordings, 48 numerical features, and four
 
 ## 6. Pipeline Execution
 
-Run the following modules sequentially from the repository root:
+Download `Audio_Speech_Actors_01-24.zip` from RAVDESS and extract it so the recordings are located at `data/raw/Actor_01/*.wav` to `data/raw/Actor_24/*.wav`.
+
+Run the following modules sequentially from `audio/handcrafted/`:
 
 ```bash
 uv run --locked python -m src.dataset
 uv run --locked python -m src.split_dataset
-uv run --locked python -m src.baseline_v1.feature_pipeline
 uv run --locked python -m src.experimental_v2.run_preprocessing_validation
 uv run --locked python -m src.experimental_v2.extract_time_dataset
 uv run --locked python -m src.experimental_v2.extract_spectral_dataset
 uv run --locked python -m src.experimental_v2.extract_wavelet_dataset
 uv run --locked python -m src.experimental_v2.combine_features
+```
+
+Optional — Baseline V1 (initial prototype) features only:
+
+```bash
+uv run --locked python -m src.baseline_v1.feature_pipeline
 ```
 
 ## 7. Generated Outputs
@@ -81,7 +88,7 @@ outputs/features/
 └── experimental_v2/
     ├── time/
     ├── spectral/
-    ├── wavelet/
+    ├── dwt/
     └── combined/
 ```
 

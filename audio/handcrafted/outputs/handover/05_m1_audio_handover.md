@@ -175,7 +175,7 @@ M5 should use this metadata to validate the handover schema.
 
 ## 8. Reproducing the Handover
 
-From the repository root:
+From `audio/handcrafted/`:
 
 ```bash
 uv run --locked python -m src.handover.export_m1_audio
