@@ -1,0 +1,509 @@
+{
+  "schema_version": "2.0",
+  "run_id": "M5_visual_only_s42_h64_d0.2_20261019",
+  "member": "M5",
+  "owner": "Jiang Yushan",
+  "stage": "fusion",
+  "comparison_group": "M5_pooled_controls_v1",
+  "pipeline_name": "visual_only on frozen historical audio/visual exports",
+  "run_status": "completed",
+  "test_status": "completed",
+  "started_at": null,
+  "finished_at": null,
+  "seed": 42,
+  "dataset_id": "ravdess_speech_v1",
+  "data_kind": "real",
+  "class_names": [
+    "neutral",
+    "calm",
+    "happy",
+    "sad",
+    "angry",
+    "fearful",
+    "disgust",
+    "surprise"
+  ],
+  "split_ref": "multimodal_fusion/configs/actor_splits.csv",
+  "split_sha256": "1ae0f8241c8d1b40f1c4d0c0be1c17d8cede3ea5005a24b4635cef1110490528",
+  "input_manifest_ref": "experiment_records/shared/M5/input_manifest.csv",
+  "input_manifest_sha256": "f9159d1b76d27bbdff23c84d5d0e51bb2b9a13d34b89d60ebea6381c61c4a2fc",
+  "counts": {
+    "expected": {
+      "train": 960,
+      "val": 240,
+      "test": 240
+    },
+    "actual": {
+      "train": 960,
+      "val": 240,
+      "test": 240
+    }
+  },
+  "excluded_samples": {
+    "count": 0,
+    "id_reason_manifest_ref": null,
+    "handling_policy": "No samples excluded. Unmeasured test results remain null."
+  },
+  "git_commit": "6ea5fa37bd0f56847ba5755dcab2671845d4dcc6",
+  "working_tree_dirty": true,
+  "code_patch_ref": "experiment_records/shared/M5/historical_code.patch",
+  "command": "python -m fusion.feature_pilot --pilot results/m5_feature_pilot_20261019_s42 --output results/m5_validation_study_20261019",
+  "environment": {
+    "python": "3.12.12",
+    "framework_and_version": "PyTorch 2.13.0",
+    "device": "cpu",
+    "dependencies_ref": "experiment_records/shared/M5/environment.txt"
+  },
+  "source_runs": {
+    "audio_handcrafted": null,
+    "audio_learned": null,
+    "audio_final": null,
+    "visual_handcrafted": null,
+    "visual_learned": null,
+    "visual_final": null
+  },
+  "input_artifacts": [
+    {
+      "role": "visual_learned_export",
+      "source_run_id": null,
+      "ref": null,
+      "sha256": "a29912628b062a1a40b4a472405dcfec095d9c886359b1b967fcb5fe3bde2565"
+    }
+  ],
+  "preprocessing": {
+    "audio": "Frozen export; no raw preprocessing rerun",
+    "visual": "Frozen export; 16 tokens assumed valid, pending mask provenance",
+    "standardization_fit_split": "train",
+    "augmentation_train_only": false,
+    "parameters": {
+      "normalizer_ref": "experiment_records/shared/M5/normalizers/405747767ba4805ad7c3f12559b88852f6b407592addfc6b9a822ed25741d374.json",
+      "normalizer_sha256": "6cc0b0e133a381eea81424dcfe1b43ef6213db6787a2e47fd3ce965f12c7f664"
+    }
+  },
+  "pipeline": {
+    "feature_extractors": [
+      {
+        "component_id": "visual_learned",
+        "modality": "visual",
+        "kind": "learned",
+        "method": "MobileNetV3-Small per supplied export",
+        "input_description": "Frozen teammate export; original extractor training not part of this run",
+        "parameters": {},
+        "pretrained_source": null,
+        "source_run_id": null,
+        "checkpoint_ref": null,
+        "checkpoint_sha256": null,
+        "trainable_in_this_run": false,
+        "trainable_layers": [],
+        "output_sequence_shape": null,
+        "output_pooled_shape": [
+          null,
+          576
+        ]
+      }
+    ],
+    "representation": {
+      "kind": "learned",
+      "components": [
+        "visual_learned"
+      ],
+      "pooling": "supplied temporal mean pooled features",
+      "normalization": "per-channel standardization (sequence statistics exclude padding)",
+      "normalization_fit_split": "train",
+      "combination_method": "visual_only",
+      "output_shape": [
+        null,
+        576
+      ]
+    },
+    "fusion": {
+      "applied": false,
+      "method": null,
+      "input_source_runs": {},
+      "parameters": {
+        "audio_pooled_dim": 176,
+        "visual_pooled_dim": 576,
+        "audio_sequence_dim": 128,
+        "visual_sequence_dim": 576,
+        "hidden": 64,
+        "heads": null
+      },
+      "trainable_in_this_run": false,
+      "output_shape": null
+    },
+    "classifier": {
+      "type": "MLP",
+      "source_run_id": null,
+      "input_dim": 576,
+      "architecture": "Linear(576,64) → ReLU → Dropout(0.2) → Linear(64,8)",
+      "hidden_dims": [
+        64
+      ],
+      "output_dim": 8,
+      "activation": "ReLU",
+      "dropout": 0.2,
+      "parameters": {
+        "loss": "cross_entropy",
+        "label_smoothing": 0.0
+      },
+      "trainable_in_this_run": true,
+      "probability_method": "softmax; argmax ties choose lowest index",
+      "calibration_fit_split": null,
+      "checkpoint_ref": null,
+      "checkpoint_sha256": "cf9f2e8bb8e435f4168269b81b4e50ab491d520ca09da6e64d397405573efda0"
+    }
+  },
+  "training": {
+    "regime": "frozen_encoder_then_classifier",
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "batch_size": 64,
+    "max_epochs": 30,
+    "completed_epochs": 30,
+    "early_stopping_patience": 8,
+    "component_parameter_groups": [],
+    "class_weighting": "none",
+    "other_parameters": {
+      "weight_decay": 0.0001,
+      "gradient_clip": 1.0,
+      "parameter_count": 37448,
+      "hidden": 64,
+      "dropout": 0.2
+    }
+  },
+  "selection": {
+    "metric": "macro_f1",
+    "split": "val",
+    "best_epoch": 27,
+    "selected_for_next_stage": null,
+    "selection_reason": "Control / exploratory configuration; no test-based selection",
+    "tie_break_rule": "earlier epoch",
+    "candidate_search_ref": null,
+    "config_locked_at": "2026-10-19T18:04:42.161225+08:00",
+    "test_first_evaluated_at": "2026-10-19T18:04:42.227038+08:00"
+  },
+  "metrics_scope": "full_pipeline",
+  "metrics_by_split": {
+    "val": {
+      "n": 240,
+      "accuracy": 0.525,
+      "macro_precision": 0.5624059256245659,
+      "macro_recall": 0.5390625,
+      "macro_f1": 0.5113905536807527,
+      "per_class": [
+        {
+          "label": 0,
+          "class_name": "neutral",
+          "precision": 0.2727272727272727,
+          "recall": 0.75,
+          "f1": 0.4,
+          "support": 16
+        },
+        {
+          "label": 1,
+          "class_name": "calm",
+          "precision": 0.6666666666666666,
+          "recall": 0.625,
+          "f1": 0.6451612903225806,
+          "support": 32
+        },
+        {
+          "label": 2,
+          "class_name": "happy",
+          "precision": 0.6808510638297872,
+          "recall": 1.0,
+          "f1": 0.810126582278481,
+          "support": 32
+        },
+        {
+          "label": 3,
+          "class_name": "sad",
+          "precision": 0.25806451612903225,
+          "recall": 0.25,
+          "f1": 0.25396825396825395,
+          "support": 32
+        },
+        {
+          "label": 4,
+          "class_name": "angry",
+          "precision": 0.9230769230769231,
+          "recall": 0.375,
+          "f1": 0.5333333333333333,
+          "support": 32
+        },
+        {
+          "label": 5,
+          "class_name": "fearful",
+          "precision": 0.7272727272727273,
+          "recall": 0.5,
+          "f1": 0.5925925925925926,
+          "support": 32
+        },
+        {
+          "label": 6,
+          "class_name": "disgust",
+          "precision": 0.5,
+          "recall": 0.5625,
+          "f1": 0.5294117647058824,
+          "support": 32
+        },
+        {
+          "label": 7,
+          "class_name": "surprise",
+          "precision": 0.47058823529411764,
+          "recall": 0.25,
+          "f1": 0.32653061224489793,
+          "support": 32
+        }
+      ],
+      "confusion_matrix_counts": [
+        [
+          12,
+          4,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          7,
+          20,
+          2,
+          2,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          32,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          5,
+          4,
+          8,
+          0,
+          4,
+          7,
+          3
+        ],
+        [
+          4,
+          0,
+          6,
+          7,
+          12,
+          1,
+          0,
+          2
+        ],
+        [
+          6,
+          0,
+          2,
+          1,
+          0,
+          16,
+          3,
+          4
+        ],
+        [
+          6,
+          0,
+          0,
+          7,
+          0,
+          1,
+          18,
+          0
+        ],
+        [
+          8,
+          1,
+          1,
+          6,
+          0,
+          0,
+          8,
+          8
+        ]
+      ]
+    },
+    "test": {
+      "n": 240,
+      "accuracy": 0.39166666666666666,
+      "macro_precision": 0.5843135784922261,
+      "macro_recall": 0.39453125,
+      "macro_f1": 0.4012069824821478,
+      "per_class": [
+        {
+          "label": 0,
+          "class_name": "neutral",
+          "precision": 0.5833333333333334,
+          "recall": 0.4375,
+          "f1": 0.5,
+          "support": 16
+        },
+        {
+          "label": 1,
+          "class_name": "calm",
+          "precision": 1.0,
+          "recall": 0.1875,
+          "f1": 0.3157894736842105,
+          "support": 32
+        },
+        {
+          "label": 2,
+          "class_name": "happy",
+          "precision": 0.7083333333333334,
+          "recall": 0.53125,
+          "f1": 0.6071428571428571,
+          "support": 32
+        },
+        {
+          "label": 3,
+          "class_name": "sad",
+          "precision": 0.2653061224489796,
+          "recall": 0.40625,
+          "f1": 0.32098765432098764,
+          "support": 32
+        },
+        {
+          "label": 4,
+          "class_name": "angry",
+          "precision": 0.56,
+          "recall": 0.4375,
+          "f1": 0.49122807017543857,
+          "support": 32
+        },
+        {
+          "label": 5,
+          "class_name": "fearful",
+          "precision": 1.0,
+          "recall": 0.1875,
+          "f1": 0.3157894736842105,
+          "support": 32
+        },
+        {
+          "label": 6,
+          "class_name": "disgust",
+          "precision": 0.24719101123595505,
+          "recall": 0.6875,
+          "f1": 0.36363636363636365,
+          "support": 32
+        },
+        {
+          "label": 7,
+          "class_name": "surprise",
+          "precision": 0.3103448275862069,
+          "recall": 0.28125,
+          "f1": 0.29508196721311475,
+          "support": 32
+        }
+      ],
+      "confusion_matrix_counts": [
+        [
+          7,
+          0,
+          0,
+          1,
+          0,
+          0,
+          4,
+          4
+        ],
+        [
+          3,
+          6,
+          7,
+          0,
+          0,
+          0,
+          13,
+          3
+        ],
+        [
+          0,
+          0,
+          17,
+          0,
+          0,
+          0,
+          15,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          13,
+          0,
+          0,
+          9,
+          9
+        ],
+        [
+          1,
+          0,
+          0,
+          9,
+          14,
+          0,
+          5,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          10,
+          4,
+          6,
+          11,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          10,
+          0,
+          0,
+          22,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          6,
+          7,
+          0,
+          10,
+          9
+        ]
+      ]
+    }
+  },
+  "artifacts": {
+    "original_metrics_ref": "experiment_records/M5_visual_only_s42_h64_d0.2_20261019/original_metrics.json",
+    "predictions_val_ref": "experiment_records/M5_visual_only_s42_h64_d0.2_20261019/predictions_val.csv",
+    "predictions_test_ref": "experiment_records/M5_visual_only_s42_h64_d0.2_20261019/predictions_test.csv",
+    "history_ref": "experiment_records/M5_visual_only_s42_h64_d0.2_20261019/history.csv",
+    "checkpoint_ref": null,
+    "checkpoint_sha256": "cf9f2e8bb8e435f4168269b81b4e50ab491d520ca09da6e64d397405573efda0",
+    "feature_exports": [],
+    "figures": []
+  },
+  "notes_ref": "experiment_records/M5_visual_only_s42_h64_d0.2_20261019/notes.md"
+}

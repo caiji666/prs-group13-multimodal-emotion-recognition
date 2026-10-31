@@ -98,3 +98,15 @@ The M1–M2 feature comparison and M5 handover are complete.
 See [audio/learned/README.md](audio/learned/README.md) for full Stage 1–6 source, selected tuned Transformer weights, WAV emotion inference, training and M1/M5 exports. The shipped model has validation Accuracy 54.58% and Macro-F1 0.532837 (2026-10-18 round 04); final test generalization remains unmeasured. Six-field IDs and per-sample sequences are unchanged; class 7 is named `surprise`.
 
 M2 has published [33 canonical experiment records and checkpoints](experiment_records/summary.md), including predictions, history and source provenance. All M2 test results remain not_run/null.
+
+## M5 published results (2026-10-20)
+
+M5 has published 30 schema-v2 records using the team's [recording format](docs/experiment-recording.md). See the [shared experiment summary](experiment_records/summary.md) and [M5 results and remaining work](experiment_records/shared/M5/M5_RESULTS_20261020.md). Records include configurations, validation/test predictions, histories, source snapshots and interpretation figures. Large M5 weights and raw features are not uploaded; hashes and retrieval status are explicit.
+
+These runs use the historical M2 feature export associated with the initial Transformer checkpoint, not the newly promoted round04 default. Cross-attention was selected on validation; gated had a higher observed test mean, without test-based reselection. Visual probability class order is confirmed.
+
+Validate the published M5 records without private feature data or checkpoints:
+
+```bash
+python scripts/validate_m5_records.py --root .
+```

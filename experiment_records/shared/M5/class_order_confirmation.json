@@ -1,0 +1,23 @@
+{
+  "confirmed_on": "2026-10-19",
+  "class_names": [
+    "neutral",
+    "calm",
+    "happy",
+    "sad",
+    "angry",
+    "fearful",
+    "disgust",
+    "surprise"
+  ],
+  "confirmation_source": "User reports teammate explicitly confirmed probabilities follow the agreed project order.",
+  "user_statement": "我确认了顺序，他说他的顺序就是我们的这个",
+  "visual_npz_ref": "features/mobilenetv3_small_features.npz",
+  "visual_npz_sha256": "a29912628b062a1a40b4a472405dcfec095d9c886359b1b967fcb5fe3bde2565",
+  "input_identity_verified": true,
+  "original_probability_values_unchanged": true,
+  "confirmed_after_initial_evaluation": true,
+  "metrics_recomputed": false,
+  "models_retrained": false,
+  "scope": "Confirms class order only; does not establish checkpoint provenance, calibration or probability/feature model identity."
+}

@@ -1,0 +1,198 @@
+[
+  {
+    "role": "frozen_visual_features",
+    "filename": "mobilenetv3_small_features.npz",
+    "sha256": "a29912628b062a1a40b4a472405dcfec095d9c886359b1b967fcb5fe3bde2565",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "combined_audio_features",
+    "filename": "audio_fused_176d.csv",
+    "sha256": "9668525d6f8db1bceecbce905b4a16652298d715f01d6f3a7dcd8744ec31371a",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "M5 checkpoint M5_audio_only_s42_h64_d0.2_20261019",
+    "filename": "checkpoint.pt",
+    "sha256": "339d8dd7aef75ab469832c7faaf8ee25c0a800a31b12a381c4bad6386cb32f9e",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "M5 checkpoint M5_visual_only_s42_h64_d0.2_20261019",
+    "filename": "checkpoint.pt",
+    "sha256": "cf9f2e8bb8e435f4168269b81b4e50ab491d520ca09da6e64d397405573efda0",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "M5 checkpoint M5_fusion_concat_s42_20261019_01",
+    "filename": "checkpoint.pt",
+    "sha256": "d68325d8aa3a414e59b8fa11f33df18b9d13930c0cc511c7a3b4231a92d39229",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "M5 checkpoint M5_fusion_gated_s42_20261019_01",
+    "filename": "checkpoint.pt",
+    "sha256": "9e7e24d68900a06174d3dfe7952d1c15d552c725f659b8bbf44044dfa15a3a44",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "M5 checkpoint M5_fusion_cross_attention_s42_20261019_01",
+    "filename": "checkpoint.pt",
+    "sha256": "5f7410c310221d56f0db7dac475418c270bf36f1a3751de098888f60c8d1bbca",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "M5 checkpoint M5_audio_sequence_mean_s42_h64_d0.2_20261019",
+    "filename": "checkpoint.pt",
+    "sha256": "9816f707f66353e040d7499d9e4c6deab989fab8503c5c3b018217bd3472a586",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "M5 checkpoint M5_sequence_mean_concat_s42_h64_d0.2_20261019",
+    "filename": "checkpoint.pt",
+    "sha256": "6c9a3dcb631dd47cc1b607d293d8665b89f6ba8b03c865150807a3f45b7ff145",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "M5 checkpoint M5_audio_only_s43_h64_d0.2_20261019",
+    "filename": "checkpoint.pt",
+    "sha256": "9197eab87814f3db1398d474e47360e01d31d4c4cc9fa8e10cfc1d9517acae7d",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "M5 checkpoint M5_visual_only_s43_h64_d0.2_20261019",
+    "filename": "checkpoint.pt",
+    "sha256": "47d656bcdc1fbb3a5eda1888728d19f8522b27a0cd05764f91b104cab58eae08",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "M5 checkpoint M5_concat_s43_h64_d0.2_20261019",
+    "filename": "checkpoint.pt",
+    "sha256": "95289b5c96ed006f57c8b28956a355bed872f3ebd4b9f8fa220837741bccc7da",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "M5 checkpoint M5_gated_s43_h64_d0.2_20261019",
+    "filename": "checkpoint.pt",
+    "sha256": "fcf0ca560ef4313b73a937174a7e8874f99063eb02764b3b21b3fb920605cb02",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "M5 checkpoint M5_cross_attention_s43_h64_d0.2_20261019",
+    "filename": "checkpoint.pt",
+    "sha256": "0ffc7fb9506cdb4353be26d85a1b13faa239fcde09e25b40da9de8273e9308ba",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "M5 checkpoint M5_audio_sequence_mean_s43_h64_d0.2_20261019",
+    "filename": "checkpoint.pt",
+    "sha256": "eb8f6f490b3a6c88ffaf4f1529713faea52f133124ce4daa8504c7051ef98284",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "M5 checkpoint M5_sequence_mean_concat_s43_h64_d0.2_20261019",
+    "filename": "checkpoint.pt",
+    "sha256": "cf06494369f7ab9feccce67bf5101335f594ed4b3f69fecfdd25471d202b91ed",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "M5 checkpoint M5_audio_only_s44_h64_d0.2_20261019",
+    "filename": "checkpoint.pt",
+    "sha256": "adc9fcd4f1be2bef008b65ded2585507510c321dcdf8bcf667b68428c8c27225",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "M5 checkpoint M5_visual_only_s44_h64_d0.2_20261019",
+    "filename": "checkpoint.pt",
+    "sha256": "a5c3d20db8edcfeb77707c438c3f41ede945cf545b5f0b33988e6fa23395555c",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "M5 checkpoint M5_concat_s44_h64_d0.2_20261019",
+    "filename": "checkpoint.pt",
+    "sha256": "0ff0caa1cb6b391af92583a5b6d1c34499a2d37b53b3e75625049334f25ab471",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "M5 checkpoint M5_gated_s44_h64_d0.2_20261019",
+    "filename": "checkpoint.pt",
+    "sha256": "7a40dcdb92bda4b315b5290b63e6bfc95bd0f53e691e24ffd46c3f5614fb7e35",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "M5 checkpoint M5_cross_attention_s44_h64_d0.2_20261019",
+    "filename": "checkpoint.pt",
+    "sha256": "d244a670b82b205e0ba678db339db5490832f64735ad779f75cb05fda4511400",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "M5 checkpoint M5_audio_sequence_mean_s44_h64_d0.2_20261019",
+    "filename": "checkpoint.pt",
+    "sha256": "214d91da62010761e4e78e5eb362e16da72a3cbb89fa5702e5970e7c7deb6b96",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "M5 checkpoint M5_sequence_mean_concat_s44_h64_d0.2_20261019",
+    "filename": "checkpoint.pt",
+    "sha256": "8c0ec65fb15308494c7a7a2fc4f3c31db0fa12df2874d533e19030e47b1bf8b8",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "M5 checkpoint M5_cross_attention_s42_h32_d0.2_20261019",
+    "filename": "checkpoint.pt",
+    "sha256": "484c828cc90bb2907ad853fc9d73d766a7114eeab27d72b8166b0eb8164c1610",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "M5 checkpoint M5_cross_attention_s42_h64_d0.4_20261019",
+    "filename": "checkpoint.pt",
+    "sha256": "0255f45263d087a16b602455a29b040b29f5f04f799e8d9725b16277a73fe61b",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "M5 checkpoint M5_concat_s42_h32_d0.2_20261019",
+    "filename": "checkpoint.pt",
+    "sha256": "48035abf50f375b3e7fcc96303922b473beca46c8ff1b8427779450a3a3266e4",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "M5 checkpoint M5_concat_s42_h64_d0.4_20261019",
+    "filename": "checkpoint.pt",
+    "sha256": "c1751bd58b0f12ec8b04ec087dbf2e00163cf73f26d028c7458d30822afb49c6",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  },
+  {
+    "role": "Audio pilot checkpoint",
+    "filename": "audio_pooled_mlp.pt",
+    "sha256": "fc9423c54cbb594db7349d2c45a8ad298ffe4540b114cf35ecebb9f94ee1960f",
+    "availability": "Local M5 artifact; not uploaded. Request from M5 owner.",
+    "download_ref": null
+  }
+]

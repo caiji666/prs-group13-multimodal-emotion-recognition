@@ -1,0 +1,466 @@
+{
+  "schema_version": "2.0",
+  "run_id": "M5_reference_audio_head_sNA_20261019_01",
+  "member": "M5",
+  "owner": "Jiang Yushan",
+  "stage": "reference",
+  "comparison_group": "M5_imported_probability_references_v1",
+  "pipeline_name": "Imported audio feature export → supplied upstream classifier probabilities (no M5 retraining)",
+  "run_status": "completed",
+  "test_status": "completed",
+  "started_at": null,
+  "finished_at": null,
+  "seed": null,
+  "dataset_id": "ravdess_speech_v1",
+  "data_kind": "real",
+  "class_names": [
+    "neutral",
+    "calm",
+    "happy",
+    "sad",
+    "angry",
+    "fearful",
+    "disgust",
+    "surprise"
+  ],
+  "split_ref": "multimodal_fusion/configs/actor_splits.csv",
+  "split_sha256": "1ae0f8241c8d1b40f1c4d0c0be1c17d8cede3ea5005a24b4635cef1110490528",
+  "input_manifest_ref": "experiment_records/shared/M5/input_manifest.csv",
+  "input_manifest_sha256": "f9159d1b76d27bbdff23c84d5d0e51bb2b9a13d34b89d60ebea6381c61c4a2fc",
+  "counts": {
+    "expected": {
+      "train": 960,
+      "val": 240,
+      "test": 240
+    },
+    "actual": {
+      "train": null,
+      "val": 240,
+      "test": 240
+    }
+  },
+  "excluded_samples": {
+    "count": 0,
+    "id_reason_manifest_ref": null,
+    "handling_policy": "No samples excluded. Unmeasured test results remain null."
+  },
+  "git_commit": "6ea5fa37bd0f56847ba5755dcab2671845d4dcc6",
+  "working_tree_dirty": true,
+  "code_patch_ref": "experiment_records/shared/M5/historical_code.patch",
+  "command": null,
+  "environment": {
+    "python": null,
+    "framework_and_version": null,
+    "device": "cpu",
+    "dependencies_ref": "experiment_records/shared/M5/environment.txt"
+  },
+  "source_runs": {
+    "audio_handcrafted": null,
+    "audio_learned": "M2_encoder_transformer_s42_20261015_00",
+    "audio_final": null,
+    "visual_handcrafted": null,
+    "visual_learned": null,
+    "visual_final": null
+  },
+  "input_artifacts": [
+    {
+      "role": "audio_combined_export",
+      "source_run_id": null,
+      "ref": null,
+      "sha256": "9668525d6f8db1bceecbce905b4a16652298d715f01d6f3a7dcd8744ec31371a"
+    }
+  ],
+  "preprocessing": {
+    "audio": null,
+    "visual": null,
+    "standardization_fit_split": null,
+    "augmentation_train_only": null,
+    "parameters": {}
+  },
+  "pipeline": {
+    "feature_extractors": [],
+    "representation": {
+      "kind": "probabilities",
+      "components": [],
+      "pooling": null,
+      "normalization": null,
+      "normalization_fit_split": null,
+      "combination_method": null,
+      "output_shape": [
+        null,
+        8
+      ]
+    },
+    "fusion": {
+      "applied": false,
+      "method": null,
+      "input_source_runs": {},
+      "parameters": {},
+      "trainable_in_this_run": false,
+      "output_shape": null
+    },
+    "classifier": {
+      "type": "upstream classifier (architecture not supplied)",
+      "source_run_id": null,
+      "input_dim": 176,
+      "architecture": null,
+      "hidden_dims": null,
+      "output_dim": 8,
+      "activation": null,
+      "dropout": null,
+      "parameters": {},
+      "trainable_in_this_run": false,
+      "probability_method": "provided probabilities; class order confirmed",
+      "calibration_fit_split": null,
+      "checkpoint_ref": null,
+      "checkpoint_sha256": null
+    }
+  },
+  "training": {
+    "regime": "cached_upstream_evaluation",
+    "optimizer": null,
+    "learning_rate": null,
+    "batch_size": null,
+    "max_epochs": null,
+    "completed_epochs": null,
+    "early_stopping_patience": null,
+    "component_parameter_groups": [],
+    "class_weighting": null,
+    "other_parameters": {}
+  },
+  "selection": {
+    "metric": "macro_f1",
+    "split": "val",
+    "best_epoch": null,
+    "selected_for_next_stage": null,
+    "selection_reason": "Reference evaluation of a supplied upstream head; no new training or model selection",
+    "tie_break_rule": null,
+    "candidate_search_ref": null,
+    "config_locked_at": null,
+    "test_first_evaluated_at": null
+  },
+  "metrics_scope": "full_pipeline",
+  "metrics_by_split": {
+    "val": {
+      "n": 240,
+      "accuracy": 0.4791666666666667,
+      "macro_precision": 0.5054344208166283,
+      "macro_recall": 0.46875,
+      "macro_f1": 0.4564726521339008,
+      "per_class": [
+        {
+          "label": 0,
+          "class_name": "neutral",
+          "precision": 0.625,
+          "recall": 0.3125,
+          "f1": 0.4166666666666667,
+          "support": 16
+        },
+        {
+          "label": 1,
+          "class_name": "calm",
+          "precision": 0.5454545454545454,
+          "recall": 0.9375,
+          "f1": 0.6896551724137931,
+          "support": 32
+        },
+        {
+          "label": 2,
+          "class_name": "happy",
+          "precision": 0.4,
+          "recall": 0.25,
+          "f1": 0.3076923076923077,
+          "support": 32
+        },
+        {
+          "label": 3,
+          "class_name": "sad",
+          "precision": 0.3103448275862069,
+          "recall": 0.5625,
+          "f1": 0.4,
+          "support": 32
+        },
+        {
+          "label": 4,
+          "class_name": "angry",
+          "precision": 0.5365853658536586,
+          "recall": 0.6875,
+          "f1": 0.6027397260273972,
+          "support": 32
+        },
+        {
+          "label": 5,
+          "class_name": "fearful",
+          "precision": 0.47058823529411764,
+          "recall": 0.25,
+          "f1": 0.32653061224489793,
+          "support": 32
+        },
+        {
+          "label": 6,
+          "class_name": "disgust",
+          "precision": 0.47368421052631576,
+          "recall": 0.28125,
+          "f1": 0.35294117647058826,
+          "support": 32
+        },
+        {
+          "label": 7,
+          "class_name": "surprise",
+          "precision": 0.6818181818181818,
+          "recall": 0.46875,
+          "f1": 0.5555555555555556,
+          "support": 32
+        }
+      ],
+      "confusion_matrix_counts": [
+        [
+          5,
+          11,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          30,
+          0,
+          1,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          3,
+          3,
+          8,
+          8,
+          4,
+          1,
+          1,
+          4
+        ],
+        [
+          0,
+          7,
+          2,
+          18,
+          0,
+          0,
+          4,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          4,
+          22,
+          4,
+          2,
+          0
+        ],
+        [
+          0,
+          2,
+          5,
+          13,
+          0,
+          8,
+          2,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          8,
+          14,
+          1,
+          9,
+          0
+        ],
+        [
+          0,
+          2,
+          5,
+          6,
+          1,
+          2,
+          1,
+          15
+        ]
+      ]
+    },
+    "test": {
+      "n": 240,
+      "accuracy": 0.575,
+      "macro_precision": 0.5693487763719963,
+      "macro_recall": 0.55078125,
+      "macro_f1": 0.5444558007267896,
+      "per_class": [
+        {
+          "label": 0,
+          "class_name": "neutral",
+          "precision": 0.1875,
+          "recall": 0.1875,
+          "f1": 0.1875,
+          "support": 16
+        },
+        {
+          "label": 1,
+          "class_name": "calm",
+          "precision": 0.5686274509803921,
+          "recall": 0.90625,
+          "f1": 0.6987951807228916,
+          "support": 32
+        },
+        {
+          "label": 2,
+          "class_name": "happy",
+          "precision": 0.4583333333333333,
+          "recall": 0.34375,
+          "f1": 0.39285714285714285,
+          "support": 32
+        },
+        {
+          "label": 3,
+          "class_name": "sad",
+          "precision": 0.5263157894736842,
+          "recall": 0.3125,
+          "f1": 0.39215686274509803,
+          "support": 32
+        },
+        {
+          "label": 4,
+          "class_name": "angry",
+          "precision": 0.8695652173913043,
+          "recall": 0.625,
+          "f1": 0.7272727272727273,
+          "support": 32
+        },
+        {
+          "label": 5,
+          "class_name": "fearful",
+          "precision": 0.5128205128205128,
+          "recall": 0.625,
+          "f1": 0.5633802816901409,
+          "support": 32
+        },
+        {
+          "label": 6,
+          "class_name": "disgust",
+          "precision": 0.5116279069767442,
+          "recall": 0.6875,
+          "f1": 0.5866666666666667,
+          "support": 32
+        },
+        {
+          "label": 7,
+          "class_name": "surprise",
+          "precision": 0.92,
+          "recall": 0.71875,
+          "f1": 0.8070175438596491,
+          "support": 32
+        }
+      ],
+      "confusion_matrix_counts": [
+        [
+          3,
+          6,
+          2,
+          0,
+          0,
+          0,
+          5,
+          0
+        ],
+        [
+          2,
+          29,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          8,
+          0,
+          11,
+          1,
+          1,
+          4,
+          6,
+          1
+        ],
+        [
+          0,
+          9,
+          3,
+          10,
+          0,
+          8,
+          1,
+          1
+        ],
+        [
+          2,
+          2,
+          2,
+          0,
+          20,
+          0,
+          6,
+          0
+        ],
+        [
+          0,
+          0,
+          3,
+          6,
+          1,
+          20,
+          2,
+          0
+        ],
+        [
+          1,
+          5,
+          0,
+          2,
+          0,
+          2,
+          22,
+          0
+        ],
+        [
+          0,
+          0,
+          3,
+          0,
+          1,
+          4,
+          1,
+          23
+        ]
+      ]
+    }
+  },
+  "artifacts": {
+    "original_metrics_ref": null,
+    "predictions_val_ref": "experiment_records/M5_reference_audio_head_sNA_20261019_01/predictions_val.csv",
+    "predictions_test_ref": "experiment_records/M5_reference_audio_head_sNA_20261019_01/predictions_test.csv",
+    "history_ref": null,
+    "checkpoint_ref": null,
+    "checkpoint_sha256": null,
+    "feature_exports": [],
+    "figures": []
+  },
+  "notes_ref": "experiment_records/M5_reference_audio_head_sNA_20261019_01/notes.md"
+}

@@ -1,0 +1,28 @@
+{
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "methods": [
+    "audio_only",
+    "visual_only",
+    "concat",
+    "gated",
+    "cross_attention",
+    "audio_sequence_mean",
+    "sequence_mean_concat"
+  ],
+  "default": {
+    "hidden": 64,
+    "dropout": 0.2,
+    "epochs": 30,
+    "patience": 8
+  },
+  "reuse": "Three original seed42 fusion checkpoints after prediction equality check",
+  "adaptive_search": "Top two fusion methods by 3-seed mean; seed42 hidden32 or dropout0.4 separately; repeat winning new config on43/44 only if seed42 improves >=0.02.",
+  "diagnostics": "Validation only: complementary errors, modality perturbations, gates, attention controls and representative cases.",
+  "test_status": "not_run",
+  "decision_fusion": "deferred_pending_class_order",
+  "excluded_from_scope": "No actor repartition, raw encoders or original test evaluation."
+}

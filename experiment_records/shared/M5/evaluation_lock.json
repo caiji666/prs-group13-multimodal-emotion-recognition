@@ -1,0 +1,137 @@
+{
+  "locked_at": "2026-10-19T18:04:42.161225+08:00",
+  "primary_method_selected_by_validation": "cross_attention",
+  "strongest_matched_unimodal_selected_by_validation": "visual_only",
+  "candidates": [
+    {
+      "method": "audio_only",
+      "seed": 42,
+      "best_epoch": 23,
+      "checkpoint_sha256": "339d8dd7aef75ab469832c7faaf8ee25c0a800a31b12a381c4bad6386cb32f9e"
+    },
+    {
+      "method": "visual_only",
+      "seed": 42,
+      "best_epoch": 27,
+      "checkpoint_sha256": "cf9f2e8bb8e435f4168269b81b4e50ab491d520ca09da6e64d397405573efda0"
+    },
+    {
+      "method": "concat",
+      "seed": 42,
+      "best_epoch": 13,
+      "checkpoint_sha256": "d68325d8aa3a414e59b8fa11f33df18b9d13930c0cc511c7a3b4231a92d39229"
+    },
+    {
+      "method": "gated",
+      "seed": 42,
+      "best_epoch": 8,
+      "checkpoint_sha256": "9e7e24d68900a06174d3dfe7952d1c15d552c725f659b8bbf44044dfa15a3a44"
+    },
+    {
+      "method": "cross_attention",
+      "seed": 42,
+      "best_epoch": 15,
+      "checkpoint_sha256": "5f7410c310221d56f0db7dac475418c270bf36f1a3751de098888f60c8d1bbca"
+    },
+    {
+      "method": "audio_sequence_mean",
+      "seed": 42,
+      "best_epoch": 12,
+      "checkpoint_sha256": "9816f707f66353e040d7499d9e4c6deab989fab8503c5c3b018217bd3472a586"
+    },
+    {
+      "method": "sequence_mean_concat",
+      "seed": 42,
+      "best_epoch": 20,
+      "checkpoint_sha256": "6c9a3dcb631dd47cc1b607d293d8665b89f6ba8b03c865150807a3f45b7ff145"
+    },
+    {
+      "method": "audio_only",
+      "seed": 43,
+      "best_epoch": 6,
+      "checkpoint_sha256": "9197eab87814f3db1398d474e47360e01d31d4c4cc9fa8e10cfc1d9517acae7d"
+    },
+    {
+      "method": "visual_only",
+      "seed": 43,
+      "best_epoch": 27,
+      "checkpoint_sha256": "47d656bcdc1fbb3a5eda1888728d19f8522b27a0cd05764f91b104cab58eae08"
+    },
+    {
+      "method": "concat",
+      "seed": 43,
+      "best_epoch": 21,
+      "checkpoint_sha256": "95289b5c96ed006f57c8b28956a355bed872f3ebd4b9f8fa220837741bccc7da"
+    },
+    {
+      "method": "gated",
+      "seed": 43,
+      "best_epoch": 12,
+      "checkpoint_sha256": "fcf0ca560ef4313b73a937174a7e8874f99063eb02764b3b21b3fb920605cb02"
+    },
+    {
+      "method": "cross_attention",
+      "seed": 43,
+      "best_epoch": 7,
+      "checkpoint_sha256": "0ffc7fb9506cdb4353be26d85a1b13faa239fcde09e25b40da9de8273e9308ba"
+    },
+    {
+      "method": "audio_sequence_mean",
+      "seed": 43,
+      "best_epoch": 27,
+      "checkpoint_sha256": "eb8f6f490b3a6c88ffaf4f1529713faea52f133124ce4daa8504c7051ef98284"
+    },
+    {
+      "method": "sequence_mean_concat",
+      "seed": 43,
+      "best_epoch": 16,
+      "checkpoint_sha256": "cf06494369f7ab9feccce67bf5101335f594ed4b3f69fecfdd25471d202b91ed"
+    },
+    {
+      "method": "audio_only",
+      "seed": 44,
+      "best_epoch": 26,
+      "checkpoint_sha256": "adc9fcd4f1be2bef008b65ded2585507510c321dcdf8bcf667b68428c8c27225"
+    },
+    {
+      "method": "visual_only",
+      "seed": 44,
+      "best_epoch": 24,
+      "checkpoint_sha256": "a5c3d20db8edcfeb77707c438c3f41ede945cf545b5f0b33988e6fa23395555c"
+    },
+    {
+      "method": "concat",
+      "seed": 44,
+      "best_epoch": 13,
+      "checkpoint_sha256": "0ff0caa1cb6b391af92583a5b6d1c34499a2d37b53b3e75625049334f25ab471"
+    },
+    {
+      "method": "gated",
+      "seed": 44,
+      "best_epoch": 17,
+      "checkpoint_sha256": "7a40dcdb92bda4b315b5290b63e6bfc95bd0f53e691e24ffd46c3f5614fb7e35"
+    },
+    {
+      "method": "cross_attention",
+      "seed": 44,
+      "best_epoch": 12,
+      "checkpoint_sha256": "d244a670b82b205e0ba678db339db5490832f64735ad779f75cb05fda4511400"
+    },
+    {
+      "method": "audio_sequence_mean",
+      "seed": 44,
+      "best_epoch": 16,
+      "checkpoint_sha256": "214d91da62010761e4e78e5eb362e16da72a3cbb89fa5702e5970e7c7deb6b96"
+    },
+    {
+      "method": "sequence_mean_concat",
+      "seed": 44,
+      "best_epoch": 24,
+      "checkpoint_sha256": "8c0ec65fb15308494c7a7a2fc4f3c31db0fa12df2874d533e19030e47b1bf8b8"
+    }
+  ],
+  "decision_alpha_audio": 0.15,
+  "decision_weight_selection_split": "val",
+  "no_test_based_reselection": true,
+  "class_order_confirmation_after_evaluation": true
+}

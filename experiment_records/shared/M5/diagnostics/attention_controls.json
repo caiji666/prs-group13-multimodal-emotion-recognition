@@ -1,0 +1,215 @@
+[
+  {
+    "seed": 42,
+    "condition": "uniform_weights",
+    "macro_f1": 0.6692788376733623,
+    "original_macro_f1": 0.6673591933896748,
+    "prediction_change_rate": 0.06666666666666667,
+    "original_predicted_class_probability_drop": 0.02688397839665413
+  },
+  {
+    "seed": 42,
+    "condition": "high_frames",
+    "repeat": 0,
+    "macro_f1": 0.5961726565062765,
+    "original_macro_f1": 0.6673591933896748,
+    "prediction_change_rate": 0.15,
+    "original_predicted_class_probability_drop": 0.06503608077764511
+  },
+  {
+    "seed": 42,
+    "condition": "low_frames",
+    "repeat": 0,
+    "macro_f1": 0.6015052865091566,
+    "original_macro_f1": 0.6673591933896748,
+    "prediction_change_rate": 0.12083333333333333,
+    "original_predicted_class_probability_drop": 0.04848450794816017
+  },
+  {
+    "seed": 42,
+    "condition": "random_frames",
+    "repeat": 0,
+    "macro_f1": 0.6232278042225338,
+    "original_macro_f1": 0.6673591933896748,
+    "prediction_change_rate": 0.0875,
+    "original_predicted_class_probability_drop": 0.03704652935266495
+  },
+  {
+    "seed": 42,
+    "condition": "random_frames",
+    "repeat": 1,
+    "macro_f1": 0.5982584001342974,
+    "original_macro_f1": 0.6673591933896748,
+    "prediction_change_rate": 0.10833333333333334,
+    "original_predicted_class_probability_drop": 0.04073645919561386
+  },
+  {
+    "seed": 42,
+    "condition": "random_frames",
+    "repeat": 2,
+    "macro_f1": 0.6053607469750639,
+    "original_macro_f1": 0.6673591933896748,
+    "prediction_change_rate": 0.10833333333333334,
+    "original_predicted_class_probability_drop": 0.04515212029218674
+  },
+  {
+    "seed": 42,
+    "condition": "random_frames",
+    "repeat": 3,
+    "macro_f1": 0.5973929577100531,
+    "original_macro_f1": 0.6673591933896748,
+    "prediction_change_rate": 0.1,
+    "original_predicted_class_probability_drop": 0.03727531433105469
+  },
+  {
+    "seed": 42,
+    "condition": "random_frames",
+    "repeat": 4,
+    "macro_f1": 0.6152435128234199,
+    "original_macro_f1": 0.6673591933896748,
+    "prediction_change_rate": 0.11666666666666667,
+    "original_predicted_class_probability_drop": 0.04544544965028763
+  },
+  {
+    "seed": 43,
+    "condition": "uniform_weights",
+    "macro_f1": 0.6371734324551782,
+    "original_macro_f1": 0.6422989921326968,
+    "prediction_change_rate": 0.03333333333333333,
+    "original_predicted_class_probability_drop": 0.010085221379995346
+  },
+  {
+    "seed": 43,
+    "condition": "high_frames",
+    "repeat": 0,
+    "macro_f1": 0.6117669077520353,
+    "original_macro_f1": 0.6422989921326968,
+    "prediction_change_rate": 0.11666666666666667,
+    "original_predicted_class_probability_drop": 0.02681027539074421
+  },
+  {
+    "seed": 43,
+    "condition": "low_frames",
+    "repeat": 0,
+    "macro_f1": 0.591378169467305,
+    "original_macro_f1": 0.6422989921326968,
+    "prediction_change_rate": 0.09583333333333334,
+    "original_predicted_class_probability_drop": 0.006818403955549002
+  },
+  {
+    "seed": 43,
+    "condition": "random_frames",
+    "repeat": 0,
+    "macro_f1": 0.6092665611458358,
+    "original_macro_f1": 0.6422989921326968,
+    "prediction_change_rate": 0.075,
+    "original_predicted_class_probability_drop": 0.008855354972183704
+  },
+  {
+    "seed": 43,
+    "condition": "random_frames",
+    "repeat": 1,
+    "macro_f1": 0.6072127604496564,
+    "original_macro_f1": 0.6422989921326968,
+    "prediction_change_rate": 0.09583333333333334,
+    "original_predicted_class_probability_drop": 0.010797003284096718
+  },
+  {
+    "seed": 43,
+    "condition": "random_frames",
+    "repeat": 2,
+    "macro_f1": 0.605800282425734,
+    "original_macro_f1": 0.6422989921326968,
+    "prediction_change_rate": 0.09583333333333334,
+    "original_predicted_class_probability_drop": 0.011031283996999264
+  },
+  {
+    "seed": 43,
+    "condition": "random_frames",
+    "repeat": 3,
+    "macro_f1": 0.6144722926550582,
+    "original_macro_f1": 0.6422989921326968,
+    "prediction_change_rate": 0.08333333333333333,
+    "original_predicted_class_probability_drop": 0.006751712877303362
+  },
+  {
+    "seed": 43,
+    "condition": "random_frames",
+    "repeat": 4,
+    "macro_f1": 0.6083431470516877,
+    "original_macro_f1": 0.6422989921326968,
+    "prediction_change_rate": 0.06666666666666667,
+    "original_predicted_class_probability_drop": 0.010436492040753365
+  },
+  {
+    "seed": 44,
+    "condition": "uniform_weights",
+    "macro_f1": 0.6815754245312375,
+    "original_macro_f1": 0.672752601701599,
+    "prediction_change_rate": 0.03333333333333333,
+    "original_predicted_class_probability_drop": 0.013123689219355583
+  },
+  {
+    "seed": 44,
+    "condition": "high_frames",
+    "repeat": 0,
+    "macro_f1": 0.6505739972499257,
+    "original_macro_f1": 0.672752601701599,
+    "prediction_change_rate": 0.1,
+    "original_predicted_class_probability_drop": 0.03767047077417374
+  },
+  {
+    "seed": 44,
+    "condition": "low_frames",
+    "repeat": 0,
+    "macro_f1": 0.6103594902763222,
+    "original_macro_f1": 0.672752601701599,
+    "prediction_change_rate": 0.1125,
+    "original_predicted_class_probability_drop": 0.0308315921574831
+  },
+  {
+    "seed": 44,
+    "condition": "random_frames",
+    "repeat": 0,
+    "macro_f1": 0.6106297773035172,
+    "original_macro_f1": 0.672752601701599,
+    "prediction_change_rate": 0.10416666666666667,
+    "original_predicted_class_probability_drop": 0.029350392520427704
+  },
+  {
+    "seed": 44,
+    "condition": "random_frames",
+    "repeat": 1,
+    "macro_f1": 0.6232378554104907,
+    "original_macro_f1": 0.672752601701599,
+    "prediction_change_rate": 0.10416666666666667,
+    "original_predicted_class_probability_drop": 0.025132637470960617
+  },
+  {
+    "seed": 44,
+    "condition": "random_frames",
+    "repeat": 2,
+    "macro_f1": 0.6103829803267627,
+    "original_macro_f1": 0.672752601701599,
+    "prediction_change_rate": 0.12083333333333333,
+    "original_predicted_class_probability_drop": 0.03107929788529873
+  },
+  {
+    "seed": 44,
+    "condition": "random_frames",
+    "repeat": 3,
+    "macro_f1": 0.6307806221651153,
+    "original_macro_f1": 0.672752601701599,
+    "prediction_change_rate": 0.09583333333333334,
+    "original_predicted_class_probability_drop": 0.02475861646234989
+  },
+  {
+    "seed": 44,
+    "condition": "random_frames",
+    "repeat": 4,
+    "macro_f1": 0.6303192159939757,
+    "original_macro_f1": 0.672752601701599,
+    "prediction_change_rate": 0.0875,
+    "original_predicted_class_probability_drop": 0.02664223127067089
+  }
+]

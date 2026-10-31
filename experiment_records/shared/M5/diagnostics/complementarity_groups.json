@@ -1,0 +1,254 @@
+[
+  {
+    "seed": 42,
+    "method": "concat",
+    "group": "both_correct",
+    "n": 68,
+    "fusion_accuracy": 0.9852941176470589
+  },
+  {
+    "seed": 42,
+    "method": "concat",
+    "group": "audio_only_correct",
+    "n": 49,
+    "fusion_accuracy": 0.8775510204081632
+  },
+  {
+    "seed": 42,
+    "method": "concat",
+    "group": "visual_only_correct",
+    "n": 58,
+    "fusion_accuracy": 0.6206896551724138
+  },
+  {
+    "seed": 42,
+    "method": "concat",
+    "group": "both_wrong",
+    "n": 65,
+    "fusion_accuracy": 0.16923076923076924
+  },
+  {
+    "seed": 42,
+    "method": "gated",
+    "group": "both_correct",
+    "n": 68,
+    "fusion_accuracy": 0.9705882352941176
+  },
+  {
+    "seed": 42,
+    "method": "gated",
+    "group": "audio_only_correct",
+    "n": 49,
+    "fusion_accuracy": 0.8979591836734694
+  },
+  {
+    "seed": 42,
+    "method": "gated",
+    "group": "visual_only_correct",
+    "n": 58,
+    "fusion_accuracy": 0.5172413793103449
+  },
+  {
+    "seed": 42,
+    "method": "gated",
+    "group": "both_wrong",
+    "n": 65,
+    "fusion_accuracy": 0.13846153846153847
+  },
+  {
+    "seed": 42,
+    "method": "cross_attention",
+    "group": "both_correct",
+    "n": 68,
+    "fusion_accuracy": 0.9558823529411765
+  },
+  {
+    "seed": 42,
+    "method": "cross_attention",
+    "group": "audio_only_correct",
+    "n": 49,
+    "fusion_accuracy": 0.7346938775510204
+  },
+  {
+    "seed": 42,
+    "method": "cross_attention",
+    "group": "visual_only_correct",
+    "n": 58,
+    "fusion_accuracy": 0.7586206896551724
+  },
+  {
+    "seed": 42,
+    "method": "cross_attention",
+    "group": "both_wrong",
+    "n": 65,
+    "fusion_accuracy": 0.2153846153846154
+  },
+  {
+    "seed": 43,
+    "method": "concat",
+    "group": "both_correct",
+    "n": 66,
+    "fusion_accuracy": 1.0
+  },
+  {
+    "seed": 43,
+    "method": "concat",
+    "group": "audio_only_correct",
+    "n": 49,
+    "fusion_accuracy": 0.8367346938775511
+  },
+  {
+    "seed": 43,
+    "method": "concat",
+    "group": "visual_only_correct",
+    "n": 66,
+    "fusion_accuracy": 0.6212121212121212
+  },
+  {
+    "seed": 43,
+    "method": "concat",
+    "group": "both_wrong",
+    "n": 59,
+    "fusion_accuracy": 0.15254237288135594
+  },
+  {
+    "seed": 43,
+    "method": "gated",
+    "group": "both_correct",
+    "n": 66,
+    "fusion_accuracy": 0.9696969696969697
+  },
+  {
+    "seed": 43,
+    "method": "gated",
+    "group": "audio_only_correct",
+    "n": 49,
+    "fusion_accuracy": 0.7959183673469388
+  },
+  {
+    "seed": 43,
+    "method": "gated",
+    "group": "visual_only_correct",
+    "n": 66,
+    "fusion_accuracy": 0.5606060606060606
+  },
+  {
+    "seed": 43,
+    "method": "gated",
+    "group": "both_wrong",
+    "n": 59,
+    "fusion_accuracy": 0.1016949152542373
+  },
+  {
+    "seed": 43,
+    "method": "cross_attention",
+    "group": "both_correct",
+    "n": 66,
+    "fusion_accuracy": 1.0
+  },
+  {
+    "seed": 43,
+    "method": "cross_attention",
+    "group": "audio_only_correct",
+    "n": 49,
+    "fusion_accuracy": 0.7142857142857143
+  },
+  {
+    "seed": 43,
+    "method": "cross_attention",
+    "group": "visual_only_correct",
+    "n": 66,
+    "fusion_accuracy": 0.6363636363636364
+  },
+  {
+    "seed": 43,
+    "method": "cross_attention",
+    "group": "both_wrong",
+    "n": 59,
+    "fusion_accuracy": 0.1694915254237288
+  },
+  {
+    "seed": 44,
+    "method": "concat",
+    "group": "both_correct",
+    "n": 68,
+    "fusion_accuracy": 0.9852941176470589
+  },
+  {
+    "seed": 44,
+    "method": "concat",
+    "group": "audio_only_correct",
+    "n": 54,
+    "fusion_accuracy": 0.9444444444444444
+  },
+  {
+    "seed": 44,
+    "method": "concat",
+    "group": "visual_only_correct",
+    "n": 61,
+    "fusion_accuracy": 0.5245901639344263
+  },
+  {
+    "seed": 44,
+    "method": "concat",
+    "group": "both_wrong",
+    "n": 57,
+    "fusion_accuracy": 0.03508771929824561
+  },
+  {
+    "seed": 44,
+    "method": "gated",
+    "group": "both_correct",
+    "n": 68,
+    "fusion_accuracy": 0.9705882352941176
+  },
+  {
+    "seed": 44,
+    "method": "gated",
+    "group": "audio_only_correct",
+    "n": 54,
+    "fusion_accuracy": 0.9259259259259259
+  },
+  {
+    "seed": 44,
+    "method": "gated",
+    "group": "visual_only_correct",
+    "n": 61,
+    "fusion_accuracy": 0.5245901639344263
+  },
+  {
+    "seed": 44,
+    "method": "gated",
+    "group": "both_wrong",
+    "n": 57,
+    "fusion_accuracy": 0.05263157894736842
+  },
+  {
+    "seed": 44,
+    "method": "cross_attention",
+    "group": "both_correct",
+    "n": 68,
+    "fusion_accuracy": 0.9852941176470589
+  },
+  {
+    "seed": 44,
+    "method": "cross_attention",
+    "group": "audio_only_correct",
+    "n": 54,
+    "fusion_accuracy": 0.7222222222222222
+  },
+  {
+    "seed": 44,
+    "method": "cross_attention",
+    "group": "visual_only_correct",
+    "n": 61,
+    "fusion_accuracy": 0.7868852459016393
+  },
+  {
+    "seed": 44,
+    "method": "cross_attention",
+    "group": "both_wrong",
+    "n": 57,
+    "fusion_accuracy": 0.17543859649122806
+  }
+]

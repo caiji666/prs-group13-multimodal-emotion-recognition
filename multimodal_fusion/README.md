@@ -179,3 +179,9 @@ python -m fusion predict --checkpoint results/synthetic_seed42/checkpoints/gated
 已新增[本地演示系统](../demo/README.md)。在项目根目录执行 `demo/.venv/bin/python -m demo.server --port 8765`，打开 `http://127.0.0.1:8765`。原始视频可提取 WavLM、M1手工音频及组合音频，以及 MediaPipe＋DWT视觉；仅开放有匹配checkpoint的融合组合。解释包括决策加权分解、64维gate、attention关联图、音频残差修正和固定目标输入敏感性。
 
 深度视觉原权重与最终视觉SVM尚未交付；原始视频使用M5视觉MLP及单独验证调权协议，不能套用论文中SVM决策融合的分数。验证回放可使用三种现有视觉表示及交付概率。10项回归检查及合成视频工程链路通过；尚无新的外部视频情绪准确率评价。历史模型、选择记录和test结果保持原样。
+
+## Published M5 experiment records
+
+The current results are available in the repository under [experiment_records](../experiment_records/summary.md), using the shared v2 format. The [M5 report](../experiment_records/shared/M5/M5_RESULTS_20261020.md) includes multi-seed controls, locked test evaluation, confirmed-order decision fusion and interpretation diagnostics. Per-run notes disclose historical input versions, missing upstream metadata and test exposure.
+
+Run `python ../scripts/validate_m5_records.py --root ..` to verify predictions and scores from this directory. The new feature-only training, study and diagnostics modules require separately obtained historical features; generated local results are not uploaded wholesale.

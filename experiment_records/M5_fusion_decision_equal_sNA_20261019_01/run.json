@@ -1,0 +1,488 @@
+{
+  "schema_version": "2.0",
+  "run_id": "M5_fusion_decision_equal_sNA_20261019_01",
+  "member": "M5",
+  "owner": "Jiang Yushan",
+  "stage": "fusion",
+  "comparison_group": "M5_decision_fixed_exports_v1",
+  "pipeline_name": "decision_equal using supplied audio/visual heads",
+  "run_status": "completed",
+  "test_status": "completed",
+  "started_at": null,
+  "finished_at": null,
+  "seed": null,
+  "dataset_id": "ravdess_speech_v1",
+  "data_kind": "real",
+  "class_names": [
+    "neutral",
+    "calm",
+    "happy",
+    "sad",
+    "angry",
+    "fearful",
+    "disgust",
+    "surprise"
+  ],
+  "split_ref": "multimodal_fusion/configs/actor_splits.csv",
+  "split_sha256": "1ae0f8241c8d1b40f1c4d0c0be1c17d8cede3ea5005a24b4635cef1110490528",
+  "input_manifest_ref": "experiment_records/shared/M5/input_manifest.csv",
+  "input_manifest_sha256": "f9159d1b76d27bbdff23c84d5d0e51bb2b9a13d34b89d60ebea6381c61c4a2fc",
+  "counts": {
+    "expected": {
+      "train": 960,
+      "val": 240,
+      "test": 240
+    },
+    "actual": {
+      "train": null,
+      "val": 240,
+      "test": 240
+    }
+  },
+  "excluded_samples": {
+    "count": 0,
+    "id_reason_manifest_ref": null,
+    "handling_policy": "No samples excluded. Unmeasured test results remain null."
+  },
+  "git_commit": "6ea5fa37bd0f56847ba5755dcab2671845d4dcc6",
+  "working_tree_dirty": true,
+  "code_patch_ref": "experiment_records/shared/M5/historical_code.patch",
+  "command": null,
+  "environment": {
+    "python": null,
+    "framework_and_version": null,
+    "device": "cpu",
+    "dependencies_ref": "experiment_records/shared/M5/environment.txt"
+  },
+  "source_runs": {
+    "audio_handcrafted": null,
+    "audio_learned": "M2_encoder_transformer_s42_20261015_00",
+    "audio_final": "M5_reference_audio_head_sNA_20261019_01",
+    "visual_handcrafted": null,
+    "visual_learned": "M5_reference_visual_head_sNA_20261019_01",
+    "visual_final": null
+  },
+  "input_artifacts": [
+    {
+      "role": "audio_combined_export",
+      "source_run_id": null,
+      "ref": null,
+      "sha256": "9668525d6f8db1bceecbce905b4a16652298d715f01d6f3a7dcd8744ec31371a"
+    },
+    {
+      "role": "visual_learned_export",
+      "source_run_id": null,
+      "ref": null,
+      "sha256": "a29912628b062a1a40b4a472405dcfec095d9c886359b1b967fcb5fe3bde2565"
+    },
+    {
+      "role": "ordered_train_val_audio_sequences",
+      "source_run_id": "M2_encoder_transformer_s42_20261015_00",
+      "ref": null,
+      "sha256": "4ec0483fc8889154eceeaba8361f73b6144a2e2561ba30af336194f6b9ec5e79"
+    }
+  ],
+  "preprocessing": {
+    "audio": null,
+    "visual": null,
+    "standardization_fit_split": null,
+    "augmentation_train_only": null,
+    "parameters": {}
+  },
+  "pipeline": {
+    "feature_extractors": [],
+    "representation": {
+      "kind": "probabilities",
+      "components": [],
+      "pooling": null,
+      "normalization": null,
+      "normalization_fit_split": null,
+      "combination_method": "weighted probability mean",
+      "output_shape": [
+        null,
+        8
+      ]
+    },
+    "fusion": {
+      "applied": true,
+      "method": "decision_equal",
+      "input_source_runs": {
+        "audio": "M5_reference_audio_head_sNA_20261019_01",
+        "visual": "M5_reference_visual_head_sNA_20261019_01"
+      },
+      "parameters": {
+        "alpha_audio": 0.5,
+        "alpha_visual": 0.5,
+        "class_order_confirmation_ref": "experiment_records/shared/M5/class_order_confirmation.json"
+      },
+      "trainable_in_this_run": false,
+      "output_shape": [
+        null,
+        8
+      ]
+    },
+    "classifier": {
+      "type": "none",
+      "source_run_id": null,
+      "input_dim": null,
+      "architecture": null,
+      "hidden_dims": null,
+      "output_dim": null,
+      "activation": null,
+      "dropout": null,
+      "parameters": {},
+      "trainable_in_this_run": false,
+      "probability_method": "weighted average of supplied probabilities",
+      "calibration_fit_split": null,
+      "checkpoint_ref": null,
+      "checkpoint_sha256": null
+    }
+  },
+  "training": {
+    "regime": "probability_fusion",
+    "optimizer": null,
+    "learning_rate": null,
+    "batch_size": null,
+    "max_epochs": null,
+    "completed_epochs": null,
+    "early_stopping_patience": null,
+    "component_parameter_groups": [],
+    "class_weighting": null,
+    "other_parameters": {}
+  },
+  "selection": {
+    "metric": "macro_f1",
+    "split": "val",
+    "best_epoch": null,
+    "selected_for_next_stage": false,
+    "selection_reason": "Predefined 0.5/0.5 reference",
+    "tie_break_rule": "closest audio weight to 0.5",
+    "candidate_search_ref": "experiment_records/shared/M5/decision_validation_grid.json",
+    "config_locked_at": "2026-10-19T18:04:42.161225+08:00",
+    "test_first_evaluated_at": "2026-10-19T18:04:42.227038+08:00"
+  },
+  "metrics_scope": "full_pipeline",
+  "metrics_by_split": {
+    "val": {
+      "n": 240,
+      "accuracy": 0.5125,
+      "macro_precision": 0.5450463485789573,
+      "macro_recall": 0.5,
+      "macro_f1": 0.49064797419546935,
+      "per_class": [
+        {
+          "label": 0,
+          "class_name": "neutral",
+          "precision": 0.625,
+          "recall": 0.3125,
+          "f1": 0.4166666666666667,
+          "support": 16
+        },
+        {
+          "label": 1,
+          "class_name": "calm",
+          "precision": 0.5636363636363636,
+          "recall": 0.96875,
+          "f1": 0.7126436781609196,
+          "support": 32
+        },
+        {
+          "label": 2,
+          "class_name": "happy",
+          "precision": 0.47619047619047616,
+          "recall": 0.3125,
+          "f1": 0.37735849056603776,
+          "support": 32
+        },
+        {
+          "label": 3,
+          "class_name": "sad",
+          "precision": 0.32727272727272727,
+          "recall": 0.5625,
+          "f1": 0.41379310344827586,
+          "support": 32
+        },
+        {
+          "label": 4,
+          "class_name": "angry",
+          "precision": 0.5476190476190477,
+          "recall": 0.71875,
+          "f1": 0.6216216216216216,
+          "support": 32
+        },
+        {
+          "label": 5,
+          "class_name": "fearful",
+          "precision": 0.625,
+          "recall": 0.3125,
+          "f1": 0.4166666666666667,
+          "support": 32
+        },
+        {
+          "label": 6,
+          "class_name": "disgust",
+          "precision": 0.5,
+          "recall": 0.3125,
+          "f1": 0.38461538461538464,
+          "support": 32
+        },
+        {
+          "label": 7,
+          "class_name": "surprise",
+          "precision": 0.6956521739130435,
+          "recall": 0.5,
+          "f1": 0.5818181818181818,
+          "support": 32
+        }
+      ],
+      "confusion_matrix_counts": [
+        [
+          5,
+          11,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          31,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          3,
+          3,
+          10,
+          6,
+          4,
+          1,
+          1,
+          4
+        ],
+        [
+          0,
+          7,
+          2,
+          18,
+          0,
+          0,
+          4,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          4,
+          23,
+          3,
+          2,
+          0
+        ],
+        [
+          0,
+          2,
+          5,
+          11,
+          0,
+          10,
+          2,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          8,
+          14,
+          0,
+          10,
+          0
+        ],
+        [
+          0,
+          1,
+          4,
+          7,
+          1,
+          2,
+          1,
+          16
+        ]
+      ]
+    },
+    "test": {
+      "n": 240,
+      "accuracy": 0.5916666666666667,
+      "macro_precision": 0.5842806778508505,
+      "macro_recall": 0.56640625,
+      "macro_f1": 0.5578537647872912,
+      "per_class": [
+        {
+          "label": 0,
+          "class_name": "neutral",
+          "precision": 0.25,
+          "recall": 0.1875,
+          "f1": 0.21428571428571427,
+          "support": 16
+        },
+        {
+          "label": 1,
+          "class_name": "calm",
+          "precision": 0.6041666666666666,
+          "recall": 0.90625,
+          "f1": 0.725,
+          "support": 32
+        },
+        {
+          "label": 2,
+          "class_name": "happy",
+          "precision": 0.5714285714285714,
+          "recall": 0.375,
+          "f1": 0.4528301886792453,
+          "support": 32
+        },
+        {
+          "label": 3,
+          "class_name": "sad",
+          "precision": 0.5,
+          "recall": 0.3125,
+          "f1": 0.38461538461538464,
+          "support": 32
+        },
+        {
+          "label": 4,
+          "class_name": "angry",
+          "precision": 0.8695652173913043,
+          "recall": 0.625,
+          "f1": 0.7272727272727273,
+          "support": 32
+        },
+        {
+          "label": 5,
+          "class_name": "fearful",
+          "precision": 0.5,
+          "recall": 0.59375,
+          "f1": 0.5428571428571428,
+          "support": 32
+        },
+        {
+          "label": 6,
+          "class_name": "disgust",
+          "precision": 0.49019607843137253,
+          "recall": 0.78125,
+          "f1": 0.6024096385542169,
+          "support": 32
+        },
+        {
+          "label": 7,
+          "class_name": "surprise",
+          "precision": 0.8888888888888888,
+          "recall": 0.75,
+          "f1": 0.8135593220338984,
+          "support": 32
+        }
+      ],
+      "confusion_matrix_counts": [
+        [
+          3,
+          6,
+          1,
+          0,
+          0,
+          1,
+          5,
+          0
+        ],
+        [
+          2,
+          29,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          7,
+          0,
+          12,
+          1,
+          1,
+          4,
+          6,
+          1
+        ],
+        [
+          0,
+          9,
+          1,
+          10,
+          0,
+          7,
+          4,
+          1
+        ],
+        [
+          0,
+          2,
+          2,
+          0,
+          20,
+          0,
+          8,
+          0
+        ],
+        [
+          0,
+          0,
+          3,
+          6,
+          1,
+          19,
+          2,
+          1
+        ],
+        [
+          0,
+          2,
+          0,
+          3,
+          0,
+          2,
+          25,
+          0
+        ],
+        [
+          0,
+          0,
+          2,
+          0,
+          1,
+          4,
+          1,
+          24
+        ]
+      ]
+    }
+  },
+  "artifacts": {
+    "original_metrics_ref": null,
+    "predictions_val_ref": "experiment_records/M5_fusion_decision_equal_sNA_20261019_01/predictions_val.csv",
+    "predictions_test_ref": "experiment_records/M5_fusion_decision_equal_sNA_20261019_01/predictions_test.csv",
+    "history_ref": null,
+    "checkpoint_ref": null,
+    "checkpoint_sha256": null,
+    "feature_exports": [],
+    "figures": []
+  },
+  "notes_ref": "experiment_records/M5_fusion_decision_equal_sNA_20261019_01/notes.md"
+}
