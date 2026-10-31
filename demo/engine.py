@@ -130,7 +130,7 @@ class Engine:
             if visual!='hc':raise ValueError('Raw video currently supports only HC320 visual features.')
             d=dict(d);d['visual_probs']=self.head('visual_only',d)
             if d['visual_probs'].ndim==1:d['visual_probs']=d['visual_probs'][None]
-            warnings.append('Visual probabilities use the M5 visual-only MLP (seed 42), because the upstream visual SVM is unavailable. Decision fusion follows a separate validation-weighted protocol.')
+            warnings.append('Video predictions use the frozen M5 visual-only MLP (seed 42). Decision fusion retains its separate validation-weighted demo protocol; the delivered M3 SVM is included for the recorded M3 pipeline.')
         ap=d['audio_probs'][0];vp=d['visual_probs'][0]
         explain={};provenance={};trace=[]
         if method.startswith('decision'):
