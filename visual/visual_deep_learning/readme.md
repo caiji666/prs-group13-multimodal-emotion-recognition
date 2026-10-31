@@ -1,5 +1,7 @@
 # Visual Deep Learning for Emotion Recognition
 
+Distribution: generated features stay local; trained weights are restored from the separate model ZIP. See [feature generation](../../docs/feature-generation.md) and the root README for setup.
+
 This folder contains the deep learning visual models (M4) developed for emotion recognition using the RAVDESS dataset.
 
 ## Overview

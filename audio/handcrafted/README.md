@@ -1,4 +1,6 @@
 
+
+Distribution: generated features stay local; trained weights are restored from the separate model ZIP. See [feature generation](../../docs/feature-generation.md) and the root README for setup.
 # PRS — Handcrafted Audio Feature Extraction and Classification
 
 **Project:** Audio-Visual Emotion Recognition through Hybrid Feature Analysis and Multimodal Fusion  

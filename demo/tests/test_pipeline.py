@@ -7,12 +7,13 @@ from unittest.mock import patch
 
 import numpy as np
 
-from demo.engine import Engine, CLASSES, RESULTS, ROOT
+from demo.engine import Engine, CLASSES, RESULTS, ROOT, DEVELOPMENT
 from demo.server import Application
 
 class PipelineTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        if not DEVELOPMENT.exists():raise unittest.SkipTest('Generate validation features locally to run replay regression checks.')
         cls.engine=Engine();cls.sid=cls.engine.samples()[0]
         cls.data,cls.meta=cls.engine.cached(cls.sid)
 

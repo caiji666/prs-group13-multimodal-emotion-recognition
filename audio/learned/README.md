@@ -1,5 +1,7 @@
 # M2 — Learned Audio Emotion Recognition
 
+Distribution: generated features stay local; trained weights are restored from the separate model ZIP. See [feature generation](../../docs/feature-generation.md) and the root README for setup.
+
 Independent CNN, BiLSTM and Transformer encoders for the RAVDESS speech subset. Includes audio preprocessing/MFCC sequences, training, validation-only model selection, WAV inference, feature export and portable M1/M5 deliveries. Audio only; no video processing.
 
 The final selected audio model is **WavLM refinement R05**: validation Macro-F1 **0.831218**, test Macro-F1 **0.832127**, test accuracy **83.33%**. Its downstream adapter is `../../experiment_records/M2_encoder_wavlm_refinement_s42_20261021_05/best.pt`; use the [refinement inference loader](research/speech_transfer/refinement/README.md) for this architecture.

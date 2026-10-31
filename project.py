@@ -20,7 +20,7 @@ def sha256(path):
 
 
 def check(verify=False):
-    manifest = json.loads((ROOT / 'assets/runtime_manifest.json').read_text())
+    manifest = json.loads((ROOT / 'assets/model_manifest.json').read_text())
     missing, changed = [], []
     for item in manifest['files']:
         path = ROOT / item['path']
@@ -28,17 +28,20 @@ def check(verify=False):
             missing.append(item['path'])
         elif path.stat().st_size != item['bytes'] or (verify and sha256(path) != item['sha256']):
             changed.append(item['path'])
-    print(f"Runtime assets: {len(manifest['files']) - len(missing)}/{len(manifest['files'])} present")
+    print(f"Model weights: {len(manifest['files']) - len(missing)}/{len(manifest['files'])} present")
     for name, items in [('Missing', missing), ('Checksum mismatch', changed)]:
         if items:
             print(name + ':\n  ' + '\n  '.join(items[:8]))
             if len(items) > 8:
                 print(f'  ... and {len(items) - 8} more')
     if missing:
-        print('Restore runtime assets with: python scripts/restore_runtime.py --archive PATH_TO_RUNTIME_ZIP')
+        print('Restore weights with: python scripts/restore_models.py --archive PATH_TO_MODEL_ZIP')
     print('Recorded final fusion runs:', len(list((STUDY / 'runs').glob('*/run.json'))))
-    print('Asset SHA256 verification:', 'enabled' if verify else 'use --verify for full verification')
-    return 1 if missing or changed else 0
+    print('Model SHA256 verification:', 'enabled' if verify else 'use --verify for full verification')
+    backbone = ROOT / 'demo/assets/wavlm-base-plus/pytorch_model.bin'
+    if not backbone.exists():
+        print('Prepare the pinned WavLM backbone: python demo/setup_assets.py')
+    return 1 if missing or changed or not backbone.exists() else 0
 
 
 def run(command, cwd=ROOT):
@@ -48,10 +51,14 @@ def run(command, cwd=ROOT):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest='command', required=True)
-    check_parser = sub.add_parser('check', help='Check packaged data and model assets')
+    check_parser = sub.add_parser('check', help='Check locally restored model weights')
     check_parser.add_argument('--verify', action='store_true', help='Verify SHA256 of every runtime file')
     demo_parser = sub.add_parser('demo', help='Launch the video prediction interface')
     demo_parser.add_argument('--port', type=int, default=8765)
+    extract_parser = sub.add_parser('extract', help='Generate features locally from a video')
+    extract_parser.add_argument('--video', type=Path, required=True)
+    extract_parser.add_argument('--output', type=Path, required=True)
+    extract_parser.add_argument('--audio', choices=['learned', 'handcrafted', 'combined'], default='learned')
     test_parser = sub.add_parser('test', help='Run fusion and demo regression tests')
     test_parser.add_argument('--suite', choices=['core', 'demo', 'all'], default='all')
     sub.add_parser('audit', help='Recompute final metrics and verify all locked checkpoints')
@@ -63,6 +70,15 @@ def main():
             return 1
         print(f'Open http://127.0.0.1:{args.port}', flush=True)
         return run(['-m', 'demo.server', '--port', str(args.port)])
+    if args.command == 'extract':
+        if check():
+            return 1
+        from demo.extraction import extract_video
+        args.output.mkdir(parents=True, exist_ok=False)
+        _, metadata = extract_video(args.video.resolve(), args.output.resolve(), print, audio_representation=args.audio)
+        (args.output / 'metadata.json').write_text(json.dumps(metadata, indent=2) + '\n')
+        print('Features generated:', args.output / 'extracted_features.npz')
+        return 0
     if args.command == 'test':
         if args.suite in ('core', 'all'):
             result = run(['-m', 'unittest', 'discover', '-s', 'tests', '-v'], ROOT / 'multimodal_fusion')

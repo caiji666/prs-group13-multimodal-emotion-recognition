@@ -49,7 +49,7 @@ The pilot measures a small cross-dataset sample with unchanged RAVDESS models. I
 
 ## Earlier local studies
 
-The research archive preserves the validation, structure and literature studies from 19–20 October, earlier feature handoffs, setup diagnostics and generated-data smoke results. See the [delivery contents](delivery.md) and `assets/research_archive_manifest.json` for the complete archive inventory.
+Earlier configurations, metrics, figures and prediction records remain in the shared experiment index. Raw feature exports and development caches stay local and are generated with the [feature extraction code](feature-generation.md).
 
 ## Verification commands
 

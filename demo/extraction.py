@@ -1,6 +1,5 @@
 """Raw-media extraction matching the pinned M2/M3 source, with timing and provenance."""
 import hashlib
-import csv
 import importlib.util
 import json
 from pathlib import Path
@@ -15,7 +14,7 @@ PROJECT = ROOT.parent
 sys.path.insert(0, str(ROOT / 'vendor/visual/handcrafted'))
 from .setup_assets import ASSETS, REVISION, WEIGHT_SHA, sha
 
-ADAPTER = PROJECT / 'multimodal_fusion/data/final_delivery_20261027/upstream_audio_best.pt'
+ADAPTER = PROJECT / 'experiment_records/M2_encoder_wavlm_refinement_s42_20261021_05/best.pt'
 ADAPTER_SHA = '0db8f833f3d32f21b676c7ed008acdf094bb20dda31e3498e642249d597f04bb'
 _audio_model = None
 
@@ -122,8 +121,7 @@ def extract_video(path, output, progress=lambda stage: None, face_mode='mediapip
         sys.path.insert(0,str(ROOT/'vendor/audio/handcrafted'))
         from src.baseline_v1.feature_pipeline import extract_recording_features
         features=extract_recording_features(wav)
-        with (PROJECT/'features/Audio_Handoff/features/handcrafted_features.csv').open() as f:
-            columns=[c for c in next(csv.reader(f)) if c not in ('sample_id','trial_id','actor_id','emotion_label','split')]
+        columns=json.loads((ROOT/'handcrafted_columns.json').read_text())
         if len(columns)!=48 or set(columns)!=set(features):raise ValueError('M1 feature names do not match the training delivery.')
         hc=np.asarray([[features[c] for c in columns]],np.float32)
         if not np.isfinite(hc).all():raise ValueError('M1 nonfinite features')

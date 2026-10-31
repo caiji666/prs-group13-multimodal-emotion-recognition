@@ -1,0 +1,16 @@
+{
+  "scope": "synthetic AV engineering smoke only; no external emotion accuracy claim",
+  "checks": {
+    "catalog_and_raw_readiness": true,
+    "raw_learned_cross_attention": true,
+    "raw_combined_audio_only": true,
+    "cross_origin_rejected": true,
+    "unknown_path_rejected": true,
+    "incompatible_raw_features_rejected": true,
+    "test_replay_rejected": true,
+    "missing_audio_reports_error": true
+  },
+  "passed": true,
+  "precomputed_development_cache_present": false,
+  "handcrafted_feature_value_csv_present": false
+}

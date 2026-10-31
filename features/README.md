@@ -1,12 +1,5 @@
-# Final feature handoffs
+# Local feature workspace
 
-These runtime files are supplied in `Group13_Runtime_Assets_20261031.zip` and the complete system ZIP. Restore the runtime bundle with `python scripts/restore_runtime.py --archive PATH_TO_ZIP` from the repository root. Expected paths and SHA256 checksums are in `assets/runtime_manifest.json`.
+Feature files are generated locally and excluded from Git and source/submission ZIPs. See [the feature generation guide](../docs/feature-generation.md) for the audio, visual and fusion-cache commands.
 
-| Path | Contents |
-|---|---|
-| `Audio_dl_features/` | Selected M2 WavLM R05 export: 1,440 per-sample sequences, pooled features and probabilities; metadata, manifests and checksums |
-| `Video_handcraft/visual_representation_outputs(1).npz` | M3's 1,440-sample HC320 / deep576 / combined896 representations and probability exports |
-| `Video_handcraft/probability_protocol.json` | Visual probability/OOF protocol |
-| `Audio_Handoff/features/handcrafted_features.csv` | Original 48D audio feature values and column order |
-
-The final adapter joins by six-field sample ID and checks labels, actors, splits, dimensions and class order. Earlier local feature exports remain separate from the final runtime manifest.
+The feature extraction implementations remain in the M1–M4 modules and `demo/extraction.py`. `project.py extract` exports features for a video clip. `scripts/export_handcrafted_audio.py` exports the M1 handoff, the M2 refinement exporter produces WavLM features, and `scripts/prepare_development.py` builds the optional fusion development cache.

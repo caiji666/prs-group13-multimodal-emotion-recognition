@@ -16,10 +16,11 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--checkpoint',default=str(ROOT/'runs/refinement_20261021/round_05_temporal_context/best.pt'))
     p.add_argument('--output',default=str(ROOT.parents[3]/'Deliverables/wavlm_refinement05_new'))
+    p.add_argument('--audio-root',default=str(ROOT.parents[1]/'data/raw'))
     a=p.parse_args();out=Path(a.output);out.mkdir(parents=True,exist_ok=False)
     target=out/'m5_learned_feature_only';target.mkdir();(target/'pooled').mkdir()
     split_file=ROOT.parents[3]/'multimodal_fusion/configs/actor_splits.csv'
-    rows=manifest(ROOT.parents[1]/'data/raw',split_file)
+    rows=manifest(a.audio_root,split_file)
     assert len(rows)==1440 and len({r['sample_id'] for r in rows})==1440
     assert Counter(r['split'] for r in rows)==dict(train=960,val=240,test=240)
     engine=SpeechTransferInference(a.checkpoint)

@@ -1,0 +1,8 @@
+test_catalog_keeps_video_methods_without_a_replay_cache (test_no_precomputed_features.NoPrecomputedFeaturesTests.test_catalog_keeps_video_methods_without_a_replay_cache) ... ok
+test_missing_development_cache_exposes_no_replay_samples (test_no_precomputed_features.NoPrecomputedFeaturesTests.test_missing_development_cache_exposes_no_replay_samples) ... ok
+setUpClass (test_pipeline.PipelineTests) ... skipped 'Generate validation features locally to run replay regression checks.'
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.008s
+
+OK (skipped=1)

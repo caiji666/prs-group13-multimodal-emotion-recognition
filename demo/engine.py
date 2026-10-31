@@ -48,6 +48,7 @@ class Engine:
 
     def samples(self):
         # Only validation IDs are exposed in the demo. Test data are not loaded here.
+        if not DEVELOPMENT.exists():return []
         with np.load(DEVELOPMENT,allow_pickle=False) as z:
             return z['sample_ids'][z['splits']=='val'].tolist()
 

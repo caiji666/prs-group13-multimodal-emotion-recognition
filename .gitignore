@@ -74,16 +74,10 @@ audio/handcrafted/archive
 audio/handcrafted/project_tree.txt
 
 # M2: explicitly version only the selected small model artifacts
-!/audio/learned/models/best_audio_encoder.pt
-!/audio/learned/models/selected_run/transformer/best.pt
 
 # M2 portable baseline and exact refinement initialization
-!/audio/learned/models/baseline/*/best.pt
-!/audio/learned/models/refinement_parents/*/best.pt
 
 # M2 unified experiment records: 33 full encoder/head checkpoints
-!/experiment_records/M2_*/best.pt
-!/audio/learned/models/tuning_20261018_initialization/*/best.pt
 
 # M2 local feature handoff; excluded from publication by user request
 /Deliverables/
@@ -95,3 +89,11 @@ audio/handcrafted/project_tree.txt
 !/features/README.md
 
 # Publish the final M5 study explicitly; earlier local runs stay local.
+
+# Reproducible features and model weights are generated/restored locally.
+/audio/handcrafted/outputs/features/
+/audio/handcrafted/outputs/handover/**/features/
+*.keras
+*.safetensors
+*.h5
+*.hdf5

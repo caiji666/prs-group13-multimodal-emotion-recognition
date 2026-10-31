@@ -1,5 +1,7 @@
 # M3 – Visual Handcrafted Features (2D-DWT) + SVM
 
+Distribution: generated features stay local; trained weights are restored from the separate model ZIP. See [feature generation](../../docs/feature-generation.md) and the root README for setup.
+
 ## How to run (Yujing)
 
 ```bash

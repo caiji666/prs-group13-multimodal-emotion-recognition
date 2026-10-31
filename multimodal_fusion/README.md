@@ -4,7 +4,7 @@ Frozen audio and visual representations feed decision-level, concatenation, gate
 
 ## Final study
 
-The delivered study uses WavLM R05 audio (128D) and handcrafted visual features (320D), with fixed actor partitions and three seeds. It contains 130 records with checkpoints, predictions, histories, source snapshots and evaluation locks.
+The delivered study uses WavLM R05 audio (128D) and handcrafted visual features (320D), with fixed actor partitions and three seeds. It contains 130 records with separately downloadable checkpoints, predictions, histories, source snapshots and evaluation locks.
 
 - [Result overview](../docs/results.md)
 - [All 130 configurations](results/m5_final_delivery_20261027/summary.md)
@@ -49,7 +49,7 @@ python -m fusion train --audio data/audio.npz --visual data/visual.npz \
   --split configs/actors_m2.json --output results/new_study --epochs 30
 ```
 
-The final handoffs use their richer source schemas and are loaded through `fusion.final_inputs`; use the final-study command in the operation guide for the delivered experiment.
+Generate the final handoffs locally using [the feature guide](../docs/feature-generation.md). The final handoffs use their richer source schemas and are loaded through `fusion.final_inputs`; use the final-study command in the operation guide for the delivered experiment.
 
 A self-contained generated-data smoke run is also available:
 
