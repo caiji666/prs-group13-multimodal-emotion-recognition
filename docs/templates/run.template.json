@@ -1,0 +1,165 @@
+{
+  "schema_version": "2.0",
+  "run_id": null,
+  "member": null,
+  "owner": null,
+  "stage": null,
+  "comparison_group": null,
+  "pipeline_name": null,
+  "run_status": "planned",
+  "test_status": "not_run",
+  "started_at": null,
+  "finished_at": null,
+  "seed": null,
+  "dataset_id": "ravdess_speech_v1",
+  "data_kind": "real",
+  "class_names": ["neutral", "calm", "happy", "sad", "angry", "fearful", "disgust", "surprise"],
+  "split_ref": "multimodal_fusion/configs/actor_splits.csv",
+  "split_sha256": null,
+  "input_manifest_ref": null,
+  "input_manifest_sha256": null,
+  "counts": {
+    "expected": {"train": 960, "val": 240, "test": 240},
+    "actual": {"train": null, "val": null, "test": null}
+  },
+  "excluded_samples": {
+    "count": null,
+    "id_reason_manifest_ref": null,
+    "handling_policy": null
+  },
+  "git_commit": null,
+  "working_tree_dirty": null,
+  "code_patch_ref": null,
+  "command": null,
+  "environment": {
+    "python": null,
+    "framework_and_version": null,
+    "device": null,
+    "dependencies_ref": null
+  },
+  "source_runs": {
+    "audio_handcrafted": null,
+    "audio_learned": null,
+    "audio_final": null,
+    "visual_handcrafted": null,
+    "visual_learned": null,
+    "visual_final": null
+  },
+  "input_artifacts": [],
+  "preprocessing": {
+    "audio": null,
+    "visual": null,
+    "standardization_fit_split": null,
+    "augmentation_train_only": null,
+    "parameters": {}
+  },
+  "pipeline": {
+    "feature_extractors": [
+      {
+        "component_id": null,
+        "modality": null,
+        "kind": null,
+        "method": null,
+        "input_description": null,
+        "parameters": {},
+        "pretrained_source": null,
+        "source_run_id": null,
+        "checkpoint_ref": null,
+        "checkpoint_sha256": null,
+        "trainable_in_this_run": null,
+        "trainable_layers": null,
+        "output_sequence_shape": null,
+        "output_pooled_shape": null
+      }
+    ],
+    "representation": {
+      "kind": null,
+      "components": [],
+      "pooling": null,
+      "normalization": null,
+      "normalization_fit_split": null,
+      "combination_method": null,
+      "output_shape": null
+    },
+    "fusion": {
+      "applied": null,
+      "method": null,
+      "input_source_runs": {},
+      "parameters": {},
+      "trainable_in_this_run": null,
+      "output_shape": null
+    },
+    "classifier": {
+      "type": null,
+      "source_run_id": null,
+      "input_dim": null,
+      "architecture": null,
+      "hidden_dims": null,
+      "output_dim": 8,
+      "activation": null,
+      "dropout": null,
+      "parameters": {},
+      "trainable_in_this_run": null,
+      "probability_method": null,
+      "calibration_fit_split": null,
+      "checkpoint_ref": null,
+      "checkpoint_sha256": null
+    }
+  },
+  "training": {
+    "regime": null,
+    "optimizer": null,
+    "learning_rate": null,
+    "batch_size": null,
+    "max_epochs": null,
+    "completed_epochs": null,
+    "early_stopping_patience": null,
+    "component_parameter_groups": [],
+    "class_weighting": null,
+    "other_parameters": {}
+  },
+  "selection": {
+    "metric": "macro_f1",
+    "split": "val",
+    "best_epoch": null,
+    "selected_for_next_stage": null,
+    "selection_reason": null,
+    "tie_break_rule": null,
+    "candidate_search_ref": null,
+    "config_locked_at": null,
+    "test_first_evaluated_at": null
+  },
+  "metrics_scope": "full_pipeline",
+  "metrics_by_split": {
+    "val": {
+      "n": null,
+      "accuracy": null,
+      "macro_precision": null,
+      "macro_recall": null,
+      "macro_f1": null,
+      "per_class": [
+        {"label": 0, "class_name": "neutral", "precision": null, "recall": null, "f1": null, "support": null},
+        {"label": 1, "class_name": "calm", "precision": null, "recall": null, "f1": null, "support": null},
+        {"label": 2, "class_name": "happy", "precision": null, "recall": null, "f1": null, "support": null},
+        {"label": 3, "class_name": "sad", "precision": null, "recall": null, "f1": null, "support": null},
+        {"label": 4, "class_name": "angry", "precision": null, "recall": null, "f1": null, "support": null},
+        {"label": 5, "class_name": "fearful", "precision": null, "recall": null, "f1": null, "support": null},
+        {"label": 6, "class_name": "disgust", "precision": null, "recall": null, "f1": null, "support": null},
+        {"label": 7, "class_name": "surprise", "precision": null, "recall": null, "f1": null, "support": null}
+      ],
+      "confusion_matrix_counts": null
+    },
+    "test": null
+  },
+  "artifacts": {
+    "original_metrics_ref": null,
+    "predictions_val_ref": null,
+    "predictions_test_ref": null,
+    "history_ref": null,
+    "checkpoint_ref": null,
+    "checkpoint_sha256": null,
+    "feature_exports": [],
+    "figures": []
+  },
+  "notes_ref": "notes.md"
+}

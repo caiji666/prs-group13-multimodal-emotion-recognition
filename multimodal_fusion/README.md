@@ -4,7 +4,43 @@
 
 **目前的初步运行使用合成特征，只有工程验证意义。合成数据的高分由生成方式决定，不能写成 RAVDESS 实验结果，也不能用于决定最终融合方案。** 原始音视频提取、真实编码器训练、外部视频演示仍需接入队友的模块。
 
-## 2026-10-16 真实音频进度
+## 2026-10-19 类别顺序已确认
+
+用户已向队友确认：视觉概率列顺序与团队八类顺序一致。输入文件及已存概率核对未变化，决策结果无需重跑：等权测试Macro-F1=0.5579，验证调权（音频0.15）测试Macro-F1=0.4741。当前已移除未确认类别顺序标记，原测试前锁定记录保持不变；确认依据见结果目录class_order_confirmation.json。后续重点核对视觉原分类头与特征/概率导出的一致性，不能仅凭低分判断有错误。
+
+## 2026-10-19 最终测试与暂定决策融合（确认前历史记录）
+
+按用户新授权完成锁定21个模型的测试，未重训或用测试重选配置。测试Macro-F1：concat0.6480±0.0126、gated0.6831±0.0243、cross_attention0.5749±0.0072。Cross-attention是测试前按验证均值预选的主方案，其测试优势未保持；不按测试排名改写选择。
+
+视觉概率顺序尚未确认，用户授权按约定顺序试跑。暂定等权决策测试F1=0.5579，验证集选音频权重0.15后测试F1=0.4741，均须保留未确认映射标记。完整记录见 [测试与暂定决策融合结果](results/m5_final_evaluation_20261019/测试与暂定决策融合结果.md)。17项测试通过，无后台任务。测试集现在已经查看，后续改方案应记录为探索。
+
+## 2026-10-19 按计划完成的验证研究（测试前历史记录）
+
+已完成3个seed的7种方法比较、4组定向调参及解释分析，共25组配置/seed结果（22次新增训练）。验证Macro-F1：音频控制0.4682±0.0163、视觉控制0.5178±0.0172、拼接0.6392±0.0154、门控0.6011±0.0109、cross-attention0.6608±0.0163。均为固定演员划分的验证结果，未测试；决策融合仍待确认。
+
+完整记录、错误互补、模态干预、gate与attention对照见 [实验结果与解释分析](results/m5_validation_study_20261019/实验结果与解释分析.md)。均匀attention与原模型表现接近，因此不能将当前提升解释成已经学会精细时间对齐。单模态数值指同协议重训MLP控制，不是全组最终上游基线。
+
+新增 `fusion.study`、`fusion.study_diagnostics`、`fusion.study_report` 可重现研究；14项测试通过。原始输入保持冻结，测试集继续保留，无后台训练。
+
+## 2026-10-19 验证专用融合入口（历史记录）
+
+已完成真实首轮：concat val macro-F1=0.6485、gated=0.6043、cross_attention=0.6674，均为seed42；没有测试评价或决策融合。详细结果见 [首轮记录](results/m5_feature_pilot_20261019_s42/初步实验结果.md)。
+
+```bash
+python -m fusion.feature_pilot --output results/new_feature_pilot_s42 --epochs 30 --seed 42
+```
+
+入口默认从仓库features/读取176D音频、音频序列和MobileNet视觉特征，使用正式actor CSV，仅解码train/val数值，不加载上游概率。缓存为独立feature-only接口，不要用旧fusion train加载。本轮11项测试通过；其他seed、单模态控制和解释分析尚未运行。默认将视觉16个token视为有效，此假设待上游确认。
+
+## 2026-10-19 MobileNet 视觉输出
+
+新增 `features/mobilenetv3_small_features.npz`，包含 [1440,16,576] 视觉序列、[1440,576] pooled 特征和 [1440,8] 概率。全部 ID、标签、正式划分及数值检查通过，可以准备 learned 视觉融合候选实验；概率列顺序、16 帧有效性、模型训练来源及最终视觉选择仍需上游确认。详细检查见 [实验规划文档](实验规划与当前代码说明.md) 的 10 月 19 日章节。本次没有训练。
+
+## 2026-10-18 新交付审核（历史记录）
+
+已收到 `features/` 下最终 176D 音频、M2 音频序列和 320D 手工视觉，1440 条样本按正式 ID 配对与划分检查通过。`video_dl` 实际是人脸图像，还没有 M4 深度特征。音频 CSV 的七段 sample_id / 五段 trial_id 必须先恢复为六段标准 ID；融合主入口还需验证专用模式。可准备手工视觉版本的真实融合，尚未启动训练。详细证据和实验范围见 [实验规划与当前代码说明](实验规划与当前代码说明.md) 中 10 月 18 日检查章节。
+
+## 2026-10-16 真实音频进度（历史记录）
 
 已接入 M2 learned-only 音频特征并完成短时验证，尚无真实视觉融合结果。请先查看 [初测与续跑说明](results/m2_audio_pilot_20261016/初测记录与续跑说明.md)。全组正式分组为 `configs/actor_splits.csv`，运行时显式传 `--split configs/actors_m2.json`。本次未计算测试指标；`fusion.audio_pilot` 是验证专用入口。
 
@@ -125,3 +161,21 @@ python -m fusion predict --checkpoint results/synthetic_seed42/checkpoints/gated
 测试覆盖完整 trial 配对、乱序配对、缺失配对拒绝、演员泄漏拒绝、训练集统计隔离、非法概率拒绝、padding 不变性，以及所有融合方法 checkpoint 的预测复现。
 
 实现 cross-attention 的 padding 行为参考 [PyTorch MultiheadAttention 文档](https://docs.pytorch.org/docs/2.14/generated/torch.nn.MultiheadAttention.html)。本机实际验证版本记录在每次实验的 `metrics.json`。
+
+## 旧特征结构实验（2026-10-20）
+
+暂不接WavLM，已完成9种结构×3seed的27次训练，仅看验证集。详见[结果解读](results/m5_structure_study_20261020/结果解读.md)与[方法及复跑命令](results/m5_structure_study_20261020/方法与复跑说明.md)。新增structure_models、structure_study与structure_report模块，既有模型与成绩保留。
+
+## 文献候选实验（2026-10-20）
+
+已完成LMF rank4、SupCon及对应控制15组训练，27个SVM/核融合候选，以及gate覆盖诊断；均为旧特征验证集实验。见[结果与解释](results/m5_literature_study_20261020/实验结果与解释.md)。新增literature_models、literature_study、literature_report模块；历史结果保留。
+
+## 最终交付重跑（2026-10-27）
+
+当前主输入WavLM-only128D＋handcrafted视觉320D，完整重跑130条记录。见[最终结果与解释](results/m5_final_delivery_20261027/最终特征实验结果与解释.md)与[逐配置总表](results/m5_final_delivery_20261027/summary.md)。旧命令和结果属于历史特征版本；本轮使用fusion.final_study显式指定新来源，先锁定验证再评价test。
+
+## 本地视频推理与解释 UI（2026-10-27）
+
+已新增[本地演示系统](../demo/README.md)。在项目根目录执行 `demo/.venv/bin/python -m demo.server --port 8765`，打开 `http://127.0.0.1:8765`。原始视频可提取 WavLM、M1手工音频及组合音频，以及 MediaPipe＋DWT视觉；仅开放有匹配checkpoint的融合组合。解释包括决策加权分解、64维gate、attention关联图、音频残差修正和固定目标输入敏感性。
+
+深度视觉原权重与最终视觉SVM尚未交付；原始视频使用M5视觉MLP及单独验证调权协议，不能套用论文中SVM决策融合的分数。验证回放可使用三种现有视觉表示及交付概率。10项回归检查及合成视频工程链路通过；尚无新的外部视频情绪准确率评价。历史模型、选择记录和test结果保持原样。

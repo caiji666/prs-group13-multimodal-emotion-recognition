@@ -1,0 +1,57 @@
+[
+  {
+    "run_id": "M5_external_cremad_upstream_audio_s42_20261027_01",
+    "method": "upstream_audio",
+    "ref": "demo/external_evaluation_20261027/records/M5_external_cremad_upstream_audio_s42_20261027_01/run.json"
+  },
+  {
+    "run_id": "M5_external_cremad_audio_only_s42_20261027_01",
+    "method": "audio_only",
+    "ref": "demo/external_evaluation_20261027/records/M5_external_cremad_audio_only_s42_20261027_01/run.json"
+  },
+  {
+    "run_id": "M5_external_cremad_visual_only_s42_20261027_01",
+    "method": "visual_only",
+    "ref": "demo/external_evaluation_20261027/records/M5_external_cremad_visual_only_s42_20261027_01/run.json"
+  },
+  {
+    "run_id": "M5_external_cremad_concat_s42_20261027_01",
+    "method": "concat",
+    "ref": "demo/external_evaluation_20261027/records/M5_external_cremad_concat_s42_20261027_01/run.json"
+  },
+  {
+    "run_id": "M5_external_cremad_gated_s42_20261027_01",
+    "method": "gated",
+    "ref": "demo/external_evaluation_20261027/records/M5_external_cremad_gated_s42_20261027_01/run.json"
+  },
+  {
+    "run_id": "M5_external_cremad_cross_attention_s42_20261027_01",
+    "method": "cross_attention",
+    "ref": "demo/external_evaluation_20261027/records/M5_external_cremad_cross_attention_s42_20261027_01/run.json"
+  },
+  {
+    "run_id": "M5_external_cremad_cross_bidirectional_s42_20261027_01",
+    "method": "cross_bidirectional",
+    "ref": "demo/external_evaluation_20261027/records/M5_external_cremad_cross_bidirectional_s42_20261027_01/run.json"
+  },
+  {
+    "run_id": "M5_external_cremad_audio_residual_aux_s42_20261027_01",
+    "method": "audio_residual_aux",
+    "ref": "demo/external_evaluation_20261027/records/M5_external_cremad_audio_residual_aux_s42_20261027_01/run.json"
+  },
+  {
+    "run_id": "M5_external_cremad_lmf_rank4_s42_20261027_01",
+    "method": "lmf_rank4",
+    "ref": "demo/external_evaluation_20261027/records/M5_external_cremad_lmf_rank4_s42_20261027_01/run.json"
+  },
+  {
+    "run_id": "M5_external_cremad_decision_equal_s42_20261027_01",
+    "method": "decision_equal",
+    "ref": "demo/external_evaluation_20261027/records/M5_external_cremad_decision_equal_s42_20261027_01/run.json"
+  },
+  {
+    "run_id": "M5_external_cremad_decision_tuned_s42_20261027_01",
+    "method": "decision_tuned",
+    "ref": "demo/external_evaluation_20261027/records/M5_external_cremad_decision_tuned_s42_20261027_01/run.json"
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "revision": "556e56595a32f469fa99ce469234aa2c8d42a297",
+  "files": {
+    "audio/learned/research/speech_transfer/models.py": "2395c1d157517cd31c03bed62c3728f4244421fca755a46bcc949afb949d0a34",
+    "audio/learned/research/speech_transfer/refinement/models.py": "58e4dea01ced6cbf8f56c904c91060181738ce9451e4210269220f8dc8611788",
+    "visual/handcrafted/m3/dwt_features.py": "18abb85b3fea33d425c5e16b9f2ac143bd65191934c905ba7dba0f9aaf991730",
+    "visual/handcrafted/m3/extract_faces.py": "79993eb0abf4c50d719b0013ec9d2c1a360a761986092f6a0b39064487106a81",
+    "visual/handcrafted/m3/common.py": "feb9f005c8c2c10f966f6f610a53a4ed5943030e7884645ee65a659ee5dbb773",
+    "audio/handcrafted/src/preprocessing.py": "22512384af8e5fe38afa51a2473409346a05e99c42f5b1603335976824405f9d",
+    "audio/handcrafted/src/experimental_v2/validation.py": "aee684d8d1ccacbf8511ed7223310dac821505dfb45523a6f30ad6b63e0b6710",
+    "audio/handcrafted/src/baseline_v1/feature_pipeline.py": "c0ff9b2a01c9c71cc16fd3b7d9ad6147f3faf8c24f82a566d6438685ecb737ed",
+    "audio/handcrafted/src/baseline_v1/time_features.py": "1896fda8fb8c83b4aaf86f5404e736497b30340de2687ead2991d40e6abfd4aa",
+    "audio/handcrafted/src/baseline_v1/spectral_features.py": "e825fa8d3fe12706395408dc809f9146236996f972312273b89b74a9ad547b79",
+    "audio/handcrafted/src/baseline_v1/wavelet_features.py": "869cfad8d96040652519e78d2daaa8732837497ef22ba106c21dd481d83e48fa"
+  }
+}

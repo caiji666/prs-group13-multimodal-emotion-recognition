@@ -1,0 +1,371 @@
+{
+  "schema_version": "2.0",
+  "run_id": "M5_external_cremad_visual_only_s42_20261027_01",
+  "member": "M5",
+  "owner": "Jiang Yushan",
+  "stage": "classifier",
+  "comparison_group": "M5_cremad_frozen_raw_video_pilot_v1",
+  "pipeline_name": "Visual-only MLP",
+  "run_status": "completed",
+  "test_status": "not_run",
+  "started_at": "2026-10-27T08:10:06.781240+00:00",
+  "finished_at": "2026-10-27T08:11:02.908760+00:00",
+  "seed": 42,
+  "dataset_id": "crema_d_DFA_1001_1004_pilot_v1",
+  "data_kind": "external",
+  "class_names": [
+    "neutral",
+    "calm",
+    "happy",
+    "sad",
+    "angry",
+    "fearful",
+    "disgust",
+    "surprise"
+  ],
+  "split_ref": "demo/external_evaluation_20261027/plan.json",
+  "split_sha256": "394d09b115b79fd2e23201b510bccadf82c9356e20a979cbe2cd5e2ca7204e7a",
+  "input_manifest_ref": "demo/external_evaluation_20261027/media_manifest.json",
+  "input_manifest_sha256": "8950d5b34544c5a9aa0e7370dc319a276d66f457d7e66e0dd69ff59854ef91cd",
+  "counts": {
+    "expected": {
+      "external": 24
+    },
+    "actual": {
+      "external": 24
+    }
+  },
+  "excluded_samples": {
+    "count": 0,
+    "id_reason_manifest_ref": null,
+    "handling_policy": "Keep every planned sample. Report failures; no silent replacements. Accuracy over all planned samples counts extraction failures as wrong."
+  },
+  "git_commit": "6ea5fa37bd0f56847ba5755dcab2671845d4dcc6",
+  "working_tree_dirty": true,
+  "code_patch_ref": "demo/external_evaluation_20261027/code_snapshot.zip",
+  "command": "demo/.venv/bin/python -m demo.external_eval run",
+  "environment": {
+    "python": "3.12.12",
+    "framework_and_version": "torch 2.13.0",
+    "device": "CPU; MediaPipe local GL context",
+    "dependencies_ref": "demo/runtime_versions.json"
+  },
+  "source_runs": {
+    "audio_handcrafted": null,
+    "audio_learned": "M2_encoder_wavlm_refinement_s42_20261021_05",
+    "audio_final": null,
+    "visual_handcrafted": null,
+    "visual_learned": null,
+    "visual_final": "M5_final_base_visual_only_learned_hc_s42_20261027"
+  },
+  "input_artifacts": [
+    {
+      "ref": "demo/external_evaluation_20261027/model_lock.json",
+      "sha256": "6ff9102571d45ec9b1d26c81c0681c53b09e0a3e431dd392953dfe60cd58eea7"
+    },
+    {
+      "ref": "multimodal_fusion/data/final_delivery_20261027/upstream_audio_best.pt",
+      "sha256": "0db8f833f3d32f21b676c7ed008acdf094bb20dda31e3498e642249d597f04bb"
+    },
+    {
+      "ref": "demo/assets/wavlm-base-plus/pytorch_model.bin",
+      "sha256": "3bb273a6ace99408b50cfc81afdbb7ef2de02da2eab0234e18db608ce692fe51"
+    },
+    {
+      "ref": "demo/external_evaluation_20261027/code_snapshot.zip",
+      "sha256": "d1e2003e6d079598866e472f59e16794ef19c1f262a1b1de1cdd8c3e59dd95fe"
+    }
+  ],
+  "preprocessing": {
+    "audio": "Mono 16kHz; librosa trim top_db35; WavLM layer6 fp16 round-trip; frozen temporal adapter and attentive pooling.",
+    "visual": "16 uniform frames; MediaPipe detect/eye align; Haar DWT HC320; same extractor as UI.",
+    "standardization_fit_split": "original RAVDESS train only; no external fitting",
+    "augmentation_train_only": null,
+    "parameters": {}
+  },
+  "pipeline": {
+    "feature_extractors": [
+      {
+        "component_id": "visual",
+        "modality": "visual",
+        "kind": "handcrafted",
+        "method": "Haar DWT",
+        "trainable_in_this_run": false,
+        "output_sequence_shape": "[1,16,320]",
+        "output_pooled_shape": "[1,320]",
+        "parameters": {
+          "provenance_ref": "demo/vendor/manifest.json"
+        }
+      }
+    ],
+    "representation": {
+      "kind": "frozen extracted features / probabilities",
+      "components": [
+        "visual"
+      ],
+      "pooling": null,
+      "normalization": "saved checkpoint normalizers; no external fitting",
+      "normalization_fit_split": "original RAVDESS train",
+      "combination_method": null,
+      "output_shape": null
+    },
+    "fusion": {
+      "applied": false,
+      "method": "visual_only",
+      "input_source_runs": {
+        "audio_handcrafted": null,
+        "audio_learned": "M2_encoder_wavlm_refinement_s42_20261021_05",
+        "audio_final": null,
+        "visual_handcrafted": null,
+        "visual_learned": null,
+        "visual_final": "M5_final_base_visual_only_learned_hc_s42_20261027"
+      },
+      "parameters": {
+        "checkpoint_config": {
+          "audio_dim": 128,
+          "visual_dim": 320,
+          "audio_seq_dim": 128,
+          "visual_seq_dim": 320,
+          "hidden": 64,
+          "heads": 4,
+          "dropout": 0.2
+        },
+        "alpha_audio": null
+      },
+      "trainable_in_this_run": false,
+      "output_shape": null
+    },
+    "classifier": {
+      "type": "frozen neural head",
+      "source_run_id": "M5_final_base_visual_only_learned_hc_s42_20261027",
+      "input_dim": null,
+      "architecture": "Defined by the referenced frozen checkpoint config/state_dict and code snapshot.",
+      "hidden_dims": null,
+      "output_dim": 8,
+      "activation": null,
+      "dropout": null,
+      "parameters": {},
+      "trainable_in_this_run": false,
+      "probability_method": "softmax",
+      "calibration_fit_split": null,
+      "checkpoint_ref": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_hc_s42_20261027/checkpoint.pt",
+      "checkpoint_sha256": "8236738b845313e48f3913b612a3f4e129250c25baec6a93a3674361df2ca9d8"
+    }
+  },
+  "training": {
+    "regime": "inference only; no parameter update or normalizer fitting",
+    "optimizer": null,
+    "learning_rate": null,
+    "batch_size": null,
+    "max_epochs": null,
+    "completed_epochs": null,
+    "early_stopping_patience": null,
+    "component_parameter_groups": [],
+    "class_weighting": null,
+    "other_parameters": {}
+  },
+  "selection": {
+    "metric": null,
+    "split": null,
+    "best_epoch": null,
+    "selected_for_next_stage": false,
+    "selection_reason": "All methods fixed before external inference. No external-score model selection.",
+    "tie_break_rule": null,
+    "candidate_search_ref": null,
+    "config_locked_at": "2026-10-27T08:10:06.781240+00:00",
+    "test_first_evaluated_at": null
+  },
+  "metrics_scope": "full_pipeline",
+  "metrics_by_split": {
+    "val": null,
+    "test": null,
+    "external": {
+      "n": 24,
+      "accuracy": 0.25,
+      "macro_precision": 0.25,
+      "macro_recall": 0.25,
+      "macro_f1": 0.18282828282828287,
+      "macro_labels": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "prediction_labels": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "macro_f1_eight_classes_absent_as_zero": 0.13712121212121214,
+      "per_class": [
+        {
+          "label": 0,
+          "class_name": "neutral",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 4
+        },
+        {
+          "label": 1,
+          "class_name": "calm",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": 2,
+          "class_name": "happy",
+          "precision": 1.0,
+          "recall": 0.25,
+          "f1": 0.4,
+          "support": 4
+        },
+        {
+          "label": 3,
+          "class_name": "sad",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 4
+        },
+        {
+          "label": 4,
+          "class_name": "angry",
+          "precision": 0.21428571428571427,
+          "recall": 0.75,
+          "f1": 0.3333333333333333,
+          "support": 4
+        },
+        {
+          "label": 5,
+          "class_name": "fearful",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 4
+        },
+        {
+          "label": 6,
+          "class_name": "disgust",
+          "precision": 0.2857142857142857,
+          "recall": 0.5,
+          "f1": 0.36363636363636365,
+          "support": 4
+        },
+        {
+          "label": 7,
+          "class_name": "surprise",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        }
+      ],
+      "confusion_matrix_counts": [
+        [
+          0,
+          0,
+          0,
+          0,
+          3,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          2,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          3,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          3,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    }
+  },
+  "artifacts": {
+    "original_metrics_ref": "demo/external_evaluation_20261027/summary.json",
+    "predictions_val_ref": null,
+    "predictions_test_ref": null,
+    "history_ref": null,
+    "checkpoint_ref": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_hc_s42_20261027/checkpoint.pt",
+    "checkpoint_sha256": "8236738b845313e48f3913b612a3f4e129250c25baec6a93a3674361df2ca9d8",
+    "feature_exports": [],
+    "figures": [],
+    "predictions_external_ref": "demo/external_evaluation_20261027/records/M5_external_cremad_visual_only_s42_20261027_01/predictions_external.csv",
+    "code_snapshot_ref": "demo/external_evaluation_20261027/code_snapshot.zip"
+  },
+  "notes_ref": "demo/external_evaluation_20261027/REPORT.md",
+  "external_status": "completed"
+}

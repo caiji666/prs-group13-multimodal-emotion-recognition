@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>PRS Multimodal Emotion Lab</title><link rel="stylesheet" href="/style.css"><script defer src="/app.js"></script></head>
+<body>
+<header><div class="brand"><span class="mark">P</span><div><strong>Multimodal Emotion Lab</strong><small>PRS · GROUP 13</small></div></div><span id="readiness" class="badge">Checking local models…</span></header>
+<main>
+<section class="intro"><span class="eyebrow">FROM VIDEO TO EXPLANATION</span><h1>Listen to speech. Read expressions.<br><span>Explore how the model combines them.</span></h1><p>Upload a short video to compare unimodal and fusion predictions, with explanations specific to each method.</p></section>
+<div class="workspace">
+<aside class="panel controls">
+<div class="step-label"><b>01</b> Input & analysis</div>
+<div class="segmented" role="group" aria-label="Input source"><button id="mode-video" class="active" type="button">Upload video</button><button id="mode-replay" type="button">Validation replay</button></div>
+<div id="upload-box"><label class="dropzone" id="dropzone" for="video-file"><span class="upload-icon">↑</span><strong id="file-name">Choose or drop a video</strong><small>MP4 / MOV / AVI / WebM / MKV<br>Up to 30 seconds · 100 MB · Audio required</small></label><input id="video-file" type="file" accept=".mp4,.mov,.avi,.webm,.mkv" hidden><video id="preview" controls hidden></video></div>
+<div id="replay-box" hidden><label for="sample">Validation sample ID</label><select id="sample"></select><p class="hint">Replay exported validation features. This does not extract a video or evaluate a new sample.</p></div>
+<label for="audio">Audio representation</label><select id="audio"><option value="learned">WavLM learned features · 128D</option><option value="handcrafted">Handcrafted features · 48D</option><option value="combined">Handcrafted + WavLM · 176D</option></select>
+<label for="visual">Visual representation</label><select id="visual"><option value="hc">Haar DWT handcrafted · 320D</option><option value="deep">MobileNetV3 learned features · 576D</option><option value="combined">Handcrafted + learned · 896D</option></select>
+<p id="representation-hint" class="hint">Fusion uses WavLM + handcrafted visual features. HC48/combined176 support audio-only heads. Deep visual weights are not available.</p>
+<div id="face-control"><label for="face">Face preprocessing</label><select id="face"><option value="mediapipe">MediaPipe detection & eye alignment</option><option value="center">Center crop · Preprocessing diagnostic</option></select></div>
+<label for="method">Fusion method</label><select id="method"></select>
+<p id="method-hint" class="hint"></p>
+<button class="primary" id="run" type="button">Extract & analyze <span>→</span></button>
+<div id="progress" class="progress" role="status" aria-live="polite" hidden><span class="spinner"></span><span id="stage"></span></div>
+<p id="error" role="alert" hidden></p>
+<p class="privacy">Videos are processed locally. Features and results are saved in demo/sessions and can be removed manually.</p>
+</aside>
+<section class="results" aria-live="polite">
+<div id="empty" class="panel empty"><div class="empty-orbit"><span>A</span><i>＋</i><span>V</span></div><h2>Start with a clip</h2><p>Explore probabilities across eight classes, modality disagreement,<br>and explanations for your selected fusion method.</p><div class="feature-pills"><span>Probability decomposition</span><span>Vector gating</span><span>Attention patterns</span><span>Input sensitivity</span></div></div>
+<div id="output" hidden>
+<div class="panel result-top"><div><span class="eyebrow">MODEL PREDICTION</span><h2 id="prediction"></h2><p id="result-subtitle"></p></div><div class="score"><strong id="score"></strong><span>Maximum probability · Uncalibrated</span></div></div>
+<div id="warnings" class="warnings"></div>
+<div class="panel"><div class="section-title"><h2>Compare predictions</h2><span>Same input · Eight classes</span></div><div id="unimodal" class="unimodal"></div><div id="probabilities" class="probabilities"></div></div>
+<div class="panel"><div class="section-title"><h2 id="explanation-title">Fusion explanations</h2><span>Method-specific diagnostics</span></div><div id="explanation"></div><p id="explanation-note" class="note"></p></div>
+<div id="sensitivity-panel" class="panel"><div class="section-title"><h2>Input sensitivity</h2><span>Fixed model & original target</span></div><div id="sensitivity"></div><p class="note">Replace one standardized modality with its training mean, preserving valid lengths and masks. This may create out-of-distribution inputs; it does not measure real noise, input quality, or causal contributions.</p></div>
+<div id="faces-panel" class="panel"><div class="section-title"><h2>Sampled faces & timestamps</h2><span>16 frames · Click to seek</span></div><div id="faces" class="faces"></div><p id="timing-note" class="note"></p></div>
+<div class="panel provenance"><details><summary>Model & input details</summary><pre id="provenance"></pre></details><div class="downloads"><a id="download-result">Download result JSON</a><a id="download-features">Download feature NPZ</a></div></div>
+</div>
+</section></div>
+<footer>Research demo · Eight RAVDESS emotion labels · A single prediction does not establish external generalization. Explanations describe model behavior, not a person’s true emotions or causal mechanisms.</footer>
+</main></body></html>

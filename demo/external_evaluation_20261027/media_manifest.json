@@ -1,0 +1,170 @@
+[
+  {
+    "sample_id": "1001_DFA_ANG_XX",
+    "url": "https://media.githubusercontent.com/media/CheyneyComputerScience/CREMA-D/1658cd342dff90010aa843eaeebd53610a08b1dc/VideoFlash/1001_DFA_ANG_XX.flv",
+    "sha256": "10dc3fd1f2bc8203657431598bd7dc9312462008f93d08fda786043ae6a8d2f4",
+    "bytes": 265922,
+    "file": "demo/test-artifacts/crema_d/1001_DFA_ANG_XX.flv"
+  },
+  {
+    "sample_id": "1001_DFA_DIS_XX",
+    "url": "https://media.githubusercontent.com/media/CheyneyComputerScience/CREMA-D/1658cd342dff90010aa843eaeebd53610a08b1dc/VideoFlash/1001_DFA_DIS_XX.flv",
+    "sha256": "cb6db35d6e666076ae736850d48e97fa2ba61d9490724eb1f62d711bea994d3c",
+    "bytes": 290553,
+    "file": "demo/test-artifacts/crema_d/1001_DFA_DIS_XX.flv"
+  },
+  {
+    "sample_id": "1001_DFA_FEA_XX",
+    "url": "https://media.githubusercontent.com/media/CheyneyComputerScience/CREMA-D/1658cd342dff90010aa843eaeebd53610a08b1dc/VideoFlash/1001_DFA_FEA_XX.flv",
+    "sha256": "9869c4b9169a805b2c637ff5752947311111736eceb16abd276a890b97dcd57e",
+    "bytes": 266703,
+    "file": "demo/test-artifacts/crema_d/1001_DFA_FEA_XX.flv"
+  },
+  {
+    "sample_id": "1001_DFA_HAP_XX",
+    "url": "https://media.githubusercontent.com/media/CheyneyComputerScience/CREMA-D/1658cd342dff90010aa843eaeebd53610a08b1dc/VideoFlash/1001_DFA_HAP_XX.flv",
+    "sha256": "e72a1221a240f2e6c232b871734ec6ea367228f3feb076dfe448941731752b14",
+    "bytes": 233278,
+    "file": "demo/test-artifacts/crema_d/1001_DFA_HAP_XX.flv"
+  },
+  {
+    "sample_id": "1001_DFA_NEU_XX",
+    "url": "https://media.githubusercontent.com/media/CheyneyComputerScience/CREMA-D/1658cd342dff90010aa843eaeebd53610a08b1dc/VideoFlash/1001_DFA_NEU_XX.flv",
+    "sha256": "a2b374bcd195d7320437c944eef2208dedd2c22725d09d65e8c31bf6c1eeb286",
+    "bytes": 251524,
+    "file": "demo/test-artifacts/crema_d/1001_DFA_NEU_XX.flv"
+  },
+  {
+    "sample_id": "1001_DFA_SAD_XX",
+    "url": "https://media.githubusercontent.com/media/CheyneyComputerScience/CREMA-D/1658cd342dff90010aa843eaeebd53610a08b1dc/VideoFlash/1001_DFA_SAD_XX.flv",
+    "sha256": "8fb9c1b08ef3edd03816208fb17fcc0d1ab3e3b8dd2e4a989695191f672bc40d",
+    "bytes": 249426,
+    "file": "demo/test-artifacts/crema_d/1001_DFA_SAD_XX.flv"
+  },
+  {
+    "sample_id": "1002_DFA_ANG_XX",
+    "url": "https://media.githubusercontent.com/media/CheyneyComputerScience/CREMA-D/1658cd342dff90010aa843eaeebd53610a08b1dc/VideoFlash/1002_DFA_ANG_XX.flv",
+    "sha256": "a52ffd181bdba96805956fb627960fe47cade90988cdb1688d1f86be1e71e366",
+    "bytes": 342981,
+    "file": "demo/test-artifacts/crema_d/1002_DFA_ANG_XX.flv"
+  },
+  {
+    "sample_id": "1002_DFA_DIS_XX",
+    "url": "https://media.githubusercontent.com/media/CheyneyComputerScience/CREMA-D/1658cd342dff90010aa843eaeebd53610a08b1dc/VideoFlash/1002_DFA_DIS_XX.flv",
+    "sha256": "288bf3670fb82572692f75b23b03a5b97a6c74ea562f37a58fd7fbb6ff8603ce",
+    "bytes": 339192,
+    "file": "demo/test-artifacts/crema_d/1002_DFA_DIS_XX.flv"
+  },
+  {
+    "sample_id": "1002_DFA_FEA_XX",
+    "url": "https://media.githubusercontent.com/media/CheyneyComputerScience/CREMA-D/1658cd342dff90010aa843eaeebd53610a08b1dc/VideoFlash/1002_DFA_FEA_XX.flv",
+    "sha256": "f532a9a49af4c86137cfc678c0a6a5cc65015717e74d94a85d4787a5f6d9bfd2",
+    "bytes": 362054,
+    "file": "demo/test-artifacts/crema_d/1002_DFA_FEA_XX.flv"
+  },
+  {
+    "sample_id": "1002_DFA_HAP_XX",
+    "url": "https://media.githubusercontent.com/media/CheyneyComputerScience/CREMA-D/1658cd342dff90010aa843eaeebd53610a08b1dc/VideoFlash/1002_DFA_HAP_XX.flv",
+    "sha256": "e280e690d4c299e243ae45275fca0f3437d032900818042e09fcca5a29ca54b8",
+    "bytes": 287510,
+    "file": "demo/test-artifacts/crema_d/1002_DFA_HAP_XX.flv"
+  },
+  {
+    "sample_id": "1002_DFA_NEU_XX",
+    "url": "https://media.githubusercontent.com/media/CheyneyComputerScience/CREMA-D/1658cd342dff90010aa843eaeebd53610a08b1dc/VideoFlash/1002_DFA_NEU_XX.flv",
+    "sha256": "1dcc7dd3a460f4bdecedbcff5d026bd99f72f3ff0e05f41298c093759c0fd220",
+    "bytes": 327201,
+    "file": "demo/test-artifacts/crema_d/1002_DFA_NEU_XX.flv"
+  },
+  {
+    "sample_id": "1002_DFA_SAD_XX",
+    "url": "https://media.githubusercontent.com/media/CheyneyComputerScience/CREMA-D/1658cd342dff90010aa843eaeebd53610a08b1dc/VideoFlash/1002_DFA_SAD_XX.flv",
+    "sha256": "81ae5fb6d2fb7967d212baf769b3ccfeaa4042a2b279c145073756f175335d1c",
+    "bytes": 301381,
+    "file": "demo/test-artifacts/crema_d/1002_DFA_SAD_XX.flv"
+  },
+  {
+    "sample_id": "1003_DFA_ANG_XX",
+    "url": "https://media.githubusercontent.com/media/CheyneyComputerScience/CREMA-D/1658cd342dff90010aa843eaeebd53610a08b1dc/VideoFlash/1003_DFA_ANG_XX.flv",
+    "sha256": "b69c5dadb66748481c8dba2e03dde00d0cba731ef0f9121c44c50353d88e8cf5",
+    "bytes": 399368,
+    "file": "demo/test-artifacts/crema_d/1003_DFA_ANG_XX.flv"
+  },
+  {
+    "sample_id": "1003_DFA_DIS_XX",
+    "url": "https://media.githubusercontent.com/media/CheyneyComputerScience/CREMA-D/1658cd342dff90010aa843eaeebd53610a08b1dc/VideoFlash/1003_DFA_DIS_XX.flv",
+    "sha256": "dc22315afb89f9a15155548f65b089ccd0fa6f897d0f8c9f933bc55804ca1e0c",
+    "bytes": 428112,
+    "file": "demo/test-artifacts/crema_d/1003_DFA_DIS_XX.flv"
+  },
+  {
+    "sample_id": "1003_DFA_FEA_XX",
+    "url": "https://media.githubusercontent.com/media/CheyneyComputerScience/CREMA-D/1658cd342dff90010aa843eaeebd53610a08b1dc/VideoFlash/1003_DFA_FEA_XX.flv",
+    "sha256": "a8090609abca99483246bee7fa75dc63109023575b1c6daeffea8053961bf23b",
+    "bytes": 399634,
+    "file": "demo/test-artifacts/crema_d/1003_DFA_FEA_XX.flv"
+  },
+  {
+    "sample_id": "1003_DFA_HAP_XX",
+    "url": "https://media.githubusercontent.com/media/CheyneyComputerScience/CREMA-D/1658cd342dff90010aa843eaeebd53610a08b1dc/VideoFlash/1003_DFA_HAP_XX.flv",
+    "sha256": "7fe434888f6f12cc83087427637ac6770b0a6595111333f66d0d60716765f0c5",
+    "bytes": 420269,
+    "file": "demo/test-artifacts/crema_d/1003_DFA_HAP_XX.flv"
+  },
+  {
+    "sample_id": "1003_DFA_NEU_XX",
+    "url": "https://media.githubusercontent.com/media/CheyneyComputerScience/CREMA-D/1658cd342dff90010aa843eaeebd53610a08b1dc/VideoFlash/1003_DFA_NEU_XX.flv",
+    "sha256": "b57046431372b84a19db3480f19411f43550b7232aee76115854c3080b860fe8",
+    "bytes": 413714,
+    "file": "demo/test-artifacts/crema_d/1003_DFA_NEU_XX.flv"
+  },
+  {
+    "sample_id": "1003_DFA_SAD_XX",
+    "url": "https://media.githubusercontent.com/media/CheyneyComputerScience/CREMA-D/1658cd342dff90010aa843eaeebd53610a08b1dc/VideoFlash/1003_DFA_SAD_XX.flv",
+    "sha256": "0fd2ec4bf793eaf6100d73da15f642271487a556ee04ea1c5cf8151c1b36cee6",
+    "bytes": 401805,
+    "file": "demo/test-artifacts/crema_d/1003_DFA_SAD_XX.flv"
+  },
+  {
+    "sample_id": "1004_DFA_ANG_XX",
+    "url": "https://media.githubusercontent.com/media/CheyneyComputerScience/CREMA-D/1658cd342dff90010aa843eaeebd53610a08b1dc/VideoFlash/1004_DFA_ANG_XX.flv",
+    "sha256": "f8af41dbc1a81af5cd1d98bc9a661c25aad33705ec2a88999a333066a79301e4",
+    "bytes": 398712,
+    "file": "demo/test-artifacts/crema_d/1004_DFA_ANG_XX.flv"
+  },
+  {
+    "sample_id": "1004_DFA_DIS_XX",
+    "url": "https://media.githubusercontent.com/media/CheyneyComputerScience/CREMA-D/1658cd342dff90010aa843eaeebd53610a08b1dc/VideoFlash/1004_DFA_DIS_XX.flv",
+    "sha256": "4ae060be27a9e44edd41e1c6e2db877b2236b5535636fb64e3a45788986fa1e8",
+    "bytes": 377457,
+    "file": "demo/test-artifacts/crema_d/1004_DFA_DIS_XX.flv"
+  },
+  {
+    "sample_id": "1004_DFA_FEA_XX",
+    "url": "https://media.githubusercontent.com/media/CheyneyComputerScience/CREMA-D/1658cd342dff90010aa843eaeebd53610a08b1dc/VideoFlash/1004_DFA_FEA_XX.flv",
+    "sha256": "b253498ced2b9ae0cd16d797f30ce19011a114eb69f46ec1812fdf933793f209",
+    "bytes": 384107,
+    "file": "demo/test-artifacts/crema_d/1004_DFA_FEA_XX.flv"
+  },
+  {
+    "sample_id": "1004_DFA_HAP_XX",
+    "url": "https://media.githubusercontent.com/media/CheyneyComputerScience/CREMA-D/1658cd342dff90010aa843eaeebd53610a08b1dc/VideoFlash/1004_DFA_HAP_XX.flv",
+    "sha256": "f4562249f8e4825b5ff6d039f231caca7bcb26fd675166302521ee29f4edfdc8",
+    "bytes": 352514,
+    "file": "demo/test-artifacts/crema_d/1004_DFA_HAP_XX.flv"
+  },
+  {
+    "sample_id": "1004_DFA_NEU_XX",
+    "url": "https://media.githubusercontent.com/media/CheyneyComputerScience/CREMA-D/1658cd342dff90010aa843eaeebd53610a08b1dc/VideoFlash/1004_DFA_NEU_XX.flv",
+    "sha256": "f9e3ab618c585f891645ffbc631896e1623ad739de4cec37ad7c74666ccc9346",
+    "bytes": 398264,
+    "file": "demo/test-artifacts/crema_d/1004_DFA_NEU_XX.flv"
+  },
+  {
+    "sample_id": "1004_DFA_SAD_XX",
+    "url": "https://media.githubusercontent.com/media/CheyneyComputerScience/CREMA-D/1658cd342dff90010aa843eaeebd53610a08b1dc/VideoFlash/1004_DFA_SAD_XX.flv",
+    "sha256": "e7152bc670dc1c57d52efc0c7d12c9a8c02fa0deca161c5245aed0df55556a82",
+    "bytes": 367676,
+    "file": "demo/test-artifacts/crema_d/1004_DFA_SAD_XX.flv"
+  }
+]
