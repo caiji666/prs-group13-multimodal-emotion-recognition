@@ -28,7 +28,7 @@ def check(verify=False):
             missing.append(item['path'])
         elif path.stat().st_size != item['bytes'] or (verify and sha256(path) != item['sha256']):
             changed.append(item['path'])
-    print(f"Model weights: {len(manifest['files']) - len(missing)}/{len(manifest['files'])} present")
+    print(f"Model files: {len(manifest['files']) - len(missing)}/{len(manifest['files'])} present")
     for name, items in [('Missing', missing), ('Checksum mismatch', changed)]:
         if items:
             print(name + ':\n  ' + '\n  '.join(items[:8]))

@@ -1,0 +1,20 @@
+[
+  {
+    "path": "visual/visual_deep_learning/mobilenetv3_mean.keras",
+    "sha256": "a3b7203182f5797156e17c7c92cadad85a6b4b389ef67968c4981c6d6067fc73",
+    "github_commit": "e561d50",
+    "source": "GitHub team M4 delivery"
+  },
+  {
+    "path": "visual/visual_deep_learning/resnet18_bilstm.keras",
+    "sha256": "33d801f19b1b86e6871ad97138ee7934475735ab8419dbf6a7c269e315e8645b",
+    "github_commit": "e561d50",
+    "source": "GitHub team M4 delivery"
+  },
+  {
+    "path": "visual/visual_deep_learning/resnet18_mean.keras",
+    "sha256": "bddffd854e29a8621093e23daee7fb5523f02ea2caba1d8bf2dec7bc8a9fac19",
+    "github_commit": "e561d50",
+    "source": "GitHub team M4 delivery"
+  }
+]

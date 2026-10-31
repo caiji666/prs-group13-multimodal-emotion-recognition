@@ -1,1011 +1,1908 @@
 {
-  "version": 1,
-  "release_tag": "submission-2026-10-31-final",
+  "version": 2,
+  "release_tag": "submission-2026-10-31-complete-models",
   "files": [
     {
       "path": "audio/handcrafted/outputs/handover/m1_audio/model/logistic_regression.joblib",
       "bytes": 6633,
-      "sha256": "ca630f268ccba8917f9d05fb658fff72e029dab2c17f7fa958c8dbc898b5bcf0"
-    },
-    {
-      "path": "audio/learned/models/baseline/bilstm/best.pt",
-      "bytes": 782681,
-      "sha256": "6c1552b7c4d2145253ea27801fdcb05824a2853e3f62e0d7f8921ee34bb6f19e"
-    },
-    {
-      "path": "audio/learned/models/baseline/cnn/best.pt",
-      "bytes": 905081,
-      "sha256": "02e7c962a02a50542d8f1163c05cb1b12757e9bd196c630fa331270e069ccddb"
-    },
-    {
-      "path": "audio/learned/models/baseline/transformer/best.pt",
-      "bytes": 3391297,
-      "sha256": "430f46752ef08045194a7fdfa62a77d0e35251aa9b4a68287236ccce3ccf1480"
-    },
-    {
-      "path": "audio/learned/models/best_audio_encoder.pt",
-      "bytes": 3397511,
-      "sha256": "77898d11a48214316218cd61d09d7e8ffa2d7ac197b6c3e85dee789cd2aaef14"
-    },
-    {
-      "path": "audio/learned/models/refinement_parents/bilstm/best.pt",
-      "bytes": 783193,
-      "sha256": "aaec88bff8bf9069bd7f0acefccc1f277160da47ea91c83f70dfa2605516484a"
-    },
-    {
-      "path": "audio/learned/models/refinement_parents/cnn/best.pt",
-      "bytes": 905529,
-      "sha256": "75dcc751ec94e16da9115d0fc133ab3b863fd4f8eef55a1d6369dd96a9a13516"
-    },
-    {
-      "path": "audio/learned/models/refinement_parents/transformer/best.pt",
-      "bytes": 3391745,
-      "sha256": "5471764ce0568b66c504b1ec2b936e7ac9f70db6e85adb606cc04dda5ff8d467"
-    },
-    {
-      "path": "audio/learned/models/selected_run/transformer/best.pt",
-      "bytes": 3397511,
-      "sha256": "77898d11a48214316218cd61d09d7e8ffa2d7ac197b6c3e85dee789cd2aaef14"
-    },
-    {
-      "path": "audio/learned/models/tuning_20261018_initialization/bilstm/best.pt",
-      "bytes": 783193,
-      "sha256": "aaec88bff8bf9069bd7f0acefccc1f277160da47ea91c83f70dfa2605516484a"
-    },
-    {
-      "path": "audio/learned/models/tuning_20261018_initialization/cnn/best.pt",
-      "bytes": 905529,
-      "sha256": "75dcc751ec94e16da9115d0fc133ab3b863fd4f8eef55a1d6369dd96a9a13516"
-    },
-    {
-      "path": "audio/learned/models/tuning_20261018_initialization/transformer/best.pt",
-      "bytes": 3391873,
-      "sha256": "bbd3b5b3660c8ab24b7f04e32ac46e3c4e12444de782e305135a0fd1cf8fe5bf"
-    },
-    {
-      "path": "audio/learned/research/speech_transfer/runs/refinement_20261021/round_01_head_only/best.pt",
-      "bytes": 609253,
-      "sha256": "6b18a1fd5215b0e2b3d7597d948fe2fefa609fe5df43cb86e9ee2993b6e84665"
-    },
-    {
-      "path": "audio/learned/research/speech_transfer/runs/refinement_20261021/round_02_freeze_projection/best.pt",
-      "bytes": 609189,
-      "sha256": "feec377de3c64c06ea1ff0fefb0dbb10a682fc569edb283ecbaaee87d1cece4e"
-    },
-    {
-      "path": "audio/learned/research/speech_transfer/runs/refinement_20261021/round_03_gentle_full_adapter/best.pt",
-      "bytes": 609189,
-      "sha256": "96fd22b77f37764b812a4d15e07a8ef6c2392aed6ee6532f5e7c23dcb3a24fe2"
-    },
-    {
-      "path": "audio/learned/research/speech_transfer/runs/refinement_20261021/round_04_residual_frame/best.pt",
-      "bytes": 678273,
-      "sha256": "3294d936650490313736a6c6516166d3c98991309732e9204b31c138646894ad"
-    },
-    {
-      "path": "audio/learned/research/speech_transfer/runs/refinement_20261021/round_05_temporal_context/best.pt",
-      "bytes": 611801,
-      "sha256": "0db8f833f3d32f21b676c7ed008acdf094bb20dda31e3498e642249d597f04bb"
-    },
-    {
-      "path": "audio/learned/research/speech_transfer/runs/refinement_20261021/round_06_deeper_head/best.pt",
-      "bytes": 680757,
-      "sha256": "3e5e72fc74fecf73c3ae69982c75702b109091154275914b231281d052f6a258"
-    },
-    {
-      "path": "audio/learned/research/speech_transfer/runs/refinement_20261021/round_07_freeze_head_refine_sequence/best.pt",
-      "bytes": 611801,
-      "sha256": "4a7924cec04d9552cc139e22fef67cedfdd8ee15eafc632ab7268337da430fa6"
-    },
-    {
-      "path": "audio/learned/research/speech_transfer/runs/refinement_20261021/round_08_feature_noise_mixup/best.pt",
-      "bytes": 611801,
-      "sha256": "af288c68035e80b7d2ee95a353cf9c14b17cd266ffb783a7636690b427ff688e"
-    },
-    {
-      "path": "audio/learned/research/speech_transfer/runs/refinement_20261021/round_09_focal_classification/best.pt",
-      "bytes": 611865,
-      "sha256": "0e59f98273a946ce0e76606cddd5cac1501629a0332e9389718f403c0c0f3d7c"
-    },
-    {
-      "path": "audio/learned/research/speech_transfer/runs/refinement_20261021/round_10_final_conservative/best.pt",
-      "bytes": 611865,
-      "sha256": "6631e12b469b00f3a2d59209c07ae0e5756782a16fb7a98e7090e69a2ee857b5"
-    },
-    {
-      "path": "audio/learned/research/speech_transfer/runs/round_01/best.pt",
-      "bytes": 471893,
-      "sha256": "767da663eb64b6e2ead15543e0146be564ade91d7ca3a90249feff04059aee81"
-    },
-    {
-      "path": "audio/learned/research/speech_transfer/runs/round_02/best.pt",
-      "bytes": 865173,
-      "sha256": "6180b4722daa8696034f124fde913a50186f3f94665fd9eaa81c8951e62e8490"
-    },
-    {
-      "path": "audio/learned/research/speech_transfer/runs/round_03/best.pt",
-      "bytes": 865423,
-      "sha256": "0c13e47f6bdaddf5b1a4bce68effe91dbe6a7b5a5bb8d9d9bc0ad6fa55470320"
-    },
-    {
-      "path": "audio/learned/research/speech_transfer/runs/round_04/best.pt",
-      "bytes": 608997,
-      "sha256": "0085a26fbca01f76eb4c5423f3cf83be6074d0038a0b3f2d6fdc7ab009185ddf"
-    },
-    {
-      "path": "audio/learned/research/speech_transfer/runs/round_05/best.pt",
-      "bytes": 609061,
-      "sha256": "1868c381d8945191b52f838157b29fb6ab419b522763ffc898454defefc12bf1"
+      "sha256": "ca630f268ccba8917f9d05fb658fff72e029dab2c17f7fa958c8dbc898b5bcf0",
+      "kind": "checkpoint",
+      "archive_path": "M1_Handcrafted_Audio/M1_Handcrafted_Audio_LogisticRegression.joblib",
+      "module": "M1",
+      "source": "user-delivered"
     },
     {
       "path": "experiment_records/M2_encoder_bilstm_s17_20261018_05/best.pt",
       "bytes": 785223,
-      "sha256": "b4d7d2f86b00500c6eee672f39a5127398e35679a80d002055d79b72f45dd16e"
+      "sha256": "b4d7d2f86b00500c6eee672f39a5127398e35679a80d002055d79b72f45dd16e",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_bilstm_s17_20261018_05.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_bilstm_s42_20261015_00/best.pt",
       "bytes": 782681,
-      "sha256": "6c1552b7c4d2145253ea27801fdcb05824a2853e3f62e0d7f8921ee34bb6f19e"
+      "sha256": "6c1552b7c4d2145253ea27801fdcb05824a2853e3f62e0d7f8921ee34bb6f19e",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_bilstm_s42_20261015_00.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_bilstm_s42_20261017_01/best.pt",
       "bytes": 782809,
-      "sha256": "1797b9dc412683e9c1d837e18b21536371dd85b018b3c62419114417960f5e93"
+      "sha256": "1797b9dc412683e9c1d837e18b21536371dd85b018b3c62419114417960f5e93",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_bilstm_s42_20261017_01.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_bilstm_s42_20261017_02/best.pt",
       "bytes": 783129,
-      "sha256": "6f19a983f3860c8aaa67a2d15be269975ecb36a1e91bff85b140756552b114c6"
-    },
-    {
-      "path": "experiment_records/M2_encoder_bilstm_s42_20261017_03/best.pt",
-      "bytes": 783193,
-      "sha256": "aaec88bff8bf9069bd7f0acefccc1f277160da47ea91c83f70dfa2605516484a"
+      "sha256": "6f19a983f3860c8aaa67a2d15be269975ecb36a1e91bff85b140756552b114c6",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_bilstm_s42_20261017_02.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_bilstm_s42_20261017_04/best.pt",
       "bytes": 783193,
-      "sha256": "98c542664f1b4eb863766ff80e38a401afe601d29f8858af55d2276f44b14e04"
+      "sha256": "98c542664f1b4eb863766ff80e38a401afe601d29f8858af55d2276f44b14e04",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_bilstm_s42_20261017_04.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_bilstm_s42_20261017_05/best.pt",
       "bytes": 783257,
-      "sha256": "553c42f279b2f2b4a6d8ccce9d82e79d50729716f09db29d72de4a534c31c73c"
+      "sha256": "553c42f279b2f2b4a6d8ccce9d82e79d50729716f09db29d72de4a534c31c73c",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_bilstm_s42_20261017_05.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_bilstm_s42_20261018_01/best.pt",
       "bytes": 784839,
-      "sha256": "38642651a106f4f86c44c0af3f69e618c1b1780c8702b99d7b0ca4a4ea915af2"
+      "sha256": "38642651a106f4f86c44c0af3f69e618c1b1780c8702b99d7b0ca4a4ea915af2",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_bilstm_s42_20261018_01.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_bilstm_s42_20261018_02/best.pt",
       "bytes": 784967,
-      "sha256": "22f5bfbf924d4523af9937d2db9c50d21c3fecb9ebe055cf4afdfff0ccbb3172"
+      "sha256": "22f5bfbf924d4523af9937d2db9c50d21c3fecb9ebe055cf4afdfff0ccbb3172",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_bilstm_s42_20261018_02.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_bilstm_s42_20261018_03/best.pt",
       "bytes": 785223,
-      "sha256": "103aa72aefc85d4f56b0fc6cda9627cc5057ff9719dc9eb89130168e7c423630"
+      "sha256": "103aa72aefc85d4f56b0fc6cda9627cc5057ff9719dc9eb89130168e7c423630",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_bilstm_s42_20261018_03.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_bilstm_s7_20261018_04/best.pt",
       "bytes": 785223,
-      "sha256": "9d6b55dbe49cf55ea5887a24058f92fc6a4466eb9272a46fa35610d5ce54d067"
+      "sha256": "9d6b55dbe49cf55ea5887a24058f92fc6a4466eb9272a46fa35610d5ce54d067",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_bilstm_s7_20261018_04.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_cnn_s17_20261018_05/best.pt",
       "bytes": 906743,
-      "sha256": "40c31791352e14800266d7529402bb8cee2244067b18a92bf48de8267ac03257"
+      "sha256": "40c31791352e14800266d7529402bb8cee2244067b18a92bf48de8267ac03257",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_cnn_s17_20261018_05.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_cnn_s42_20261015_00/best.pt",
       "bytes": 905081,
-      "sha256": "02e7c962a02a50542d8f1163c05cb1b12757e9bd196c630fa331270e069ccddb"
+      "sha256": "02e7c962a02a50542d8f1163c05cb1b12757e9bd196c630fa331270e069ccddb",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_cnn_s42_20261015_00.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_cnn_s42_20261017_01/best.pt",
       "bytes": 905209,
-      "sha256": "c1409bee671fe438f333ff9e6850ee1b25eebfe595e1d7150f321d9128f8efda"
-    },
-    {
-      "path": "experiment_records/M2_encoder_cnn_s42_20261017_02/best.pt",
-      "bytes": 905529,
-      "sha256": "75dcc751ec94e16da9115d0fc133ab3b863fd4f8eef55a1d6369dd96a9a13516"
+      "sha256": "c1409bee671fe438f333ff9e6850ee1b25eebfe595e1d7150f321d9128f8efda",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_cnn_s42_20261017_01.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_cnn_s42_20261017_03/best.pt",
       "bytes": 905593,
-      "sha256": "71a821d231af7d1a42208d7f97816a618e61f6069b3c5b9b353155c3a51b821a"
+      "sha256": "71a821d231af7d1a42208d7f97816a618e61f6069b3c5b9b353155c3a51b821a",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_cnn_s42_20261017_03.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_cnn_s42_20261017_04/best.pt",
       "bytes": 905593,
-      "sha256": "057f93df552a2da0b078465ea9135a2fa3a1e9bebae9db0f809231ba25484e20"
+      "sha256": "057f93df552a2da0b078465ea9135a2fa3a1e9bebae9db0f809231ba25484e20",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_cnn_s42_20261017_04.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_cnn_s42_20261017_05/best.pt",
       "bytes": 905657,
-      "sha256": "50c5307a4af6b69170f6fa45b0560a84edebd2977d9c73b3057cf7f68c415400"
+      "sha256": "50c5307a4af6b69170f6fa45b0560a84edebd2977d9c73b3057cf7f68c415400",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_cnn_s42_20261017_05.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_cnn_s42_20261018_01/best.pt",
       "bytes": 906359,
-      "sha256": "6d92b462da83d0086e795bae97430579a0e09f6df535773b2b57df4b7d98b621"
+      "sha256": "6d92b462da83d0086e795bae97430579a0e09f6df535773b2b57df4b7d98b621",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_cnn_s42_20261018_01.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_cnn_s42_20261018_02/best.pt",
       "bytes": 906551,
-      "sha256": "c29e5bcd1bbd9c85366e65b238d87f261b1d958856b2a76f10e90619bcb3f5bc"
+      "sha256": "c29e5bcd1bbd9c85366e65b238d87f261b1d958856b2a76f10e90619bcb3f5bc",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_cnn_s42_20261018_02.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_cnn_s42_20261018_03/best.pt",
       "bytes": 906807,
-      "sha256": "60de092cdfd7c6e506f9e919db9941999828aefa07ed5f2f891a654ae8b9ad49"
+      "sha256": "60de092cdfd7c6e506f9e919db9941999828aefa07ed5f2f891a654ae8b9ad49",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_cnn_s42_20261018_03.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_cnn_s7_20261018_04/best.pt",
       "bytes": 906807,
-      "sha256": "22d3638800648a7e10902a2858fa3b60fd80d1ebfac7c18eefbca98c49025eb2"
+      "sha256": "22d3638800648a7e10902a2858fa3b60fd80d1ebfac7c18eefbca98c49025eb2",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_cnn_s7_20261018_04.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_transformer_s17_20261018_05/best.pt",
       "bytes": 3397447,
-      "sha256": "78ee634befff6e7d8eb9f64ad9d44bac13a43ad6de11f9674170d58984277d12"
+      "sha256": "78ee634befff6e7d8eb9f64ad9d44bac13a43ad6de11f9674170d58984277d12",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_transformer_s17_20261018_05.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_transformer_s42_20261015_00/best.pt",
       "bytes": 3391297,
-      "sha256": "430f46752ef08045194a7fdfa62a77d0e35251aa9b4a68287236ccce3ccf1480"
+      "sha256": "430f46752ef08045194a7fdfa62a77d0e35251aa9b4a68287236ccce3ccf1480",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_transformer_s42_20261015_00.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_transformer_s42_20261017_01/best.pt",
       "bytes": 3391425,
-      "sha256": "0b377bcb5f26136f0061756c3d3f7f0bf6f582e6ce0fec535dba762005dbec4f"
+      "sha256": "0b377bcb5f26136f0061756c3d3f7f0bf6f582e6ce0fec535dba762005dbec4f",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_transformer_s42_20261017_01.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_transformer_s42_20261017_02/best.pt",
       "bytes": 3391745,
-      "sha256": "5471764ce0568b66c504b1ec2b936e7ac9f70db6e85adb606cc04dda5ff8d467"
+      "sha256": "5471764ce0568b66c504b1ec2b936e7ac9f70db6e85adb606cc04dda5ff8d467",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_transformer_s42_20261017_02.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_transformer_s42_20261017_03/best.pt",
       "bytes": 3391809,
-      "sha256": "49a944f1b7e3b7943297b4d141e557c99211d44a4540dedba5f2814451497516"
+      "sha256": "49a944f1b7e3b7943297b4d141e557c99211d44a4540dedba5f2814451497516",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_transformer_s42_20261017_03.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_transformer_s42_20261017_04/best.pt",
       "bytes": 3391809,
-      "sha256": "d0161a618cccb205f70a9c0b2cd6799b7b86ea1de2bbb1a430f210254c079336"
+      "sha256": "d0161a618cccb205f70a9c0b2cd6799b7b86ea1de2bbb1a430f210254c079336",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_transformer_s42_20261017_04.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_transformer_s42_20261017_05/best.pt",
       "bytes": 3391873,
-      "sha256": "bbd3b5b3660c8ab24b7f04e32ac46e3c4e12444de782e305135a0fd1cf8fe5bf"
+      "sha256": "bbd3b5b3660c8ab24b7f04e32ac46e3c4e12444de782e305135a0fd1cf8fe5bf",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_transformer_s42_20261017_05.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_transformer_s42_20261018_01/best.pt",
       "bytes": 3397127,
-      "sha256": "185a33bc49df37504d81f203806dfbe8cf22bce46f177f808d38cc5c7fe0d92b"
+      "sha256": "185a33bc49df37504d81f203806dfbe8cf22bce46f177f808d38cc5c7fe0d92b",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_transformer_s42_20261018_01.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_transformer_s42_20261018_02/best.pt",
       "bytes": 3397255,
-      "sha256": "0b88d268c6b3f2b75d140b0a7901cb136545c83fa7b73b2ff0fdea5d0f36d41b"
+      "sha256": "0b88d268c6b3f2b75d140b0a7901cb136545c83fa7b73b2ff0fdea5d0f36d41b",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_transformer_s42_20261018_02.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_transformer_s42_20261018_03/best.pt",
       "bytes": 3397511,
-      "sha256": "db0abfe65aabac9f86d3fe4c7f8dc6e9c53a27283d3a3e955450eeb43be247ae"
-    },
-    {
-      "path": "experiment_records/M2_encoder_transformer_s7_20261018_04/best.pt",
-      "bytes": 3397511,
-      "sha256": "77898d11a48214316218cd61d09d7e8ffa2d7ac197b6c3e85dee789cd2aaef14"
+      "sha256": "db0abfe65aabac9f86d3fe4c7f8dc6e9c53a27283d3a3e955450eeb43be247ae",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_transformer_s42_20261018_03.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_wavlm_refinement_s42_20261021_01/best.pt",
       "bytes": 609253,
-      "sha256": "6b18a1fd5215b0e2b3d7597d948fe2fefa609fe5df43cb86e9ee2993b6e84665"
+      "sha256": "6b18a1fd5215b0e2b3d7597d948fe2fefa609fe5df43cb86e9ee2993b6e84665",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_wavlm_refinement_s42_20261021_01.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_wavlm_refinement_s42_20261021_02/best.pt",
       "bytes": 609189,
-      "sha256": "feec377de3c64c06ea1ff0fefb0dbb10a682fc569edb283ecbaaee87d1cece4e"
+      "sha256": "feec377de3c64c06ea1ff0fefb0dbb10a682fc569edb283ecbaaee87d1cece4e",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_wavlm_refinement_s42_20261021_02.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_wavlm_refinement_s42_20261021_03/best.pt",
       "bytes": 609189,
-      "sha256": "96fd22b77f37764b812a4d15e07a8ef6c2392aed6ee6532f5e7c23dcb3a24fe2"
+      "sha256": "96fd22b77f37764b812a4d15e07a8ef6c2392aed6ee6532f5e7c23dcb3a24fe2",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_wavlm_refinement_s42_20261021_03.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_wavlm_refinement_s42_20261021_04/best.pt",
       "bytes": 678273,
-      "sha256": "3294d936650490313736a6c6516166d3c98991309732e9204b31c138646894ad"
-    },
-    {
-      "path": "experiment_records/M2_encoder_wavlm_refinement_s42_20261021_05/best.pt",
-      "bytes": 611801,
-      "sha256": "0db8f833f3d32f21b676c7ed008acdf094bb20dda31e3498e642249d597f04bb"
+      "sha256": "3294d936650490313736a6c6516166d3c98991309732e9204b31c138646894ad",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_wavlm_refinement_s42_20261021_04.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_wavlm_refinement_s42_20261021_06/best.pt",
       "bytes": 680757,
-      "sha256": "3e5e72fc74fecf73c3ae69982c75702b109091154275914b231281d052f6a258"
+      "sha256": "3e5e72fc74fecf73c3ae69982c75702b109091154275914b231281d052f6a258",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_wavlm_refinement_s42_20261021_06.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_wavlm_refinement_s42_20261021_07/best.pt",
       "bytes": 611801,
-      "sha256": "4a7924cec04d9552cc139e22fef67cedfdd8ee15eafc632ab7268337da430fa6"
+      "sha256": "4a7924cec04d9552cc139e22fef67cedfdd8ee15eafc632ab7268337da430fa6",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_wavlm_refinement_s42_20261021_07.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_wavlm_refinement_s42_20261021_08/best.pt",
       "bytes": 611801,
-      "sha256": "af288c68035e80b7d2ee95a353cf9c14b17cd266ffb783a7636690b427ff688e"
+      "sha256": "af288c68035e80b7d2ee95a353cf9c14b17cd266ffb783a7636690b427ff688e",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_wavlm_refinement_s42_20261021_08.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_wavlm_refinement_s42_20261021_09/best.pt",
       "bytes": 611865,
-      "sha256": "0e59f98273a946ce0e76606cddd5cac1501629a0332e9389718f403c0c0f3d7c"
+      "sha256": "0e59f98273a946ce0e76606cddd5cac1501629a0332e9389718f403c0c0f3d7c",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_wavlm_refinement_s42_20261021_09.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_wavlm_refinement_s42_20261021_10/best.pt",
       "bytes": 611865,
-      "sha256": "6631e12b469b00f3a2d59209c07ae0e5756782a16fb7a98e7090e69a2ee857b5"
+      "sha256": "6631e12b469b00f3a2d59209c07ae0e5756782a16fb7a98e7090e69a2ee857b5",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_wavlm_refinement_s42_20261021_10.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_wavlm_s42_20261020_01/best.pt",
       "bytes": 471893,
-      "sha256": "767da663eb64b6e2ead15543e0146be564ade91d7ca3a90249feff04059aee81"
+      "sha256": "767da663eb64b6e2ead15543e0146be564ade91d7ca3a90249feff04059aee81",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_wavlm_s42_20261020_01.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_wavlm_s42_20261020_02/best.pt",
       "bytes": 865173,
-      "sha256": "6180b4722daa8696034f124fde913a50186f3f94665fd9eaa81c8951e62e8490"
+      "sha256": "6180b4722daa8696034f124fde913a50186f3f94665fd9eaa81c8951e62e8490",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_wavlm_s42_20261020_02.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_wavlm_s42_20261020_03/best.pt",
       "bytes": 865423,
-      "sha256": "0c13e47f6bdaddf5b1a4bce68effe91dbe6a7b5a5bb8d9d9bc0ad6fa55470320"
+      "sha256": "0c13e47f6bdaddf5b1a4bce68effe91dbe6a7b5a5bb8d9d9bc0ad6fa55470320",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_wavlm_s42_20261020_03.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_wavlm_s42_20261020_04/best.pt",
       "bytes": 608997,
-      "sha256": "0085a26fbca01f76eb4c5423f3cf83be6074d0038a0b3f2d6fdc7ab009185ddf"
+      "sha256": "0085a26fbca01f76eb4c5423f3cf83be6074d0038a0b3f2d6fdc7ab009185ddf",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_wavlm_s42_20261020_04.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "experiment_records/M2_encoder_wavlm_s42_20261020_05/best.pt",
       "bytes": 609061,
-      "sha256": "1868c381d8945191b52f838157b29fb6ab419b522763ffc898454defefc12bf1"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/gate_sources/42/checkpoint.pt",
-      "bytes": 253301,
-      "sha256": "3f44fe26ff300648f8fceb561991498f86f4ff029fafb433b5bd29f50af9c6b6"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/gate_sources/43/checkpoint.pt",
-      "bytes": 253301,
-      "sha256": "a37559e2aaeef3ea5f3a92e60e033d3f73b6da318954e28b1e26a0637d2dd85e"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/gate_sources/44/checkpoint.pt",
-      "bytes": 253301,
-      "sha256": "2c533ca2e983ed59a244d5dcfed40a237d315c6308cbd4f5ec45c688b677e631"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_audio_only_combined_hc_s42_20261027/checkpoint.pt",
-      "bytes": 68283,
-      "sha256": "85e43985603b0636332a432b1d081c8490eb134aef92d195e64ed3ef1a91279b"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_audio_only_combined_hc_s43_20261027/checkpoint.pt",
-      "bytes": 68283,
-      "sha256": "e049d48d40f6addac3f943e48606813878fc044930e21ccd431511fa06f26e19"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_audio_only_combined_hc_s44_20261027/checkpoint.pt",
-      "bytes": 68283,
-      "sha256": "25da6ca99e337455a7bff3b815d48811f0c348701f7da205593d11a1b0e172f3"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_audio_only_handcrafted_hc_s42_20261027/checkpoint.pt",
-      "bytes": 33211,
-      "sha256": "83cfe21ac375d09a1a46dad6b8fed2b686d046997a0f19c90cbfbd0fa2bf0bdb"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_audio_only_handcrafted_hc_s43_20261027/checkpoint.pt",
-      "bytes": 33211,
-      "sha256": "5c8be711aea173b864636f478badc1c9938b29e89584a9a4acdebb3f7e3f97b4"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_audio_only_handcrafted_hc_s44_20261027/checkpoint.pt",
-      "bytes": 33211,
-      "sha256": "5e4050cb760c7e218591a6d61f585884f098ae5198bb6e20d22a18136a289fdc"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_audio_only_learned_hc_s42_20261027/checkpoint.pt",
-      "bytes": 55163,
-      "sha256": "972d15f39a29208bbcace49f875f4b7e302a475dd93476faeaa0fdf454edfcb9"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_audio_only_learned_hc_s43_20261027/checkpoint.pt",
-      "bytes": 55163,
-      "sha256": "adfb0e17a096f5affe7c64a8d3b36bbb912e7aba9e4465bbf045bf5a570cab0b"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_audio_only_learned_hc_s44_20261027/checkpoint.pt",
-      "bytes": 55163,
-      "sha256": "0b8d91035bd87070a6de69a9340fc9d6708b454fbfd13e1cddbba734bfc3259c"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_audio_sequence_mean_learned_hc_s42_20261027/checkpoint.pt",
-      "bytes": 55163,
-      "sha256": "6040910508f43ed7fcfff990ea85fbbc75cfcb08606cf12f97bb432daefde860"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_audio_sequence_mean_learned_hc_s43_20261027/checkpoint.pt",
-      "bytes": 55163,
-      "sha256": "8f3072827a302f07f1b1b1b7eccc65c4ac65f656ae2370e102e69090971954a5"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_audio_sequence_mean_learned_hc_s44_20261027/checkpoint.pt",
-      "bytes": 55163,
-      "sha256": "0ebf4fc9e87fa9cd679b2bc01973607b4242f011b27b072bb1910e4166e4a02f"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_concat_learned_combined_s42_20261027/checkpoint.pt",
-      "bytes": 305275,
-      "sha256": "0f29394e73a518e0f95ba0483438541cec48327c73bf64cf6bed740eb5fb493a"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_concat_learned_combined_s43_20261027/checkpoint.pt",
-      "bytes": 305275,
-      "sha256": "1fa213a8124613d09b3f1b79d9f9c06efce76024e694ee201c1210db9b748102"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_concat_learned_combined_s44_20261027/checkpoint.pt",
-      "bytes": 305275,
-      "sha256": "93d24570df22fa072fe7eaa746fbd6b401a3324e0cfd804b5b629214a20ae193"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_concat_learned_deep_s42_20261027/checkpoint.pt",
-      "bytes": 211835,
-      "sha256": "2181d5bf081b20b8d7494bcd76391829c6307e417e71ae6cfa2dfdd3f3c84c86"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_concat_learned_deep_s43_20261027/checkpoint.pt",
-      "bytes": 211835,
-      "sha256": "4b72fdb394424b3e2be3024ccb15ea2fd45d7cdbbf045673f6d0d14b922df50a"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_concat_learned_deep_s44_20261027/checkpoint.pt",
-      "bytes": 211835,
-      "sha256": "e400a432d229f3d9353355f3e5a77e655e23fcd1c89d56b5f4264d0e35f31989"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_concat_learned_hc_s42_20261027/checkpoint.pt",
-      "bytes": 137083,
-      "sha256": "dd38a13757169e5974498bb2513303405d0d32fea0429d5a06bf5499ca7bd013"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_concat_learned_hc_s43_20261027/checkpoint.pt",
-      "bytes": 137083,
-      "sha256": "b96f86098e02ac9f8579ac328447ad8d6afd00fdc8c1658e97e37e8c7626d4cd"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_concat_learned_hc_s44_20261027/checkpoint.pt",
-      "bytes": 137083,
-      "sha256": "9be2c83fc0cc661199141909c652ae7a9b760a22e98fa39ad7da4f4021660e3b"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_cross_attention_learned_combined_s42_20261027/checkpoint.pt",
-      "bytes": 392117,
-      "sha256": "2a929e1b8646760076e87dabd714e60b830039999936fff1af346762724ff2b3"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_cross_attention_learned_combined_s43_20261027/checkpoint.pt",
-      "bytes": 392117,
-      "sha256": "dad6fa978a1454bd2c532cfd704429dd2719696549640490f832ec6afa0652cf"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_cross_attention_learned_combined_s44_20261027/checkpoint.pt",
-      "bytes": 392117,
-      "sha256": "e626cc8e39546f964574843b7aa1afbaa2c0f94f2bc3b0f6d891590911ac047d"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_cross_attention_learned_deep_s42_20261027/checkpoint.pt",
-      "bytes": 298677,
-      "sha256": "f99b992810f070004e0153422b5fed385e6f2bbb5adde5564559789a8a1055c3"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_cross_attention_learned_deep_s43_20261027/checkpoint.pt",
-      "bytes": 298677,
-      "sha256": "6fe7c8a01e71359ac2652b2aa6ec794c96acc4a370d1697966f53118d2e48cfc"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_cross_attention_learned_deep_s44_20261027/checkpoint.pt",
-      "bytes": 298677,
-      "sha256": "d28dea92d1525ea3e0a9f5cb4abb0452329cb06dc225c32d9411a81a74dda50f"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_cross_attention_learned_hc_s42_20261027/checkpoint.pt",
-      "bytes": 223925,
-      "sha256": "231d48afc06cbf25c4726166f52e828c6010d1674e70c6e2f8266dec713023e9"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_cross_attention_learned_hc_s43_20261027/checkpoint.pt",
-      "bytes": 223925,
-      "sha256": "aace96a8ee93e67dfc9d03059cc62c282dad5fd5b4314171ce8939083b721ba9"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_cross_attention_learned_hc_s44_20261027/checkpoint.pt",
-      "bytes": 223925,
-      "sha256": "4579deb6b04608d5bdcdae6d31f6b817b2b35499a3ec18112fe7ff076bf4ad15"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_gated_learned_combined_s42_20261027/checkpoint.pt",
-      "bytes": 586229,
-      "sha256": "9f52a333eb78a12085ebdccda10d5a70a9e06c48b6af6031d3cdc28a3bb69d6a"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_gated_learned_combined_s43_20261027/checkpoint.pt",
-      "bytes": 586229,
-      "sha256": "f3f0b69202649ae31fca02ced28071766f48ff90039e761be46c032bc3f2508a"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_gated_learned_combined_s44_20261027/checkpoint.pt",
-      "bytes": 586229,
-      "sha256": "d0808e505ee31ae581fe038f933cf64dd6559c40b99de954f800e1acb23f6401"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_gated_learned_deep_s42_20261027/checkpoint.pt",
-      "bytes": 410869,
-      "sha256": "fb8bf41c7c34261043faa08490de62ba57d918f7dd027f52e47f78babc4e00da"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_gated_learned_deep_s43_20261027/checkpoint.pt",
-      "bytes": 410869,
-      "sha256": "7e4e65b98e83361eba2cf691b355b10b7103e62681b82958fddb929506a50748"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_gated_learned_deep_s44_20261027/checkpoint.pt",
-      "bytes": 410869,
-      "sha256": "ea12f2846ad58157e5f81c0d1f961e82321278b338bbf95be22193f56a57ea6d"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_gated_learned_hc_s42_20261027/checkpoint.pt",
-      "bytes": 270581,
-      "sha256": "a0d6a38e7c7dfb3c99c2b591e1d60081e608671b136f5e2dc379024c07d9764e"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_gated_learned_hc_s43_20261027/checkpoint.pt",
-      "bytes": 270581,
-      "sha256": "fe015b44bfb027aeef2287f2d837d7f844707abd029b7c252ea50890e4b08f3c"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_gated_learned_hc_s44_20261027/checkpoint.pt",
-      "bytes": 270581,
-      "sha256": "e81343e95a78f1887a03d2828b535960de304efdf7548aca4281d7d23841cc8b"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_sequence_mean_concat_learned_hc_s42_20261027/checkpoint.pt",
-      "bytes": 137083,
-      "sha256": "0bac6e27472649810247cc6640e1f19ba8407399aca68c8a530d6584104cff5a"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_sequence_mean_concat_learned_hc_s43_20261027/checkpoint.pt",
-      "bytes": 137083,
-      "sha256": "4cc756c78a37bf5eada1351513475b669b8d6a795148c3968e8ffb5f9f0f09d0"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_sequence_mean_concat_learned_hc_s44_20261027/checkpoint.pt",
-      "bytes": 137083,
-      "sha256": "99b75793bf1f4195e1b9741dc482e8e3a4d0dc35e1470fa6408a8b559e684aec"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_combined_s42_20261027/checkpoint.pt",
-      "bytes": 272507,
-      "sha256": "bde56338f998ed8d5a9b9f548b03c5803c2b42b4f7cfbd3c3a2af58f395558e5"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_combined_s43_20261027/checkpoint.pt",
-      "bytes": 272507,
-      "sha256": "e13052ef79a284d34e8fd625f2016c7eb657a13388c60c02a7bac50e69455431"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_combined_s44_20261027/checkpoint.pt",
-      "bytes": 272507,
-      "sha256": "048d4565bd2957d313fb0a7187790152135a5f6cf6c76258488cad3eff03f108"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_deep_s42_20261027/checkpoint.pt",
-      "bytes": 179067,
-      "sha256": "a9a521c394df4d7b1db7a7bc02e30704bdc5dbc84498698493652b678cbe409b"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_deep_s43_20261027/checkpoint.pt",
-      "bytes": 179067,
-      "sha256": "a08092b215b85a6d7d7257231400c177aae5aa4f080ce2980282e1805605190c"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_deep_s44_20261027/checkpoint.pt",
-      "bytes": 179067,
-      "sha256": "a170e44869b45b781615434b279750b4de97d0fc1b8f9e834840d21a964ec98b"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_hc_s42_20261027/checkpoint.pt",
-      "bytes": 104315,
-      "sha256": "8236738b845313e48f3913b612a3f4e129250c25baec6a93a3674361df2ca9d8"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_hc_s43_20261027/checkpoint.pt",
-      "bytes": 104315,
-      "sha256": "5d844e2a9d7d514e373bc2a9394fbacaa50423b161b67e634c9be11ae75d22a0"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_hc_s44_20261027/checkpoint.pt",
-      "bytes": 104315,
-      "sha256": "614aa1f79ecf9a31466c225b3510b8a0d89f44a6b97dd5748800b1b6ddd76e7c"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_aux_control_learned_hc_s42_20261027/checkpoint.pt",
-      "bytes": 232501,
-      "sha256": "f43feac240c4e03315f13fa242d9216ce8543b4b5add375ab0b7a37713c59c41"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_aux_control_learned_hc_s43_20261027/checkpoint.pt",
-      "bytes": 232501,
-      "sha256": "9494c21665d64825b7164a0c0eb607a6a4d696b1b0670b83778c60a43d455b92"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_aux_control_learned_hc_s44_20261027/checkpoint.pt",
-      "bytes": 232501,
-      "sha256": "10063ace9c56e6b21d58dfba42d25997958af36a1ed40bbb32bc5b726d31eb66"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_aux_supcon_cross_learned_hc_s42_20261027/checkpoint.pt",
-      "bytes": 232501,
-      "sha256": "dc50b17fcede59c96aabad67eec262dc93444b73d21a3f61a5381470b1c9e698"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_aux_supcon_cross_learned_hc_s43_20261027/checkpoint.pt",
-      "bytes": 232501,
-      "sha256": "c99e4d0d59fbbc1c04719b38d629ffc18b0824b646e3c184612fea1a2732d8fc"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_aux_supcon_cross_learned_hc_s44_20261027/checkpoint.pt",
-      "bytes": 232501,
-      "sha256": "f0a43a8c005bb4740c2fc469757926bf49a94943038602792c938a0f85a2887b"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_aux_supcon_intra_learned_hc_s42_20261027/checkpoint.pt",
-      "bytes": 232501,
-      "sha256": "b96ee367e7b62c43dafada5ddfcc1a035b6e85dcc7140140e0c919de64081196"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_aux_supcon_intra_learned_hc_s43_20261027/checkpoint.pt",
-      "bytes": 232501,
-      "sha256": "598cc4d6b1a1294f5cb1a40057ee3800c156795d1e297cf94a09b4348f2a3088"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_aux_supcon_intra_learned_hc_s44_20261027/checkpoint.pt",
-      "bytes": 232501,
-      "sha256": "e79896a28d79194cbcd6563d89f8fe7a5316a5765a0ef81656d47d75fb2e5cbc"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_lmf_rank4_learned_hc_s42_20261027/checkpoint.pt",
-      "bytes": 290677,
-      "sha256": "d953a2b0c0fe2534eac0e9403e762046071e64b97263f35021f294e95f4dfcfc"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_lmf_rank4_learned_hc_s43_20261027/checkpoint.pt",
-      "bytes": 290677,
-      "sha256": "f14b94615d7bd97d52c85b56f9b86ec0ee1293ec8f536abd9158988cc66bc249"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_lmf_rank4_learned_hc_s44_20261027/checkpoint.pt",
-      "bytes": 290677,
-      "sha256": "93502cc0bd8cad06c05bc1b365a4caf05ba58c3b4298ae945f71e56e22528352"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_projected_concat_control_learned_hc_s42_20261027/checkpoint.pt",
-      "bytes": 189813,
-      "sha256": "b7d1301475b679013f3d28f5a7209bb7a86d20e6841962d0ba8e7baba2a17618"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_projected_concat_control_learned_hc_s43_20261027/checkpoint.pt",
-      "bytes": 189813,
-      "sha256": "c05a6b91bf57723b5d5a5812caff532bc80aaf05184c10fcc4fc914f2616d613"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_projected_concat_control_learned_hc_s44_20261027/checkpoint.pt",
-      "bytes": 189813,
-      "sha256": "1fab2f8ef98f79e4b91babad2e045cde6cac471c21dd72a7eb9f66c038eacecb"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_audio_residual_aux_learned_hc_s42_20261027/checkpoint.pt",
-      "bytes": 215029,
-      "sha256": "74827a502942a070f6a210cbe268c091927f466042f455fc5987b3f4f1b71d75"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_audio_residual_aux_learned_hc_s43_20261027/checkpoint.pt",
-      "bytes": 215029,
-      "sha256": "6b965dcb1ead00b303a68c78459eab36c53dac6709fbf064c79180007ef515bd"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_audio_residual_aux_learned_hc_s44_20261027/checkpoint.pt",
-      "bytes": 215029,
-      "sha256": "b43bd1bbef2936b8c7dcd54b956f4dbd99abf7dc6342547959eef0429a1771aa"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_audio_residual_learned_hc_s42_20261027/checkpoint.pt",
-      "bytes": 215029,
-      "sha256": "93da8ce37d3d1226eaa080f36d49f650deac06d0488c3f345589e57ce32d1810"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_audio_residual_learned_hc_s43_20261027/checkpoint.pt",
-      "bytes": 215029,
-      "sha256": "dc53da80ba11f550bac20627611aa13f7528cceb0cadd058fa603ec50f5ce5fb"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_audio_residual_learned_hc_s44_20261027/checkpoint.pt",
-      "bytes": 215029,
-      "sha256": "f2de555337c32a6c8fd5c1a306dff0fb0ed9eacc8fc4fefd629a0aec0ee0b1e7"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_audio_residual_mdrop_aux_learned_hc_s42_20261027/checkpoint.pt",
-      "bytes": 215029,
-      "sha256": "8f2472fbe745af8c51fdc73df7f32e93104b7f57b9a43d3c2dad2279d66bb1be"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_audio_residual_mdrop_aux_learned_hc_s43_20261027/checkpoint.pt",
-      "bytes": 215029,
-      "sha256": "62db34ede8653e9a96e950d400ac7bab20151004d770481b547f29580d627745"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_audio_residual_mdrop_aux_learned_hc_s44_20261027/checkpoint.pt",
-      "bytes": 215029,
-      "sha256": "974a0a96578af394c912ed92584bfb728e87f435b4c6bb059f4eb52c1f3734ea"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_audio_residual_mdrop_learned_hc_s42_20261027/checkpoint.pt",
-      "bytes": 215029,
-      "sha256": "b43886ac503e6272c9207a15e5b461d758de3b21a9b9eea57a3e232a5e798b1d"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_audio_residual_mdrop_learned_hc_s43_20261027/checkpoint.pt",
-      "bytes": 215029,
-      "sha256": "14ca460af6b2ffc8915654b13b411bf6f970794a2cc58f9670c77380d6697fe8"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_audio_residual_mdrop_learned_hc_s44_20261027/checkpoint.pt",
-      "bytes": 215029,
-      "sha256": "9a27eff7b1a81706158bbbe5eb208f6294de3b56cda2b24d2eb14b73f7995d92"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_cross_bidirectional_learned_hc_s42_20261027/checkpoint.pt",
-      "bytes": 309365,
-      "sha256": "5e925cccbaac2eb1c920c7fb07ce9485037df5d3c38afc68f6b14f6ae1f72077"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_cross_bidirectional_learned_hc_s43_20261027/checkpoint.pt",
-      "bytes": 309365,
-      "sha256": "0b16b3b4d3005aa8acc26f34149e7635a75bdfdfa712cd68e3071fcbece926cf"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_cross_bidirectional_learned_hc_s44_20261027/checkpoint.pt",
-      "bytes": 309365,
-      "sha256": "143054fc5ec7bf18c8a1080f7dcd7d854143f3380eccf2b5ded82a94273f48d6"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_cross_position_learned_hc_s42_20261027/checkpoint.pt",
-      "bytes": 224117,
-      "sha256": "7ba8c2b17d8c940fe8a0ddf4feb48816b0cf794402e33fb900e2700c47b1fe6c"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_cross_position_learned_hc_s43_20261027/checkpoint.pt",
-      "bytes": 224117,
-      "sha256": "e56e73c9fcb4e79a4dbb24af519e718c42adbd45965ca6a4d56b90806bc862a4"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_cross_position_learned_hc_s44_20261027/checkpoint.pt",
-      "bytes": 224117,
-      "sha256": "3068662c447caf7f267de90dcaf14a221ad65948872872e2ba0fee35828a6464"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_cross_temporal_learned_hc_s42_20261027/checkpoint.pt",
-      "bytes": 229557,
-      "sha256": "e2dc0c85ec44d69deb7cd6edb2a8c74cc6547ac0c55b51c72231b4a73d9b0057"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_cross_temporal_learned_hc_s43_20261027/checkpoint.pt",
-      "bytes": 229557,
-      "sha256": "bd37fe69f562bbdebb628b8064783bbc7258cc39c1a7bd625c00f070fcd501e7"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_cross_temporal_learned_hc_s44_20261027/checkpoint.pt",
-      "bytes": 229557,
-      "sha256": "73baa1449be8bbe0d1d67c4c9c798905e59e8f394a7ded03905637602d6a07bc"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_projected_mean_learned_hc_s42_20261027/checkpoint.pt",
-      "bytes": 156341,
-      "sha256": "5b4217975836eae230f3ae02ca731e2fb5ff5cb498e529019d92ea4e39097828"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_projected_mean_learned_hc_s43_20261027/checkpoint.pt",
-      "bytes": 156341,
-      "sha256": "ff44bee55c7c1e02f519169c96f7fa019ff8d25afb974bc187bf9099c8bff2b2"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_projected_mean_learned_hc_s44_20261027/checkpoint.pt",
-      "bytes": 156341,
-      "sha256": "c4cfbbe29ae1752a3e7baf9737ee8a243e2bb2baeffa16119bb134ecf94cf6ef"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_uniform_attention_learned_hc_s42_20261027/checkpoint.pt",
-      "bytes": 224117,
-      "sha256": "7217e69e3f73cbf1b94835e1a9ce1f9c8296572fb4c76403718427ff508616e7"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_uniform_attention_learned_hc_s43_20261027/checkpoint.pt",
-      "bytes": 224117,
-      "sha256": "a87c57d786c79628350bf1e417d319bbac4ad27409d49007357ee2ece3561d7b"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_uniform_attention_learned_hc_s44_20261027/checkpoint.pt",
-      "bytes": 224117,
-      "sha256": "74a8d62f73140e73c2e7104f8006c812ed7d5c2205c4e60bd64163f414414cfa"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c01_20261027/checkpoint.joblib",
-      "bytes": 153770,
-      "sha256": "868b7ffc7317dabc6866fc723c5f24a350cb3dad1b9512eddfca83ced1e1bb72"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c02_20261027/checkpoint.joblib",
-      "bytes": 153765,
-      "sha256": "76f4879f1917af6f852f289401a1e35c60b27396400024692e5f25a3dfb913a1"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c03_20261027/checkpoint.joblib",
-      "bytes": 153771,
-      "sha256": "88eff4ec512c219df64f5ce87d4c2a876a795562647e59dbd3208087f1ba2020"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c04_20261027/checkpoint.joblib",
-      "bytes": 252006,
-      "sha256": "d4a5f1e1bdb4b9bec8faed69bb0a4ee004efaea3cba376d8bdbc8585cabbc0d9"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c05_20261027/checkpoint.joblib",
-      "bytes": 159872,
-      "sha256": "35f9604ef210c9c83970228f8d1db2afc3f8bcda0c72e0ae4074d8fd8d2bd559"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c06_20261027/checkpoint.joblib",
-      "bytes": 159269,
-      "sha256": "f1f92cde4761aa22327b80f889b3ba5f784e250081dad363cadf9c32d591cc23"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c07_20261027/checkpoint.joblib",
-      "bytes": 993611,
-      "sha256": "f325993fff0be6d3bc0b83e6e072cfd50c1e25bfe8de71ae27f1e64fca7a1d37"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c08_20261027/checkpoint.joblib",
-      "bytes": 991096,
-      "sha256": "596d4d0fc02548af0e1dccd174e3eaa5155f90ad18d37d7e1939f79094586058"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c09_20261027/checkpoint.joblib",
-      "bytes": 991092,
-      "sha256": "2bb6400825cd76815186ac06fd5fe1601e28ea667cd5155db466083192c2ed1f"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c10_20261027/checkpoint.joblib",
-      "bytes": 1387915,
-      "sha256": "c78c9b60769fe9b516caef0cd627906e4e3f6805ad669f87b0297f64c9ebee22"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c11_20261027/checkpoint.joblib",
-      "bytes": 1320493,
-      "sha256": "f0da2711aa883227f60c8b7e0d9869e8ba22cfe53919d161d0aca307f5882338"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c12_20261027/checkpoint.joblib",
-      "bytes": 1296901,
-      "sha256": "72eb942233b642e39978ff1f0f8a4bbe1dfdc783c884ff8d3c8e246796e15f6b"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c13_20261027/checkpoint.joblib",
-      "bytes": 889458,
-      "sha256": "dea50c674b3fae7bfe431fee4965003743215f79f77b5b2238a4686de6c45483"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c14_20261027/checkpoint.joblib",
-      "bytes": 889452,
-      "sha256": "f8be7fc32ce10643d1ec9192b3c381409e9e9ed6a91c76147d2f9b3290041ab3"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c15_20261027/checkpoint.joblib",
-      "bytes": 889452,
-      "sha256": "09695c087aba94504babf16a63b74bedb81d57b068ca8f4365f0004615a1471e"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c16_20261027/checkpoint.joblib",
-      "bytes": 1808292,
-      "sha256": "5ff3b3538367848b7b509330542f4ef8d468c4913f579c2ea50ecd29f368af11"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c17_20261027/checkpoint.joblib",
-      "bytes": 1268195,
-      "sha256": "7bbe6c8846f4d0fd4c32dae9b6d686e772545c8cfbdcce289c2bcb07ed80447e"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c18_20261027/checkpoint.joblib",
-      "bytes": 1266239,
-      "sha256": "cc30ad66b648577f9b99dfeaa513248f8bae15c728ee0dabaaf6224b669b4212"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c19_20261027/checkpoint.joblib",
-      "bytes": 37732,
-      "sha256": "757c145062acead50006f08b50dbf3d51914ae5a6810aa68cb0a02cc0d3f698f"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c20_20261027/checkpoint.joblib",
-      "bytes": 32664,
-      "sha256": "7f22f584799db2cd4ff4dce5a66c1377a37106e5d892b3856b91a636900580bb"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c21_20261027/checkpoint.joblib",
-      "bytes": 32700,
-      "sha256": "a0a2137cfa37cc1c48e7fb70089a0520d5f7a26e952bf930cca0f08f1de06172"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c22_20261027/checkpoint.joblib",
-      "bytes": 36263,
-      "sha256": "12b1f1cae8f1897a0f0037b749dcefb2bf138d541f70a40cb7a33cecef590d3d"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c23_20261027/checkpoint.joblib",
-      "bytes": 27920,
-      "sha256": "00b8884eb70b1691e6effddfe5032c2b4fb53753303c30adf71b9dd6dd3a6b2b"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c24_20261027/checkpoint.joblib",
-      "bytes": 27922,
-      "sha256": "710f8a45401e060af2cda3d6b7e83e84b2e312b66e0afec28224259d94e39883"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c25_20261027/checkpoint.joblib",
-      "bytes": 23883,
-      "sha256": "e2377c8d7eff44358178b5bf388c600d4ff69d2f4d7078e4887014556f58bcc0"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c26_20261027/checkpoint.joblib",
-      "bytes": 25188,
-      "sha256": "2fb28040299abb1a1f345959366f8fe440bf6be56b9b3434eada4e332eac6116"
-    },
-    {
-      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c27_20261027/checkpoint.joblib",
-      "bytes": 25193,
-      "sha256": "3e12c4f2bbe9c1d7a05aa8397cf6600abb2b04d6f156c8aed2e6537fe3d45502"
+      "sha256": "1868c381d8945191b52f838157b29fb6ab419b522763ffc898454defefc12bf1",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Experiment_Checkpoints/M2_encoder_wavlm_s42_20261020_05.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "experiment_records/M2_encoder_bilstm_s42_20261017_03/best.pt",
+      "bytes": 783193,
+      "sha256": "aaec88bff8bf9069bd7f0acefccc1f277160da47ea91c83f70dfa2605516484a",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/M2_MFCC_BiLSTM.pt",
+      "module": "M2",
+      "source": "user-delivered"
+    },
+    {
+      "path": "experiment_records/M2_encoder_cnn_s42_20261017_02/best.pt",
+      "bytes": 905529,
+      "sha256": "75dcc751ec94e16da9115d0fc133ab3b863fd4f8eef55a1d6369dd96a9a13516",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/M2_MFCC_CNN.pt",
+      "module": "M2",
+      "source": "user-delivered"
+    },
+    {
+      "path": "experiment_records/M2_encoder_transformer_s7_20261018_04/best.pt",
+      "bytes": 3397511,
+      "sha256": "77898d11a48214316218cd61d09d7e8ffa2d7ac197b6c3e85dee789cd2aaef14",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/M2_MFCC_Transformer.pt",
+      "module": "M2",
+      "source": "user-delivered"
+    },
+    {
+      "path": "demo/assets/wavlm-base-plus/pytorch_model.bin",
+      "bytes": 377617425,
+      "sha256": "3bb273a6ace99408b50cfc81afdbb7ef2de02da2eab0234e18db608ce692fe51",
+      "kind": "backbone",
+      "archive_path": "M2_Learned_Audio/M2_WavLM_Pretrained_Backbone.bin",
+      "module": "M2",
+      "source": "user-delivered"
+    },
+    {
+      "path": "experiment_records/M2_encoder_wavlm_refinement_s42_20261021_05/best.pt",
+      "bytes": 611801,
+      "sha256": "0db8f833f3d32f21b676c7ed008acdf094bb20dda31e3498e642249d597f04bb",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/M2_WavLM_R05_Adapter.pt",
+      "module": "M2",
+      "source": "user-delivered"
+    },
+    {
+      "path": "audio/learned/research/speech_transfer/runs/refinement_20261021/round_01_head_only/best.pt",
+      "bytes": 609253,
+      "sha256": "6b18a1fd5215b0e2b3d7597d948fe2fefa609fe5df43cb86e9ee2993b6e84665",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_WavLM_refinement_20261021_round_01_head_only.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "audio/learned/research/speech_transfer/runs/refinement_20261021/round_02_freeze_projection/best.pt",
+      "bytes": 609189,
+      "sha256": "feec377de3c64c06ea1ff0fefb0dbb10a682fc569edb283ecbaaee87d1cece4e",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_WavLM_refinement_20261021_round_02_freeze_projection.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "audio/learned/research/speech_transfer/runs/refinement_20261021/round_03_gentle_full_adapter/best.pt",
+      "bytes": 609189,
+      "sha256": "96fd22b77f37764b812a4d15e07a8ef6c2392aed6ee6532f5e7c23dcb3a24fe2",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_WavLM_refinement_20261021_round_03_gentle_full_adapter.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "audio/learned/research/speech_transfer/runs/refinement_20261021/round_04_residual_frame/best.pt",
+      "bytes": 678273,
+      "sha256": "3294d936650490313736a6c6516166d3c98991309732e9204b31c138646894ad",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_WavLM_refinement_20261021_round_04_residual_frame.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "audio/learned/research/speech_transfer/runs/refinement_20261021/round_05_temporal_context/best.pt",
+      "bytes": 611801,
+      "sha256": "0db8f833f3d32f21b676c7ed008acdf094bb20dda31e3498e642249d597f04bb",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_WavLM_refinement_20261021_round_05_temporal_context.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "audio/learned/research/speech_transfer/runs/refinement_20261021/round_06_deeper_head/best.pt",
+      "bytes": 680757,
+      "sha256": "3e5e72fc74fecf73c3ae69982c75702b109091154275914b231281d052f6a258",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_WavLM_refinement_20261021_round_06_deeper_head.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "audio/learned/research/speech_transfer/runs/refinement_20261021/round_07_freeze_head_refine_sequence/best.pt",
+      "bytes": 611801,
+      "sha256": "4a7924cec04d9552cc139e22fef67cedfdd8ee15eafc632ab7268337da430fa6",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_WavLM_refinement_20261021_round_07_freeze_head_refine_sequence.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "audio/learned/research/speech_transfer/runs/refinement_20261021/round_08_feature_noise_mixup/best.pt",
+      "bytes": 611801,
+      "sha256": "af288c68035e80b7d2ee95a353cf9c14b17cd266ffb783a7636690b427ff688e",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_WavLM_refinement_20261021_round_08_feature_noise_mixup.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "audio/learned/research/speech_transfer/runs/refinement_20261021/round_09_focal_classification/best.pt",
+      "bytes": 611865,
+      "sha256": "0e59f98273a946ce0e76606cddd5cac1501629a0332e9389718f403c0c0f3d7c",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_WavLM_refinement_20261021_round_09_focal_classification.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "audio/learned/research/speech_transfer/runs/refinement_20261021/round_10_final_conservative/best.pt",
+      "bytes": 611865,
+      "sha256": "6631e12b469b00f3a2d59209c07ae0e5756782a16fb7a98e7090e69a2ee857b5",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_WavLM_refinement_20261021_round_10_final_conservative.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "audio/learned/research/speech_transfer/runs/round_01/best.pt",
+      "bytes": 471893,
+      "sha256": "767da663eb64b6e2ead15543e0146be564ade91d7ca3a90249feff04059aee81",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_WavLM_round_01.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "audio/learned/research/speech_transfer/runs/round_02/best.pt",
+      "bytes": 865173,
+      "sha256": "6180b4722daa8696034f124fde913a50186f3f94665fd9eaa81c8951e62e8490",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_WavLM_round_02.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "audio/learned/research/speech_transfer/runs/round_03/best.pt",
+      "bytes": 865423,
+      "sha256": "0c13e47f6bdaddf5b1a4bce68effe91dbe6a7b5a5bb8d9d9bc0ad6fa55470320",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_WavLM_round_03.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "audio/learned/research/speech_transfer/runs/round_04/best.pt",
+      "bytes": 608997,
+      "sha256": "0085a26fbca01f76eb4c5423f3cf83be6074d0038a0b3f2d6fdc7ab009185ddf",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_WavLM_round_04.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "audio/learned/research/speech_transfer/runs/round_05/best.pt",
+      "bytes": 609061,
+      "sha256": "1868c381d8945191b52f838157b29fb6ab419b522763ffc898454defefc12bf1",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_WavLM_round_05.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "audio/learned/models/baseline/bilstm/best.pt",
+      "bytes": 782681,
+      "sha256": "6c1552b7c4d2145253ea27801fdcb05824a2853e3f62e0d7f8921ee34bb6f19e",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_baseline_bilstm.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "audio/learned/models/baseline/cnn/best.pt",
+      "bytes": 905081,
+      "sha256": "02e7c962a02a50542d8f1163c05cb1b12757e9bd196c630fa331270e069ccddb",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_baseline_cnn.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "audio/learned/models/baseline/transformer/best.pt",
+      "bytes": 3391297,
+      "sha256": "430f46752ef08045194a7fdfa62a77d0e35251aa9b4a68287236ccce3ccf1480",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_baseline_transformer.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "audio/learned/models/best_audio_encoder.pt",
+      "bytes": 3397511,
+      "sha256": "77898d11a48214316218cd61d09d7e8ffa2d7ac197b6c3e85dee789cd2aaef14",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_best_audio_encoder.pt.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "audio/learned/models/refinement_parents/bilstm/best.pt",
+      "bytes": 783193,
+      "sha256": "aaec88bff8bf9069bd7f0acefccc1f277160da47ea91c83f70dfa2605516484a",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_refinement_parents_bilstm.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "audio/learned/models/refinement_parents/cnn/best.pt",
+      "bytes": 905529,
+      "sha256": "75dcc751ec94e16da9115d0fc133ab3b863fd4f8eef55a1d6369dd96a9a13516",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_refinement_parents_cnn.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "audio/learned/models/refinement_parents/transformer/best.pt",
+      "bytes": 3391745,
+      "sha256": "5471764ce0568b66c504b1ec2b936e7ac9f70db6e85adb606cc04dda5ff8d467",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_refinement_parents_transformer.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "audio/learned/models/selected_run/transformer/best.pt",
+      "bytes": 3397511,
+      "sha256": "77898d11a48214316218cd61d09d7e8ffa2d7ac197b6c3e85dee789cd2aaef14",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_selected_run_transformer.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "audio/learned/models/tuning_20261018_initialization/bilstm/best.pt",
+      "bytes": 783193,
+      "sha256": "aaec88bff8bf9069bd7f0acefccc1f277160da47ea91c83f70dfa2605516484a",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_tuning_20261018_initialization_bilstm.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "audio/learned/models/tuning_20261018_initialization/cnn/best.pt",
+      "bytes": 905529,
+      "sha256": "75dcc751ec94e16da9115d0fc133ab3b863fd4f8eef55a1d6369dd96a9a13516",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_tuning_20261018_initialization_cnn.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "audio/learned/models/tuning_20261018_initialization/transformer/best.pt",
+      "bytes": 3391873,
+      "sha256": "bbd3b5b3660c8ab24b7f04e32ac46e3c4e12444de782e305135a0fd1cf8fe5bf",
+      "kind": "checkpoint",
+      "archive_path": "M2_Learned_Audio/Supporting_Checkpoints/M2_tuning_20261018_initialization_transformer.pt",
+      "module": "M2",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "demo/assets/wavlm-base-plus/config.json",
+      "bytes": 2232,
+      "sha256": "fea6df1c2700a3954fc07e70588aecc9055eeb28db2ff57151a2db0d19180ed4",
+      "kind": "configuration",
+      "archive_path": "M2_Learned_Audio/WavLM_Configuration/config.json",
+      "module": "M2",
+      "source": "pinned-HuggingFace-configuration",
+      "upstream_revision": "4c66d4806a428f2e922ccfa1a962776e232d487b"
+    },
+    {
+      "path": "demo/assets/wavlm-base-plus/preprocessor_config.json",
+      "bytes": 215,
+      "sha256": "99272fe8ccfab114b68b478681ea47ee3a1ce62bb788cb92dd6e4f69fb1f1da2",
+      "kind": "configuration",
+      "archive_path": "M2_Learned_Audio/WavLM_Configuration/preprocessor_config.json",
+      "module": "M2",
+      "source": "pinned-HuggingFace-configuration",
+      "upstream_revision": "4c66d4806a428f2e922ccfa1a962776e232d487b"
+    },
+    {
+      "path": "visual/handcrafted/outputs_visual_comparison/best_combined_mlp.joblib",
+      "bytes": 1419608,
+      "sha256": "c30778b2849bd928d5a17d4db1b968548bfbf9a4d5d3800571293e0eb9f12446",
+      "kind": "checkpoint",
+      "archive_path": "M3_Visual/M3_Combined_Visual_MLP.joblib",
+      "module": "M3",
+      "source": "user-delivered"
+    },
+    {
+      "path": "visual/handcrafted/outputs_visual_comparison/best_deep_mlp.joblib",
+      "bytes": 1012620,
+      "sha256": "1b2e8173d7c28e1bf0c5215cd476786343e9b7eaa3318581d2ad1244c2ee249d",
+      "kind": "checkpoint",
+      "archive_path": "M3_Visual/M3_Deep_Visual_MLP.joblib",
+      "module": "M3",
+      "source": "user-delivered"
+    },
+    {
+      "path": "visual/handcrafted/outputs_augmentation/selected_svm.joblib",
+      "bytes": 4051785,
+      "sha256": "26d1e6b5f87c8308ea9ef19cf98b2f17151f034dbbb95a11f7c15b37e3d5ee3f",
+      "kind": "checkpoint",
+      "archive_path": "M3_Visual/M3_Handcrafted_Visual_SVM.joblib",
+      "module": "M3",
+      "source": "user-delivered"
     },
     {
       "path": "visual/visual_deep_learning/mobilenetv3_mean.keras",
       "bytes": 4936557,
-      "sha256": "a3b7203182f5797156e17c7c92cadad85a6b4b389ef67968c4981c6d6067fc73"
+      "sha256": "a3b7203182f5797156e17c7c92cadad85a6b4b389ef67968c4981c6d6067fc73",
+      "kind": "checkpoint",
+      "archive_path": "M4_Learned_Visual/M4_MobileNetV3_Mean_Selected.keras",
+      "module": "M4",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "visual/visual_deep_learning/resnet18_bilstm.keras",
       "bytes": 47475992,
-      "sha256": "33d801f19b1b86e6871ad97138ee7934475735ab8419dbf6a7c269e315e8645b"
+      "sha256": "33d801f19b1b86e6871ad97138ee7934475735ab8419dbf6a7c269e315e8645b",
+      "kind": "checkpoint",
+      "archive_path": "M4_Learned_Visual/M4_ResNet18_BiLSTM_Comparison.keras",
+      "module": "M4",
+      "source": "GitHub-team-delivery"
     },
     {
       "path": "visual/visual_deep_learning/resnet18_mean.keras",
       "bytes": 45491413,
-      "sha256": "bddffd854e29a8621093e23daee7fb5523f02ea2caba1d8bf2dec7bc8a9fac19"
+      "sha256": "bddffd854e29a8621093e23daee7fb5523f02ea2caba1d8bf2dec7bc8a9fac19",
+      "kind": "checkpoint",
+      "archive_path": "M4_Learned_Visual/M4_ResNet18_Mean_Comparison.keras",
+      "module": "M4",
+      "source": "GitHub-team-delivery"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/gate_sources/42/checkpoint.pt",
+      "bytes": 253301,
+      "sha256": "3f44fe26ff300648f8fceb561991498f86f4ff029fafb433b5bd29f50af9c6b6",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Diagnostic_Checkpoints/M5_Gated_Diagnostic_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/gate_sources/43/checkpoint.pt",
+      "bytes": 253301,
+      "sha256": "a37559e2aaeef3ea5f3a92e60e033d3f73b6da318954e28b1e26a0637d2dd85e",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Diagnostic_Checkpoints/M5_Gated_Diagnostic_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/gate_sources/44/checkpoint.pt",
+      "bytes": 253301,
+      "sha256": "2c533ca2e983ed59a244d5dcfed40a237d315c6308cbd4f5ec45c688b677e631",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Diagnostic_Checkpoints/M5_Gated_Diagnostic_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_audio_only_combined_hc_s42_20261027/checkpoint.pt",
+      "bytes": 68283,
+      "sha256": "85e43985603b0636332a432b1d081c8490eb134aef92d195e64ed3ef1a91279b",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_AudioOnly_AudioCombined_VisualHC_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_audio_only_combined_hc_s43_20261027/checkpoint.pt",
+      "bytes": 68283,
+      "sha256": "e049d48d40f6addac3f943e48606813878fc044930e21ccd431511fa06f26e19",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_AudioOnly_AudioCombined_VisualHC_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_audio_only_combined_hc_s44_20261027/checkpoint.pt",
+      "bytes": 68283,
+      "sha256": "25da6ca99e337455a7bff3b815d48811f0c348701f7da205593d11a1b0e172f3",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_AudioOnly_AudioCombined_VisualHC_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_audio_only_handcrafted_hc_s42_20261027/checkpoint.pt",
+      "bytes": 33211,
+      "sha256": "83cfe21ac375d09a1a46dad6b8fed2b686d046997a0f19c90cbfbd0fa2bf0bdb",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_AudioOnly_AudioHandcrafted_VisualHC_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_audio_only_handcrafted_hc_s43_20261027/checkpoint.pt",
+      "bytes": 33211,
+      "sha256": "5c8be711aea173b864636f478badc1c9938b29e89584a9a4acdebb3f7e3f97b4",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_AudioOnly_AudioHandcrafted_VisualHC_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_audio_only_handcrafted_hc_s44_20261027/checkpoint.pt",
+      "bytes": 33211,
+      "sha256": "5e4050cb760c7e218591a6d61f585884f098ae5198bb6e20d22a18136a289fdc",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_AudioOnly_AudioHandcrafted_VisualHC_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_audio_only_learned_hc_s42_20261027/checkpoint.pt",
+      "bytes": 55163,
+      "sha256": "972d15f39a29208bbcace49f875f4b7e302a475dd93476faeaa0fdf454edfcb9",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_AudioOnly_AudioLearned_VisualHC_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_audio_only_learned_hc_s43_20261027/checkpoint.pt",
+      "bytes": 55163,
+      "sha256": "adfb0e17a096f5affe7c64a8d3b36bbb912e7aba9e4465bbf045bf5a570cab0b",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_AudioOnly_AudioLearned_VisualHC_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_audio_only_learned_hc_s44_20261027/checkpoint.pt",
+      "bytes": 55163,
+      "sha256": "0b8d91035bd87070a6de69a9340fc9d6708b454fbfd13e1cddbba734bfc3259c",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_AudioOnly_AudioLearned_VisualHC_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_audio_sequence_mean_learned_hc_s42_20261027/checkpoint.pt",
+      "bytes": 55163,
+      "sha256": "6040910508f43ed7fcfff990ea85fbbc75cfcb08606cf12f97bb432daefde860",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_AudioSequenceMean_AudioLearned_VisualHC_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_audio_sequence_mean_learned_hc_s43_20261027/checkpoint.pt",
+      "bytes": 55163,
+      "sha256": "8f3072827a302f07f1b1b1b7eccc65c4ac65f656ae2370e102e69090971954a5",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_AudioSequenceMean_AudioLearned_VisualHC_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_audio_sequence_mean_learned_hc_s44_20261027/checkpoint.pt",
+      "bytes": 55163,
+      "sha256": "0ebf4fc9e87fa9cd679b2bc01973607b4242f011b27b072bb1910e4166e4a02f",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_AudioSequenceMean_AudioLearned_VisualHC_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_concat_learned_combined_s42_20261027/checkpoint.pt",
+      "bytes": 305275,
+      "sha256": "0f29394e73a518e0f95ba0483438541cec48327c73bf64cf6bed740eb5fb493a",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_Concat_AudioLearned_VisualCOMBINED_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_concat_learned_combined_s43_20261027/checkpoint.pt",
+      "bytes": 305275,
+      "sha256": "1fa213a8124613d09b3f1b79d9f9c06efce76024e694ee201c1210db9b748102",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_Concat_AudioLearned_VisualCOMBINED_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_concat_learned_combined_s44_20261027/checkpoint.pt",
+      "bytes": 305275,
+      "sha256": "93d24570df22fa072fe7eaa746fbd6b401a3324e0cfd804b5b629214a20ae193",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_Concat_AudioLearned_VisualCOMBINED_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_concat_learned_deep_s42_20261027/checkpoint.pt",
+      "bytes": 211835,
+      "sha256": "2181d5bf081b20b8d7494bcd76391829c6307e417e71ae6cfa2dfdd3f3c84c86",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_Concat_AudioLearned_VisualDEEP_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_concat_learned_deep_s43_20261027/checkpoint.pt",
+      "bytes": 211835,
+      "sha256": "4b72fdb394424b3e2be3024ccb15ea2fd45d7cdbbf045673f6d0d14b922df50a",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_Concat_AudioLearned_VisualDEEP_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_concat_learned_deep_s44_20261027/checkpoint.pt",
+      "bytes": 211835,
+      "sha256": "e400a432d229f3d9353355f3e5a77e655e23fcd1c89d56b5f4264d0e35f31989",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_Concat_AudioLearned_VisualDEEP_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_concat_learned_hc_s42_20261027/checkpoint.pt",
+      "bytes": 137083,
+      "sha256": "dd38a13757169e5974498bb2513303405d0d32fea0429d5a06bf5499ca7bd013",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_Concat_AudioLearned_VisualHC_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_concat_learned_hc_s43_20261027/checkpoint.pt",
+      "bytes": 137083,
+      "sha256": "b96f86098e02ac9f8579ac328447ad8d6afd00fdc8c1658e97e37e8c7626d4cd",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_Concat_AudioLearned_VisualHC_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_concat_learned_hc_s44_20261027/checkpoint.pt",
+      "bytes": 137083,
+      "sha256": "9be2c83fc0cc661199141909c652ae7a9b760a22e98fa39ad7da4f4021660e3b",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_Concat_AudioLearned_VisualHC_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_cross_attention_learned_combined_s42_20261027/checkpoint.pt",
+      "bytes": 392117,
+      "sha256": "2a929e1b8646760076e87dabd714e60b830039999936fff1af346762724ff2b3",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_CrossAttention_AudioLearned_VisualCOMBINED_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_cross_attention_learned_combined_s43_20261027/checkpoint.pt",
+      "bytes": 392117,
+      "sha256": "dad6fa978a1454bd2c532cfd704429dd2719696549640490f832ec6afa0652cf",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_CrossAttention_AudioLearned_VisualCOMBINED_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_cross_attention_learned_combined_s44_20261027/checkpoint.pt",
+      "bytes": 392117,
+      "sha256": "e626cc8e39546f964574843b7aa1afbaa2c0f94f2bc3b0f6d891590911ac047d",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_CrossAttention_AudioLearned_VisualCOMBINED_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_cross_attention_learned_deep_s42_20261027/checkpoint.pt",
+      "bytes": 298677,
+      "sha256": "f99b992810f070004e0153422b5fed385e6f2bbb5adde5564559789a8a1055c3",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_CrossAttention_AudioLearned_VisualDEEP_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_cross_attention_learned_deep_s43_20261027/checkpoint.pt",
+      "bytes": 298677,
+      "sha256": "6fe7c8a01e71359ac2652b2aa6ec794c96acc4a370d1697966f53118d2e48cfc",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_CrossAttention_AudioLearned_VisualDEEP_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_cross_attention_learned_deep_s44_20261027/checkpoint.pt",
+      "bytes": 298677,
+      "sha256": "d28dea92d1525ea3e0a9f5cb4abb0452329cb06dc225c32d9411a81a74dda50f",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_CrossAttention_AudioLearned_VisualDEEP_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_cross_attention_learned_hc_s42_20261027/checkpoint.pt",
+      "bytes": 223925,
+      "sha256": "231d48afc06cbf25c4726166f52e828c6010d1674e70c6e2f8266dec713023e9",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_CrossAttention_AudioLearned_VisualHC_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_cross_attention_learned_hc_s43_20261027/checkpoint.pt",
+      "bytes": 223925,
+      "sha256": "aace96a8ee93e67dfc9d03059cc62c282dad5fd5b4314171ce8939083b721ba9",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_CrossAttention_AudioLearned_VisualHC_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_cross_attention_learned_hc_s44_20261027/checkpoint.pt",
+      "bytes": 223925,
+      "sha256": "4579deb6b04608d5bdcdae6d31f6b817b2b35499a3ec18112fe7ff076bf4ad15",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_CrossAttention_AudioLearned_VisualHC_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_gated_learned_combined_s42_20261027/checkpoint.pt",
+      "bytes": 586229,
+      "sha256": "9f52a333eb78a12085ebdccda10d5a70a9e06c48b6af6031d3cdc28a3bb69d6a",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_Gated_AudioLearned_VisualCOMBINED_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_gated_learned_combined_s43_20261027/checkpoint.pt",
+      "bytes": 586229,
+      "sha256": "f3f0b69202649ae31fca02ced28071766f48ff90039e761be46c032bc3f2508a",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_Gated_AudioLearned_VisualCOMBINED_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_gated_learned_combined_s44_20261027/checkpoint.pt",
+      "bytes": 586229,
+      "sha256": "d0808e505ee31ae581fe038f933cf64dd6559c40b99de954f800e1acb23f6401",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_Gated_AudioLearned_VisualCOMBINED_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_gated_learned_deep_s42_20261027/checkpoint.pt",
+      "bytes": 410869,
+      "sha256": "fb8bf41c7c34261043faa08490de62ba57d918f7dd027f52e47f78babc4e00da",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_Gated_AudioLearned_VisualDEEP_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_gated_learned_deep_s43_20261027/checkpoint.pt",
+      "bytes": 410869,
+      "sha256": "7e4e65b98e83361eba2cf691b355b10b7103e62681b82958fddb929506a50748",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_Gated_AudioLearned_VisualDEEP_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_gated_learned_deep_s44_20261027/checkpoint.pt",
+      "bytes": 410869,
+      "sha256": "ea12f2846ad58157e5f81c0d1f961e82321278b338bbf95be22193f56a57ea6d",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_Gated_AudioLearned_VisualDEEP_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_gated_learned_hc_s42_20261027/checkpoint.pt",
+      "bytes": 270581,
+      "sha256": "a0d6a38e7c7dfb3c99c2b591e1d60081e608671b136f5e2dc379024c07d9764e",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_Gated_AudioLearned_VisualHC_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_gated_learned_hc_s43_20261027/checkpoint.pt",
+      "bytes": 270581,
+      "sha256": "fe015b44bfb027aeef2287f2d837d7f844707abd029b7c252ea50890e4b08f3c",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_Gated_AudioLearned_VisualHC_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_gated_learned_hc_s44_20261027/checkpoint.pt",
+      "bytes": 270581,
+      "sha256": "e81343e95a78f1887a03d2828b535960de304efdf7548aca4281d7d23841cc8b",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_Gated_AudioLearned_VisualHC_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_sequence_mean_concat_learned_hc_s42_20261027/checkpoint.pt",
+      "bytes": 137083,
+      "sha256": "0bac6e27472649810247cc6640e1f19ba8407399aca68c8a530d6584104cff5a",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_SequenceMeanConcat_AudioLearned_VisualHC_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_sequence_mean_concat_learned_hc_s43_20261027/checkpoint.pt",
+      "bytes": 137083,
+      "sha256": "4cc756c78a37bf5eada1351513475b669b8d6a795148c3968e8ffb5f9f0f09d0",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_SequenceMeanConcat_AudioLearned_VisualHC_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_sequence_mean_concat_learned_hc_s44_20261027/checkpoint.pt",
+      "bytes": 137083,
+      "sha256": "99b75793bf1f4195e1b9741dc482e8e3a4d0dc35e1470fa6408a8b559e684aec",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_SequenceMeanConcat_AudioLearned_VisualHC_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_combined_s42_20261027/checkpoint.pt",
+      "bytes": 272507,
+      "sha256": "bde56338f998ed8d5a9b9f548b03c5803c2b42b4f7cfbd3c3a2af58f395558e5",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_VisualOnly_AudioLearned_VisualCOMBINED_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_combined_s43_20261027/checkpoint.pt",
+      "bytes": 272507,
+      "sha256": "e13052ef79a284d34e8fd625f2016c7eb657a13388c60c02a7bac50e69455431",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_VisualOnly_AudioLearned_VisualCOMBINED_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_combined_s44_20261027/checkpoint.pt",
+      "bytes": 272507,
+      "sha256": "048d4565bd2957d313fb0a7187790152135a5f6cf6c76258488cad3eff03f108",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_VisualOnly_AudioLearned_VisualCOMBINED_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_deep_s42_20261027/checkpoint.pt",
+      "bytes": 179067,
+      "sha256": "a9a521c394df4d7b1db7a7bc02e30704bdc5dbc84498698493652b678cbe409b",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_VisualOnly_AudioLearned_VisualDEEP_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_deep_s43_20261027/checkpoint.pt",
+      "bytes": 179067,
+      "sha256": "a08092b215b85a6d7d7257231400c177aae5aa4f080ce2980282e1805605190c",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_VisualOnly_AudioLearned_VisualDEEP_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_deep_s44_20261027/checkpoint.pt",
+      "bytes": 179067,
+      "sha256": "a170e44869b45b781615434b279750b4de97d0fc1b8f9e834840d21a964ec98b",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_VisualOnly_AudioLearned_VisualDEEP_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_hc_s42_20261027/checkpoint.pt",
+      "bytes": 104315,
+      "sha256": "8236738b845313e48f3913b612a3f4e129250c25baec6a93a3674361df2ca9d8",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_VisualOnly_AudioLearned_VisualHC_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_hc_s43_20261027/checkpoint.pt",
+      "bytes": 104315,
+      "sha256": "5d844e2a9d7d514e373bc2a9394fbacaa50423b161b67e634c9be11ae75d22a0",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_VisualOnly_AudioLearned_VisualHC_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_hc_s44_20261027/checkpoint.pt",
+      "bytes": 104315,
+      "sha256": "614aa1f79ecf9a31466c225b3510b8a0d89f44a6b97dd5748800b1b6ddd76e7c",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Base_VisualOnly_AudioLearned_VisualHC_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_aux_control_learned_hc_s42_20261027/checkpoint.pt",
+      "bytes": 232501,
+      "sha256": "f43feac240c4e03315f13fa242d9216ce8543b4b5add375ab0b7a37713c59c41",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Literature_AuxControl_AudioLearned_VisualHC_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_aux_control_learned_hc_s43_20261027/checkpoint.pt",
+      "bytes": 232501,
+      "sha256": "9494c21665d64825b7164a0c0eb607a6a4d696b1b0670b83778c60a43d455b92",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Literature_AuxControl_AudioLearned_VisualHC_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_aux_control_learned_hc_s44_20261027/checkpoint.pt",
+      "bytes": 232501,
+      "sha256": "10063ace9c56e6b21d58dfba42d25997958af36a1ed40bbb32bc5b726d31eb66",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Literature_AuxControl_AudioLearned_VisualHC_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_aux_supcon_cross_learned_hc_s42_20261027/checkpoint.pt",
+      "bytes": 232501,
+      "sha256": "dc50b17fcede59c96aabad67eec262dc93444b73d21a3f61a5381470b1c9e698",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Literature_AuxSupconCross_AudioLearned_VisualHC_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_aux_supcon_cross_learned_hc_s43_20261027/checkpoint.pt",
+      "bytes": 232501,
+      "sha256": "c99e4d0d59fbbc1c04719b38d629ffc18b0824b646e3c184612fea1a2732d8fc",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Literature_AuxSupconCross_AudioLearned_VisualHC_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_aux_supcon_cross_learned_hc_s44_20261027/checkpoint.pt",
+      "bytes": 232501,
+      "sha256": "f0a43a8c005bb4740c2fc469757926bf49a94943038602792c938a0f85a2887b",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Literature_AuxSupconCross_AudioLearned_VisualHC_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_aux_supcon_intra_learned_hc_s42_20261027/checkpoint.pt",
+      "bytes": 232501,
+      "sha256": "b96ee367e7b62c43dafada5ddfcc1a035b6e85dcc7140140e0c919de64081196",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Literature_AuxSupconIntra_AudioLearned_VisualHC_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_aux_supcon_intra_learned_hc_s43_20261027/checkpoint.pt",
+      "bytes": 232501,
+      "sha256": "598cc4d6b1a1294f5cb1a40057ee3800c156795d1e297cf94a09b4348f2a3088",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Literature_AuxSupconIntra_AudioLearned_VisualHC_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_aux_supcon_intra_learned_hc_s44_20261027/checkpoint.pt",
+      "bytes": 232501,
+      "sha256": "e79896a28d79194cbcd6563d89f8fe7a5316a5765a0ef81656d47d75fb2e5cbc",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Literature_AuxSupconIntra_AudioLearned_VisualHC_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_lmf_rank4_learned_hc_s42_20261027/checkpoint.pt",
+      "bytes": 290677,
+      "sha256": "d953a2b0c0fe2534eac0e9403e762046071e64b97263f35021f294e95f4dfcfc",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Literature_LmfRank4_AudioLearned_VisualHC_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_lmf_rank4_learned_hc_s43_20261027/checkpoint.pt",
+      "bytes": 290677,
+      "sha256": "f14b94615d7bd97d52c85b56f9b86ec0ee1293ec8f536abd9158988cc66bc249",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Literature_LmfRank4_AudioLearned_VisualHC_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_lmf_rank4_learned_hc_s44_20261027/checkpoint.pt",
+      "bytes": 290677,
+      "sha256": "93502cc0bd8cad06c05bc1b365a4caf05ba58c3b4298ae945f71e56e22528352",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Literature_LmfRank4_AudioLearned_VisualHC_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_projected_concat_control_learned_hc_s42_20261027/checkpoint.pt",
+      "bytes": 189813,
+      "sha256": "b7d1301475b679013f3d28f5a7209bb7a86d20e6841962d0ba8e7baba2a17618",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Literature_ProjectedConcatControl_AudioLearned_VisualHC_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_projected_concat_control_learned_hc_s43_20261027/checkpoint.pt",
+      "bytes": 189813,
+      "sha256": "c05a6b91bf57723b5d5a5812caff532bc80aaf05184c10fcc4fc914f2616d613",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Literature_ProjectedConcatControl_AudioLearned_VisualHC_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_literature_projected_concat_control_learned_hc_s44_20261027/checkpoint.pt",
+      "bytes": 189813,
+      "sha256": "1fab2f8ef98f79e4b91babad2e045cde6cac471c21dd72a7eb9f66c038eacecb",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Literature_ProjectedConcatControl_AudioLearned_VisualHC_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_audio_residual_aux_learned_hc_s42_20261027/checkpoint.pt",
+      "bytes": 215029,
+      "sha256": "74827a502942a070f6a210cbe268c091927f466042f455fc5987b3f4f1b71d75",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_AudioResidualAux_AudioLearned_VisualHC_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_audio_residual_aux_learned_hc_s43_20261027/checkpoint.pt",
+      "bytes": 215029,
+      "sha256": "6b965dcb1ead00b303a68c78459eab36c53dac6709fbf064c79180007ef515bd",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_AudioResidualAux_AudioLearned_VisualHC_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_audio_residual_aux_learned_hc_s44_20261027/checkpoint.pt",
+      "bytes": 215029,
+      "sha256": "b43bd1bbef2936b8c7dcd54b956f4dbd99abf7dc6342547959eef0429a1771aa",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_AudioResidualAux_AudioLearned_VisualHC_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_audio_residual_mdrop_aux_learned_hc_s42_20261027/checkpoint.pt",
+      "bytes": 215029,
+      "sha256": "8f2472fbe745af8c51fdc73df7f32e93104b7f57b9a43d3c2dad2279d66bb1be",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_AudioResidualMdropAux_AudioLearned_VisualHC_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_audio_residual_mdrop_aux_learned_hc_s43_20261027/checkpoint.pt",
+      "bytes": 215029,
+      "sha256": "62db34ede8653e9a96e950d400ac7bab20151004d770481b547f29580d627745",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_AudioResidualMdropAux_AudioLearned_VisualHC_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_audio_residual_mdrop_aux_learned_hc_s44_20261027/checkpoint.pt",
+      "bytes": 215029,
+      "sha256": "974a0a96578af394c912ed92584bfb728e87f435b4c6bb059f4eb52c1f3734ea",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_AudioResidualMdropAux_AudioLearned_VisualHC_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_audio_residual_mdrop_learned_hc_s42_20261027/checkpoint.pt",
+      "bytes": 215029,
+      "sha256": "b43886ac503e6272c9207a15e5b461d758de3b21a9b9eea57a3e232a5e798b1d",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_AudioResidualMdrop_AudioLearned_VisualHC_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_audio_residual_mdrop_learned_hc_s43_20261027/checkpoint.pt",
+      "bytes": 215029,
+      "sha256": "14ca460af6b2ffc8915654b13b411bf6f970794a2cc58f9670c77380d6697fe8",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_AudioResidualMdrop_AudioLearned_VisualHC_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_audio_residual_mdrop_learned_hc_s44_20261027/checkpoint.pt",
+      "bytes": 215029,
+      "sha256": "9a27eff7b1a81706158bbbe5eb208f6294de3b56cda2b24d2eb14b73f7995d92",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_AudioResidualMdrop_AudioLearned_VisualHC_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_audio_residual_learned_hc_s42_20261027/checkpoint.pt",
+      "bytes": 215029,
+      "sha256": "93da8ce37d3d1226eaa080f36d49f650deac06d0488c3f345589e57ce32d1810",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_AudioResidual_AudioLearned_VisualHC_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_audio_residual_learned_hc_s43_20261027/checkpoint.pt",
+      "bytes": 215029,
+      "sha256": "dc53da80ba11f550bac20627611aa13f7528cceb0cadd058fa603ec50f5ce5fb",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_AudioResidual_AudioLearned_VisualHC_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_audio_residual_learned_hc_s44_20261027/checkpoint.pt",
+      "bytes": 215029,
+      "sha256": "f2de555337c32a6c8fd5c1a306dff0fb0ed9eacc8fc4fefd629a0aec0ee0b1e7",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_AudioResidual_AudioLearned_VisualHC_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_cross_bidirectional_learned_hc_s42_20261027/checkpoint.pt",
+      "bytes": 309365,
+      "sha256": "5e925cccbaac2eb1c920c7fb07ce9485037df5d3c38afc68f6b14f6ae1f72077",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_CrossBidirectional_AudioLearned_VisualHC_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_cross_bidirectional_learned_hc_s43_20261027/checkpoint.pt",
+      "bytes": 309365,
+      "sha256": "0b16b3b4d3005aa8acc26f34149e7635a75bdfdfa712cd68e3071fcbece926cf",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_CrossBidirectional_AudioLearned_VisualHC_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_cross_bidirectional_learned_hc_s44_20261027/checkpoint.pt",
+      "bytes": 309365,
+      "sha256": "143054fc5ec7bf18c8a1080f7dcd7d854143f3380eccf2b5ded82a94273f48d6",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_CrossBidirectional_AudioLearned_VisualHC_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_cross_position_learned_hc_s42_20261027/checkpoint.pt",
+      "bytes": 224117,
+      "sha256": "7ba8c2b17d8c940fe8a0ddf4feb48816b0cf794402e33fb900e2700c47b1fe6c",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_CrossPosition_AudioLearned_VisualHC_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_cross_position_learned_hc_s43_20261027/checkpoint.pt",
+      "bytes": 224117,
+      "sha256": "e56e73c9fcb4e79a4dbb24af519e718c42adbd45965ca6a4d56b90806bc862a4",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_CrossPosition_AudioLearned_VisualHC_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_cross_position_learned_hc_s44_20261027/checkpoint.pt",
+      "bytes": 224117,
+      "sha256": "3068662c447caf7f267de90dcaf14a221ad65948872872e2ba0fee35828a6464",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_CrossPosition_AudioLearned_VisualHC_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_cross_temporal_learned_hc_s42_20261027/checkpoint.pt",
+      "bytes": 229557,
+      "sha256": "e2dc0c85ec44d69deb7cd6edb2a8c74cc6547ac0c55b51c72231b4a73d9b0057",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_CrossTemporal_AudioLearned_VisualHC_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_cross_temporal_learned_hc_s43_20261027/checkpoint.pt",
+      "bytes": 229557,
+      "sha256": "bd37fe69f562bbdebb628b8064783bbc7258cc39c1a7bd625c00f070fcd501e7",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_CrossTemporal_AudioLearned_VisualHC_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_cross_temporal_learned_hc_s44_20261027/checkpoint.pt",
+      "bytes": 229557,
+      "sha256": "73baa1449be8bbe0d1d67c4c9c798905e59e8f394a7ded03905637602d6a07bc",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_CrossTemporal_AudioLearned_VisualHC_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_projected_mean_learned_hc_s42_20261027/checkpoint.pt",
+      "bytes": 156341,
+      "sha256": "5b4217975836eae230f3ae02ca731e2fb5ff5cb498e529019d92ea4e39097828",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_ProjectedMean_AudioLearned_VisualHC_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_projected_mean_learned_hc_s43_20261027/checkpoint.pt",
+      "bytes": 156341,
+      "sha256": "ff44bee55c7c1e02f519169c96f7fa019ff8d25afb974bc187bf9099c8bff2b2",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_ProjectedMean_AudioLearned_VisualHC_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_projected_mean_learned_hc_s44_20261027/checkpoint.pt",
+      "bytes": 156341,
+      "sha256": "c4cfbbe29ae1752a3e7baf9737ee8a243e2bb2baeffa16119bb134ecf94cf6ef",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_ProjectedMean_AudioLearned_VisualHC_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_uniform_attention_learned_hc_s42_20261027/checkpoint.pt",
+      "bytes": 224117,
+      "sha256": "7217e69e3f73cbf1b94835e1a9ce1f9c8296572fb4c76403718427ff508616e7",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_UniformAttention_AudioLearned_VisualHC_Seed42.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_uniform_attention_learned_hc_s43_20261027/checkpoint.pt",
+      "bytes": 224117,
+      "sha256": "a87c57d786c79628350bf1e417d319bbac4ad27409d49007357ee2ece3561d7b",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_UniformAttention_AudioLearned_VisualHC_Seed43.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_structure_uniform_attention_learned_hc_s44_20261027/checkpoint.pt",
+      "bytes": 224117,
+      "sha256": "74a8d62f73140e73c2e7104f8006c812ed7d5c2205c4e60bd64163f414414cfa",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/Neural_Checkpoints/M5_Structure_UniformAttention_AudioLearned_VisualHC_Seed44.pt",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c01_20261027/checkpoint.joblib",
+      "bytes": 153770,
+      "sha256": "868b7ffc7317dabc6866fc723c5f24a350cb3dad1b9512eddfca83ced1e1bb72",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate01_audio_linear.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c02_20261027/checkpoint.joblib",
+      "bytes": 153765,
+      "sha256": "76f4879f1917af6f852f289401a1e35c60b27396400024692e5f25a3dfb913a1",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate02_audio_linear.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c03_20261027/checkpoint.joblib",
+      "bytes": 153771,
+      "sha256": "88eff4ec512c219df64f5ce87d4c2a876a795562647e59dbd3208087f1ba2020",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate03_audio_linear.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c04_20261027/checkpoint.joblib",
+      "bytes": 252006,
+      "sha256": "d4a5f1e1bdb4b9bec8faed69bb0a4ee004efaea3cba376d8bdbc8585cabbc0d9",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate04_audio_rbf.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c05_20261027/checkpoint.joblib",
+      "bytes": 159872,
+      "sha256": "35f9604ef210c9c83970228f8d1db2afc3f8bcda0c72e0ae4074d8fd8d2bd559",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate05_audio_rbf.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c06_20261027/checkpoint.joblib",
+      "bytes": 159269,
+      "sha256": "f1f92cde4761aa22327b80f889b3ba5f784e250081dad363cadf9c32d591cc23",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate06_audio_rbf.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c07_20261027/checkpoint.joblib",
+      "bytes": 993611,
+      "sha256": "f325993fff0be6d3bc0b83e6e072cfd50c1e25bfe8de71ae27f1e64fca7a1d37",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate07_visual_linear.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c08_20261027/checkpoint.joblib",
+      "bytes": 991096,
+      "sha256": "596d4d0fc02548af0e1dccd174e3eaa5155f90ad18d37d7e1939f79094586058",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate08_visual_linear.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c09_20261027/checkpoint.joblib",
+      "bytes": 991092,
+      "sha256": "2bb6400825cd76815186ac06fd5fe1601e28ea667cd5155db466083192c2ed1f",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate09_visual_linear.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c10_20261027/checkpoint.joblib",
+      "bytes": 1387915,
+      "sha256": "c78c9b60769fe9b516caef0cd627906e4e3f6805ad669f87b0297f64c9ebee22",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate10_visual_rbf.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c11_20261027/checkpoint.joblib",
+      "bytes": 1320493,
+      "sha256": "f0da2711aa883227f60c8b7e0d9869e8ba22cfe53919d161d0aca307f5882338",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate11_visual_rbf.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c12_20261027/checkpoint.joblib",
+      "bytes": 1296901,
+      "sha256": "72eb942233b642e39978ff1f0f8a4bbe1dfdc783c884ff8d3c8e246796e15f6b",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate12_visual_rbf.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c13_20261027/checkpoint.joblib",
+      "bytes": 889458,
+      "sha256": "dea50c674b3fae7bfe431fee4965003743215f79f77b5b2238a4686de6c45483",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate13_concat_linear.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c14_20261027/checkpoint.joblib",
+      "bytes": 889452,
+      "sha256": "f8be7fc32ce10643d1ec9192b3c381409e9e9ed6a91c76147d2f9b3290041ab3",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate14_concat_linear.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c15_20261027/checkpoint.joblib",
+      "bytes": 889452,
+      "sha256": "09695c087aba94504babf16a63b74bedb81d57b068ca8f4365f0004615a1471e",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate15_concat_linear.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c16_20261027/checkpoint.joblib",
+      "bytes": 1808292,
+      "sha256": "5ff3b3538367848b7b509330542f4ef8d468c4913f579c2ea50ecd29f368af11",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate16_concat_rbf.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c17_20261027/checkpoint.joblib",
+      "bytes": 1268195,
+      "sha256": "7bbe6c8846f4d0fd4c32dae9b6d686e772545c8cfbdcce289c2bcb07ed80447e",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate17_concat_rbf.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c18_20261027/checkpoint.joblib",
+      "bytes": 1266239,
+      "sha256": "cc30ad66b648577f9b99dfeaa513248f8bae15c728ee0dabaaf6224b669b4212",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate18_concat_rbf.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c19_20261027/checkpoint.joblib",
+      "bytes": 37732,
+      "sha256": "757c145062acead50006f08b50dbf3d51914ae5a6810aa68cb0a02cc0d3f698f",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate19_kernel_fusion_precomputed.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c20_20261027/checkpoint.joblib",
+      "bytes": 32664,
+      "sha256": "7f22f584799db2cd4ff4dce5a66c1377a37106e5d892b3856b91a636900580bb",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate20_kernel_fusion_precomputed.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c21_20261027/checkpoint.joblib",
+      "bytes": 32700,
+      "sha256": "a0a2137cfa37cc1c48e7fb70089a0520d5f7a26e952bf930cca0f08f1de06172",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate21_kernel_fusion_precomputed.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c22_20261027/checkpoint.joblib",
+      "bytes": 36263,
+      "sha256": "12b1f1cae8f1897a0f0037b749dcefb2bf138d541f70a40cb7a33cecef590d3d",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate22_kernel_fusion_precomputed.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c23_20261027/checkpoint.joblib",
+      "bytes": 27920,
+      "sha256": "00b8884eb70b1691e6effddfe5032c2b4fb53753303c30adf71b9dd6dd3a6b2b",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate23_kernel_fusion_precomputed.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c24_20261027/checkpoint.joblib",
+      "bytes": 27922,
+      "sha256": "710f8a45401e060af2cda3d6b7e83e84b2e312b66e0afec28224259d94e39883",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate24_kernel_fusion_precomputed.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c25_20261027/checkpoint.joblib",
+      "bytes": 23883,
+      "sha256": "e2377c8d7eff44358178b5bf388c600d4ff69d2f4d7078e4887014556f58bcc0",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate25_kernel_fusion_precomputed.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c26_20261027/checkpoint.joblib",
+      "bytes": 25188,
+      "sha256": "2fb28040299abb1a1f345959366f8fe440bf6be56b9b3434eada4e332eac6116",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate26_kernel_fusion_precomputed.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    },
+    {
+      "path": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c27_20261027/checkpoint.joblib",
+      "bytes": 25193,
+      "sha256": "3e12c4f2bbe9c1d7a05aa8397cf6600abb2b04d6f156c8aed2e6537fe3d45502",
+      "kind": "checkpoint",
+      "archive_path": "M5_Multimodal_Fusion/SVM_Checkpoints/M5_SVM_Candidate27_kernel_fusion_precomputed.joblib",
+      "module": "M5",
+      "source": "local-M5-experiment"
+    }
+  ],
+  "support_files": [
+    {
+      "path": "assets/model_metadata/M1_Handcrafted_Audio_Metadata.json",
+      "bytes": 1893,
+      "sha256": "ad04aab057652ff542f4adbf107c9bbaff8a4b04eb278e75d9095e952d9dbd28",
+      "kind": "documentation",
+      "archive_path": "M1_Handcrafted_Audio/M1_Handcrafted_Audio_Metadata.json"
+    },
+    {
+      "path": "assets/model_metadata/M1_Handcrafted_Audio_Loading_Guide.pdf",
+      "bytes": 77668,
+      "sha256": "158e98fa6154021201043606e2ac6d50635c04504e48e12a00a562e12a37aed4",
+      "kind": "documentation",
+      "archive_path": "M1_Handcrafted_Audio/M1_Handcrafted_Audio_Loading_Guide.pdf"
+    },
+    {
+      "path": "assets/model_metadata/M2_Delivered_Audio_Checkpoints.json",
+      "bytes": 1910,
+      "sha256": "2e13daba635539b5a2fdf3b3fc26c272283aa0095981ac38d56b7bda0adfed90",
+      "kind": "documentation",
+      "archive_path": "M2_Learned_Audio/M2_Delivered_Audio_Checkpoints.json"
+    },
+    {
+      "path": "assets/model_metadata/M4_GitHub_Provenance.json",
+      "bytes": 686,
+      "sha256": "4447426480a0da9c4b35f2a59e59c45abda104fa5c729241b0a55ec10551dd5d",
+      "kind": "documentation",
+      "archive_path": "M4_Learned_Visual/M4_GitHub_Provenance.json"
+    },
+    {
+      "path": "assets/model_metadata/M3_Visual_Model_Metadata.json",
+      "archive_path": "M3_Visual/M3_Visual_Model_Metadata.json",
+      "bytes": 4781,
+      "sha256": "a351027babcbeb3be59f2419ec80b1a418281631fadb793c050e644ca7cbb64c",
+      "kind": "documentation"
     }
   ]
 }

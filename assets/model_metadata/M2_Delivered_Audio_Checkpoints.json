@@ -1,0 +1,41 @@
+{
+  "files": [
+    {
+      "received_filename": "CNN_best.pt",
+      "archive_path": "M2_Learned_Audio/M2_MFCC_CNN.pt",
+      "restore_path": "experiment_records/M2_encoder_cnn_s42_20261017_02/best.pt",
+      "sha256": "75dcc751ec94e16da9115d0fc133ab3b863fd4f8eef55a1d6369dd96a9a13516",
+      "identical_existing_checkpoint": true
+    },
+    {
+      "received_filename": "BiLSTM_best.pt",
+      "archive_path": "M2_Learned_Audio/M2_MFCC_BiLSTM.pt",
+      "restore_path": "experiment_records/M2_encoder_bilstm_s42_20261017_03/best.pt",
+      "sha256": "aaec88bff8bf9069bd7f0acefccc1f277160da47ea91c83f70dfa2605516484a",
+      "identical_existing_checkpoint": true
+    },
+    {
+      "received_filename": "transformer_best.pt",
+      "archive_path": "M2_Learned_Audio/M2_MFCC_Transformer.pt",
+      "restore_path": "experiment_records/M2_encoder_transformer_s7_20261018_04/best.pt",
+      "sha256": "77898d11a48214316218cd61d09d7e8ffa2d7ac197b6c3e85dee789cd2aaef14",
+      "identical_existing_checkpoint": true
+    },
+    {
+      "received_filename": "WavLM_best.pt",
+      "archive_path": "M2_Learned_Audio/M2_WavLM_R05_Adapter.pt",
+      "restore_path": "experiment_records/M2_encoder_wavlm_refinement_s42_20261021_05/best.pt",
+      "sha256": "0db8f833f3d32f21b676c7ed008acdf094bb20dda31e3498e642249d597f04bb",
+      "identical_existing_checkpoint": true
+    },
+    {
+      "received_filename": "WavLM_pytorch_model.bin",
+      "archive_path": "M2_Learned_Audio/M2_WavLM_Pretrained_Backbone.bin",
+      "restore_path": "demo/assets/wavlm-base-plus/pytorch_model.bin",
+      "sha256": "3bb273a6ace99408b50cfc81afdbb7ef2de02da2eab0234e18db608ce692fe51",
+      "pinned_revision": "4c66d4806a428f2e922ccfa1a962776e232d487b"
+    }
+  ],
+  "selected_final_audio": "WavLM R05, the same checkpoint used by the final M5 study",
+  "separate_previous_file": "Audio_deeplearned_best.pt is byte-identical to CNN_best.pt"
+}

@@ -4,7 +4,7 @@ The interface extracts audio and visual features from each uploaded video on the
 
 ```bash
 # After installing the root requirements:
-python scripts/restore_models.py --archive /path/to/Group13_Model_Weights_20261031.zip
+python scripts/restore_models.py --archive /path/to/Group13_M1-M5_Model_Weights_20261031.zip
 python demo/setup_assets.py
 python project.py demo --port 8765
 ```

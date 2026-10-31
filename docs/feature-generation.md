@@ -29,8 +29,9 @@ M1's separate configurable preprocessing studies are retained under `audio/handc
 The original refinement exporter generates per-sample sequences, pooled features, probabilities, metadata and checksums:
 
 ```bash
+# Reuse the backbone already supplied in the model ZIP:
+python -c "import shutil; shutil.copytree('demo/assets/wavlm-base-plus', 'audio/learned/research/speech_transfer/assets/wavlm-base-plus', dirs_exist_ok=True)"
 cd audio/learned
-python -m research.speech_transfer.download
 python -m research.speech_transfer.refinement.export_delivery \
   --checkpoint ../../experiment_records/M2_encoder_wavlm_refinement_s42_20261021_05/best.pt \
   --audio-root /path/to/RAVDESS/Audio_Speech_Actors_01-24 \

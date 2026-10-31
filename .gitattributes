@@ -19,3 +19,6 @@ multimodal_fusion/results/m5_final_delivery_20261027/provenance/visual_probabili
 *.npz binary
 *.joblib binary
 *.keras binary
+
+# Preserve the exact supplied metadata bytes used by model archive checksums.
+assets/model_metadata/** -text whitespace=cr-at-eol

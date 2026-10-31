@@ -1,0 +1,168 @@
+[
+  {
+    "archive_path": "M3_Visual/M3_Handcrafted_Visual_SVM.joblib",
+    "restore_path": "visual/handcrafted/outputs_augmentation/selected_svm.joblib",
+    "selected_primary_visual_model": true,
+    "input_field": "F_visual_handcrafted",
+    "feature_dimensions": 320,
+    "class_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "class_names": [
+      "neutral",
+      "calm",
+      "happy",
+      "sad",
+      "angry",
+      "fearful",
+      "disgust",
+      "surprised"
+    ],
+    "validation_samples_checked": 240,
+    "validation_predict_macro_f1": 0.5289599721173988,
+    "validation_predict_accuracy": 0.5208333333333334,
+    "validation_probability_argmax_macro_f1": 0.5239146884693013,
+    "delivered_validation_probabilities_max_difference": 2.9589423800047143e-08,
+    "training_performed": false,
+    "checkpoint_sha256": "26d1e6b5f87c8308ea9ef19cf98b2f17151f034dbbb95a11f7c15b37e3d5ee3f",
+    "parameters": {
+      "C": 10,
+      "gamma": 0.001,
+      "class_weight": "balanced"
+    }
+  },
+  {
+    "archive_path": "M3_Visual/M3_Deep_Visual_MLP.joblib",
+    "restore_path": "visual/handcrafted/outputs_visual_comparison/best_deep_mlp.joblib",
+    "selected_primary_visual_model": false,
+    "input_field": "F_visual_deep",
+    "feature_dimensions": 576,
+    "class_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "class_names": [
+      "neutral",
+      "calm",
+      "happy",
+      "sad",
+      "angry",
+      "fearful",
+      "disgust",
+      "surprised"
+    ],
+    "validation_samples_checked": 240,
+    "validation_predict_macro_f1": 0.5048095931138392,
+    "validation_predict_accuracy": 0.5041666666666667,
+    "validation_probability_argmax_macro_f1": 0.5048095931138392,
+    "delivered_validation_probabilities_max_difference": 1.1920928955078125e-07,
+    "training_performed": false,
+    "checkpoint_sha256": "1b2e8173d7c28e1bf0c5215cd476786343e9b7eaa3318581d2ad1244c2ee249d",
+    "model_metadata": {
+      "representation": "B",
+      "representation_name": "deep",
+      "feature_dim": 576,
+      "class_names": [
+        "neutral",
+        "calm",
+        "happy",
+        "sad",
+        "angry",
+        "fearful",
+        "disgust",
+        "surprised"
+      ],
+      "random_seed": 0,
+      "source_model": "MobileNetV3-Small (ImageNet pretrained, frozen backbone)",
+      "source_checkpoint": "mobilenetv3_mean.keras",
+      "input_fields": [
+        "F_visual_deep"
+      ],
+      "selected_hidden_layers": [
+        128,
+        64
+      ],
+      "selected_alpha": 0.0001
+    }
+  },
+  {
+    "archive_path": "M3_Visual/M3_Combined_Visual_MLP.joblib",
+    "restore_path": "visual/handcrafted/outputs_visual_comparison/best_combined_mlp.joblib",
+    "selected_primary_visual_model": false,
+    "input_field": "F_visual_combined",
+    "feature_dimensions": 896,
+    "class_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "class_names": [
+      "neutral",
+      "calm",
+      "happy",
+      "sad",
+      "angry",
+      "fearful",
+      "disgust",
+      "surprised"
+    ],
+    "validation_samples_checked": 240,
+    "validation_predict_macro_f1": 0.5187624825818056,
+    "validation_predict_accuracy": 0.5375,
+    "validation_probability_argmax_macro_f1": 0.5187624825818056,
+    "delivered_validation_probabilities_max_difference": 4.76837158203125e-07,
+    "training_performed": false,
+    "checkpoint_sha256": "c30778b2849bd928d5a17d4db1b968548bfbf9a4d5d3800571293e0eb9f12446",
+    "model_metadata": {
+      "representation": "A+B",
+      "representation_name": "combined",
+      "feature_dim": 896,
+      "handcrafted_feature_dim": 320,
+      "deep_feature_dim": 576,
+      "class_names": [
+        "neutral",
+        "calm",
+        "happy",
+        "sad",
+        "angry",
+        "fearful",
+        "disgust",
+        "surprised"
+      ],
+      "random_seed": 0,
+      "source_model": "MobileNetV3-Small (ImageNet pretrained, frozen backbone)",
+      "source_checkpoint": "mobilenetv3_mean.keras",
+      "input_fields": [
+        "F_visual_handcrafted",
+        "F_visual_deep"
+      ],
+      "concatenation_order": [
+        "F_visual_handcrafted",
+        "F_visual_deep"
+      ],
+      "concatenation_axis": 1,
+      "selected_hidden_layers": [
+        128
+      ],
+      "selected_alpha": 0.01
+    }
+  }
+]

@@ -2,7 +2,7 @@
 
 **Group 13 · Pattern Recognition Systems · 2026**
 
-An audio–visual emotion recognition system combining speech encoders, facial features and multimodal fusion. This repository contains the M1–M5 source code, experiment metrics, prediction records, figures and operation guides. Features are generated locally; trained weights are supplied in a separate model download.
+An audio–visual emotion recognition system combining speech encoders, facial features and multimodal fusion. This repository contains the M1–M5 source code, experiment metrics, prediction records, figures and operation guides. Features are generated locally; trained weights are supplied in a separate model download, organized and named by M1–M5.
 
 The main study uses **1,440 paired RAVDESS speech recordings**, **24 actors** and **eight emotion classes**, with a shared actor-independent **960 / 240 / 240** train / validation / test split.
 
@@ -18,10 +18,10 @@ source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
 
-Download `Group13_Model_Weights_20261031.zip` from the [release page](https://github.com/caiji666/prs-group13-multimodal-emotion-recognition/releases/tag/submission-2026-10-31-final), then prepare weights and launch:
+Download `Group13_M1-M5_Model_Weights_20261031.zip` from the [release page](https://github.com/caiji666/prs-group13-multimodal-emotion-recognition/releases/tag/submission-2026-10-31-complete-models), then prepare weights and launch:
 
 ```bash
-python scripts/restore_models.py --archive /path/to/Group13_Model_Weights_20261031.zip
+python scripts/restore_models.py --archive /path/to/Group13_M1-M5_Model_Weights_20261031.zip
 python demo/setup_assets.py
 python project.py check --verify
 python project.py demo

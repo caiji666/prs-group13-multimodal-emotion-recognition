@@ -29,3 +29,9 @@ The current lightweight package excludes dataset features and weights. Models ar
 ## Final model supplement
 
 The M1 StandardScaler + LogisticRegression classifier is included in the final model registry (201 files). Its predictions reproduce all 240 delivered validation probability rows, with maximum absolute difference below 4e-16. The measured validation Macro-F1 is 0.388526 and accuracy is 0.4000; no retraining was performed. See `m1-final-model.json`.
+
+## Complete M1–M5 model delivery
+
+The final registry includes all three delivered M3 classifiers and all five supplied audio files, including the WavLM backbone. The three M3 classifiers reproduce their delivered validation probabilities within 1e-6. The supplied WavLM adapter exactly matches the R05 checkpoint required by M5. M4 bytes match the GitHub source objects at commit e561d50; M5 files retain the local final-study checkpoints and seeds. Descriptive archive filenames are restored to the original runtime paths. See m3-delivered-models.json and assets/model_metadata/.
+
+Archive-name mapping and atomic verification checks are available with `python -m unittest discover -s scripts/tests -v`. Checkpoint file bytes are preserved while readable M1–M5 names are mapped back to the original inference paths.

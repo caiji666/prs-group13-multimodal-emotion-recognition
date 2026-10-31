@@ -28,7 +28,7 @@ def restore(archive):
                 path = staged / name
                 path.parent.mkdir(parents=True, exist_ok=True)
                 digest = hashlib.sha256()
-                with source.open(name) as inp, path.open('wb') as out:
+                with source.open(item.get('archive_path', name)) as inp, path.open('wb') as out:
                     for block in iter(lambda: inp.read(1024 * 1024), b''):
                         digest.update(block)
                         out.write(block)

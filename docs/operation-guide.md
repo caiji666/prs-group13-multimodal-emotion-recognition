@@ -8,12 +8,12 @@ Run commands from the repository root. Python 3.11 or 3.12 is supported for the 
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
-python scripts/restore_models.py --archive /path/to/Group13_Model_Weights_20261031.zip
+python scripts/restore_models.py --archive /path/to/Group13_M1-M5_Model_Weights_20261031.zip
 python demo/setup_assets.py
 python project.py check --verify
 ```
 
-On Windows PowerShell, use `.venv\Scripts\Activate.ps1`. Download the weights ZIP from the [lightweight release](https://github.com/caiji666/prs-group13-multimodal-emotion-recognition/releases/tag/submission-2026-10-31-final). Restoration verifies all model checksums. `setup_assets.py` downloads the pinned Microsoft WavLM backbone once; the backbone is excluded from the repository and delivery ZIPs.
+On Windows PowerShell, use `.venv\Scripts\Activate.ps1`. Download the weights ZIP from the [complete model release](https://github.com/caiji666/prs-group13-multimodal-emotion-recognition/releases/tag/submission-2026-10-31-complete-models). Restoration verifies all model checksums. The model ZIP includes the pinned Microsoft WavLM backbone and configuration for the video interface. `setup_assets.py` verifies the restored files and downloads them only when absent. The backbone remains excluded from Git history.
 
 `requirements-tested.txt` records the integrated macOS / Python 3.12 environment. The original M4 notebooks use a separate TensorFlow environment defined by `visual/visual_deep_learning/requirements.txt`.
 
@@ -73,7 +73,7 @@ Use a new output folder. The study trains on frozen features, selects with valid
 
 ```bash
 python scripts/package_submission.py --kind submission --output dist/Group13_Code_Results_20261031.zip
-python scripts/package_submission.py --kind models --output dist/Group13_Model_Weights_20261031.zip
+python scripts/package_submission.py --kind models --output dist/Group13_M1-M5_Model_Weights_20261031.zip
 ```
 
 The source/submission packager rejects generated feature payloads and model weights. Each ZIP includes a file manifest and has a SHA256 sidecar.

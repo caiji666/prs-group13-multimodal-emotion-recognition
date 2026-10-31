@@ -1,0 +1,15 @@
+{
+  "archive_format_version": 2,
+  "restored_model_and_configuration_files": 207,
+  "checkpoint_and_backbone_files": 205,
+  "required_configuration_files": 2,
+  "supplied_audio_files_checked": 5,
+  "supplied_WavLM_adapter_matches_M5_R05": true,
+  "supplied_WavLM_backbone_matches_pinned_SHA256": true,
+  "M3_classifiers_verified": 3,
+  "validation_rows_per_M3_classifier": 240,
+  "M4_files_match_GitHub_commit": "e561d50",
+  "original_runtime_paths_restored": true,
+  "precomputed_features_required_for_upload_inference": false,
+  "training_performed": false
+}
