@@ -1,6 +1,7 @@
 """Locked full replay on final audio/visual deliveries; test read only after validation lock."""
 import argparse,copy,csv,json,platform,shutil,subprocess,time
 from pathlib import Path
+from .paths import project_revision
 import joblib,numpy as np,torch
 from sklearn.svm import SVC
 from sklearn.metrics.pairwise import rbf_kernel
@@ -40,7 +41,7 @@ def record(out,row,audit,config,history=None):
     r.update(run_id=row['run_id'],member='M5',owner='Jiang Yushan',stage='fusion',comparison_group='final_delivery_20261027',
        pipeline_name=row['method'],run_status='completed',test_status='not_run',started_at=row['started'],finished_at=now(),seed=row['seed'],
        split_sha256=audit['source_hashes']['actor_csv'],input_manifest_ref=rel(out/'input_manifest.csv'),input_manifest_sha256=sha256(out/'input_manifest.csv'),
-       git_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),working_tree_dirty=True,code_patch_ref=rel(out/'code'),command='python -m fusion.final_study')
+       git_commit=project_revision(ROOT),working_tree_dirty=True,code_patch_ref=rel(out/'code'),command='python -m fusion.final_study')
     r['counts']['actual']={'train':960,'val':240,'test':None};r['excluded_samples'].update(count=0,handling_policy='All matched recordings retained')
     r['environment'].update(python=platform.python_version(),framework_and_version=str(torch.__version__),device='cpu')
     r['source_runs']['audio_learned']=audit['audio_metadata']['selection_run_id']

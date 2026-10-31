@@ -9,6 +9,7 @@ import subprocess
 import sys
 import time
 from pathlib import Path
+from .paths import project_revision
 import joblib
 import numpy as np
 import torch
@@ -50,7 +51,7 @@ def record(folder,row,audit,config,started,neural):
              test_status='not_run',started_at=started,finished_at=now(),seed=row['seed'],
              split_sha256=audit['source_hashes']['actor_csv'],input_manifest_ref=str(out/'input_manifest.csv'),
              input_manifest_sha256=sha256(out/'input_manifest.csv'),
-             git_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
+             git_commit=project_revision(ROOT),
              working_tree_dirty=True,code_patch_ref=str(out/'code'),command=' '.join(sys.argv))
     r['counts']['actual']={'train':960,'val':240,'test':None}
     r['source_runs']['audio_learned']='M2_encoder_transformer_s42_20261015_00'

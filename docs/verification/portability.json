@@ -1,0 +1,8 @@
+{
+  "source_archive_extracted": true,
+  "runtime_files_restored_and_sha256_verified": 1462,
+  "final_runs_audited": 130,
+  "demo_regression_tests_passed": 10,
+  "inference_paths_within_extracted_project": true,
+  "git_independent_provenance": "source revision read from PACKAGE_MANIFEST.json"
+}

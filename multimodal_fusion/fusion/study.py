@@ -21,6 +21,8 @@ from .models import FusionModel
 
 METHODS=('audio_only','visual_only','concat','gated','cross_attention','audio_sequence_mean','sequence_mean_concat')
 FUSIONS=('concat','gated','cross_attention')
+from .paths import project_revision
+
 ROOT=Path(__file__).resolve().parents[2]
 
 
@@ -85,7 +87,7 @@ def write_run_record(folder,row,config,audit):
              started_at=None,finished_at=datetime.now().astimezone().isoformat(),class_names=list(CLASSES),
              counts={'expected':{'train':960,'val':240,'test':240},'actual':{'train':960,'val':240,'test':None}},
              environment={'python':platform.python_version(),'framework_and_version':str(torch.__version__),'device':'cpu'},
-             git_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),working_tree_dirty=True,
+             git_commit=project_revision(ROOT),working_tree_dirty=True,
              code_patch_ref='See study root code/ snapshot',command=' '.join(sys.argv),split_sha256=audit['source_hashes']['actor_csv'])
     r['pipeline']={'feature_extractors':[{'component_id':'audio','trainable_in_this_run':False,'source_run_id':None},
                                        {'component_id':'visual','trainable_in_this_run':False,'source_run_id':None}],

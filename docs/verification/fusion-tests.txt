@@ -12,7 +12,6 @@ test_actor_leakage (test_fusion.FusionTests.test_actor_leakage) ... ok
 test_checkpoint_roundtrip (test_fusion.FusionTests.test_checkpoint_roundtrip) ... concat: best epoch=2, validation macro-F1=0.4365
 gated: best epoch=2, validation macro-F1=0.3636
 cross_attention: best epoch=2, validation macro-F1=0.7289
-Matplotlib is building the font cache; this may take a moment.
 ok
 test_malformed_probabilities (test_fusion.FusionTests.test_malformed_probabilities) ... ok
 test_padding_does_not_change_attention (test_fusion.FusionTests.test_padding_does_not_change_attention) ... ok
@@ -24,6 +23,8 @@ test_lmf_factorized_output_equals_explicit_dense_tensor (test_literature.Literat
 test_supcon_excludes_self_and_uses_same_class_positives (test_literature.LiteratureTests.test_supcon_excludes_self_and_uses_same_class_positives) ... ok
 test_supcon_no_positive_is_zero_and_has_finite_gradients (test_literature.LiteratureTests.test_supcon_no_positive_is_zero_and_has_finite_gradients) ... ok
 test_svm_export_leaves_probability_columns_empty (test_literature.LiteratureTests.test_svm_export_leaves_probability_columns_empty) ... ok
+test_revision_comes_from_the_extracted_package (test_portable_delivery.PortableDeliveryTests.test_revision_comes_from_the_extracted_package) ... ok
+test_run_paths_follow_the_moved_study (test_portable_delivery.PortableDeliveryTests.test_run_paths_follow_the_moved_study) ... ok
 test_all_sequence_variants_ignore_padding_and_extra_padding (test_structure_models.StructureTests.test_all_sequence_variants_ignore_padding_and_extra_padding) ... ok
 test_missing_visual_is_train_only_and_changes_correction (test_structure_models.StructureTests.test_missing_visual_is_train_only_and_changes_correction) ... ok
 test_residual_starts_at_exact_frozen_audio_and_keeps_base_eval (test_structure_models.StructureTests.test_residual_starts_at_exact_frozen_audio_and_keeps_base_eval) ... ok
@@ -33,6 +34,6 @@ test_sequence_controls_exclude_padding (test_study_models.StudyControlsTests.tes
 test_single_modality_controls_ignore_other_modality (test_study_models.StudyControlsTests.test_single_modality_controls_ignore_other_modality) ... ok
 
 ----------------------------------------------------------------------
-Ran 29 tests in 10.849s
+Ran 31 tests in 2.035s
 
 OK

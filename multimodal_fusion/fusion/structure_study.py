@@ -10,6 +10,7 @@ import sys
 import time
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
+from .paths import project_revision
 import numpy as np
 import torch
 from . import CLASSES
@@ -125,7 +126,7 @@ def fit_one(d, raw, stats, audit, seed, method, base, folder, config, epochs, pa
                   pipeline_name=method,run_status='completed',test_status='not_run',started_at=start,finished_at=now(),seed=seed,
                   split_sha256=audit['source_hashes']['actor_csv'],input_manifest_ref=str(folder.parent.parent/'input_manifest.csv'),
                   input_manifest_sha256=sha256(folder.parent.parent/'input_manifest.csv'),
-                  git_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),working_tree_dirty=True,
+                  git_commit=project_revision(ROOT),working_tree_dirty=True,
                   code_patch_ref=str(folder.parent.parent/'code'),command=' '.join(sys.argv))
     record['counts']['actual']={'train':len(train),'val':len(val),'test':None}
     record['environment'].update(python=platform.python_version(),framework_and_version=str(torch.__version__),device='cpu')

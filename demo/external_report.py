@@ -11,6 +11,7 @@ import numpy as np
 import torch
 from sklearn.metrics import precision_recall_fscore_support
 from .engine import Engine, CLASSES, NAMES
+from fusion.paths import project_revision
 from .external_eval import OUT, ROOT, sha, save
 from .extraction import ADAPTER, ADAPTER_SHA
 from .setup_assets import ASSETS, WEIGHT_SHA
@@ -23,7 +24,7 @@ def main():
     assert len(predictions)==264 and len({(r['sample_id'],r['method']) for r in predictions})==264
     assert summary['successful']==24 and not summary['failed']
     project=ROOT.parent;template=json.loads((project/'docs/templates/run.template.json').read_text())
-    git_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=project,text=True).strip()
+    git_commit=project_revision(project)
     snapshot=OUT/'code_snapshot.zip'
     files=list(ROOT.rglob('*.py'))+[ROOT/'web/index.html',ROOT/'web/app.js',ROOT/'web/style.css']+list((project/'multimodal_fusion/fusion').glob('*.py'))
     files=[f for f in files if '.venv' not in f.parts and 'test-artifacts' not in f.parts and 'sessions' not in f.parts]

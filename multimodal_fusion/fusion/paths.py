@@ -2,6 +2,17 @@
 from pathlib import Path
 
 
+def project_revision(project):
+    """Use the checkout revision or the source revision carried in a delivery ZIP."""
+    import json
+    import subprocess
+    project = Path(project)
+    if (project / '.git').exists():
+        return subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=project, text=True).strip()
+    manifest = project / 'PACKAGE_MANIFEST.json'
+    return json.loads(manifest.read_text())['git_commit'] if manifest.exists() else None
+
+
 def study_rows(study):
     """Load recorded runs without depending on the original training machine."""
     import json
