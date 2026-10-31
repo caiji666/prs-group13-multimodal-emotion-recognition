@@ -65,7 +65,7 @@ class Application:
                 'samples':self.engine.samples(),'methods':NAMES,
                 'compatibility':{a:{v:self.engine.methods(a,v) for v in ('hc','deep','combined')} for a in ('learned','handcrafted','combined')},
                 'raw_audio':['learned','handcrafted','combined'],'raw_visual':['hc'],'max_upload_mb':100,'max_duration_sec':30,
-                'seed':42,'notice':'Raw videos are processed locally; filenames are not used to retrieve cached features. Deep visual weights are missing, so other visual representations are available only in explicit validation replay.'}
+                'seed':42,'notice':'Videos are processed locally using WavLM audio and handcrafted visual features. Deep and combined visual representations are available in validation replay.'}
 
 def make_handler(app):
     class Handler(BaseHTTPRequestHandler):

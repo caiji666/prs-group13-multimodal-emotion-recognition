@@ -1,112 +1,79 @@
-# Group 13 — Multimodal Emotion Recognition
+# Multimodal Emotion Recognition
 
-PRS Practice Module: **Multimodal Emotion Recognition Using Speech and Facial Expressions**.
-This private repository is the team's shared code workspace for the RAVDESS speech subset (24 actors, eight emotions).
+**Group 13 · Pattern Recognition Systems · 2026**
 
-## Project layout
+An audio–visual emotion recognition system combining speech encoders, facial features and multimodal fusion. The project includes the M1–M5 implementations, trained models, reproducible experiment records and a local video prediction interface.
 
-| Directory | Purpose | Current state |
-|---|---|---|
-| `audio/` | M1 handcrafted and M2 learned audio encoders | Implemented under `handcrafted/` and `learned/` |
-| `visual/` | Face preprocessing, handcrafted features and learned encoders | Reserved for teammates' code |
-| `multimodal_fusion/` | Decision, concatenation, gated and cross-attention fusion | Existing implementation |
-| `demo/` | External audio-video prediction interface | Reserved; not implemented |
-| `docs/` | Submission checklist, integration and collaboration notes | Initial guidance |
+The main study uses **1,440 paired RAVDESS speech recordings**, **24 actors** and **eight emotion classes**, with a shared actor-independent **960 / 240 / 240** train / validation / test split.
 
-The current upload contains the fusion implementation, tests and shared actor split. The full end-to-end system is not complete. Synthetic experiments are engineering checks, not RAVDESS results. A real M2 learned-only audio pilot has been performed locally; real visual fusion results are still pending. Generated results, datasets and checkpoints are not included in this initial upload.
+## Run the system
 
-## Run the fusion engineering check
+Use Python **3.11 or 3.12**. From the extracted system package:
 
 ```bash
-git clone https://github.com/caiji666/prs-group13-multimodal-emotion-recognition.git
-cd prs-group13-multimodal-emotion-recognition/multimodal_fusion
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
-python -m unittest discover -s tests -v
-python -m fusion demo --output results/my_first_demo --epochs 30
+python project.py check --verify
+python project.py demo
 ```
 
-See [fusion documentation](multimodal_fusion/README.md) for feature export and training. Download and prepare RAVDESS separately; the code-only checkout does not contain data or trained weights.
+Windows PowerShell: activate with `.venv\Scripts\Activate.ps1`. Open **http://127.0.0.1:8765**. Upload a video with speech, select a fusion method, and inspect emotion probabilities, modality comparisons and model explanations. Validation replay provides a ready-made demonstration without a video file.
 
-## Shared integration contract
-
-- Use the agreed [actor split](multimodal_fusion/configs/actor_splits.csv): 16 train / 4 validation / 4 test actors. Do not randomly repartition samples.
-- For **every real-data fusion command**, explicitly use `--split configs/actors_m2.json` from inside `multimodal_fusion/`. The CLI now defaults to the formal `actors_m2.json`; `actors.json` retains the historical development split.
-- Derive `sample_id` by removing only the modality field and extension: `03-01-06-01-02-01-12.wav` → `01-06-01-02-01-12`. Preserve leading zeros, and join modalities by ID.
-- Preserve labels, actor/split metadata and probability order: `neutral, calm, happy, sad, angry, fearful, disgust, surprise` (labels 0–7).
-- Select models and fusion weights on validation macro-F1. Reserve the test actors for final evaluation.
-- Compare audio-only, visual-only and all four fusion methods. Cross-attention is included in the team's later agreed experiment scope.
-
-Detailed interfaces and experiment plans are in [the integration document](multimodal_fusion/实验规划与当前代码说明.md).
-
-## Team workflow
-
-Each member works on a module branch, such as `feature/audio-handcrafted`, `feature/audio-learned`, `feature/visual`, `feature/fusion` or `feature/evaluation-demo`, and opens a pull request into `main`. These are suggested branch names, not a reassignment of the team's existing responsibilities.
-
-Before merging, include the entry command, dependencies, input/output fields, validation results and any interface changes. Keep machine-specific dataset paths in ignored local config. Store large datasets and trained weights separately with retrieval instructions and checksums; they still need to be accounted for in the final course submission.
-
-Team responsibilities (confirmed by the shared allocation table): M1 owns handcrafted audio and the audio representation comparison; M2 owns learned audio encoder comparison; M3 owns handcrafted visual features and the visual representation comparison; M4 owns learned visual encoder comparison; M5 owns multimodal fusion and unimodal/multimodal comparison. Jiang Yushan owns M5. M1 combines M1/M2 outputs; M3 combines M3/M4 outputs; M5 consumes the selected audio and visual outputs.
-
-Use the [shared experiment recording format](docs/experiment-recording.md) and [templates](docs/templates/summary.template.md) to record comparable configurations, upstream runs, validation selection and final results.
-
-## Course submission
-
-GitHub is a collaboration workspace. The course handout does not require a GitHub repository or a public repository. Final submission is **one team ZIP on Canvas by 31 October 2026**, with individual reports submitted separately. See [the requirements checklist](docs/course-requirements.md).
-
-## M1 Handcrafted Audio Module
-
-See [audio/handcrafted/README.md](audio/handcrafted/README.md) for the complete handcrafted audio pipeline, preprocessing experiments, classifier comparisons, hyperparameter tuning, audio feature fusion, and M5 handover.
-
-### Implementation and Results
-
-- **Dataset:** RAVDESS speech subset — 1,440 recordings, 24 actors, eight emotions.
-- **Handcrafted features:** 48D representation combining time-domain (12D), spectral (16D), and wavelet (20D) features.
-- **Preprocessing experiments:** 30 configurations using five wavelets, two normalization settings, and three frame lengths.
-- **Classifier comparison:** Nine classifiers evaluated across 270 configurations, followed by hyperparameter tuning of five shortlisted models.
-- **Selected M1 classifier:** Logistic Regression (`C=1.0`) with db2 wavelet, normalized audio, and 20 ms frames.
-- **M1 validation performance:** Accuracy **40.00%**, Macro-F1 **0.3885**.
-
-### M1–M2 Audio Feature Comparison
-
-M1 also evaluated the integration of handcrafted features with M2's exported deep-learned audio representation (final WavLM Round 05 export, 128D pooled features).
-
-| Feature Representation | Dimensions | Validation Macro-F1 |
-|---|---:|---:|
-| Handcrafted only | 48D | 0.3885 |
-| Deep-learned only (WavLM) | 128D | **0.7999** |
-| Combined features | 176D | 0.7891 |
-
-Results use the same StandardScaler + Logistic Regression pipeline (`C=1.0`). The WavLM features outperformed the handcrafted features for every emotion, and simple feature concatenation did not outperform the deep-learned representation alone. An earlier run against M2's MFCC Transformer export (deep-only 0.4734, combined 0.4518) is archived; see [the M1 comparison document](audio/handcrafted/docs/04_audio_feature_fusion_comparison.md).
-
-### M5 Handover
-
-M1 has prepared the following outputs for multimodal fusion:
-
-- **48D handcrafted features** for training, validation, and testing.
-- **Eight-class probabilities**, including actor-independent out-of-fold predictions for training.
-- **Fitted Logistic Regression model** and feature/class metadata.
-- **Aligned recording identifiers** and preserved actor-independent partitions.
-- **Audio representation selection:** WavLM learned-only features scored highest, so the audio input for fusion is M2's WavLM delivery, loaded directly by M5. Optional ready-to-load NPZ files are also available: `audio_wavlm.npz` (M2's WavLM data as one file, validation Macro-F1 0.8063) and `audio_combined.npz` (handcrafted + WavLM 176D variant, 0.7891).
-
-See [M1 handover documentation](audio/handcrafted/docs/05_m1_audio_handover.md) for file schemas, probability ordering, and integration instructions.
-
-The M1–M2 feature comparison and M5 handover are complete.
-
-## M2 learned audio module
-
-See [audio/learned/README.md](audio/learned/README.md) for full Stage 1–6 source, selected tuned Transformer weights, WAV emotion inference, training and M1/M5 exports. The shipped model has validation Accuracy 54.58% and Macro-F1 0.532837 (2026-10-18 round 04); final test generalization remains unmeasured. Six-field IDs and per-sample sequences are unchanged; class 7 is named `surprise`.
-
-M2 has published [33 canonical experiment records and checkpoints](experiment_records/summary.md), including predictions, history and source provenance. All M2 test results remain not_run/null.
-
-## M5 published results (2026-10-20)
-
-M5 has published 30 schema-v2 records using the team's [recording format](docs/experiment-recording.md). See the [shared experiment summary](experiment_records/summary.md) and [M5 results and remaining work](experiment_records/shared/M5/M5_RESULTS_20261020.md). Records include configurations, validation/test predictions, histories, source snapshots and interpretation figures. Large M5 weights and raw features are not uploaded; hashes and retrieval status are explicit.
-
-These runs use the historical M2 feature export associated with the initial Transformer checkpoint, not the newly promoted round04 default. Cross-attention was selected on validation; gated had a higher observed test mean, without test-based reselection. Visual probability class order is confirmed.
-
-Validate the published M5 records without private feature data or checkpoints:
+For a GitHub checkout, restore the [runtime assets](https://github.com/caiji666/prs-group13-multimodal-emotion-recognition/releases/tag/submission-2026-10-31) before the final two commands:
 
 ```bash
-python scripts/validate_m5_records.py --root .
+python scripts/restore_runtime.py --archive Group13_Runtime_Assets_20261031.zip
 ```
+
+The complete system ZIP already contains these assets. Installation requires internet access; video inference runs locally. See the [operation guide](docs/operation-guide.md) for installation, testing, training and packaging.
+
+![Video prediction interface](demo/ui_preview_english.png)
+
+## Repository guide
+
+| Path | Contents |
+|---|---|
+| `project.py` | Check assets, launch the interface, run tests and audit final results |
+| `audio/handcrafted/` | **M1:** 48D time, spectral and wavelet audio features; classifier and representation comparisons |
+| `audio/learned/` | **M2:** CNN, BiLSTM, Transformer and frozen WavLM audio encoders; training, inference and export |
+| `visual/handcrafted/` | **M3:** face sampling/alignment, 320D Haar DWT features and SVM classification |
+| `visual/visual_deep_learning/` | **M4:** MobileNetV3 / ResNet18 notebooks, saved Keras models and feature exports |
+| `multimodal_fusion/` | **M5:** decision, concatenation, gated, attention, residual and low-rank fusion; final models and results |
+| `demo/` | Local video upload, extraction, prediction, explanation and external evaluation |
+| `experiment_records/` | Shared M2 and historical M5 records, predictions, histories and provenance |
+| `assets/runtime_manifest.json` | Paths, sizes and SHA256 checksums for the runtime data bundle |
+| `docs/` | Operation guide, evaluation protocol, result index and archived experiment notes |
+| `submission_documents/` | Group report, proposal and available presentation decks |
+| `scripts/` | Runtime restoration, verification and reproducible ZIP packaging |
+
+## Main results
+
+Final fusion inputs are **WavLM R05 audio (128D)** and **handcrafted visual features (320D)**. Neural results are mean ± sample standard deviation across seeds 42, 43 and 44. Original classifier heads and decision fusion are fixed pipelines.
+
+| Method | Validation Macro-F1 | Test Macro-F1 |
+|---|---:|---:|
+| Original WavLM audio head | 0.8312 | 0.8321 |
+| Concatenation | **0.8693 ± 0.0064** | 0.8116 ± 0.0057 |
+| Gated fusion | 0.8553 ± 0.0142 | 0.8213 ± 0.0111 |
+| Cross-attention | 0.7642 ± 0.0138 | 0.7406 ± 0.0297 |
+| Validation-weighted decision fusion | 0.8654 | **0.8349** |
+
+Concatenation was selected among the three primary neural fusion methods using validation Macro-F1. The final study contains **130 configurations**: 93 neural fits, 27 SVM configurations and 10 fixed probability pipelines. The table describes the fixed shared split; earlier development had already exposed the same test actors.
+
+See [results and evidence](docs/results.md), the [130-run table](multimodal_fusion/results/m5_final_delivery_20261027/summary.md), and the [evaluation protocol](docs/protocol.md). A separate 24-video CREMA-D pilot records external-video performance.
+
+## Verify and reproduce
+
+```bash
+python project.py test
+python project.py audit
+```
+
+The audit recomputes metrics from 260 prediction files, checks actor/sample alignment, verifies 120 locked checkpoints and validates 138 gate diagnostic conditions. Training commands and module environments are documented in the [operation guide](docs/operation-guide.md).
+
+## Submission package
+
+[Download the complete system ZIP](https://github.com/caiji666/prs-group13-multimodal-emotion-recognition/releases/tag/submission-2026-10-31). It includes source, saved models, final feature data, WavLM assets, experiment results and the available group documents. `PACKAGE_MANIFEST.json` records every packaged file and its SHA256.
+
+Raw RAVDESS media and the team's presentation recording are separate materials. Dataset retrieval and package contents are described in the [delivery guide](docs/delivery.md). Individual reflections are submitted separately.

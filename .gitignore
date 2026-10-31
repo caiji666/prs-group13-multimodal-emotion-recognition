@@ -87,3 +87,11 @@ audio/handcrafted/project_tree.txt
 
 # M2 local feature handoff; excluded from publication by user request
 /Deliverables/
+
+# Delivery bundles and local import/review staging
+/dist/
+/pr_review/
+/features/*
+!/features/README.md
+
+# Publish the final M5 study explicitly; earlier local runs stay local.

@@ -1,0 +1,74 @@
+{
+  "parts": [
+    "test"
+  ],
+  "counts": {
+    "test": 240
+  },
+  "source_hashes": {
+    "audio_metadata": "1cf20592e3e0ea43303b3858f9a65ab5c4b229123bc4bda76d4fdfa8648d5330",
+    "audio_checksums": "99c57dc03611d99c1c224c9b1c0a9c30f6482b3b7c58743fddca2ebe7aad668a",
+    "visual_npz": "83362e35569637c8f5c83d34e54c1cf48c4e01c06904349c49062309fdbb1d4d",
+    "actor_csv": "1ae0f8241c8d1b40f1c4d0c0be1c17d8cede3ea5005a24b4635cef1110490528",
+    "audio_handcrafted": "8a12e14ece74978b7421469465303d76a8991ec8a9800d0479ed14657e9bb9af"
+  },
+  "audio_metadata": {
+    "samples": 1440,
+    "split_counts": {
+      "train": 960,
+      "test": 240,
+      "val": 240
+    },
+    "class_names": [
+      "neutral",
+      "calm",
+      "happy",
+      "sad",
+      "angry",
+      "fearful",
+      "disgust",
+      "surprise"
+    ],
+    "fields": {
+      "F_sequence": "[T,128]",
+      "F_audio_learned_feature_only": "[128]",
+      "P_audio_learned_feature_only": "[8]"
+    },
+    "model": "frozen WavLM Base+ layer 6 + temporal adapter + residual depthwise temporal convolution kernel3 + attentive statistics pooling + MLP",
+    "checkpoint": "experiment_records/M2_encoder_wavlm_refinement_s42_20261021_05/best.pt",
+    "selection_run_id": "M2_encoder_wavlm_refinement_s42_20261021_05",
+    "validation_accuracy": 0.8416666666666667,
+    "validation_macro_f1": 0.8312181237730203,
+    "checkpoint_sha256": "0db8f833f3d32f21b676c7ed008acdf094bb20dda31e3498e642249d597f04bb",
+    "upstream_revision": "4c66d4806a428f2e922ccfa1a962776e232d487b",
+    "upstream_sha256": "3bb273a6ace99408b50cfc81afdbb7ef2de02da2eab0234e18db608ce692fe51",
+    "split_sha256": "1ae0f8241c8d1b40f1c4d0c0be1c17d8cede3ea5005a24b4635cef1110490528",
+    "handcrafted_fusion": false,
+    "final_M1_audio_outputs": false,
+    "padding_mask": "True = padding; stored per-sample arrays are unpadded",
+    "pooling": "learned attention weighted mean/std followed by learned projection; NOT arithmetic mean of F_sequence",
+    "sequence_timing": "16k waveform after boundary silence trim; WavLM time steps, not legacy MFCC time steps; audio/video alignment requires accounting for trimming",
+    "test_audio_decoded": true,
+    "test_metrics_computed": false,
+    "model_selection_performed": false,
+    "augmentation": false,
+    "training_probabilities": "in-sample; not out-of-fold stacking predictions",
+    "elapsed_seconds": 70.679593
+  },
+  "visual_metadata": {
+    "selected_representation": "A",
+    "selected_classifier": "RBF SVM",
+    "selection_metric": "validation_macro_f1",
+    "selection_split": "validation",
+    "test_used_for_selection": false,
+    "deep_source_model": "MobileNetV3-Small (ImageNet pretrained, frozen backbone)",
+    "deep_source_checkpoint": "mobilenetv3_mean.keras",
+    "train_probability_protocol": "actor_grouped_4fold_oof"
+  },
+  "audio_file_checksums_verified": 240,
+  "visual_assumptions": "16 valid frames supplied; handcrafted sequence mean exactly pooled, deep mean checked; combined sequence concatenated from the aligned supplied sequences.",
+  "audio_pooling": "Supplied attentive statistics vector; no sequence-mean equality required.",
+  "audio_train_probabilities": "in-sample; no train-time probability stacking used",
+  "sequence_alignment": "Relative token positions only; physical audio trim offset not provided.",
+  "test_numeric_rows_loaded": 240
+}

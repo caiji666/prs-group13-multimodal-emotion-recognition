@@ -1,4 +1,4 @@
-# Use a separate environment; reuse the existing mr environment's Torch and M5 dependencies.
+# Integrated demo extraction dependencies.
 transformers==4.57.6
 librosa==0.11.0
 soundfile==0.13.1
@@ -9,5 +9,5 @@ torch>=2.6,<3
 scikit-learn>=1.4,<2
 opencv-contrib-python==4.11.0.86
 PyWavelets>=1.5,<2
-pandas>=2,<3
+pandas>=2,<4
 tqdm>=4.65,<5

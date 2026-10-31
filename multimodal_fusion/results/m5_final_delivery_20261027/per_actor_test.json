@@ -1,0 +1,422 @@
+[
+  {
+    "method": "audio_only",
+    "seed": 42,
+    "actor": 2,
+    "accuracy": 0.8166666666666667,
+    "macro_f1": 0.8191520467836257
+  },
+  {
+    "method": "audio_only",
+    "seed": 42,
+    "actor": 3,
+    "accuracy": 0.8666666666666667,
+    "macro_f1": 0.8525101328410152
+  },
+  {
+    "method": "audio_only",
+    "seed": 42,
+    "actor": 8,
+    "accuracy": 0.95,
+    "macro_f1": 0.951750700280112
+  },
+  {
+    "method": "audio_only",
+    "seed": 42,
+    "actor": 17,
+    "accuracy": 0.6666666666666666,
+    "macro_f1": 0.5760904787220577
+  },
+  {
+    "method": "visual_only",
+    "seed": 42,
+    "actor": 2,
+    "accuracy": 0.5333333333333333,
+    "macro_f1": 0.47543859649122805
+  },
+  {
+    "method": "visual_only",
+    "seed": 42,
+    "actor": 3,
+    "accuracy": 0.3,
+    "macro_f1": 0.26071428571428573
+  },
+  {
+    "method": "visual_only",
+    "seed": 42,
+    "actor": 8,
+    "accuracy": 0.6333333333333333,
+    "macro_f1": 0.5925162418790604
+  },
+  {
+    "method": "visual_only",
+    "seed": 42,
+    "actor": 17,
+    "accuracy": 0.31666666666666665,
+    "macro_f1": 0.19496336996336996
+  },
+  {
+    "method": "concat",
+    "seed": 42,
+    "actor": 2,
+    "accuracy": 0.8333333333333334,
+    "macro_f1": 0.8330409356725146
+  },
+  {
+    "method": "concat",
+    "seed": 42,
+    "actor": 3,
+    "accuracy": 0.8833333333333333,
+    "macro_f1": 0.8719399881164587
+  },
+  {
+    "method": "concat",
+    "seed": 42,
+    "actor": 8,
+    "accuracy": 0.9666666666666667,
+    "macro_f1": 0.9694444444444444
+  },
+  {
+    "method": "concat",
+    "seed": 42,
+    "actor": 17,
+    "accuracy": 0.5666666666666667,
+    "macro_f1": 0.4875
+  },
+  {
+    "method": "gated",
+    "seed": 42,
+    "actor": 2,
+    "accuracy": 0.8333333333333334,
+    "macro_f1": 0.8302631578947368
+  },
+  {
+    "method": "gated",
+    "seed": 42,
+    "actor": 3,
+    "accuracy": 0.9,
+    "macro_f1": 0.8835290096900004
+  },
+  {
+    "method": "gated",
+    "seed": 42,
+    "actor": 8,
+    "accuracy": 0.9333333333333333,
+    "macro_f1": 0.9396381578947368
+  },
+  {
+    "method": "gated",
+    "seed": 42,
+    "actor": 17,
+    "accuracy": 0.5833333333333334,
+    "macro_f1": 0.4876301859060479
+  },
+  {
+    "method": "cross_attention",
+    "seed": 42,
+    "actor": 2,
+    "accuracy": 0.85,
+    "macro_f1": 0.8305555555555555
+  },
+  {
+    "method": "cross_attention",
+    "seed": 42,
+    "actor": 3,
+    "accuracy": 0.75,
+    "macro_f1": 0.7680734957050747
+  },
+  {
+    "method": "cross_attention",
+    "seed": 42,
+    "actor": 8,
+    "accuracy": 0.8833333333333333,
+    "macro_f1": 0.8826426024955436
+  },
+  {
+    "method": "cross_attention",
+    "seed": 42,
+    "actor": 17,
+    "accuracy": 0.5833333333333334,
+    "macro_f1": 0.5623376623376624
+  },
+  {
+    "method": "audio_only",
+    "seed": 43,
+    "actor": 2,
+    "accuracy": 0.8166666666666667,
+    "macro_f1": 0.8191520467836257
+  },
+  {
+    "method": "audio_only",
+    "seed": 43,
+    "actor": 3,
+    "accuracy": 0.9,
+    "macro_f1": 0.8933452168746285
+  },
+  {
+    "method": "audio_only",
+    "seed": 43,
+    "actor": 8,
+    "accuracy": 0.9333333333333333,
+    "macro_f1": 0.9369426937441644
+  },
+  {
+    "method": "audio_only",
+    "seed": 43,
+    "actor": 17,
+    "accuracy": 0.65,
+    "macro_f1": 0.5799037134176454
+  },
+  {
+    "method": "visual_only",
+    "seed": 43,
+    "actor": 2,
+    "accuracy": 0.5,
+    "macro_f1": 0.4859010270774977
+  },
+  {
+    "method": "visual_only",
+    "seed": 43,
+    "actor": 3,
+    "accuracy": 0.35,
+    "macro_f1": 0.253239289446186
+  },
+  {
+    "method": "visual_only",
+    "seed": 43,
+    "actor": 8,
+    "accuracy": 0.8333333333333334,
+    "macro_f1": 0.8324400272929684
+  },
+  {
+    "method": "visual_only",
+    "seed": 43,
+    "actor": 17,
+    "accuracy": 0.38333333333333336,
+    "macro_f1": 0.2875
+  },
+  {
+    "method": "concat",
+    "seed": 43,
+    "actor": 2,
+    "accuracy": 0.8333333333333334,
+    "macro_f1": 0.8330409356725146
+  },
+  {
+    "method": "concat",
+    "seed": 43,
+    "actor": 3,
+    "accuracy": 0.8666666666666667,
+    "macro_f1": 0.862850935828877
+  },
+  {
+    "method": "concat",
+    "seed": 43,
+    "actor": 8,
+    "accuracy": 0.95,
+    "macro_f1": 0.9552631578947368
+  },
+  {
+    "method": "concat",
+    "seed": 43,
+    "actor": 17,
+    "accuracy": 0.5833333333333334,
+    "macro_f1": 0.49735001840265
+  },
+  {
+    "method": "gated",
+    "seed": 43,
+    "actor": 2,
+    "accuracy": 0.8333333333333334,
+    "macro_f1": 0.8330409356725146
+  },
+  {
+    "method": "gated",
+    "seed": 43,
+    "actor": 3,
+    "accuracy": 0.9,
+    "macro_f1": 0.8941622103386809
+  },
+  {
+    "method": "gated",
+    "seed": 43,
+    "actor": 8,
+    "accuracy": 0.95,
+    "macro_f1": 0.9537581699346405
+  },
+  {
+    "method": "gated",
+    "seed": 43,
+    "actor": 17,
+    "accuracy": 0.65,
+    "macro_f1": 0.5460113557939645
+  },
+  {
+    "method": "cross_attention",
+    "seed": 43,
+    "actor": 2,
+    "accuracy": 0.8666666666666667,
+    "macro_f1": 0.8492063492063492
+  },
+  {
+    "method": "cross_attention",
+    "seed": 43,
+    "actor": 3,
+    "accuracy": 0.5166666666666667,
+    "macro_f1": 0.44931920556920557
+  },
+  {
+    "method": "cross_attention",
+    "seed": 43,
+    "actor": 8,
+    "accuracy": 0.9166666666666666,
+    "macro_f1": 0.9108288770053475
+  },
+  {
+    "method": "cross_attention",
+    "seed": 43,
+    "actor": 17,
+    "accuracy": 0.6,
+    "macro_f1": 0.599032449032449
+  },
+  {
+    "method": "audio_only",
+    "seed": 44,
+    "actor": 2,
+    "accuracy": 0.8166666666666667,
+    "macro_f1": 0.8186210010319916
+  },
+  {
+    "method": "audio_only",
+    "seed": 44,
+    "actor": 3,
+    "accuracy": 0.8833333333333333,
+    "macro_f1": 0.8776589423648247
+  },
+  {
+    "method": "audio_only",
+    "seed": 44,
+    "actor": 8,
+    "accuracy": 0.9166666666666666,
+    "macro_f1": 0.9222368113912232
+  },
+  {
+    "method": "audio_only",
+    "seed": 44,
+    "actor": 17,
+    "accuracy": 0.65,
+    "macro_f1": 0.5829553651128061
+  },
+  {
+    "method": "visual_only",
+    "seed": 44,
+    "actor": 2,
+    "accuracy": 0.36666666666666664,
+    "macro_f1": 0.2625257650229903
+  },
+  {
+    "method": "visual_only",
+    "seed": 44,
+    "actor": 3,
+    "accuracy": 0.3,
+    "macro_f1": 0.20933630323165206
+  },
+  {
+    "method": "visual_only",
+    "seed": 44,
+    "actor": 8,
+    "accuracy": 0.7666666666666667,
+    "macro_f1": 0.7700169111933817
+  },
+  {
+    "method": "visual_only",
+    "seed": 44,
+    "actor": 17,
+    "accuracy": 0.3333333333333333,
+    "macro_f1": 0.24542271454036158
+  },
+  {
+    "method": "concat",
+    "seed": 44,
+    "actor": 2,
+    "accuracy": 0.8333333333333334,
+    "macro_f1": 0.8330409356725146
+  },
+  {
+    "method": "concat",
+    "seed": 44,
+    "actor": 3,
+    "accuracy": 0.8666666666666667,
+    "macro_f1": 0.862850935828877
+  },
+  {
+    "method": "concat",
+    "seed": 44,
+    "actor": 8,
+    "accuracy": 0.9666666666666667,
+    "macro_f1": 0.9694444444444444
+  },
+  {
+    "method": "concat",
+    "seed": 44,
+    "actor": 17,
+    "accuracy": 0.6,
+    "macro_f1": 0.522993672993673
+  },
+  {
+    "method": "gated",
+    "seed": 44,
+    "actor": 2,
+    "accuracy": 0.8166666666666667,
+    "macro_f1": 0.8191520467836257
+  },
+  {
+    "method": "gated",
+    "seed": 44,
+    "actor": 3,
+    "accuracy": 0.8833333333333333,
+    "macro_f1": 0.878475935828877
+  },
+  {
+    "method": "gated",
+    "seed": 44,
+    "actor": 8,
+    "accuracy": 0.9666666666666667,
+    "macro_f1": 0.9694444444444444
+  },
+  {
+    "method": "gated",
+    "seed": 44,
+    "actor": 17,
+    "accuracy": 0.6333333333333333,
+    "macro_f1": 0.5380131362889984
+  },
+  {
+    "method": "cross_attention",
+    "seed": 44,
+    "actor": 2,
+    "accuracy": 0.8666666666666667,
+    "macro_f1": 0.8506879944960439
+  },
+  {
+    "method": "cross_attention",
+    "seed": 44,
+    "actor": 3,
+    "accuracy": 0.6333333333333333,
+    "macro_f1": 0.5682175209264992
+  },
+  {
+    "method": "cross_attention",
+    "seed": 44,
+    "actor": 8,
+    "accuracy": 0.9333333333333333,
+    "macro_f1": 0.9360231271995978
+  },
+  {
+    "method": "cross_attention",
+    "seed": 44,
+    "actor": 17,
+    "accuracy": 0.4666666666666667,
+    "macro_f1": 0.4477006035829565
+  }
+]

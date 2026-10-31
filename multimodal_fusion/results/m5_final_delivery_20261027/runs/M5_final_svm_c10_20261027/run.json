@@ -1,0 +1,547 @@
+{
+  "schema_version": "2.0",
+  "run_id": "M5_final_svm_c10_20261027",
+  "member": "M5",
+  "owner": "Jiang Yushan",
+  "stage": "fusion",
+  "comparison_group": "final_delivery_20261027",
+  "pipeline_name": "svm_visual",
+  "run_status": "completed",
+  "test_status": "completed",
+  "started_at": "2026-10-27T14:16:51.129839+08:00",
+  "finished_at": "2026-10-27T14:16:51.391193+08:00",
+  "seed": null,
+  "dataset_id": "ravdess_speech_v1",
+  "data_kind": "real",
+  "class_names": [
+    "neutral",
+    "calm",
+    "happy",
+    "sad",
+    "angry",
+    "fearful",
+    "disgust",
+    "surprise"
+  ],
+  "split_ref": "multimodal_fusion/configs/actor_splits.csv",
+  "split_sha256": "1ae0f8241c8d1b40f1c4d0c0be1c17d8cede3ea5005a24b4635cef1110490528",
+  "input_manifest_ref": "multimodal_fusion/results/m5_final_delivery_20261027/input_manifest.csv",
+  "input_manifest_sha256": "3de19a61ed1c28b1516f2738f636a0a6defdfa98bb0e8112ead4b2202bb8ffbd",
+  "counts": {
+    "expected": {
+      "train": 960,
+      "val": 240,
+      "test": 240
+    },
+    "actual": {
+      "train": 960,
+      "val": 240,
+      "test": 240
+    }
+  },
+  "excluded_samples": {
+    "count": 0,
+    "id_reason_manifest_ref": null,
+    "handling_policy": "All matched recordings retained"
+  },
+  "git_commit": "6ea5fa37bd0f56847ba5755dcab2671845d4dcc6",
+  "working_tree_dirty": true,
+  "code_patch_ref": "multimodal_fusion/results/m5_final_delivery_20261027/code",
+  "command": "python -m fusion.final_study",
+  "environment": {
+    "python": "3.12.12",
+    "framework_and_version": "2.13.0",
+    "device": "cpu",
+    "dependencies_ref": null
+  },
+  "source_runs": {
+    "audio_handcrafted": null,
+    "audio_learned": null,
+    "audio_final": null,
+    "visual_handcrafted": null,
+    "visual_learned": null,
+    "visual_final": null
+  },
+  "input_artifacts": [
+    {
+      "role": "audio_metadata",
+      "ref": null,
+      "sha256": "1cf20592e3e0ea43303b3858f9a65ab5c4b229123bc4bda76d4fdfa8648d5330",
+      "source_run_id": null
+    },
+    {
+      "role": "audio_checksums",
+      "ref": null,
+      "sha256": "99c57dc03611d99c1c224c9b1c0a9c30f6482b3b7c58743fddca2ebe7aad668a",
+      "source_run_id": null
+    },
+    {
+      "role": "visual_npz",
+      "ref": null,
+      "sha256": "83362e35569637c8f5c83d34e54c1cf48c4e01c06904349c49062309fdbb1d4d",
+      "source_run_id": null
+    },
+    {
+      "role": "actor_csv",
+      "ref": null,
+      "sha256": "1ae0f8241c8d1b40f1c4d0c0be1c17d8cede3ea5005a24b4635cef1110490528",
+      "source_run_id": null
+    },
+    {
+      "role": "audio_handcrafted",
+      "ref": null,
+      "sha256": "8a12e14ece74978b7421469465303d76a8991ec8a9800d0479ed14657e9bb9af",
+      "source_run_id": null
+    }
+  ],
+  "preprocessing": {
+    "audio": null,
+    "visual": null,
+    "standardization_fit_split": "train",
+    "augmentation_train_only": true,
+    "parameters": {
+      "physical_alignment": "unknown audio trim offset; relative token positions only"
+    }
+  },
+  "pipeline": {
+    "feature_extractors": [
+      {
+        "component_id": "visual",
+        "modality": "visual",
+        "kind": "handcrafted",
+        "method": "M3 supplied hc",
+        "input_description": null,
+        "parameters": {},
+        "pretrained_source": null,
+        "source_run_id": null,
+        "checkpoint_ref": null,
+        "checkpoint_sha256": null,
+        "trainable_in_this_run": false,
+        "trainable_layers": null,
+        "output_sequence_shape": [
+          null,
+          16,
+          320
+        ],
+        "output_pooled_shape": [
+          null,
+          320
+        ]
+      }
+    ],
+    "representation": {
+      "kind": "handcrafted",
+      "components": [
+        {
+          "component_id": "visual",
+          "dim": 320,
+          "visual_kind": "hc"
+        }
+      ],
+      "pooling": "supplied WavLM attentive statistics; visual mean",
+      "normalization": "per dimension train standardization",
+      "normalization_fit_split": "train",
+      "combination_method": null,
+      "output_shape": null
+    },
+    "fusion": {
+      "applied": false,
+      "method": "svm_visual",
+      "input_source_runs": {},
+      "parameters": {
+        "modality": "visual",
+        "kernel": "rbf",
+        "C": 0.1,
+        "alpha": null
+      },
+      "trainable_in_this_run": true,
+      "output_shape": null
+    },
+    "classifier": {
+      "type": "SVC",
+      "source_run_id": null,
+      "input_dim": null,
+      "architecture": "SVC probability=False, OVR decision scores; {\"modality\": \"visual\", \"kernel\": \"rbf\", \"C\": 0.1, \"alpha\": null}",
+      "hidden_dims": null,
+      "output_dim": 8,
+      "activation": null,
+      "dropout": null,
+      "parameters": {},
+      "trainable_in_this_run": true,
+      "probability_method": "none",
+      "calibration_fit_split": null,
+      "checkpoint_ref": null,
+      "checkpoint_sha256": null
+    }
+  },
+  "training": {
+    "regime": "frozen_encoder_then_classifier",
+    "optimizer": "libsvm",
+    "learning_rate": null,
+    "batch_size": null,
+    "max_epochs": null,
+    "completed_epochs": null,
+    "early_stopping_patience": null,
+    "component_parameter_groups": [],
+    "class_weighting": "none",
+    "other_parameters": {
+      "plan_sha256": "97a900f756a65ead8eaf96e968ffc1e1196c4949e5d582dde34e84b44f41585b",
+      "configuration": {
+        "modality": "visual",
+        "kernel": "rbf",
+        "C": 0.1,
+        "alpha": null
+      },
+      "auxiliary_ce_weight_each": 0,
+      "contrastive_weight": 0
+    }
+  },
+  "selection": {
+    "metric": "macro_f1",
+    "split": "val",
+    "best_epoch": null,
+    "selected_for_next_stage": null,
+    "selection_reason": "Validation selection before new test inference; historical test already exposed",
+    "tie_break_rule": "earlier epoch; decision weight nearest .5 on F1 tie",
+    "candidate_search_ref": null,
+    "config_locked_at": "2026-10-27T14:12:18.285622+08:00",
+    "test_first_evaluated_at": "2026-10-27T14:16:57.448939+08:00"
+  },
+  "metrics_scope": "full_pipeline",
+  "metrics_by_split": {
+    "val": {
+      "n": 240,
+      "accuracy": 0.35,
+      "macro_f1": 0.3106650230519301,
+      "macro_precision": 0.41687859617488554,
+      "macro_recall": 0.328125,
+      "per_class": [
+        {
+          "label": 0,
+          "class_name": "neutral",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 16
+        },
+        {
+          "label": 1,
+          "class_name": "calm",
+          "precision": 0.21739130434782608,
+          "recall": 0.625,
+          "f1": 0.3225806451612903,
+          "support": 32
+        },
+        {
+          "label": 2,
+          "class_name": "happy",
+          "precision": 0.7931034482758621,
+          "recall": 0.71875,
+          "f1": 0.7540983606557377,
+          "support": 32
+        },
+        {
+          "label": 3,
+          "class_name": "sad",
+          "precision": 0.3103448275862069,
+          "recall": 0.28125,
+          "f1": 0.29508196721311475,
+          "support": 32
+        },
+        {
+          "label": 4,
+          "class_name": "angry",
+          "precision": 0.625,
+          "recall": 0.15625,
+          "f1": 0.25,
+          "support": 32
+        },
+        {
+          "label": 5,
+          "class_name": "fearful",
+          "precision": 0.8,
+          "recall": 0.125,
+          "f1": 0.21621621621621623,
+          "support": 32
+        },
+        {
+          "label": 6,
+          "class_name": "disgust",
+          "precision": 0.4,
+          "recall": 0.5,
+          "f1": 0.4444444444444444,
+          "support": 32
+        },
+        {
+          "label": 7,
+          "class_name": "surprise",
+          "precision": 0.1891891891891892,
+          "recall": 0.21875,
+          "f1": 0.2028985507246377,
+          "support": 32
+        }
+      ],
+      "confusion_matrix_counts": [
+        [
+          0,
+          9,
+          0,
+          3,
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          0,
+          20,
+          1,
+          1,
+          0,
+          0,
+          1,
+          9
+        ],
+        [
+          0,
+          9,
+          23,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          12,
+          2,
+          9,
+          2,
+          0,
+          4,
+          3
+        ],
+        [
+          0,
+          10,
+          1,
+          4,
+          5,
+          1,
+          5,
+          6
+        ],
+        [
+          0,
+          9,
+          2,
+          5,
+          1,
+          4,
+          5,
+          6
+        ],
+        [
+          0,
+          14,
+          0,
+          0,
+          0,
+          0,
+          16,
+          2
+        ],
+        [
+          0,
+          9,
+          0,
+          7,
+          0,
+          0,
+          9,
+          7
+        ]
+      ]
+    },
+    "test": {
+      "n": 240,
+      "accuracy": 0.42916666666666664,
+      "macro_f1": 0.379430154721077,
+      "macro_precision": 0.3821749471458774,
+      "macro_recall": 0.40234375,
+      "per_class": [
+        {
+          "label": 0,
+          "class_name": "neutral",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 16
+        },
+        {
+          "label": 1,
+          "class_name": "calm",
+          "precision": 0.6666666666666666,
+          "recall": 0.6875,
+          "f1": 0.676923076923077,
+          "support": 32
+        },
+        {
+          "label": 2,
+          "class_name": "happy",
+          "precision": 1.0,
+          "recall": 0.78125,
+          "f1": 0.8771929824561403,
+          "support": 32
+        },
+        {
+          "label": 3,
+          "class_name": "sad",
+          "precision": 0.32558139534883723,
+          "recall": 0.4375,
+          "f1": 0.37333333333333335,
+          "support": 32
+        },
+        {
+          "label": 4,
+          "class_name": "angry",
+          "precision": 0.3333333333333333,
+          "recall": 0.1875,
+          "f1": 0.24,
+          "support": 32
+        },
+        {
+          "label": 5,
+          "class_name": "fearful",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 32
+        },
+        {
+          "label": 6,
+          "class_name": "disgust",
+          "precision": 0.55,
+          "recall": 0.6875,
+          "f1": 0.6111111111111112,
+          "support": 32
+        },
+        {
+          "label": 7,
+          "class_name": "surprise",
+          "precision": 0.18181818181818182,
+          "recall": 0.4375,
+          "f1": 0.25688073394495414,
+          "support": 32
+        }
+      ],
+      "confusion_matrix_counts": [
+        [
+          0,
+          1,
+          0,
+          5,
+          0,
+          0,
+          0,
+          10
+        ],
+        [
+          0,
+          22,
+          0,
+          6,
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          0,
+          7,
+          25,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          14,
+          0,
+          2,
+          4,
+          12
+        ],
+        [
+          0,
+          1,
+          0,
+          5,
+          6,
+          0,
+          6,
+          14
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          5,
+          0,
+          4,
+          16
+        ],
+        [
+          0,
+          0,
+          0,
+          2,
+          0,
+          1,
+          22,
+          7
+        ],
+        [
+          0,
+          2,
+          0,
+          4,
+          7,
+          1,
+          4,
+          14
+        ]
+      ]
+    }
+  },
+  "artifacts": {
+    "original_metrics_ref": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c10_20261027/metrics.json",
+    "predictions_val_ref": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c10_20261027/predictions_val.csv",
+    "predictions_test_ref": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c10_20261027/predictions_test.csv",
+    "history_ref": null,
+    "checkpoint_ref": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_svm_c10_20261027/checkpoint.joblib",
+    "checkpoint_sha256": "c78c9b60769fe9b516caef0cd627906e4e3f6805ad669f87b0297f64c9ebee22",
+    "feature_exports": [],
+    "figures": []
+  },
+  "notes_ref": "notes.md",
+  "final_input_choices": {
+    "audio": "learned",
+    "visual": "hc",
+    "family": "svm"
+  },
+  "limitations": [
+    "Final input is WavLM-only plus selected handcrafted visual; alternatives explicitly labelled.",
+    "No train probability stacking: audio train probabilities are in-sample; M3 train probabilities supplied OOF.",
+    "Historical tests were exposed; complete replay is exploratory, not a fresh independent test.",
+    "Relative sequence positions are not verified physical alignment. Upstream visual source/run ID not supplied."
+  ],
+  "test_manifest_ref": "multimodal_fusion/results/m5_final_delivery_20261027/test_manifest.csv",
+  "report_metadata_enriched_at": "2026-10-27T14:21:34.839712+08:00"
+}

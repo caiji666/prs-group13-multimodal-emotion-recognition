@@ -1,0 +1,81 @@
+{
+  "locked_at": "2026-10-27T14:12:18.285622+08:00",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "primary_audio": "WavLM-only128",
+  "primary_visual": "handcrafted320",
+  "primary_fusions": [
+    "concat",
+    "gated",
+    "cross_attention"
+  ],
+  "base_methods": [
+    "audio_only",
+    "visual_only",
+    "concat",
+    "gated",
+    "cross_attention",
+    "audio_sequence_mean",
+    "sequence_mean_concat"
+  ],
+  "structure_methods": [
+    "audio_residual",
+    "audio_residual_mdrop",
+    "audio_residual_aux",
+    "audio_residual_mdrop_aux",
+    "projected_mean",
+    "uniform_attention",
+    "cross_position",
+    "cross_temporal",
+    "cross_bidirectional"
+  ],
+  "literature_methods": [
+    "projected_concat_control",
+    "lmf_rank4",
+    "aux_control",
+    "aux_supcon_intra",
+    "aux_supcon_cross"
+  ],
+  "representation_ablation": {
+    "visual": [
+      "deep",
+      "combined"
+    ],
+    "methods": [
+      "visual_only",
+      "concat",
+      "gated",
+      "cross_attention"
+    ]
+  },
+  "audio_ablation": [
+    "handcrafted",
+    "combined"
+  ],
+  "neural_fits": 93,
+  "svm_fits": 27,
+  "fixed_probability_pipelines": 10,
+  "max_epochs": 30,
+  "patience": 8,
+  "lr": 0.001,
+  "wd": 0.0001,
+  "batch": 64,
+  "hidden": 64,
+  "dropout": 0.2,
+  "source_hashes": {
+    "audio_metadata": "1cf20592e3e0ea43303b3858f9a65ab5c4b229123bc4bda76d4fdfa8648d5330",
+    "audio_checksums": "99c57dc03611d99c1c224c9b1c0a9c30f6482b3b7c58743fddca2ebe7aad668a",
+    "visual_npz": "83362e35569637c8f5c83d34e54c1cf48c4e01c06904349c49062309fdbb1d4d",
+    "actor_csv": "1ae0f8241c8d1b40f1c4d0c0be1c17d8cede3ea5005a24b4635cef1110490528",
+    "audio_handcrafted": "8a12e14ece74978b7421469465303d76a8991ec8a9800d0479ed14657e9bb9af"
+  },
+  "source_audio_checkpoint_sha256": "0db8f833f3d32f21b676c7ed008acdf094bb20dda31e3498e642249d597f04bb",
+  "selection": "Primary fusion by 3seed mean validation F1 among selected-input concat/gated/cross. Baseline original delivered audio head. All predeclared candidates evaluated once on test after hashes locked; no test reselection.",
+  "svm_budget": "audio/visual/concat x linear/rbf x C .1,1,10; kernel fusion alpha .25,.5,.75 x C .1,1,10",
+  "test_status": "not_run",
+  "historical_test_exposed": true,
+  "uses_final_wavlm": true
+}

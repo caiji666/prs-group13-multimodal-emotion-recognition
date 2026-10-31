@@ -1,0 +1,5 @@
+# Integrated inference, fusion training and verification (Python 3.11 / 3.12).
+-r multimodal_fusion/requirements.txt
+-r demo/requirements.txt
+PyYAML>=6,<7
+pytest>=8,<10

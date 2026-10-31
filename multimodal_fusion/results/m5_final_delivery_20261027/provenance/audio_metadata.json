@@ -1,0 +1,43 @@
+{
+  "samples": 1440,
+  "split_counts": {
+    "train": 960,
+    "test": 240,
+    "val": 240
+  },
+  "class_names": [
+    "neutral",
+    "calm",
+    "happy",
+    "sad",
+    "angry",
+    "fearful",
+    "disgust",
+    "surprise"
+  ],
+  "fields": {
+    "F_sequence": "[T,128]",
+    "F_audio_learned_feature_only": "[128]",
+    "P_audio_learned_feature_only": "[8]"
+  },
+  "model": "frozen WavLM Base+ layer 6 + temporal adapter + residual depthwise temporal convolution kernel3 + attentive statistics pooling + MLP",
+  "checkpoint": "experiment_records/M2_encoder_wavlm_refinement_s42_20261021_05/best.pt",
+  "selection_run_id": "M2_encoder_wavlm_refinement_s42_20261021_05",
+  "validation_accuracy": 0.8416666666666667,
+  "validation_macro_f1": 0.8312181237730203,
+  "checkpoint_sha256": "0db8f833f3d32f21b676c7ed008acdf094bb20dda31e3498e642249d597f04bb",
+  "upstream_revision": "4c66d4806a428f2e922ccfa1a962776e232d487b",
+  "upstream_sha256": "3bb273a6ace99408b50cfc81afdbb7ef2de02da2eab0234e18db608ce692fe51",
+  "split_sha256": "1ae0f8241c8d1b40f1c4d0c0be1c17d8cede3ea5005a24b4635cef1110490528",
+  "handcrafted_fusion": false,
+  "final_M1_audio_outputs": false,
+  "padding_mask": "True = padding; stored per-sample arrays are unpadded",
+  "pooling": "learned attention weighted mean/std followed by learned projection; NOT arithmetic mean of F_sequence",
+  "sequence_timing": "16k waveform after boundary silence trim; WavLM time steps, not legacy MFCC time steps; audio/video alignment requires accounting for trimming",
+  "test_audio_decoded": true,
+  "test_metrics_computed": false,
+  "model_selection_performed": false,
+  "augmentation": false,
+  "training_probabilities": "in-sample; not out-of-fold stacking predictions",
+  "elapsed_seconds": 70.679593
+}

@@ -1,0 +1,12 @@
+{
+  "source_files_unchanged_verified": true,
+  "declared_visual_oof_assignments_consistent": true,
+  "oof_full_training_pipeline_independently_reproduced": false,
+  "source_metadata_hashes": {
+    "visual_probability_protocol.json": "c117d2c245ca6c37dae37fd74f4eca5a7a9c18017c32cd9b4173fcb9054a5028",
+    "upstream_audio_run.json": "80d8a7bd03573548b6dbb413a64aff0542ad3b7d98996e5630093266538f4512",
+    "audio_README.md": "00c2499e428a97a9cdc45d4f100ad52c551a9276e85d2ac9fec9d20a12dad3c2",
+    "audio_metadata.json": "1cf20592e3e0ea43303b3858f9a65ab5c4b229123bc4bda76d4fdfa8648d5330",
+    "visual_README.md": "af60a22e4faaae469e99d1404d5b25d22c05b0976b0d3dbef91b8d16f7401b80"
+  }
+}

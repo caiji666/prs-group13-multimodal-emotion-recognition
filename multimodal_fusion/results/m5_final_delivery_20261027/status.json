@@ -1,0 +1,15 @@
+{
+  "status": "completed",
+  "records": 130,
+  "neural_fits": 93,
+  "svm_fits": 27,
+  "reference_pipelines": 10,
+  "primary_validation_selected_method": "concat",
+  "test_status": "completed",
+  "source_audio_head_reproduced": true,
+  "seconds": 281.01995966606773,
+  "unit_tests_passed": 29,
+  "independent_validation": "passed",
+  "report_ref": "\u6700\u7ec8\u7279\u5f81\u5b9e\u9a8c\u7ed3\u679c\u4e0e\u89e3\u91ca.md",
+  "source_hashes_verified": true
+}

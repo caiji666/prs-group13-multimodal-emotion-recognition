@@ -1,0 +1,498 @@
+[
+  {
+    "family": "base",
+    "method": "audio_only",
+    "audio": "learned",
+    "visual": "hc",
+    "val": {
+      "macro_f1": 0.832540482506461,
+      "sd": 0.01267517380450405,
+      "accuracy": 0.8375
+    },
+    "test": {
+      "macro_f1": 0.8208943257873923,
+      "sd": 0.003811795339260227,
+      "accuracy": 0.8222222222222223
+    }
+  },
+  {
+    "family": "base",
+    "method": "visual_only",
+    "audio": "learned",
+    "visual": "hc",
+    "val": {
+      "macro_f1": 0.47671553096090263,
+      "sd": 0.017873329862032227,
+      "accuracy": 0.4930555555555556
+    },
+    "test": {
+      "macro_f1": 0.4806445086679914,
+      "sd": 0.04934125177636115,
+      "accuracy": 0.4680555555555556
+    }
+  },
+  {
+    "family": "base",
+    "method": "concat",
+    "audio": "learned",
+    "visual": "hc",
+    "val": {
+      "macro_f1": 0.8692540454675853,
+      "sd": 0.006434322260480242,
+      "accuracy": 0.8736111111111112
+    },
+    "test": {
+      "macro_f1": 0.8116244452475723,
+      "sd": 0.005710327579823456,
+      "accuracy": 0.8125
+    }
+  },
+  {
+    "family": "base",
+    "method": "gated",
+    "audio": "learned",
+    "visual": "hc",
+    "val": {
+      "macro_f1": 0.8553330077825089,
+      "sd": 0.014209171996030305,
+      "accuracy": 0.8583333333333334
+    },
+    "test": {
+      "macro_f1": 0.8213122215857162,
+      "sd": 0.011136464710437466,
+      "accuracy": 0.8236111111111111
+    }
+  },
+  {
+    "family": "base",
+    "method": "cross_attention",
+    "audio": "learned",
+    "visual": "hc",
+    "val": {
+      "macro_f1": 0.764162467632017,
+      "sd": 0.013834644363947617,
+      "accuracy": 0.7694444444444445
+    },
+    "test": {
+      "macro_f1": 0.7406126771685552,
+      "sd": 0.029693985124878308,
+      "accuracy": 0.7388888888888889
+    }
+  },
+  {
+    "family": "base",
+    "method": "audio_sequence_mean",
+    "audio": "learned",
+    "visual": "hc",
+    "val": {
+      "macro_f1": 0.7853894770837647,
+      "sd": 0.01139502635584019,
+      "accuracy": 0.7875
+    },
+    "test": {
+      "macro_f1": 0.8243998215761096,
+      "sd": 0.002570276899144979,
+      "accuracy": 0.8222222222222223
+    }
+  },
+  {
+    "family": "base",
+    "method": "sequence_mean_concat",
+    "audio": "learned",
+    "visual": "hc",
+    "val": {
+      "macro_f1": 0.7854572339174752,
+      "sd": 0.005748154566409691,
+      "accuracy": 0.7944444444444444
+    },
+    "test": {
+      "macro_f1": 0.7992862108001049,
+      "sd": 0.017854922157094947,
+      "accuracy": 0.7958333333333334
+    }
+  },
+  {
+    "family": "structure",
+    "method": "audio_residual",
+    "audio": "learned",
+    "visual": "hc",
+    "val": {
+      "macro_f1": 0.8392439567793524,
+      "sd": 0.004502829017860335,
+      "accuracy": 0.8444444444444444
+    },
+    "test": {
+      "macro_f1": 0.822492428116195,
+      "sd": 0.008851250158789039,
+      "accuracy": 0.8263888888888888
+    }
+  },
+  {
+    "family": "structure",
+    "method": "audio_residual_mdrop",
+    "audio": "learned",
+    "visual": "hc",
+    "val": {
+      "macro_f1": 0.8371664299909934,
+      "sd": 0.0027850079334315143,
+      "accuracy": 0.8430555555555556
+    },
+    "test": {
+      "macro_f1": 0.8266369960980576,
+      "sd": 0.005752650780347638,
+      "accuracy": 0.8291666666666667
+    }
+  },
+  {
+    "family": "structure",
+    "method": "audio_residual_aux",
+    "audio": "learned",
+    "visual": "hc",
+    "val": {
+      "macro_f1": 0.8536002769850057,
+      "sd": 0.0022003981268727234,
+      "accuracy": 0.8597222222222222
+    },
+    "test": {
+      "macro_f1": 0.8302252120695434,
+      "sd": 0.005285848102840659,
+      "accuracy": 0.8333333333333334
+    }
+  },
+  {
+    "family": "structure",
+    "method": "audio_residual_mdrop_aux",
+    "audio": "learned",
+    "visual": "hc",
+    "val": {
+      "macro_f1": 0.8515134664892061,
+      "sd": 0.007495414593715633,
+      "accuracy": 0.8569444444444444
+    },
+    "test": {
+      "macro_f1": 0.8279677376719796,
+      "sd": 0.0033402950451707812,
+      "accuracy": 0.8319444444444445
+    }
+  },
+  {
+    "family": "structure",
+    "method": "projected_mean",
+    "audio": "learned",
+    "visual": "hc",
+    "val": {
+      "macro_f1": 0.7542661901937926,
+      "sd": 0.01289394141492446,
+      "accuracy": 0.7597222222222223
+    },
+    "test": {
+      "macro_f1": 0.7705828801819948,
+      "sd": 0.0106710134619469,
+      "accuracy": 0.7666666666666666
+    }
+  },
+  {
+    "family": "structure",
+    "method": "uniform_attention",
+    "audio": "learned",
+    "visual": "hc",
+    "val": {
+      "macro_f1": 0.7597048000141614,
+      "sd": 0.03260171903365173,
+      "accuracy": 0.7652777777777778
+    },
+    "test": {
+      "macro_f1": 0.7333724275685817,
+      "sd": 0.03613125834984412,
+      "accuracy": 0.7361111111111112
+    }
+  },
+  {
+    "family": "structure",
+    "method": "cross_position",
+    "audio": "learned",
+    "visual": "hc",
+    "val": {
+      "macro_f1": 0.7595616167990368,
+      "sd": 0.01213012499362812,
+      "accuracy": 0.7666666666666666
+    },
+    "test": {
+      "macro_f1": 0.739339008856013,
+      "sd": 0.032147550578754645,
+      "accuracy": 0.7374999999999999
+    }
+  },
+  {
+    "family": "structure",
+    "method": "cross_temporal",
+    "audio": "learned",
+    "visual": "hc",
+    "val": {
+      "macro_f1": 0.7782277916889889,
+      "sd": 0.022131521075410457,
+      "accuracy": 0.7833333333333332
+    },
+    "test": {
+      "macro_f1": 0.7277468270375392,
+      "sd": 0.05017523143408102,
+      "accuracy": 0.7333333333333334
+    }
+  },
+  {
+    "family": "structure",
+    "method": "cross_bidirectional",
+    "audio": "learned",
+    "visual": "hc",
+    "val": {
+      "macro_f1": 0.8627726639106149,
+      "sd": 0.010403782576387967,
+      "accuracy": 0.861111111111111
+    },
+    "test": {
+      "macro_f1": 0.8265159268678319,
+      "sd": 0.01975811237180447,
+      "accuracy": 0.8375
+    }
+  },
+  {
+    "family": "literature",
+    "method": "projected_concat_control",
+    "audio": "learned",
+    "visual": "hc",
+    "val": {
+      "macro_f1": 0.8379910485954148,
+      "sd": 0.017329622183918255,
+      "accuracy": 0.8430555555555556
+    },
+    "test": {
+      "macro_f1": 0.8283081756725809,
+      "sd": 0.01640044969320663,
+      "accuracy": 0.8277777777777778
+    }
+  },
+  {
+    "family": "literature",
+    "method": "lmf_rank4",
+    "audio": "learned",
+    "visual": "hc",
+    "val": {
+      "macro_f1": 0.8308970083937153,
+      "sd": 0.0028194934412873623,
+      "accuracy": 0.8333333333333334
+    },
+    "test": {
+      "macro_f1": 0.7913906326406374,
+      "sd": 0.009876920229673085,
+      "accuracy": 0.7930555555555556
+    }
+  },
+  {
+    "family": "literature",
+    "method": "aux_control",
+    "audio": "learned",
+    "visual": "hc",
+    "val": {
+      "macro_f1": 0.8536002769850057,
+      "sd": 0.0022003981268727234,
+      "accuracy": 0.8597222222222222
+    },
+    "test": {
+      "macro_f1": 0.8302252120695434,
+      "sd": 0.005285848102840659,
+      "accuracy": 0.8333333333333334
+    }
+  },
+  {
+    "family": "literature",
+    "method": "aux_supcon_intra",
+    "audio": "learned",
+    "visual": "hc",
+    "val": {
+      "macro_f1": 0.8496006235884659,
+      "sd": 0.0006054171676675881,
+      "accuracy": 0.8541666666666666
+    },
+    "test": {
+      "macro_f1": 0.82520553745955,
+      "sd": 0.005542009491518782,
+      "accuracy": 0.8291666666666667
+    }
+  },
+  {
+    "family": "literature",
+    "method": "aux_supcon_cross",
+    "audio": "learned",
+    "visual": "hc",
+    "val": {
+      "macro_f1": 0.8505046298574817,
+      "sd": 0.009644701492420334,
+      "accuracy": 0.8569444444444444
+    },
+    "test": {
+      "macro_f1": 0.831122276318057,
+      "sd": 0.0038829304621284676,
+      "accuracy": 0.8333333333333334
+    }
+  },
+  {
+    "family": "base",
+    "method": "visual_only",
+    "audio": "learned",
+    "visual": "deep",
+    "val": {
+      "macro_f1": 0.5178134322796158,
+      "sd": 0.017191182555247906,
+      "accuracy": 0.5375000000000001
+    },
+    "test": {
+      "macro_f1": 0.39180416037387644,
+      "sd": 0.017367695218149452,
+      "accuracy": 0.39305555555555555
+    }
+  },
+  {
+    "family": "base",
+    "method": "concat",
+    "audio": "learned",
+    "visual": "deep",
+    "val": {
+      "macro_f1": 0.8708647263764848,
+      "sd": 0.007609251684988144,
+      "accuracy": 0.8777777777777778
+    },
+    "test": {
+      "macro_f1": 0.7987900330112433,
+      "sd": 0.019723404854332126,
+      "accuracy": 0.7916666666666666
+    }
+  },
+  {
+    "family": "base",
+    "method": "gated",
+    "audio": "learned",
+    "visual": "deep",
+    "val": {
+      "macro_f1": 0.8554485838205306,
+      "sd": 0.014981639926952,
+      "accuracy": 0.8638888888888889
+    },
+    "test": {
+      "macro_f1": 0.7941996148607506,
+      "sd": 0.042451688839276,
+      "accuracy": 0.7944444444444444
+    }
+  },
+  {
+    "family": "base",
+    "method": "cross_attention",
+    "audio": "learned",
+    "visual": "deep",
+    "val": {
+      "macro_f1": 0.810433790605753,
+      "sd": 0.00940270815036807,
+      "accuracy": 0.8097222222222222
+    },
+    "test": {
+      "macro_f1": 0.6159733934053581,
+      "sd": 0.03228144540101116,
+      "accuracy": 0.6027777777777779
+    }
+  },
+  {
+    "family": "base",
+    "method": "visual_only",
+    "audio": "learned",
+    "visual": "combined",
+    "val": {
+      "macro_f1": 0.5750916120560388,
+      "sd": 0.03533080423834633,
+      "accuracy": 0.5888888888888889
+    },
+    "test": {
+      "macro_f1": 0.41047112626943943,
+      "sd": 0.01927366706775312,
+      "accuracy": 0.4069444444444444
+    }
+  },
+  {
+    "family": "base",
+    "method": "concat",
+    "audio": "learned",
+    "visual": "combined",
+    "val": {
+      "macro_f1": 0.8746867891536643,
+      "sd": 0.005572128119971604,
+      "accuracy": 0.8805555555555555
+    },
+    "test": {
+      "macro_f1": 0.8056281151660413,
+      "sd": 0.014680654341277693,
+      "accuracy": 0.8027777777777777
+    }
+  },
+  {
+    "family": "base",
+    "method": "gated",
+    "audio": "learned",
+    "visual": "combined",
+    "val": {
+      "macro_f1": 0.8635824309081216,
+      "sd": 0.002408553008002852,
+      "accuracy": 0.8680555555555557
+    },
+    "test": {
+      "macro_f1": 0.8261260962259733,
+      "sd": 0.01359593475951463,
+      "accuracy": 0.8249999999999998
+    }
+  },
+  {
+    "family": "base",
+    "method": "cross_attention",
+    "audio": "learned",
+    "visual": "combined",
+    "val": {
+      "macro_f1": 0.7622109509715546,
+      "sd": 0.024679702465170865,
+      "accuracy": 0.7694444444444444
+    },
+    "test": {
+      "macro_f1": 0.5231442741141266,
+      "sd": 0.013595650594301066,
+      "accuracy": 0.5277777777777778
+    }
+  },
+  {
+    "family": "base",
+    "method": "audio_only",
+    "audio": "handcrafted",
+    "visual": "hc",
+    "val": {
+      "macro_f1": 0.3575421114165797,
+      "sd": 0.009914232746244363,
+      "accuracy": 0.37222222222222223
+    },
+    "test": {
+      "macro_f1": 0.367811333432182,
+      "sd": 0.01157139321070835,
+      "accuracy": 0.3666666666666667
+    }
+  },
+  {
+    "family": "base",
+    "method": "audio_only",
+    "audio": "combined",
+    "visual": "hc",
+    "val": {
+      "macro_f1": 0.8243156642611157,
+      "sd": 0.010364712645063135,
+      "accuracy": 0.8305555555555556
+    },
+    "test": {
+      "macro_f1": 0.8158177636076346,
+      "sd": 0.007352465065540164,
+      "accuracy": 0.8180555555555555
+    }
+  }
+]

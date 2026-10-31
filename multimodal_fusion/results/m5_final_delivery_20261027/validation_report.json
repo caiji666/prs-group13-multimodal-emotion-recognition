@@ -1,0 +1,12 @@
+{
+  "records": 130,
+  "prediction_files": 260,
+  "prediction_rows": 62400,
+  "neural_fits": 93,
+  "svm_fits": 27,
+  "reference_pipelines": 10,
+  "metric_schema_id_split_history_checkpoint_and_selection_checks": "passed",
+  "gate_conditions_verified": 138,
+  "test_status": "completed",
+  "caveat": "Rows repeat the same recordings across configurations; not 62400 independent recordings."
+}

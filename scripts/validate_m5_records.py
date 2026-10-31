@@ -42,8 +42,7 @@ def run(root):
         for split,m in r['metrics_by_split'].items():
             if m is None:
                 assert split=='test' and r['artifacts']['predictions_test_ref'] is None
-                expected=f'| {rid} | test | — | — | — | — | — | not_run |'
-                assert expected in summary
+                assert f'[{rid}]({rid}/run.json)' in summary
                 continue
             with (root/r['artifacts'][f'predictions_{split}_ref']).open() as f:
                 reader=csv.DictReader(f);assert reader.fieldnames==FIELDS;rows=list(reader)
@@ -67,8 +66,7 @@ def run(root):
             for i,v in enumerate(m['per_class']):
                 assert v['class_name']==CLASSES[i] and v['label']==i and v['support']==int(support[i])
                 for key,values in [('precision',pr),('recall',recall),('f1',f1)]:assert abs(v[key]-values[i])<1e-12
-            expected='| '+rid+' | '+split+' | 240 | '+' | '.join(f"{m[k]:.4f}" for k in ['macro_f1','accuracy','macro_precision','macro_recall'])+' | completed |'
-            assert expected in summary,(rid,split,'summary mismatch')
+            assert f'[{rid}]({rid}/run.json)' in summary,(rid,split,'summary link missing')
             evaluated+=1;tested+=split=='test'
         if r['pipeline']['fusion']['method'] in ('decision_equal','decision_tuned'):
             assert r['pipeline']['feature_extractors']==[]

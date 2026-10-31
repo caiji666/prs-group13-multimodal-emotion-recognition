@@ -13,3 +13,9 @@ experiment_records/**/*.json text eol=lf
 experiment_records/**/*.csv text eol=lf
 experiment_records/**/*.yaml text eol=lf
 experiment_records/**/*.patch text eol=lf
+
+# Preserve original hashed evidence bytes; the protocol was supplied as CRLF.
+multimodal_fusion/results/m5_final_delivery_20261027/provenance/visual_probability_protocol.json -text whitespace=cr-at-eol
+*.npz binary
+*.joblib binary
+*.keras binary

@@ -2,7 +2,9 @@
 
 Independent CNN, BiLSTM and Transformer encoders for the RAVDESS speech subset. Includes audio preprocessing/MFCC sequences, training, validation-only model selection, WAV inference, feature export and portable M1/M5 deliveries. Audio only; no video processing.
 
-The supplied 2026-10-18 round04 Transformer has **validation Accuracy 54.58%, Macro-F1 0.532837**. It wins both metrics among saved validation-selected checkpoints. This is a warm-start refinement result; no final test score is claimed.
+The final selected audio model is **WavLM refinement R05**: validation Macro-F1 **0.831218**, test Macro-F1 **0.832127**, test accuracy **83.33%**. Its downstream adapter is `../../experiment_records/M2_encoder_wavlm_refinement_s42_20261021_05/best.pt`; use the [refinement inference loader](research/speech_transfer/refinement/README.md) for this architecture.
+
+The original MFCC round04 Transformer remains available as `models/best_audio_encoder.pt` and is used by the basic setup/inference commands below. It has validation Macro-F1 **0.532837** and test Macro-F1 **0.623501**. All 48 fixed M2 checkpoints have completed final test records in the [shared index](../../experiment_records/summary.md).
 
 ## 1. Clone and initialize (macOS / Linux)
 
@@ -135,8 +137,8 @@ Published best downstream weights: `../../experiment_records/M2_encoder_wavlm_s4
 
 ### WavLM continuation (ten experiments)
 
-[Continuation code and workflow](research/speech_transfer/refinement/README.md) preserve the original WavLM models and add adapter freezing, identity-initialized residual layers, temporal convolution and loss/regularization experiments. Best validation result: Accuracy84.1667%, Macro-F10.831218; all ten test results remain unmeasured. Best downstream checkpoint: `../../experiment_records/M2_encoder_wavlm_refinement_s42_20261021_05/best.pt`. Use the refinement inference loader for new architectures. Original defaults and local M1/M5 delivery files are not replaced.
+[Continuation code and workflow](research/speech_transfer/refinement/README.md) preserve the original WavLM models and add adapter freezing, identity-initialized residual layers, temporal convolution and loss/regularization experiments. Best validation result: Accuracy84.1667%, Macro-F10.831218; all ten fixed checkpoints have completed final test records. Best downstream checkpoint: `../../experiment_records/M2_encoder_wavlm_refinement_s42_20261021_05/best.pt`. Use the refinement inference loader for new architectures. Original defaults and local M1/M5 delivery files are not replaced.
 
 ## Final test completion —2026-10-26
 
-After development ended, all48 fixed M2 checkpoints received final test records. This supersedes earlier statements of unmeasured test results above; training-time artifacts remain historical. No weights/configurations were updated and no test-based selection was performed. The final selected continuation05 model retains test Accuracy83.3333%, Macro-F10.832127. See repository-root experiment_records/summary.md and shared/M2/final_test_20261026/. Raw datasets and local feature handoffs remain excluded from GitHub.
+After development ended, all48 fixed M2 checkpoints received final test records. Training-time artifacts retain their original validation-only state. No weights/configurations were updated and no test-based selection was performed. The final selected continuation05 model retains test Accuracy83.3333%, Macro-F10.832127. See repository-root experiment_records/summary.md and shared/M2/final_test_20261026/. Raw datasets and local feature handoffs remain excluded from GitHub.

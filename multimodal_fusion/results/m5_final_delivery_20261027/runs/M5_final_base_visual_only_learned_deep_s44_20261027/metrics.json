@@ -1,0 +1,324 @@
+{
+  "run_id": "M5_final_base_visual_only_learned_deep_s44_20261027",
+  "folder": "/Users/jiang/ISS-AIS/PRS_Pattern Recognition Systems/PRS_PM/multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_deep_s44_20261027",
+  "started": "2026-10-27T14:16:35.323744+08:00",
+  "family": "base",
+  "method": "visual_only",
+  "visual": "deep",
+  "audio": "learned",
+  "seed": 44,
+  "val": {
+    "n": 240,
+    "accuracy": 0.5375,
+    "macro_f1": 0.504758442022256,
+    "macro_precision": 0.5523558495597969,
+    "macro_recall": 0.5390625,
+    "per_class": [
+      {
+        "label": 0,
+        "class_name": "neutral",
+        "precision": 0.225,
+        "recall": 0.5625,
+        "f1": 0.32142857142857145,
+        "support": 16
+      },
+      {
+        "label": 1,
+        "class_name": "calm",
+        "precision": 0.5,
+        "recall": 0.65625,
+        "f1": 0.5675675675675675,
+        "support": 32
+      },
+      {
+        "label": 2,
+        "class_name": "happy",
+        "precision": 0.7111111111111111,
+        "recall": 1.0,
+        "f1": 0.8311688311688312,
+        "support": 32
+      },
+      {
+        "label": 3,
+        "class_name": "sad",
+        "precision": 0.38461538461538464,
+        "recall": 0.15625,
+        "f1": 0.2222222222222222,
+        "support": 32
+      },
+      {
+        "label": 4,
+        "class_name": "angry",
+        "precision": 0.8666666666666667,
+        "recall": 0.40625,
+        "f1": 0.5531914893617021,
+        "support": 32
+      },
+      {
+        "label": 5,
+        "class_name": "fearful",
+        "precision": 0.6052631578947368,
+        "recall": 0.71875,
+        "f1": 0.6571428571428571,
+        "support": 32
+      },
+      {
+        "label": 6,
+        "class_name": "disgust",
+        "precision": 0.5428571428571428,
+        "recall": 0.59375,
+        "f1": 0.5671641791044776,
+        "support": 32
+      },
+      {
+        "label": 7,
+        "class_name": "surprise",
+        "precision": 0.5833333333333334,
+        "recall": 0.21875,
+        "f1": 0.3181818181818182,
+        "support": 32
+      }
+    ],
+    "confusion_matrix_counts": [
+      [
+        9,
+        6,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        8,
+        21,
+        2,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        32,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        7,
+        4,
+        5,
+        0,
+        6,
+        7,
+        2
+      ],
+      [
+        2,
+        0,
+        5,
+        4,
+        13,
+        6,
+        0,
+        2
+      ],
+      [
+        2,
+        1,
+        2,
+        0,
+        0,
+        23,
+        3,
+        1
+      ],
+      [
+        8,
+        2,
+        0,
+        2,
+        0,
+        1,
+        19,
+        0
+      ],
+      [
+        10,
+        5,
+        0,
+        1,
+        1,
+        2,
+        6,
+        7
+      ]
+    ]
+  },
+  "test": {
+    "n": 240,
+    "accuracy": 0.4,
+    "macro_f1": 0.40244312217996425,
+    "macro_precision": 0.5857994130052954,
+    "macro_recall": 0.39453125,
+    "per_class": [
+      {
+        "label": 0,
+        "class_name": "neutral",
+        "precision": 0.5555555555555556,
+        "recall": 0.3125,
+        "f1": 0.4,
+        "support": 16
+      },
+      {
+        "label": 1,
+        "class_name": "calm",
+        "precision": 1.0,
+        "recall": 0.1875,
+        "f1": 0.3157894736842105,
+        "support": 32
+      },
+      {
+        "label": 2,
+        "class_name": "happy",
+        "precision": 0.7727272727272727,
+        "recall": 0.53125,
+        "f1": 0.6296296296296297,
+        "support": 32
+      },
+      {
+        "label": 3,
+        "class_name": "sad",
+        "precision": 0.21428571428571427,
+        "recall": 0.375,
+        "f1": 0.2727272727272727,
+        "support": 32
+      },
+      {
+        "label": 4,
+        "class_name": "angry",
+        "precision": 0.5714285714285714,
+        "recall": 0.5,
+        "f1": 0.5333333333333333,
+        "support": 32
+      },
+      {
+        "label": 5,
+        "class_name": "fearful",
+        "precision": 1.0,
+        "recall": 0.21875,
+        "f1": 0.358974358974359,
+        "support": 32
+      },
+      {
+        "label": 6,
+        "class_name": "disgust",
+        "precision": 0.3076923076923077,
+        "recall": 0.75,
+        "f1": 0.43636363636363634,
+        "support": 32
+      },
+      {
+        "label": 7,
+        "class_name": "surprise",
+        "precision": 0.2647058823529412,
+        "recall": 0.28125,
+        "f1": 0.2727272727272727,
+        "support": 32
+      }
+    ],
+    "confusion_matrix_counts": [
+      [
+        5,
+        0,
+        0,
+        1,
+        0,
+        0,
+        4,
+        6
+      ],
+      [
+        3,
+        6,
+        5,
+        4,
+        0,
+        0,
+        9,
+        5
+      ],
+      [
+        0,
+        0,
+        17,
+        1,
+        0,
+        0,
+        14,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        12,
+        0,
+        0,
+        10,
+        9
+      ],
+      [
+        0,
+        0,
+        0,
+        11,
+        16,
+        0,
+        1,
+        4
+      ],
+      [
+        0,
+        0,
+        0,
+        12,
+        5,
+        7,
+        7,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        8,
+        0,
+        0,
+        24,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        7,
+        7,
+        0,
+        9,
+        9
+      ]
+    ]
+  },
+  "test_status": "completed",
+  "best_epoch": 24,
+  "parameters": 37448,
+  "checkpoint_roundtrip_verified": true
+}

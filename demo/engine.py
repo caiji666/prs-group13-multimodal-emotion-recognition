@@ -15,6 +15,7 @@ sys.path.insert(0,str(PROJECT/'multimodal_fusion'))
 from fusion import CLASSES
 from fusion.data import normalize
 from fusion.final_models import FinalModel
+from fusion.paths import study_rows
 
 RESULTS=PROJECT/'multimodal_fusion/results/m5_final_delivery_20261027'
 DEVELOPMENT=PROJECT/'multimodal_fusion/data/final_delivery_20261027/development.npz'
@@ -34,7 +35,7 @@ def clean(value):
 class Engine:
     def __init__(self):
         torch.set_num_threads(2)
-        self.rows=json.loads((RESULTS/'runs.json').read_text())
+        self.rows=study_rows(RESULTS)
         self.lock=json.loads((RESULTS/'evaluation_lock.json').read_text())
         self.models={};self.raw_alpha=None
 

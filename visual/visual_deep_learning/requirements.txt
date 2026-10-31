@@ -1,0 +1,8 @@
+# Separate TensorFlow environment for the original M4 notebooks.
+tensorflow>=2.16,<3
+keras>=3.15,<4
+keras-hub>=0.18,<1
+numpy>=1.26,<3
+pandas>=2,<4
+scikit-learn>=1.4,<2
+jupyterlab>=4,<5

@@ -34,3 +34,16 @@ All models use ImageNet-pretrained CNN backbones with frozen weights and predict
 Each `*_features.npz` file contains sample IDs, labels, dataset splits, frame-level features, pooled video-level features, prediction probabilities and model metadata.
 
 These outputs can be used for subsequent multimodal fusion.
+
+## Run the notebooks
+
+Use a separate Python environment with the TensorFlow dependencies in this folder:
+
+```bash
+python -m venv .venv-m4
+source .venv-m4/bin/activate
+python -m pip install -r visual/visual_deep_learning/requirements.txt
+python -m jupyterlab visual/visual_deep_learning
+```
+
+The supplied models were saved with Keras 3.15.1. Face sequences must be prepared with M3 before training or raw-frame extraction. Saved feature exports can be inspected directly without retraining. The integrated video interface uses M3 handcrafted visual extraction and PyTorch fusion; the original M4 TensorFlow models are operated through these notebooks.

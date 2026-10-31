@@ -1,0 +1,8 @@
+{
+  "repeats": 20,
+  "inputs_fixed": true,
+  "only_gate_overridden": true,
+  "label_oracle_is_diagnostic_only": true,
+  "test_status": "not_run",
+  "caveat": "Feature-dependent vector gates are not proven quality scores. Sensitivity is not causal attribution. Oracle only selects between two extreme gates, not a global upper bound."
+}

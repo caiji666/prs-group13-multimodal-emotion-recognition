@@ -1,0 +1,558 @@
+{
+  "schema_version": "2.0",
+  "run_id": "M5_final_base_visual_only_learned_deep_s42_20261027",
+  "member": "M5",
+  "owner": "Jiang Yushan",
+  "stage": "fusion",
+  "comparison_group": "final_delivery_20261027",
+  "pipeline_name": "visual_only",
+  "run_status": "completed",
+  "test_status": "completed",
+  "started_at": "2026-10-27T14:13:30.514545+08:00",
+  "finished_at": "2026-10-27T14:13:31.222497+08:00",
+  "seed": 42,
+  "dataset_id": "ravdess_speech_v1",
+  "data_kind": "real",
+  "class_names": [
+    "neutral",
+    "calm",
+    "happy",
+    "sad",
+    "angry",
+    "fearful",
+    "disgust",
+    "surprise"
+  ],
+  "split_ref": "multimodal_fusion/configs/actor_splits.csv",
+  "split_sha256": "1ae0f8241c8d1b40f1c4d0c0be1c17d8cede3ea5005a24b4635cef1110490528",
+  "input_manifest_ref": "multimodal_fusion/results/m5_final_delivery_20261027/input_manifest.csv",
+  "input_manifest_sha256": "3de19a61ed1c28b1516f2738f636a0a6defdfa98bb0e8112ead4b2202bb8ffbd",
+  "counts": {
+    "expected": {
+      "train": 960,
+      "val": 240,
+      "test": 240
+    },
+    "actual": {
+      "train": 960,
+      "val": 240,
+      "test": 240
+    }
+  },
+  "excluded_samples": {
+    "count": 0,
+    "id_reason_manifest_ref": null,
+    "handling_policy": "All matched recordings retained"
+  },
+  "git_commit": "6ea5fa37bd0f56847ba5755dcab2671845d4dcc6",
+  "working_tree_dirty": true,
+  "code_patch_ref": "multimodal_fusion/results/m5_final_delivery_20261027/code",
+  "command": "python -m fusion.final_study",
+  "environment": {
+    "python": "3.12.12",
+    "framework_and_version": "2.13.0",
+    "device": "cpu",
+    "dependencies_ref": null
+  },
+  "source_runs": {
+    "audio_handcrafted": null,
+    "audio_learned": null,
+    "audio_final": null,
+    "visual_handcrafted": null,
+    "visual_learned": null,
+    "visual_final": null
+  },
+  "input_artifacts": [
+    {
+      "role": "audio_metadata",
+      "ref": null,
+      "sha256": "1cf20592e3e0ea43303b3858f9a65ab5c4b229123bc4bda76d4fdfa8648d5330",
+      "source_run_id": null
+    },
+    {
+      "role": "audio_checksums",
+      "ref": null,
+      "sha256": "99c57dc03611d99c1c224c9b1c0a9c30f6482b3b7c58743fddca2ebe7aad668a",
+      "source_run_id": null
+    },
+    {
+      "role": "visual_npz",
+      "ref": null,
+      "sha256": "83362e35569637c8f5c83d34e54c1cf48c4e01c06904349c49062309fdbb1d4d",
+      "source_run_id": null
+    },
+    {
+      "role": "actor_csv",
+      "ref": null,
+      "sha256": "1ae0f8241c8d1b40f1c4d0c0be1c17d8cede3ea5005a24b4635cef1110490528",
+      "source_run_id": null
+    },
+    {
+      "role": "audio_handcrafted",
+      "ref": null,
+      "sha256": "8a12e14ece74978b7421469465303d76a8991ec8a9800d0479ed14657e9bb9af",
+      "source_run_id": null
+    }
+  ],
+  "preprocessing": {
+    "audio": null,
+    "visual": null,
+    "standardization_fit_split": "train",
+    "augmentation_train_only": true,
+    "parameters": {
+      "physical_alignment": "unknown audio trim offset; relative token positions only"
+    }
+  },
+  "pipeline": {
+    "feature_extractors": [
+      {
+        "component_id": "visual",
+        "modality": "visual",
+        "kind": "deep",
+        "method": "M3 supplied deep",
+        "input_description": null,
+        "parameters": {},
+        "pretrained_source": null,
+        "source_run_id": null,
+        "checkpoint_ref": null,
+        "checkpoint_sha256": null,
+        "trainable_in_this_run": false,
+        "trainable_layers": null,
+        "output_sequence_shape": [
+          null,
+          16,
+          576
+        ],
+        "output_pooled_shape": [
+          null,
+          576
+        ]
+      }
+    ],
+    "representation": {
+      "kind": "deep",
+      "components": [
+        {
+          "component_id": "visual",
+          "dim": 576,
+          "visual_kind": "deep"
+        }
+      ],
+      "pooling": "supplied WavLM attentive statistics; visual mean",
+      "normalization": "per dimension train standardization",
+      "normalization_fit_split": "train",
+      "combination_method": null,
+      "output_shape": null
+    },
+    "fusion": {
+      "applied": false,
+      "method": "visual_only",
+      "input_source_runs": {},
+      "parameters": {
+        "audio_dim": 128,
+        "visual_dim": 576,
+        "audio_seq_dim": 128,
+        "visual_seq_dim": 576,
+        "hidden": 64,
+        "heads": 4,
+        "dropout": 0.2
+      },
+      "trainable_in_this_run": true,
+      "output_shape": null
+    },
+    "classifier": {
+      "type": "MLP",
+      "source_run_id": null,
+      "input_dim": 576,
+      "architecture": "visual_only; projection/interaction settings in configuration; classifier Linear(576,64)→ReLU→Dropout(0.2)→Linear(64,8).",
+      "hidden_dims": [
+        64
+      ],
+      "output_dim": 8,
+      "activation": "ReLU",
+      "dropout": 0.2,
+      "parameters": {
+        "frozen_audio_head": false,
+        "source_audio_head_sha256": null
+      },
+      "trainable_in_this_run": true,
+      "probability_method": "softmax",
+      "calibration_fit_split": null,
+      "checkpoint_ref": null,
+      "checkpoint_sha256": null
+    }
+  },
+  "training": {
+    "regime": "frozen_encoder_then_classifier",
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "batch_size": 64,
+    "max_epochs": 30,
+    "completed_epochs": 30,
+    "early_stopping_patience": 8,
+    "component_parameter_groups": [],
+    "class_weighting": "none",
+    "other_parameters": {
+      "plan_sha256": "97a900f756a65ead8eaf96e968ffc1e1196c4949e5d582dde34e84b44f41585b",
+      "configuration": {
+        "audio_dim": 128,
+        "visual_dim": 576,
+        "audio_seq_dim": 128,
+        "visual_seq_dim": 576,
+        "hidden": 64,
+        "heads": 4,
+        "dropout": 0.2
+      },
+      "auxiliary_ce_weight_each": 0,
+      "contrastive_weight": 0
+    }
+  },
+  "selection": {
+    "metric": "macro_f1",
+    "split": "val",
+    "best_epoch": 27,
+    "selected_for_next_stage": null,
+    "selection_reason": "Validation selection before new test inference; historical test already exposed",
+    "tie_break_rule": "earlier epoch; decision weight nearest .5 on F1 tie",
+    "candidate_search_ref": null,
+    "config_locked_at": "2026-10-27T14:12:18.285622+08:00",
+    "test_first_evaluated_at": "2026-10-27T14:16:54.864294+08:00"
+  },
+  "metrics_scope": "full_pipeline",
+  "metrics_by_split": {
+    "val": {
+      "n": 240,
+      "accuracy": 0.525,
+      "macro_f1": 0.5113905536807527,
+      "macro_precision": 0.5624059256245659,
+      "macro_recall": 0.5390625,
+      "per_class": [
+        {
+          "label": 0,
+          "class_name": "neutral",
+          "precision": 0.2727272727272727,
+          "recall": 0.75,
+          "f1": 0.4,
+          "support": 16
+        },
+        {
+          "label": 1,
+          "class_name": "calm",
+          "precision": 0.6666666666666666,
+          "recall": 0.625,
+          "f1": 0.6451612903225806,
+          "support": 32
+        },
+        {
+          "label": 2,
+          "class_name": "happy",
+          "precision": 0.6808510638297872,
+          "recall": 1.0,
+          "f1": 0.810126582278481,
+          "support": 32
+        },
+        {
+          "label": 3,
+          "class_name": "sad",
+          "precision": 0.25806451612903225,
+          "recall": 0.25,
+          "f1": 0.25396825396825395,
+          "support": 32
+        },
+        {
+          "label": 4,
+          "class_name": "angry",
+          "precision": 0.9230769230769231,
+          "recall": 0.375,
+          "f1": 0.5333333333333333,
+          "support": 32
+        },
+        {
+          "label": 5,
+          "class_name": "fearful",
+          "precision": 0.7272727272727273,
+          "recall": 0.5,
+          "f1": 0.5925925925925926,
+          "support": 32
+        },
+        {
+          "label": 6,
+          "class_name": "disgust",
+          "precision": 0.5,
+          "recall": 0.5625,
+          "f1": 0.5294117647058824,
+          "support": 32
+        },
+        {
+          "label": 7,
+          "class_name": "surprise",
+          "precision": 0.47058823529411764,
+          "recall": 0.25,
+          "f1": 0.32653061224489793,
+          "support": 32
+        }
+      ],
+      "confusion_matrix_counts": [
+        [
+          12,
+          4,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          7,
+          20,
+          2,
+          2,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          32,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          5,
+          4,
+          8,
+          0,
+          4,
+          7,
+          3
+        ],
+        [
+          4,
+          0,
+          6,
+          7,
+          12,
+          1,
+          0,
+          2
+        ],
+        [
+          6,
+          0,
+          2,
+          1,
+          0,
+          16,
+          3,
+          4
+        ],
+        [
+          6,
+          0,
+          0,
+          7,
+          0,
+          1,
+          18,
+          0
+        ],
+        [
+          8,
+          1,
+          1,
+          6,
+          0,
+          0,
+          8,
+          8
+        ]
+      ]
+    },
+    "test": {
+      "n": 240,
+      "accuracy": 0.39166666666666666,
+      "macro_f1": 0.4012069824821478,
+      "macro_precision": 0.5843135784922261,
+      "macro_recall": 0.39453125,
+      "per_class": [
+        {
+          "label": 0,
+          "class_name": "neutral",
+          "precision": 0.5833333333333334,
+          "recall": 0.4375,
+          "f1": 0.5,
+          "support": 16
+        },
+        {
+          "label": 1,
+          "class_name": "calm",
+          "precision": 1.0,
+          "recall": 0.1875,
+          "f1": 0.3157894736842105,
+          "support": 32
+        },
+        {
+          "label": 2,
+          "class_name": "happy",
+          "precision": 0.7083333333333334,
+          "recall": 0.53125,
+          "f1": 0.6071428571428571,
+          "support": 32
+        },
+        {
+          "label": 3,
+          "class_name": "sad",
+          "precision": 0.2653061224489796,
+          "recall": 0.40625,
+          "f1": 0.32098765432098764,
+          "support": 32
+        },
+        {
+          "label": 4,
+          "class_name": "angry",
+          "precision": 0.56,
+          "recall": 0.4375,
+          "f1": 0.49122807017543857,
+          "support": 32
+        },
+        {
+          "label": 5,
+          "class_name": "fearful",
+          "precision": 1.0,
+          "recall": 0.1875,
+          "f1": 0.3157894736842105,
+          "support": 32
+        },
+        {
+          "label": 6,
+          "class_name": "disgust",
+          "precision": 0.24719101123595505,
+          "recall": 0.6875,
+          "f1": 0.36363636363636365,
+          "support": 32
+        },
+        {
+          "label": 7,
+          "class_name": "surprise",
+          "precision": 0.3103448275862069,
+          "recall": 0.28125,
+          "f1": 0.29508196721311475,
+          "support": 32
+        }
+      ],
+      "confusion_matrix_counts": [
+        [
+          7,
+          0,
+          0,
+          1,
+          0,
+          0,
+          4,
+          4
+        ],
+        [
+          3,
+          6,
+          7,
+          0,
+          0,
+          0,
+          13,
+          3
+        ],
+        [
+          0,
+          0,
+          17,
+          0,
+          0,
+          0,
+          15,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          13,
+          0,
+          0,
+          9,
+          9
+        ],
+        [
+          1,
+          0,
+          0,
+          9,
+          14,
+          0,
+          5,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          10,
+          4,
+          6,
+          11,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          10,
+          0,
+          0,
+          22,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          6,
+          7,
+          0,
+          10,
+          9
+        ]
+      ]
+    }
+  },
+  "artifacts": {
+    "original_metrics_ref": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_deep_s42_20261027/metrics.json",
+    "predictions_val_ref": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_deep_s42_20261027/predictions_val.csv",
+    "predictions_test_ref": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_deep_s42_20261027/predictions_test.csv",
+    "history_ref": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_deep_s42_20261027/history.json",
+    "checkpoint_ref": "multimodal_fusion/results/m5_final_delivery_20261027/runs/M5_final_base_visual_only_learned_deep_s42_20261027/checkpoint.pt",
+    "checkpoint_sha256": "a9a521c394df4d7b1db7a7bc02e30704bdc5dbc84498698493652b678cbe409b",
+    "feature_exports": [],
+    "figures": []
+  },
+  "notes_ref": "notes.md",
+  "final_input_choices": {
+    "audio": "learned",
+    "visual": "deep",
+    "family": "base"
+  },
+  "limitations": [
+    "Final input is WavLM-only plus selected handcrafted visual; alternatives explicitly labelled.",
+    "No train probability stacking: audio train probabilities are in-sample; M3 train probabilities supplied OOF.",
+    "Historical tests were exposed; complete replay is exploratory, not a fresh independent test.",
+    "Relative sequence positions are not verified physical alignment. Upstream visual source/run ID not supplied."
+  ],
+  "test_manifest_ref": "multimodal_fusion/results/m5_final_delivery_20261027/test_manifest.csv",
+  "report_metadata_enriched_at": "2026-10-27T14:21:34.762018+08:00"
+}

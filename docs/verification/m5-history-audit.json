@@ -1,0 +1,7 @@
+{
+  "records": 30,
+  "evaluated_prediction_files": 55,
+  "completed_test_records": 25,
+  "schema_version": "2.0",
+  "metric_summary_history_id_split_checks": "passed"
+}

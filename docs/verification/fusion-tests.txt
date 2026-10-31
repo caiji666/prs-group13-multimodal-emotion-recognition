@@ -1,0 +1,38 @@
+test_mismatched_actor_split_rejected (test_feature_inputs.DevelopmentAdapterTests.test_mismatched_actor_split_rejected) ... ok
+test_no_test_files_or_probabilities_loaded (test_feature_inputs.DevelopmentAdapterTests.test_no_test_files_or_probabilities_loaded) ... ok
+test_pairing_and_train_only_statistics (test_feature_inputs.DevelopmentAdapterTests.test_pairing_and_train_only_statistics) ... ok
+test_selective_row_reader_excludes_poisoned_rows (test_feature_inputs.DevelopmentAdapterTests.test_selective_row_reader_excludes_poisoned_rows) ... ok
+test_delivered_head_undoes_only_m5_standardization (test_final_delivery.FinalDeliveryTests.test_delivered_head_undoes_only_m5_standardization) ... ok
+test_final_residual_freezes_original_audio_head_in_train_mode (test_final_delivery.FinalDeliveryTests.test_final_residual_freezes_original_audio_head_in_train_mode) ... ok
+test_representation_view_does_not_confuse_pooled_with_sequence_mean (test_final_delivery.FinalDeliveryTests.test_representation_view_does_not_confuse_pooled_with_sequence_mean) ... ok
+test_equal_validation_scores_favor_equal_weight (test_final_evaluation.FinalEvaluationTests.test_equal_validation_scores_favor_equal_weight) ... ok
+test_test_loader_ignores_poisoned_development_features_and_probabilities (test_final_evaluation.FinalEvaluationTests.test_test_loader_ignores_poisoned_development_features_and_probabilities) ... ok
+test_weight_search_uses_supplied_validation_predictions (test_final_evaluation.FinalEvaluationTests.test_weight_search_uses_supplied_validation_predictions) ... ok
+test_actor_leakage (test_fusion.FusionTests.test_actor_leakage) ... ok
+test_checkpoint_roundtrip (test_fusion.FusionTests.test_checkpoint_roundtrip) ... concat: best epoch=2, validation macro-F1=0.4365
+gated: best epoch=2, validation macro-F1=0.3636
+cross_attention: best epoch=2, validation macro-F1=0.7289
+Matplotlib is building the font cache; this may take a moment.
+ok
+test_malformed_probabilities (test_fusion.FusionTests.test_malformed_probabilities) ... ok
+test_padding_does_not_change_attention (test_fusion.FusionTests.test_padding_does_not_change_attention) ... ok
+test_shuffled_pair_and_missing_pair (test_fusion.FusionTests.test_shuffled_pair_and_missing_pair) ... ok
+test_train_only_statistics (test_fusion.FusionTests.test_train_only_statistics) ... ok
+test_trial_pair_and_exclude_song (test_fusion.FusionTests.test_trial_pair_and_exclude_song) ... ok
+test_gate_override_reproduces_forward_and_does_not_mutate_inputs (test_literature.LiteratureTests.test_gate_override_reproduces_forward_and_does_not_mutate_inputs) ... ok
+test_lmf_factorized_output_equals_explicit_dense_tensor (test_literature.LiteratureTests.test_lmf_factorized_output_equals_explicit_dense_tensor) ... ok
+test_supcon_excludes_self_and_uses_same_class_positives (test_literature.LiteratureTests.test_supcon_excludes_self_and_uses_same_class_positives) ... ok
+test_supcon_no_positive_is_zero_and_has_finite_gradients (test_literature.LiteratureTests.test_supcon_no_positive_is_zero_and_has_finite_gradients) ... ok
+test_svm_export_leaves_probability_columns_empty (test_literature.LiteratureTests.test_svm_export_leaves_probability_columns_empty) ... ok
+test_all_sequence_variants_ignore_padding_and_extra_padding (test_structure_models.StructureTests.test_all_sequence_variants_ignore_padding_and_extra_padding) ... ok
+test_missing_visual_is_train_only_and_changes_correction (test_structure_models.StructureTests.test_missing_visual_is_train_only_and_changes_correction) ... ok
+test_residual_starts_at_exact_frozen_audio_and_keeps_base_eval (test_structure_models.StructureTests.test_residual_starts_at_exact_frozen_audio_and_keeps_base_eval) ... ok
+test_uniform_is_invariant_to_valid_visual_order_but_position_is_not (test_structure_models.StructureTests.test_uniform_is_invariant_to_valid_visual_order_but_position_is_not) ... ok
+test_attention_probe_preserves_forward_and_masks (test_study_models.StudyControlsTests.test_attention_probe_preserves_forward_and_masks) ... ok
+test_sequence_controls_exclude_padding (test_study_models.StudyControlsTests.test_sequence_controls_exclude_padding) ... ok
+test_single_modality_controls_ignore_other_modality (test_study_models.StudyControlsTests.test_single_modality_controls_ignore_other_modality) ... ok
+
+----------------------------------------------------------------------
+Ran 29 tests in 10.849s
+
+OK

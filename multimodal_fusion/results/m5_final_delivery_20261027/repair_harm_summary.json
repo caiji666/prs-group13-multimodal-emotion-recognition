@@ -1,0 +1,32 @@
+{
+  "concat": {
+    "val": {
+      "repaired": 12.666666666666666,
+      "harmed": 5.0
+    },
+    "test": {
+      "repaired": 5.0,
+      "harmed": 10.0
+    }
+  },
+  "gated": {
+    "val": {
+      "repaired": 10.0,
+      "harmed": 6.0
+    },
+    "test": {
+      "repaired": 3.6666666666666665,
+      "harmed": 6.0
+    }
+  },
+  "cross_attention": {
+    "val": {
+      "repaired": 25.333333333333332,
+      "harmed": 42.666666666666664
+    },
+    "test": {
+      "repaired": 18.666666666666668,
+      "harmed": 41.333333333333336
+    }
+  }
+}

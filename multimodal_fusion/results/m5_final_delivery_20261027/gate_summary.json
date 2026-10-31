@@ -1,0 +1,34 @@
+{
+  "original": {
+    "macro_f1": 0.8553330077825089,
+    "prediction_change_rate": 0.0
+  },
+  "fixed_half": {
+    "macro_f1": 0.8418264076811109,
+    "prediction_change_rate": 0.03472222222222222
+  },
+  "fixed_train_mean": {
+    "macro_f1": 0.8434653787928371,
+    "prediction_change_rate": 0.024999999999999998
+  },
+  "audio_extreme": {
+    "macro_f1": 0.8256481678032949,
+    "prediction_change_rate": 0.07777777777777778
+  },
+  "visual_extreme": {
+    "macro_f1": 0.27720794873377624,
+    "prediction_change_rate": 0.6430555555555556
+  },
+  "label_oracle_extremes": {
+    "macro_f1": 0.8892297862483458,
+    "prediction_change_rate": 0.10972222222222223
+  },
+  "shuffle_gate": {
+    "macro_f1": 0.8066578155455999,
+    "prediction_change_rate": 0.07694444444444445
+  },
+  "shuffle_oracle_positive_control": {
+    "macro_f1": 0.732665727629596,
+    "prediction_change_rate": 0.18958333333333333
+  }
+}

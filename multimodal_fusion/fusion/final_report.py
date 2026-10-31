@@ -7,6 +7,7 @@ from . import CLASSES
 from .feature_inputs import sha256
 from .experiment import write_json
 from .structure_study import now
+from .paths import study_rows
 
 ROOT=Path(__file__).resolve().parents[2]
 
@@ -47,7 +48,7 @@ def validate(out,rows):
         elif isinstance(t,list) and isinstance(r,list) and t:
             for x in r:keys(x,t[0])
     for row in rows:
-        folder=Path(row['folder']);record=json.loads((folder/'run.json').read_text());keys(record,template)
+        folder=out/'runs'/row['run_id'];record=json.loads((folder/'run.json').read_text());keys(record,template)
         assert record['test_status']=='completed' and record['selection']['config_locked_at']<record['selection']['test_first_evaluated_at']
         assert row['test_status']=='completed'
         for split in ('val','test'):
@@ -175,7 +176,7 @@ Checkpoint/hash, source-run identity, normalizers, history and per-split predict
 
 
 def report(path):
-    out=Path(path).resolve();rows=json.loads((out/'runs.json').read_text());validate(out,rows)
+    out=Path(path).resolve();rows=study_rows(out);validate(out,rows)
     for r in rows:metadata_notes(out,r)
     validate(out,rows)
     groups={}
@@ -251,7 +252,7 @@ def report(path):
     text+=['\nGate打乱只改变gate，不改变特征；每seed20个排列是诊断重复，不是独立演员样本。label-oracle只在两端gate中用真值选取，是正控制，绝不计为可部署成绩。Gate影响预测不等于已证明它识别输入质量。',
       '\n## 限制与剩余工作\n',
       '不按test结果重选方法或seed。此前查看过同一test演员，不能称全新独立测试。仅16名train、4名val、4名test演员，三seed SD不是跨划分泛化置信区间。',
-      '尚未完成：原始音视频噪声/模糊/遮挡与外部新演员评价、部署demo、真正物理时间戳对齐；MISA、actor对抗、完整QMF仍是可选候选。视觉裁剪与编码器训练来源未独立重现，输入声明不能代替源流程审核。',
+      '本轮评价固定RAVDESS演员划分上的冻结特征融合。原始视频接口及独立CREMA-D试验分别见demo模块与docs/results.md；原始音视频扰动、跨演员划分统计及物理时间戳对齐未纳入本轮协议。',
       '所有旧实验保留。新代码final_inputs/final_models/final_study/final_report；每个run保留v2 JSON、五节notes、预测、history、checkpoint及哈希。evaluation_lock.json与plan.json不倒写测试前状态。']
     (out/'最终特征实验结果与解释.md').write_text('\n'.join(text)+'\n')
     summary=['# Final-delivery experiment records — 2026-10-27\n','All selection used validation; test results are descriptive, with historical test exposure disclosed.\n',
