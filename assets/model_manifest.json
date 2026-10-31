@@ -1,7 +1,12 @@
 {
   "version": 1,
-  "release_tag": "submission-2026-10-31-lightweight",
+  "release_tag": "submission-2026-10-31-final",
   "files": [
+    {
+      "path": "audio/handcrafted/outputs/handover/m1_audio/model/logistic_regression.joblib",
+      "bytes": 6633,
+      "sha256": "ca630f268ccba8917f9d05fb658fff72e029dab2c17f7fa958c8dbc898b5bcf0"
+    },
     {
       "path": "audio/learned/models/baseline/bilstm/best.pt",
       "bytes": 782681,

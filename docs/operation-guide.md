@@ -13,7 +13,7 @@ python demo/setup_assets.py
 python project.py check --verify
 ```
 
-On Windows PowerShell, use `.venv\Scripts\Activate.ps1`. Download the weights ZIP from the [lightweight release](https://github.com/caiji666/prs-group13-multimodal-emotion-recognition/releases/tag/submission-2026-10-31-lightweight). Restoration verifies all model checksums. `setup_assets.py` downloads the pinned Microsoft WavLM backbone once; the backbone is excluded from the repository and delivery ZIPs.
+On Windows PowerShell, use `.venv\Scripts\Activate.ps1`. Download the weights ZIP from the [lightweight release](https://github.com/caiji666/prs-group13-multimodal-emotion-recognition/releases/tag/submission-2026-10-31-final). Restoration verifies all model checksums. `setup_assets.py` downloads the pinned Microsoft WavLM backbone once; the backbone is excluded from the repository and delivery ZIPs.
 
 `requirements-tested.txt` records the integrated macOS / Python 3.12 environment. The original M4 notebooks use a separate TensorFlow environment defined by `visual/visual_deep_learning/requirements.txt`.
 

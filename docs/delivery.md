@@ -1,6 +1,6 @@
 # Delivery contents
 
-The [lightweight release](https://github.com/caiji666/prs-group13-multimodal-emotion-recognition/releases/tag/submission-2026-10-31-lightweight) provides two downloads:
+The [lightweight release](https://github.com/caiji666/prs-group13-multimodal-emotion-recognition/releases/tag/submission-2026-10-31-final) provides two downloads:
 
 | File | Contents |
 |---|---|

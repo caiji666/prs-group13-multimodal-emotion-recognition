@@ -1,0 +1,18 @@
+{
+  "model": "M1 StandardScaler + LogisticRegression",
+  "checkpoint_ref": "audio/handcrafted/outputs/handover/m1_audio/model/logistic_regression.joblib",
+  "checkpoint_sha256": "ca630f268ccba8917f9d05fb658fff72e029dab2c17f7fa958c8dbc898b5bcf0",
+  "feature_dimensions": 48,
+  "preprocessing": {
+    "wavelet": "db2",
+    "normalization": "norm",
+    "frame_ms": 20
+  },
+  "validation_rows_checked": 240,
+  "maximum_probability_difference": 3.885780586188048e-16,
+  "validation_macro_f1": 0.38852611438147516,
+  "validation_accuracy": 0.4,
+  "training_performed": false,
+  "model_training_sklearn_version": "1.9.1",
+  "verification_sklearn_version": "1.9.0"
+}

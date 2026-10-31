@@ -18,7 +18,7 @@ source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
 
-Download `Group13_Model_Weights_20261031.zip` from the [release page](https://github.com/caiji666/prs-group13-multimodal-emotion-recognition/releases/tag/submission-2026-10-31-lightweight), then prepare weights and launch:
+Download `Group13_Model_Weights_20261031.zip` from the [release page](https://github.com/caiji666/prs-group13-multimodal-emotion-recognition/releases/tag/submission-2026-10-31-final), then prepare weights and launch:
 
 ```bash
 python scripts/restore_models.py --archive /path/to/Group13_Model_Weights_20261031.zip

@@ -25,3 +25,7 @@ The current lightweight package excludes dataset features and weights. Models ar
 - Both no-cache interface tests passed; replay regression checks are skipped until the local cache is generated. Evidence: `no-feature-cache-tests.txt`.
 - The local regression environment passed all 12 demo tests with its retained cache. Evidence: `lightweight-demo-tests.txt`.
 - The handcrafted exporter generated a 48D smoke CSV; the development-cache builder generated 1,200 train/validation rows from local source exports. These outputs remain local.
+
+## Final model supplement
+
+The M1 StandardScaler + LogisticRegression classifier is included in the final model registry (201 files). Its predictions reproduce all 240 delivered validation probability rows, with maximum absolute difference below 4e-16. The measured validation Macro-F1 is 0.388526 and accuracy is 0.4000; no retraining was performed. See `m1-final-model.json`.
