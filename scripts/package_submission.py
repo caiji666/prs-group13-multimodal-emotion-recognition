@@ -20,8 +20,9 @@ def digest(path):
 
 def build(kind, output):
     tracked = subprocess.check_output(['git', 'ls-files', '-z'], cwd=ROOT).decode().split('\0')
-    runtime = json.loads((ROOT / 'assets/runtime_manifest.json').read_text())['files']
-    files = set(p for p in tracked if p and (ROOT / p).is_file()) if kind != 'runtime' else set()
+    registry = 'research_archive_manifest.json' if kind == 'research' else 'runtime_manifest.json'
+    runtime = json.loads((ROOT / 'assets' / registry).read_text())['files']
+    files = set(p for p in tracked if p and (ROOT / p).is_file()) if kind in ('source', 'submission') else set()
     if kind != 'source':
         for item in runtime:
             path = ROOT / item['path']
@@ -50,7 +51,7 @@ def build(kind, output):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--kind', choices=['source', 'runtime', 'submission'], default='submission')
+    parser.add_argument('--kind', choices=['source', 'runtime', 'submission', 'research'], default='submission')
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     build(args.kind, args.output.resolve())

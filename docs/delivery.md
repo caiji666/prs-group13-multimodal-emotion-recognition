@@ -9,6 +9,7 @@ The [GitHub release](https://github.com/caiji666/prs-group13-multimodal-emotion-
 | `Group13_System_Submission_20261031.zip` | Complete system: source, models, final feature data, local WavLM assets, results and available group documents |
 | `Group13_Source_20261031.zip` | Tracked repository files, including module models and published result records |
 | `Group13_Runtime_Assets_20261031.zip` | Runtime feature data, development cache and WavLM assets for a source checkout |
+| `Group13_Research_Archive_20261031.zip` | Earlier local experiment outputs, original feature versions and development data |
 | `*.zip.sha256` | SHA256 checksums of the corresponding ZIP files |
 
 Extract the complete ZIP and follow `README.md`. A virtual environment is installed on the receiving machine. Every archive contains `PACKAGE_MANIFEST.json` with the source commit and per-file hashes.
@@ -40,3 +41,11 @@ python scripts/package_submission.py --kind submission --output dist/Group13_Sys
 ```
 
 The packager uses tracked files plus the explicit runtime manifest. It omits Git metadata, virtual environments, caches, uploaded sessions, private review staging and intermediate document builds.
+
+## Research archive
+
+The separate research archive preserves the original feature exports, earlier fusion studies, diagnostics and generated-data engineering results. Its per-file registry is `assets/research_archive_manifest.json`. These files retain their original experiment dates and configurations. The main system package contains the final selected inputs and models.
+
+```bash
+python scripts/package_submission.py --kind research --output dist/Group13_Research_Archive_20261031.zip
+```

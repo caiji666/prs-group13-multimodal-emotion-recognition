@@ -1,7 +1,7 @@
 [project]
 name = "m1-audio-handcrafted"
 version = "0.1.0"
-description = "Add your description here"
+description = "RAVDESS handcrafted speech features, classifier comparisons and audio feature fusion"
 readme = "README.md"
 authors = [
     { name = "MasterHrit", email = "agarwal.hritik225@gmail.com" }

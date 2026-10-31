@@ -74,6 +74,6 @@ The audit recomputes metrics from 260 prediction files, checks actor/sample alig
 
 ## Submission package
 
-[Download the complete system ZIP](https://github.com/caiji666/prs-group13-multimodal-emotion-recognition/releases/tag/submission-2026-10-31). It includes source, saved models, final feature data, WavLM assets, experiment results and the available group documents. `PACKAGE_MANIFEST.json` records every packaged file and its SHA256.
+[Download the complete system ZIP](https://github.com/caiji666/prs-group13-multimodal-emotion-recognition/releases/tag/submission-2026-10-31). It includes source, saved models, final feature data, WavLM assets, experiment results and the available group documents. `PACKAGE_MANIFEST.json` records every packaged file and its SHA256. A separate research archive preserves earlier local studies and feature versions.
 
 Raw RAVDESS media and the team's presentation recording are separate materials. Dataset retrieval and package contents are described in the [delivery guide](docs/delivery.md). Individual reflections are submitted separately.

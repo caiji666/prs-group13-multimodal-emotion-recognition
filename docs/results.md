@@ -47,6 +47,10 @@ A fixed set of 24 CREMA-D videos covers four actors and six emotions. All videos
 
 The pilot measures a small cross-dataset sample with unchanged RAVDESS models. It has its own [protocol and report](../demo/external_evaluation_20261027/REPORT.md), [prediction CSV](../demo/external_evaluation_20261027/predictions.csv) and [summary JSON](../demo/external_evaluation_20261027/summary.json).
 
+## Earlier local studies
+
+The research archive preserves the validation, structure and literature studies from 19–20 October, earlier feature handoffs, setup diagnostics and generated-data smoke results. See the [delivery contents](delivery.md) and `assets/research_archive_manifest.json` for the complete archive inventory.
+
 ## Verification commands
 
 ```bash
