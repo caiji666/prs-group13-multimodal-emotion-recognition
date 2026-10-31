@@ -1,0 +1,31 @@
+{
+  "baseline": "models/tuning_20261018_initialization",
+  "selection_metric": "validation_macro_f1",
+  "test_evaluated": false,
+  "experiments": [
+    {
+      "config": "configs/tuning_20261018/experiment01.yaml",
+      "rationale": "Small-step refinement from the actual latest Transformer winner; reduce potential smoothing/class-weight overcorrection; preserve best historical CNN/BiLSTM parents. Validation only; no test decoding."
+    },
+    {
+      "config": "configs/tuning_20261018/experiment02.yaml",
+      "rationale": "Round01 matched baseline only and showed training/validation gap. Restore per-encoder best parents; stronger regularization/augmentation and larger LR to move out of local plateau.",
+      "warm_start_best_of": true
+    },
+    {
+      "config": "configs/tuning_20261018/experiment03.yaml",
+      "rationale": "Round02 stronger joint updates regressed Transformer. Preserve its best features with a small backbone LR while allowing classifier boundary adaptation; revert stronger regularization. All parents selected by validation best including original baseline.",
+      "warm_start_best_of": true
+    },
+    {
+      "config": "configs/tuning_20261018/experiment04.yaml",
+      "rationale": "Round03 improved CNN slightly but classifier adaptation did not surpass Transformer baseline. Reduce classifier step size, use smaller batches and new initialization/dropout/batch/augmentation randomness; actor split remains identical. Warm start from best prior validation parents.",
+      "warm_start_best_of": true
+    },
+    {
+      "config": "configs/tuning_20261018/experiment05.yaml",
+      "rationale": "Round04 slightly improved F1 but not accuracy. Continue from its Transformer winner; restore batch32 and use augmented-only training plus mild smoothing/dropout increase to counter the persistent train/validation gap, with a new seed. CNN/BiLSTM start from their own best historical checkpoints. Preserve original/fourth-round winners if this round regresses.",
+      "warm_start_best_of": true
+    }
+  ]
+}

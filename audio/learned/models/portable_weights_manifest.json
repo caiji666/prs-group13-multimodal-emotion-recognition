@@ -1,0 +1,8 @@
+{
+  "models/baseline/transformer/best.pt": "430f46752ef08045194a7fdfa62a77d0e35251aa9b4a68287236ccce3ccf1480",
+  "models/baseline/cnn/best.pt": "02e7c962a02a50542d8f1163c05cb1b12757e9bd196c630fa331270e069ccddb",
+  "models/baseline/bilstm/best.pt": "6c1552b7c4d2145253ea27801fdcb05824a2853e3f62e0d7f8921ee34bb6f19e",
+  "models/refinement_parents/transformer/best.pt": "5471764ce0568b66c504b1ec2b936e7ac9f70db6e85adb606cc04dda5ff8d467",
+  "models/refinement_parents/cnn/best.pt": "75dcc751ec94e16da9115d0fc133ab3b863fd4f8eef55a1d6369dd96a9a13516",
+  "models/refinement_parents/bilstm/best.pt": "aaec88bff8bf9069bd7f0acefccc1f277160da47ea91c83f70dfa2605516484a"
+}

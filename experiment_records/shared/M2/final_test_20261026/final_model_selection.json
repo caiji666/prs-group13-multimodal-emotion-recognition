@@ -1,0 +1,14 @@
+{
+  "status": "locked",
+  "run_id": "M2_encoder_wavlm_refinement_s42_20261021_05",
+  "selection_metric": "validation macro_f1",
+  "test_used_for_selection": false,
+  "checkpoint_ref": "experiment_records/M2_encoder_wavlm_refinement_s42_20261021_05/best.pt",
+  "checkpoint_sha256": "0db8f833f3d32f21b676c7ed008acdf094bb20dda31e3498e642249d597f04bb",
+  "validation_accuracy": 0.8416666666666667,
+  "validation_macro_f1": 0.8312181237730203,
+  "test_accuracy": 0.8333333333333334,
+  "test_macro_f1": 0.8321271668658223,
+  "training_completed": true,
+  "further_tuning_planned": false
+}

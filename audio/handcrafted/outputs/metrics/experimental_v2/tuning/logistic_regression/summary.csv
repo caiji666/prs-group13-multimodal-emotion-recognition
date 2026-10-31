@@ -1,0 +1,2 @@
+classifier,wavelet,normalization,frame_ms,best_cv_macro_f1,cv_macro_f1_std,cv_accuracy,cv_train_macro_f1,best_params,train_accuracy,train_macro_f1,val_accuracy,val_macro_f1,f1_gap
+Logistic Regression,db2,norm,20,0.33922371592594003,0.022815132411325757,0.3520833333333333,0.5073603506065595,{'logisticregression__C': 0.1},0.496875,0.48171548397522584,0.4083333333333333,0.3897616927553371,0.09195379121988873

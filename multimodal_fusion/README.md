@@ -85,7 +85,7 @@ python -m pip install -r requirements.txt
 
 ## 演员划分和实验纪律
 
-正式共享文件为 [configs/actor_splits.csv](configs/actor_splits.csv)：train=[1,4,5,6,7,10,11,12,13,15,16,18,19,20,23,24]；val=[9,14,21,22]；test=[2,3,8,17]。禁止再次随机分组。完整 speech trial 为 960/240/240 条。`configs/actors.json` 保留合成开发的历史默认值，当前 CLI 默认仍指向它，因此真实数据必须显式传 `--split configs/actors_m2.json`。
+正式共享文件为 [configs/actor_splits.csv](configs/actor_splits.csv)：train=[1,4,5,6,7,10,11,12,13,15,16,18,19,20,23,24]；val=[9,14,21,22]；test=[2,3,8,17]。禁止再次随机分组。完整 speech trial 为 960/240/240 条。`configs/actors.json` 保留合成开发的历史默认值，CLI 默认已改为正式 actors_m2.json；真实数据命令仍建议显式传 `--split configs/actors_m2.json`。
 
 音频、视觉的编码器训练、模型选择以及融合实验必须使用这份共享划分。fusion 只能检查文件中的演员分组，无法证明上游编码器没有看过测试演员。
 

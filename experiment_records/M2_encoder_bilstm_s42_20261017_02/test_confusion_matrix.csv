@@ -1,0 +1,9 @@
+true/pred,neutral,calm,happy,sad,angry,fearful,disgust,surprise
+neutral,8,3,1,2,0,0,1,1
+calm,0,26,0,3,0,0,3,0
+happy,3,2,5,1,4,4,8,5
+sad,1,10,2,7,0,6,0,6
+angry,0,3,2,0,15,1,11,0
+fearful,0,0,5,3,1,21,1,1
+disgust,7,11,0,6,0,0,7,1
+surprise,0,0,3,0,0,6,1,22

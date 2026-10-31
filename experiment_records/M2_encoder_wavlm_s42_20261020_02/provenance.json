@@ -1,0 +1,38 @@
+{
+  "python": "3.9.6",
+  "torch": "2.8.0",
+  "numpy": "2.0.2",
+  "source_sha256": {
+    "run.py": "5aaf7b0c279b12bb9426a0147dc94837490b666b7b66f61004679dbcc3543bd9",
+    "models.py": "2395c1d157517cd31c03bed62c3728f4244421fca755a46bcc949afb949d0a34",
+    "__init__.py": "91028041071a01e73be15760c9ee46ff57908f0dc76984a86d9accd69cbee3e7",
+    "prepare.py": "1e9009f8eed38f2cc0c3cdc4e91b53b27224166d9bfc7c23200e2001496e9849"
+  },
+  "upstream": {
+    "model_id": "microsoft/wavlm-base-plus",
+    "revision": "4c66d4806a428f2e922ccfa1a962776e232d487b",
+    "sha256": "3bb273a6ace99408b50cfc81afdbb7ef2de02da2eab0234e18db608ce692fe51"
+  },
+  "cache_metadata": {
+    "samples": 1200,
+    "train": 960,
+    "val": 240,
+    "test_decoded": false,
+    "model_id": "microsoft/wavlm-base-plus",
+    "revision": "4c66d4806a428f2e922ccfa1a962776e232d487b",
+    "model_sha256": "3bb273a6ace99408b50cfc81afdbb7ef2de02da2eab0234e18db608ce692fe51",
+    "layers": [
+      6,
+      9,
+      12
+    ],
+    "hidden_dim": 768,
+    "cache_dtype": "float16; pooled statistics computed after dequantization",
+    "preprocessing": "mono16k, trim35dB, official do_normalize=false; no peak scaling; no augmentation during frozen extraction",
+    "elapsed_seconds": 169.34879025
+  },
+  "regime": "frozen_encoder_then_classifier",
+  "mask_convention": "True=padding",
+  "seed": 42,
+  "selection": "validation Macro-F1"
+}

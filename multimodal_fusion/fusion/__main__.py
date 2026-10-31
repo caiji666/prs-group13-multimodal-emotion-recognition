@@ -18,7 +18,7 @@ def main():
         else:
             c.add_argument('--data-dir',default=str(ROOT/'data'/'synthetic'))
         c.add_argument('--output',required=True)
-        c.add_argument('--split',default=str(ROOT/'configs'/'actors.json'))
+        c.add_argument('--split',default=str(ROOT/'configs'/'actors_m2.json'))
         c.add_argument('--methods',nargs='+',choices=['decision','concat','gated','cross_attention'],default=['decision','concat','gated','cross_attention'])
         c.add_argument('--epochs',type=int,default=30)
         c.add_argument('--batch-size',type=int,default=64)
@@ -32,7 +32,7 @@ def main():
     c = commands.add_parser('validate')
     c.add_argument('--audio',required=True)
     c.add_argument('--visual',required=True)
-    c.add_argument('--split',default=str(ROOT/'configs'/'actors.json'))
+    c.add_argument('--split',default=str(ROOT/'configs'/'actors_m2.json'))
     c = commands.add_parser('predict')
     c.add_argument('--checkpoint',required=True)
     c.add_argument('--audio',required=True)

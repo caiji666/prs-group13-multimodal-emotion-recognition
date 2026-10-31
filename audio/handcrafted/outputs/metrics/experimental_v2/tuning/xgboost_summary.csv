@@ -1,0 +1,2 @@
+classifier,wavelet,normalization,frame_ms,best_cv_macro_f1,cv_macro_f1_std,cv_accuracy,cv_train_macro_f1,best_params,train_accuracy,train_macro_f1,val_accuracy,val_macro_f1,f1_gap
+XGBoost,db8,raw,30,0.3643165711758307,0.01704604645563734,0.3802083333333333,0.8116576220397589,"{'subsample': 0.7, 'reg_lambda': 10, 'reg_alpha': 1, 'n_estimators': 500, 'min_child_weight': 1, 'max_depth': 2, 'learning_rate': 0.05, 'gamma': 1, 'colsample_bytree': 0.85}",0.8135416666666667,0.811362539827746,0.3875,0.36591715243679857,0.4454453873909474

@@ -1,0 +1,26 @@
+--- /dev/null
++++ b/audio/learned/configs/tuning_20261018/experiment02.yaml
+@@ -0,0 +1,23 @@
++epochs: 16
++batch_size: 32
++learning_rate: 0.0001
++weight_decay: 0.003
++patience: 5
++scheduler_patience: 2
++scheduler_factor: 0.5
++grad_clip: 1.0
++seed: 42
++num_workers: 0
++threads: 2
++device: cpu
++augment: true
++augment_probability: 0.75
++head_dropout: 0.35
++label_smoothing: 0.1
++class_balance: true
++parallel_models: true
++class_balance_power: 0.5
++warm_start:
++  cnn: runs/tuning_20261018/initialization
++  bilstm: runs/tuning_20261018/initialization
++  transformer: runs/tuning_20261018/initialization

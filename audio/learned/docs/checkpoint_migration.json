@@ -1,0 +1,110 @@
+[
+  {
+    "path": "runs/stage3_20261015_194625/transformer/best.pt",
+    "original_sha256": "538cd18812f38cd4a28671a028dd376601363ff3799a01ad715f5fce209b6a6c",
+    "canonical_sha256": "430f46752ef08045194a7fdfa62a77d0e35251aa9b4a68287236ccce3ccf1480",
+    "all_tensors_identical": true
+  },
+  {
+    "path": "runs/stage3_20261015_194625/cnn/best.pt",
+    "original_sha256": "a57590eba6784a848379ee2e2c13c72fa919c125a310e31d11e75bb3a45069c8",
+    "canonical_sha256": "02e7c962a02a50542d8f1163c05cb1b12757e9bd196c630fa331270e069ccddb",
+    "all_tensors_identical": true
+  },
+  {
+    "path": "runs/stage3_20261015_194625/bilstm/best.pt",
+    "original_sha256": "25a87914acca72bf34c36037f1ea984d9094b93a015c32aff254e82cefbc1cad",
+    "canonical_sha256": "6c1552b7c4d2145253ea27801fdcb05824a2853e3f62e0d7f8921ee34bb6f19e",
+    "all_tensors_identical": true
+  },
+  {
+    "path": "runs/tuning_20261017/round_02/transformer/best.pt",
+    "original_sha256": "e99f0b9fcef780cfb8d290ac9aeee4351eb59b1793fcd87a750f93ebe2d01882",
+    "canonical_sha256": "5471764ce0568b66c504b1ec2b936e7ac9f70db6e85adb606cc04dda5ff8d467",
+    "all_tensors_identical": true
+  },
+  {
+    "path": "runs/tuning_20261017/round_02/cnn/best.pt",
+    "original_sha256": "4f327f92394659b6405033fa0670ed3820c851d1172c239776788f3253aa1ca6",
+    "canonical_sha256": "75dcc751ec94e16da9115d0fc133ab3b863fd4f8eef55a1d6369dd96a9a13516",
+    "all_tensors_identical": true
+  },
+  {
+    "path": "runs/tuning_20261017/round_02/bilstm/best.pt",
+    "original_sha256": "14abedc6c5e3c4bb4aafee30c70eaad6a1b0d3cef761fbfc846e8b059a2ae2b8",
+    "canonical_sha256": "6f19a983f3860c8aaa67a2d15be269975ecb36a1e91bff85b140756552b114c6",
+    "all_tensors_identical": true
+  },
+  {
+    "path": "runs/tuning_20261017/round_05/transformer/best.pt",
+    "original_sha256": "27fca15b4d357f53fa21d91b74229da9e76c83f83e6e6b618c3e40a68ade92fc",
+    "canonical_sha256": "bbd3b5b3660c8ab24b7f04e32ac46e3c4e12444de782e305135a0fd1cf8fe5bf",
+    "all_tensors_identical": true
+  },
+  {
+    "path": "runs/tuning_20261017/round_05/cnn/best.pt",
+    "original_sha256": "28405e9316df51837746f2f1d88e54ea1633cdc4fb399ce56db2ae91845a72fd",
+    "canonical_sha256": "50c5307a4af6b69170f6fa45b0560a84edebd2977d9c73b3057cf7f68c415400",
+    "all_tensors_identical": true
+  },
+  {
+    "path": "runs/tuning_20261017/round_05/bilstm/best.pt",
+    "original_sha256": "bdf47c475307d120b41da0e1aa4b5eb932be3b63eb1aafd7576d9903df556bae",
+    "canonical_sha256": "553c42f279b2f2b4a6d8ccce9d82e79d50729716f09db29d72de4a534c31c73c",
+    "all_tensors_identical": true
+  },
+  {
+    "path": "runs/tuning_20261017/round_04/transformer/best.pt",
+    "original_sha256": "39c90c07e83ef41b2dd1fdae49b59dd375930de59fcc608cdccdddd5d4f7766b",
+    "canonical_sha256": "d0161a618cccb205f70a9c0b2cd6799b7b86ea1de2bbb1a430f210254c079336",
+    "all_tensors_identical": true
+  },
+  {
+    "path": "runs/tuning_20261017/round_04/cnn/best.pt",
+    "original_sha256": "c59f59c0ff1649ad925f90e7584b6c7ef8675a9d3cd4a87923c62f9017837ded",
+    "canonical_sha256": "057f93df552a2da0b078465ea9135a2fa3a1e9bebae9db0f809231ba25484e20",
+    "all_tensors_identical": true
+  },
+  {
+    "path": "runs/tuning_20261017/round_04/bilstm/best.pt",
+    "original_sha256": "5dfd87f304f0c9a244017f84e6e38ad9290266317c913280ecc001acdc6f345f",
+    "canonical_sha256": "98c542664f1b4eb863766ff80e38a401afe601d29f8858af55d2276f44b14e04",
+    "all_tensors_identical": true
+  },
+  {
+    "path": "runs/tuning_20261017/round_03/transformer/best.pt",
+    "original_sha256": "80afd40eb1089500dbc9e5d81ffb8e00f4103ce8935819a52f7350df3d211057",
+    "canonical_sha256": "49a944f1b7e3b7943297b4d141e557c99211d44a4540dedba5f2814451497516",
+    "all_tensors_identical": true
+  },
+  {
+    "path": "runs/tuning_20261017/round_03/cnn/best.pt",
+    "original_sha256": "3c4323bd4bd06a66937e81d408dc932dd40840c088b4d5125b1d235239bf7ab2",
+    "canonical_sha256": "71a821d231af7d1a42208d7f97816a618e61f6069b3c5b9b353155c3a51b821a",
+    "all_tensors_identical": true
+  },
+  {
+    "path": "runs/tuning_20261017/round_03/bilstm/best.pt",
+    "original_sha256": "7a668250a5e420aedc663d0d71511d285699812cf7e88cbba0270bcaa018ac0b",
+    "canonical_sha256": "aaec88bff8bf9069bd7f0acefccc1f277160da47ea91c83f70dfa2605516484a",
+    "all_tensors_identical": true
+  },
+  {
+    "path": "runs/tuning_20261017/round_01/transformer/best.pt",
+    "original_sha256": "2365f23b494b1ddc268bddf74f0f225b05ebb96684eacd5f470f178c21afbf3e",
+    "canonical_sha256": "0b377bcb5f26136f0061756c3d3f7f0bf6f582e6ce0fec535dba762005dbec4f",
+    "all_tensors_identical": true
+  },
+  {
+    "path": "runs/tuning_20261017/round_01/cnn/best.pt",
+    "original_sha256": "2e3237fd66c080eb1bf3a4829553b2fe29a6842028ca11f76385b98e0bf68ad7",
+    "canonical_sha256": "c1409bee671fe438f333ff9e6850ee1b25eebfe595e1d7150f321d9128f8efda",
+    "all_tensors_identical": true
+  },
+  {
+    "path": "runs/tuning_20261017/round_01/bilstm/best.pt",
+    "original_sha256": "d79f0eb3989f1f44232f07de6d7fa6fe75f3553ab1f26110775ae7b3fe4e9889",
+    "canonical_sha256": "1797b9dc412683e9c1d837e18b21536371dd85b018b3c62419114417960f5e93",
+    "all_tensors_identical": true
+  }
+]

@@ -1,0 +1,27 @@
+{
+  "experiment": "round_04",
+  "experiment_date": "2026-10-18",
+  "promoted_at": "2026-10-20",
+  "encoder": "transformer",
+  "best_epoch": 1,
+  "macro_f1": 0.532836900413142,
+  "accuracy": 0.5458333333333333,
+  "checkpoint": "models/best_audio_encoder.pt",
+  "checkpoint_sha256": "77898d11a48214316218cd61d09d7e8ffa2d7ac197b6c3e85dee789cd2aaef14",
+  "class_names": [
+    "neutral",
+    "calm",
+    "happy",
+    "sad",
+    "angry",
+    "fearful",
+    "disgust",
+    "surprise"
+  ],
+  "test_evaluated": false,
+  "artifact_run": "models/selected_run",
+  "run_id": "M2_encoder_transformer_s7_20261018_04",
+  "record_ref": "experiment_records/M2_encoder_transformer_s7_20261018_04/run.json",
+  "previous_selected_run_id": "M2_encoder_transformer_s42_20261017_05",
+  "note": "Tiny validation Macro-F1 improvement only; accuracy unchanged. No test evaluation. Default inference and build_handoff now use this model. Existing feature deliveries are not overwritten or implicitly updated."
+}

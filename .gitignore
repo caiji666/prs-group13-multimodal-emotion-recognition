@@ -44,3 +44,46 @@ venv/
 # Generated experiments; commit deliberately selected reports under docs/
 /results/
 /multimodal_fusion/results/
+
+# ==========================================
+# M1 - Audio Handcrafted
+# ==========================================
+
+# Python environment and caches
+audio/handcrafted/.venv/
+audio/handcrafted/__pycache__/
+audio/handcrafted/**/__pycache__/
+audio/handcrafted/.ipynb_checkpoints/
+audio/handcrafted/notebooks/.ipynb_checkpoints/
+
+# Raw and external datasets
+audio/handcrafted/data/raw/
+audio/handcrafted/data/processed/
+# audio/handcrafted/data/external/
+audio/handcrafted/data/baseline_v1/
+
+# Generated features and trained models
+# audio/handcrafted/outputs/features/
+audio/handcrafted/outputs/models/
+audio/handcrafted/outputs/handover.zip
+
+# Archive Folder
+audio/handcrafted/archive
+
+# Local temporary files
+audio/handcrafted/project_tree.txt
+
+# M2: explicitly version only the selected small model artifacts
+!/audio/learned/models/best_audio_encoder.pt
+!/audio/learned/models/selected_run/transformer/best.pt
+
+# M2 portable baseline and exact refinement initialization
+!/audio/learned/models/baseline/*/best.pt
+!/audio/learned/models/refinement_parents/*/best.pt
+
+# M2 unified experiment records: 33 full encoder/head checkpoints
+!/experiment_records/M2_*/best.pt
+!/audio/learned/models/tuning_20261018_initialization/*/best.pt
+
+# M2 local feature handoff; excluded from publication by user request
+/Deliverables/

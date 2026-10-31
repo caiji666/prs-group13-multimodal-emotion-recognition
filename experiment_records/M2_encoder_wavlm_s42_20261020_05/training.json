@@ -1,0 +1,17 @@
+{
+  "pooling": "attentive_statistics",
+  "layer": 6,
+  "dropout": 0.4,
+  "input_dropout": 0.0,
+  "learning_rate": 0.0002,
+  "weight_decay": 0.02,
+  "batch_size": 32,
+  "epochs": 50,
+  "patience": 10,
+  "seed": 42,
+  "label_smoothing": 0.02,
+  "class_balance": true,
+  "class_balance_power": 0.5,
+  "mixup_alpha": 0.2,
+  "warm_start": "../../experiment_records/M2_encoder_wavlm_s42_20261020_04/best.pt"
+}

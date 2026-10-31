@@ -1,0 +1,35 @@
+{
+  "round": 8,
+  "name": "feature_noise_mixup",
+  "parent_round": 5,
+  "parent_checkpoint_sha256": "0db8f833f3d32f21b676c7ed008acdf094bb20dda31e3498e642249d597f04bb",
+  "changes": {
+    "freeze": [],
+    "feature_noise": 0.03,
+    "mixup_alpha": 0.35,
+    "learning_rate": 0.0001,
+    "dropout": 0.35,
+    "weight_decay": 0.03
+  },
+  "config": {
+    "pooling": "attentive_statistics",
+    "layer": 6,
+    "dropout": 0.35,
+    "input_dropout": 0.0,
+    "learning_rate": 0.0001,
+    "weight_decay": 0.03,
+    "batch_size": 32,
+    "epochs": 65,
+    "patience": 14,
+    "seed": 42,
+    "label_smoothing": 0.0,
+    "class_balance": true,
+    "class_balance_power": 0.5,
+    "mixup_alpha": 0.35,
+    "warm_start": "research/speech_transfer/runs/refinement_20261021/round_05_temporal_context/best.pt",
+    "freeze": [],
+    "time_kernel": 3,
+    "feature_noise": 0.03
+  },
+  "decision_basis": "prior validation results only"
+}

@@ -1,0 +1,171 @@
+{
+  "split": "test",
+  "samples": 240,
+  "accuracy": 0.8291666666666667,
+  "macro_f1": 0.8280119634560423,
+  "macro_precision": 0.8628252108779855,
+  "macro_recall": 0.82421875,
+  "correct": 199,
+  "class_names": [
+    "neutral",
+    "calm",
+    "happy",
+    "sad",
+    "angry",
+    "fearful",
+    "disgust",
+    "surprise"
+  ],
+  "classification_report": {
+    "neutral": {
+      "precision": 1.0,
+      "recall": 0.75,
+      "f1-score": 0.8571428571428571,
+      "support": 16.0
+    },
+    "calm": {
+      "precision": 0.7380952380952381,
+      "recall": 0.96875,
+      "f1-score": 0.8378378378378378,
+      "support": 32.0
+    },
+    "happy": {
+      "precision": 0.96,
+      "recall": 0.75,
+      "f1-score": 0.8421052631578947,
+      "support": 32.0
+    },
+    "sad": {
+      "precision": 0.7727272727272727,
+      "recall": 0.53125,
+      "f1-score": 0.6296296296296297,
+      "support": 32.0
+    },
+    "angry": {
+      "precision": 1.0,
+      "recall": 0.71875,
+      "f1-score": 0.8363636363636363,
+      "support": 32.0
+    },
+    "fearful": {
+      "precision": 0.6521739130434783,
+      "recall": 0.9375,
+      "f1-score": 0.7692307692307693,
+      "support": 32.0
+    },
+    "disgust": {
+      "precision": 0.8421052631578947,
+      "recall": 1.0,
+      "f1-score": 0.9142857142857143,
+      "support": 32.0
+    },
+    "surprise": {
+      "precision": 0.9375,
+      "recall": 0.9375,
+      "f1-score": 0.9375,
+      "support": 32.0
+    },
+    "accuracy": 0.8291666666666667,
+    "macro avg": {
+      "precision": 0.8628252108779855,
+      "recall": 0.82421875,
+      "f1-score": 0.8280119634560423,
+      "support": 240.0
+    },
+    "weighted avg": {
+      "precision": 0.8536802249365179,
+      "recall": 0.8291666666666667,
+      "f1-score": 0.8260699038769215,
+      "support": 240.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      12,
+      3,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      31,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      1,
+      24,
+      0,
+      0,
+      4,
+      1,
+      2
+    ],
+    [
+      0,
+      6,
+      1,
+      17,
+      0,
+      8,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      2,
+      23,
+      2,
+      4,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      2,
+      0,
+      30,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      32,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      0,
+      30
+    ]
+  ],
+  "checkpoint": "/Users/yoyozhang/Desktop/prs-group13-multimodal-emotion-recognition/audio/learned/research/speech_transfer/runs/round_05/best.pt",
+  "checkpoint_sha256": "1868c381d8945191b52f838157b29fb6ab419b522763ffc898454defefc12bf1",
+  "split_sha256": "1ae0f8241c8d1b40f1c4d0c0be1c17d8cede3ea5005a24b4635cef1110490528",
+  "probabilities_sha256": "cc2b1a36e733c0e9e8a4d2dae6035d263e4ccd8ca6021958c62062059a936ade",
+  "selection_basis": "Round 05 fixed using validation Macro-F1 before test evaluation",
+  "test_used_for_selection": false,
+  "training_or_tuning_performed": false
+}

@@ -1,0 +1,165 @@
+{
+  "config": {
+    "pooling": "attentive_statistics",
+    "layer": 6,
+    "dropout": 0.4,
+    "input_dropout": 0.0,
+    "learning_rate": 0.0002,
+    "weight_decay": 0.02,
+    "batch_size": 32,
+    "epochs": 50,
+    "patience": 10,
+    "seed": 42,
+    "label_smoothing": 0.02,
+    "class_balance": true,
+    "class_balance_power": 0.5,
+    "mixup_alpha": 0.2,
+    "warm_start": "research/speech_transfer/runs/round_04/best.pt"
+  },
+  "completed_epochs": 16,
+  "elapsed_seconds": 10.154765167,
+  "best_epoch": 6,
+  "accuracy": 0.8125,
+  "macro_precision": 0.8291879995004995,
+  "macro_recall": 0.8046875,
+  "macro_f1": 0.806292282237407,
+  "confusion_matrix": [
+    [
+      11,
+      5,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      1,
+      31,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      3,
+      1,
+      19,
+      3,
+      0,
+      5,
+      0,
+      1
+    ],
+    [
+      0,
+      4,
+      0,
+      25,
+      0,
+      1,
+      2,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      0,
+      30,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      5,
+      1,
+      25,
+      1,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      4,
+      1,
+      1,
+      25,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      2,
+      0,
+      0,
+      0,
+      29
+    ]
+  ],
+  "per_class": {
+    "neutral": {
+      "precision": 0.7333333333333333,
+      "recall": 0.6875,
+      "f1": 0.7096774193548386,
+      "support": 16
+    },
+    "calm": {
+      "precision": 0.7045454545454546,
+      "recall": 0.96875,
+      "f1": 0.8157894736842106,
+      "support": 32
+    },
+    "happy": {
+      "precision": 1.0,
+      "recall": 0.59375,
+      "f1": 0.7450980392156863,
+      "support": 32
+    },
+    "sad": {
+      "precision": 0.6410256410256411,
+      "recall": 0.78125,
+      "f1": 0.7042253521126761,
+      "support": 32
+    },
+    "angry": {
+      "precision": 0.9375,
+      "recall": 0.9375,
+      "f1": 0.9375,
+      "support": 32
+    },
+    "fearful": {
+      "precision": 0.7575757575757576,
+      "recall": 0.78125,
+      "f1": 0.7692307692307692,
+      "support": 32
+    },
+    "disgust": {
+      "precision": 0.8928571428571429,
+      "recall": 0.78125,
+      "f1": 0.8333333333333334,
+      "support": 32
+    },
+    "surprise": {
+      "precision": 0.9666666666666667,
+      "recall": 0.90625,
+      "f1": 0.9354838709677419,
+      "support": 32
+    }
+  },
+  "checkpoint": "research/speech_transfer/runs/round_05/best.pt",
+  "checkpoint_sha256": "1868c381d8945191b52f838157b29fb6ab419b522763ffc898454defefc12bf1",
+  "test_evaluated": false,
+  "upstream_frozen": true,
+  "train_samples": 960,
+  "val_samples": 240,
+  "checkpoint_roundtrip_verified": true
+}

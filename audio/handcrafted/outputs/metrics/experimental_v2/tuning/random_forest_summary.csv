@@ -1,0 +1,2 @@
+classifier,wavelet,normalization,frame_ms,best_cv_macro_f1,cv_macro_f1_std,cv_accuracy,cv_train_macro_f1,best_params,train_accuracy,train_macro_f1,val_accuracy,val_macro_f1,f1_gap
+Random Forest,db8,raw,30,0.3635360345522407,0.01862592607943844,0.3802083333333333,0.981519475314058,"{'n_estimators': 500, 'min_samples_split': 5, 'min_samples_leaf': 2, 'max_samples': 0.6, 'max_features': 1.0, 'max_depth': 20, 'class_weight': 'balanced_subsample'}",0.978125,0.9781071814103255,0.35833333333333334,0.33148984744234433,0.6466173339679812

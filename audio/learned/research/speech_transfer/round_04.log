@@ -1,0 +1,29 @@
+/Users/yoyozhang/Desktop/prs-group13-multimodal-emotion-recognition/audio/learned/research/speech_transfer/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+epoch=001 loss=1.9377 val_acc=0.4750 val_F1=0.3705 best=0.3705
+epoch=002 loss=1.5086 val_acc=0.6208 val_F1=0.5889 best=0.5889
+epoch=003 loss=1.1509 val_acc=0.7167 val_F1=0.6889 best=0.6889
+epoch=004 loss=0.8175 val_acc=0.7208 val_F1=0.6988 best=0.6988
+epoch=005 loss=0.6171 val_acc=0.7417 val_F1=0.7336 best=0.7336
+epoch=006 loss=0.4792 val_acc=0.7875 val_F1=0.7773 best=0.7773
+epoch=007 loss=0.4065 val_acc=0.7458 val_F1=0.7321 best=0.7773
+epoch=008 loss=0.3704 val_acc=0.7708 val_F1=0.7661 best=0.7773
+epoch=009 loss=0.3386 val_acc=0.7625 val_F1=0.7508 best=0.7773
+epoch=010 loss=0.3265 val_acc=0.7708 val_F1=0.7617 best=0.7773
+epoch=011 loss=0.3204 val_acc=0.7750 val_F1=0.7645 best=0.7773
+epoch=012 loss=0.3132 val_acc=0.7583 val_F1=0.7516 best=0.7773
+epoch=013 loss=0.3050 val_acc=0.7833 val_F1=0.7767 best=0.7773
+epoch=014 loss=0.2996 val_acc=0.7708 val_F1=0.7632 best=0.7773
+epoch=015 loss=0.3023 val_acc=0.8000 val_F1=0.7932 best=0.7932
+epoch=016 loss=0.3013 val_acc=0.8083 val_F1=0.8017 best=0.8017
+epoch=017 loss=0.3005 val_acc=0.8083 val_F1=0.7985 best=0.8017
+epoch=018 loss=0.3007 val_acc=0.7833 val_F1=0.7744 best=0.8017
+epoch=019 loss=0.2981 val_acc=0.7875 val_F1=0.7754 best=0.8017
+epoch=020 loss=0.2982 val_acc=0.7750 val_F1=0.7631 best=0.8017
+epoch=021 loss=0.2994 val_acc=0.7750 val_F1=0.7580 best=0.8017
+epoch=022 loss=0.2991 val_acc=0.7792 val_F1=0.7710 best=0.8017
+epoch=023 loss=0.2987 val_acc=0.7792 val_F1=0.7642 best=0.8017
+epoch=024 loss=0.2978 val_acc=0.7958 val_F1=0.7846 best=0.8017
+epoch=025 loss=0.2951 val_acc=0.7875 val_F1=0.7759 best=0.8017
+epoch=026 loss=0.2963 val_acc=0.7792 val_F1=0.7673 best=0.8017
+RESULT {"accuracy": 0.8083333333333333, "macro_f1": 0.8016737007395132, "best_epoch": 16, "completed_epochs": 26, "elapsed_seconds": 16.780605667}

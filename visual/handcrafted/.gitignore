@@ -1,0 +1,30 @@
+# Python, test caches and scratch folders
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.pytest_runtime*/
+review_tmp/
+visual_audit/
+
+# Large inputs and intermediate data (kept locally / shared storage)
+data/faces/
+data/contact_sheets/
+data/*.npz
+external/
+*.log
+
+# Large feature and model files anywhere (CSV / JSON / PNG / README stay tracked)
+**/*.npz
+**/*.joblib
+
+# Local supplementary Reduced-272 experiment (not adopted)
+m3/run_reduced_handcrafted_comparison.py
+tests/test_reduced_handcrafted_comparison.py
+outputs_reduced_handcrafted/
+
+# Early interim output, smoke runs and superseded v1 outputs (local only)
+/outputs/
+outputs_ablation_smoke/
+outputs_augmentation_smoke/
+outputs_v1_global20/

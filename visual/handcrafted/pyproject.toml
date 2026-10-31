@@ -1,0 +1,27 @@
+[project]
+name = "m3-visual"
+version = "0.1.0"
+description = "M3 visual handcrafted features (2D-DWT) + SVM baseline for RAVDESS emotion recognition"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "numpy<2",
+    "pandas",
+    "opencv-python",
+    "mediapipe==0.10.14",
+    "PyWavelets",
+    "scikit-learn",
+    "tqdm",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+filterwarnings = ["ignore:.*probability. parameter was deprecated:FutureWarning"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]

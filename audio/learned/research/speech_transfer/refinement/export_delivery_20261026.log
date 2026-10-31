@@ -1,0 +1,33 @@
+/Users/yoyozhang/Desktop/prs-group13-multimodal-emotion-recognition/audio/learned/research/speech_transfer/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+/Users/yoyozhang/Desktop/prs-group13-multimodal-emotion-recognition/audio/learned/research/speech_transfer/.venv/lib/python3.9/site-packages/torch/nn/functional.py:6041: UserWarning: Support for mismatched key_padding_mask and attn_mask is deprecated. Use same type for both instead.
+  warnings.warn(
+Exported 50/1440; elapsed 3.8s
+Exported 100/1440; elapsed 6.1s
+Exported 150/1440; elapsed 8.6s
+Exported 200/1440; elapsed 11.2s
+Exported 250/1440; elapsed 13.5s
+Exported 300/1440; elapsed 15.9s
+Exported 350/1440; elapsed 18.6s
+Exported 400/1440; elapsed 21.1s
+Exported 450/1440; elapsed 23.7s
+Exported 500/1440; elapsed 26.2s
+Exported 550/1440; elapsed 28.5s
+Exported 600/1440; elapsed 30.9s
+Exported 650/1440; elapsed 33.3s
+Exported 700/1440; elapsed 35.6s
+Exported 750/1440; elapsed 37.8s
+Exported 800/1440; elapsed 39.9s
+Exported 850/1440; elapsed 42.2s
+Exported 900/1440; elapsed 44.6s
+Exported 950/1440; elapsed 47.0s
+Exported 1000/1440; elapsed 49.2s
+Exported 1050/1440; elapsed 51.5s
+Exported 1100/1440; elapsed 54.1s
+Exported 1150/1440; elapsed 56.8s
+Exported 1200/1440; elapsed 59.1s
+Exported 1250/1440; elapsed 61.7s
+Exported 1300/1440; elapsed 64.0s
+Exported 1350/1440; elapsed 66.4s
+Exported 1400/1440; elapsed 68.5s
+Completed: ../../Deliverables/wavlm_refinement05_new/m5_learned_feature_only

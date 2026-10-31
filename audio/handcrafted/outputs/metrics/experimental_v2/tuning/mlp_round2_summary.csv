@@ -1,0 +1,2 @@
+classifier,wavelet,normalization,frame_ms,best_cv_macro_f1,cv_macro_f1_std,cv_accuracy,cv_train_macro_f1,best_params,train_accuracy,train_macro_f1,val_accuracy,val_macro_f1,f1_gap
+MLP,sym4,raw,20,0.3627368602691358,0.024994883971817712,0.38020833333333337,0.717766526523368,"{'mlpclassifier__learning_rate_init': 0.002, 'mlpclassifier__hidden_layer_sizes': (64,), 'mlpclassifier__alpha': 2.0, 'mlpclassifier__activation': 'relu'}",0.678125,0.6622499094683436,0.37083333333333335,0.3331261618187044,0.3291237476496392
