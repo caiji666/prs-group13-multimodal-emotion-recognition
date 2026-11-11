@@ -82,3 +82,15 @@ python scripts/package_submission.py --kind submission --output dist/Group13_Cod
 ```
 
 The source/submission ZIP contains code, results and documents. Model weights have their own ZIP. Feature arrays, extracted frames, caches and raw media stay local. See the [operation guide](docs/operation-guide.md) and [delivery contents](docs/delivery.md).
+
+## Team and individual contributions
+
+Group members are listed in the [project proposal](submission_documents/Group13_Project_Proposal.pdf); module responsibilities follow Appendix E (Team Contributions) of the [final report](submission_documents/Group13_Final_Report.docx).
+
+| Member | Student ID | Module · code | Contribution |
+|---|---|---|---|
+| Agarwal Hritik Kumar | A0353874R | **M1** · Handcrafted audio features and audio representation comparison · `audio/handcrafted/` | Implemented and validated handcrafted audio preprocessing and 48-D feature extraction; ran the 270-fit classifier/preprocessing sweep, grouped tuning and audio representation comparisons; exported features, OOF probabilities and models; wrote the corresponding M1 report sections. |
+| Zhang Yurun | A0330891A | **M2** · Deep learning audio recognition, CNN/BiLSTM/Transformer comparison and WavLM adaptation · `audio/learned/` | Built audio preprocessing, training-only augmentation and MFCC extraction; compared 1D-CNN, BiLSTM and Transformer for eight-class emotion recognition; adapted frozen WavLM with attentive statistics pooling and residual temporal convolution, reaching validation/test macro-F1 of 0.831/0.832; recorded 48 reproducible training runs and delivered aligned sequence features, pooled representations, emotion probabilities and documentation for audio feature combination and multimodal fusion. |
+| Lu Yujing | A0351286B | **M3** · Handcrafted visual modelling and visual representation integration and comparison · `visual/handcrafted/` | Implemented 16-frame visual preprocessing, alignment, Full-320 DWT-SVM and augmentation/crop/grid studies; integrated handcrafted and learned visual representations; exported features, OOF probabilities and models; wrote the corresponding M3 report sections. |
+| Ma Bofei | A0314662H | **M4** · Learned visual representations and visual encoder comparison · `visual/visual_deep_learning/` | Implemented and compared three learned visual encoders on the shared 16-frame face sequences: frozen ImageNet-pretrained MobileNetV3-Small and ResNet18 with mean pooling, and ResNet18 with BiLSTM; selected MobileNetV3-Small with mean pooling (validation macro-F1 0.3771) as the learned visual model for feature extraction and fusion. |
+| Jiang Yushan | A0353592X | **M5** · Multimodal fusion, system integration, experimental evaluation and interpretation · `multimodal_fusion/`, `demo/` | Implemented fusion methods, feature alignment and interpretability diagnostics; conducted baseline comparisons, ablations and external evaluation; developed the video demonstration interface and contributed report sections. |
